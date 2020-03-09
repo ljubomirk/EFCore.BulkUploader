@@ -1,18 +1,34 @@
+[![Build Status](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_apis/build/status/COMMANDO?branchName=master)](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_build/latest?definitionId=12)
+
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+
+  COMMANDO - COupon Multichannel MANagement & Delivery Orchestration 
+
+  A Coupon Management System (Coupon MS) for A1 Ljubljana 
+
+  By Triple-Innovations 
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Check out this repositry and open solution COMMANDO for start working on project:
+1.	Installation process 
+  TBD
+2.	Software dependencies 
+  TBD
+3.	Latest releases 
+  TBD
+4.	API references 
+  TBD 
 
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Code can be build locally from Visual Studio or by using MSBuild. Proposed environment is Visual Studio 2019: Professional or Community version is sufficient. 
+
+All commited and pushed code during sprint planning will be rebuiled and installed after code review to development environment on Azure.
 
 # Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Please take in account that rules apply when pushing code to repositiory:
+ - all changes must be well commented 
+ - all changes must reference user story and task
+ - all changes must be unit tested were it applies
 
 If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
 - [ASP.NET Core](https://github.com/aspnet/Home)
