@@ -11,13 +11,19 @@
 # Getting Started
 Check out this repositry and open solution COMMANDO for start working on project:
 1.	Installation process 
-  TBD
+  - Open solutions COMMANDO
+  - Install dependencies
+  - Setup local SQLServer
 2.	Software dependencies 
-  TBD
+  Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6
 3.	Latest releases 
-  TBD
+  0.1
 4.	API references 
-  TBD 
+  API
+    - build in MvcCore API
+  SOAP 
+    - SoapCore, for server & client
+    - SoapUI for testing
 
 # Build and Test
 Code can be build locally from Visual Studio or by using MSBuild. Proposed environment is Visual Studio 2019: Professional or Community version is sufficient. 
