@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CouponDatabase
+namespace Models
 {
-    class Promotion
+    class CouponHistory: Coupon
     {
+        
+
     }
 }

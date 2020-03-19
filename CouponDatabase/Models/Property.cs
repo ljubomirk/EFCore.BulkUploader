@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CouponDatabase
+namespace Models
 {
     class Property
     {
 
         public long Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
