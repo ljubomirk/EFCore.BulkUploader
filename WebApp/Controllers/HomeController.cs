@@ -25,11 +25,6 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        public IActionResult Add(string code)
-        {
-            _repo.Add(code);
-            return View();
-        }
 
         public IActionResult Privacy()
         {

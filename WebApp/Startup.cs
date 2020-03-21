@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SoapCore;
+using Web.Services.Soap;
 using WebApp.Data;
 
 namespace WebApp
@@ -56,6 +59,21 @@ namespace WebApp
             }
 
             services.AddMvc().AddMvcOptions(o=> o.EnableEndpointRouting=false);
+
+            services.AddSoapCore();
+
+            // Setup SOAP security
+            string user = Configuration.GetValue<string>("SOAPWS:Username");
+            string pwd = Configuration.GetValue<string>("SOAPWS:Password");
+            //_logger.LogInformation("Setup security for " + user);
+            services.AddSoapWsSecurityFilter(user, pwd);
+            services.AddSoapWsSecurityFilter("test", "123");
+
+            services.AddSingleton<CouponSoapService.CouponAPI>();
+            services.AddSingleton<CouponSoapService.PromotionAPI>();
+            services.AddTransient<CouponSoapService.CouponAPI>();
+            services.AddTransient<CouponSoapService.PromotionAPI>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +94,22 @@ namespace WebApp
             app.UseCookiePolicy();
 
             app.UseMvcWithDefaultRoute();
+
+            var binding = new BasicHttpBinding
+            {
+                Security = new BasicHttpSecurity
+                {
+                    Mode = BasicHttpSecurityMode.Transport,
+                    Transport = new HttpTransportSecurity
+                    {
+                        ClientCredentialType = HttpClientCredentialType.Basic,
+                        ProxyCredentialType = HttpProxyCredentialType.None,
+
+                    }
+                }
+            };
+            app.UseSoapEndpoint<CouponSoapService.CouponAPI>("/CouponAPI", binding);
+            app.UseSoapEndpoint<CouponSoapService.PromotionAPI>("/PromotionAPI", binding);
         }
     }
 }
