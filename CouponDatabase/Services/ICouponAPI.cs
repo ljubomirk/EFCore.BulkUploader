@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
-using API;
+using CouponDatabase.API;
 
-namespace Services
+namespace CouponDatabase.Services
 {
     /* Interface for CouponAPI */
-    [ServiceContract(Name = "Promotion", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Promotion/")]
-    interface ICouponAPI
+    [ServiceContract(Name = "Coupon", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
+    public interface ICouponAPI
     {
         [OperationContract]
         ICollection<Coupon> Get(string PromotionCode, string CouponCode);

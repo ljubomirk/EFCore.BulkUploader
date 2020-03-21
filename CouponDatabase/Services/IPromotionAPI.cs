@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using Models;
+using CouponDatabase.Lifecycle;
+using CouponDatabase.API;
 
-namespace Services
+namespace CouponDatabase.Services
 {
-    /*public class PromotionCode
-    {
-
-    }*/
     /* Interface for API object with all DataGovernance data */
-    [ServiceContract(Name = "Promotion", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Promotion/")]
-    interface IPromotionAPI
+    [ServiceContract(Name = "Promotion", Namespace = "http://www.triple-innovations.com/WS/COMMANDO")]
+    public interface IPromotionAPI
     {
         [OperationContract]
-        ICollection<Promotion> Get(DateTime ValidFrom, DateTime ValidTo);
+        IList<Promotion> Get(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
 
         [OperationContract]
-        Promotion Get(string Code);
-
+        Promotion Create(string Code, string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
 
         [OperationContract]
-        Promotion Create(string Code, string Name, DateTime ValidFrom, DateTime ValidTo);
+        Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User);
 
-        int AddCoupon(string PromotionCode, string CouponCode, string Holder, string User);
-
-        int AddCoupons();
+        [OperationContract]
+        Command AddCoupons(string PromotionCode, ICollection<Coupon> coupons);
 
     }
 }

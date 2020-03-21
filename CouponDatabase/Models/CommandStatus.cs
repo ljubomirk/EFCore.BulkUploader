@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lifecycle
+namespace CouponDatabase.Lifecycle
 {
     public class Command
     {
-        public Enumerators.CommandStatus Status { get; set; }
+        public CommandStatus Status { get; set; }
         public string Message { get; set; }
     }
 }

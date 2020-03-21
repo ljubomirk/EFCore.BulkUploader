@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Models;
+using CouponDatabase.Models;
 using System.Resources;
-//using API;
+using CouponDatabase.Lifecycle;
 
-namespace Services
+namespace CouponDatabase.Services
 {
     public abstract class ICoupon
     {
@@ -25,7 +25,7 @@ namespace Services
                 AquireTo = this.coupon.AquireTo,
                 AwardFrom = this.coupon.AwardFrom,
                 AwardTo = this.coupon.AwardTo,
-                CouponStatus = (Enumerators.CouponStatus)this.coupon.CouponStatus,
+                CouponStatus = (CouponStatus)this.coupon.CouponStatus,
                 Active = now.CompareTo(this.coupon.AquireFrom) < 0 && now.CompareTo(this.coupon.AquireTo) > 0
             };
             return result;
@@ -39,9 +39,9 @@ namespace Services
         public Lifecycle.Command Validate(Coupon coupon, string user)
         {
             Lifecycle.Command result = new Lifecycle.Command();
-            if (coupon.CouponStatus != (int)Enumerators.CouponStatus.Issued)
-                result.Status = Enumerators.CommandStatus.ErrorInvalidStatus;
-            if (result.Status != Enumerators.CommandStatus.Valid)
+            if (coupon.CouponStatus != (int)CouponStatus.Issued)
+                result.Status = CommandStatus.ErrorInvalidStatus;
+            if (result.Status != CommandStatus.Valid)
             {
                 var builder = new ResourceManager(this.GetType());
                 result.Message = builder.GetString(result.Status.ToString() + "Message");
@@ -58,8 +58,8 @@ namespace Services
         public Lifecycle.Command Redeem(Coupon coupon, string user)
         {
             Lifecycle.Command result = Validate(coupon, user);
-            if (result.Status == Enumerators.CommandStatus.Valid && /*coupon.Promotion.Properties.Named &&*/ coupon.User != user)
-                result.Status = Enumerators.CommandStatus.ErrorInvalidUser;
+            if (result.Status == CommandStatus.Valid && /*coupon.Promotion.Properties.Named &&*/ coupon.User != user)
+                result.Status = CommandStatus.ErrorInvalidUser;
             return result;
         }
 

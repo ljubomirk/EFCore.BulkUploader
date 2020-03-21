@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
-namespace Enumerators
+namespace CouponDatabase.Lifecycle
 {
+    [DataContract(Name = "CouponStatus", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public enum CouponStatus
     {
         Created = 1,
@@ -11,6 +13,7 @@ namespace Enumerators
         Redeemed = 3,
         Canceled = 4
     }
+    [DataContract(Name = "CommandStatus", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public enum CommandStatus
     {
         Valid = 0,
