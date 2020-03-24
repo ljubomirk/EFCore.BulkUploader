@@ -6,6 +6,9 @@ using CouponDatabase.API;
 using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Services;
+using WebApp.Data;
+using Web.Services.Impl;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,42 +18,51 @@ namespace WebApp.Controllers
     public class CouponAPIController : Controller, ICouponAPI
     {
 
+        private readonly RepositoryServices _repo;
+        private readonly CouponAPI _service;
+
+        public CouponAPIController(ApplicationDbContext context)
+        {
+            _repo = new RepositoryServices(context);
+            _service = new CouponAPI(_repo);
+        }
+
         // GET api/Coupon/x
         [HttpGet("{PromotionCode}")]
-        public ICollection<Coupon> Get(string PromotionCode, [FromBody]string CouponCode)
+        public Coupon Get(string PromotionCode, [FromBody]string CouponCode)
         {
-            throw new NotImplementedException();
+            return _service.Get(PromotionCode, CouponCode);
         }
 
         // PUT api/Coupon/x
         [HttpPut("{PromotionCode}")]
         public Command Assign(string PromotionCode, [FromBody]string CouponCode, string Holder, string User)
         {
-            throw new NotImplementedException();
+            return _service.Assign(PromotionCode, CouponCode, Holder, User);
         }
 
         // PUT api/Coupon/5
         [HttpPut("{PromotionCode}")]
-        public ICollection<Coupon> Validate(string PromotionCode, [FromBody]string CouponCode)
+        public Command Validate(string PromotionCode, [FromBody]string CouponCode)
         {
             throw new NotImplementedException();
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public Command Redeem()
+        public Command Redeem(string PromotionCode, [FromBody]string CouponCode, string User)
         {
             throw new NotImplementedException();
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public Command UndoRedeem()
+        public Command UndoRedeem(string PromotionCode, [FromBody]string CouponCode)
         {
             throw new NotImplementedException();
         }
 
-        public Command Cancel()
+        public Command Cancel(string PromotionCode, [FromBody]string CouponCode)
         {
             throw new NotImplementedException();
         }

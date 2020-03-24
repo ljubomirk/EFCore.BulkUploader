@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using CouponDatabase.API;
+using CouponDatabase.Lifecycle;
 
 namespace CouponDatabase.Services
 {
@@ -9,22 +10,22 @@ namespace CouponDatabase.Services
     public interface ICouponAPI
     {
         [OperationContract]
-        ICollection<Coupon> Get(string PromotionCode, string CouponCode);
+        Coupon Get(string PromotionCode, string CouponCode);
 
         [OperationContract]
-        Lifecycle.Command Assign(string PromotionCode, string CouponCode, string Holder, string User);
+        Command Assign(string PromotionCode, string CouponCode, string Holder, string User);
 
         [OperationContract]
-        ICollection<Coupon> Validate(string PromotionCode, string CouponCode);
+        Command Validate(string PromotionCode, string CouponCode);
 
         [OperationContract]
-        Lifecycle.Command Redeem();
+        Command Redeem(string PromotionCode, string CouponCode, string User);
 
         [OperationContract]
-        Lifecycle.Command UndoRedeem();
+        Command UndoRedeem(string PromotionCode, string CouponCode);
 
         [OperationContract]
-        Lifecycle.Command Cancel();
+        Command Cancel(string PromotionCode, string CouponCode);
 
     }
 }

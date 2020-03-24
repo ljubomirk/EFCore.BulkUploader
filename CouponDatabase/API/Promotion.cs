@@ -9,5 +9,7 @@ namespace CouponDatabase.API
         public string Code { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
+
+        public Boolean Active { get; set; }
     }
 }

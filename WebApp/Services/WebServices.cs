@@ -8,35 +8,39 @@ using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
 using System.Runtime.Serialization;
+using System.Collections;
 
 namespace Web.Services.Soap
 {
-    public class CouponSoapService
+    public class CouponService
     {
         readonly RepositoryServices _repo;
-        ICouponAPI _couponAPI;
-        IPromotionAPI _promotionAPI;
+        readonly ICouponAPI _couponAPI;
+        readonly IPromotionAPI _promotionAPI;
 
-        public CouponSoapService(ApplicationDbContext context)
+        public CouponService(ApplicationDbContext context)
         {
             _repo = new RepositoryServices(context);
-            _couponAPI = new CouponAPI();
-            _promotionAPI = new PromotionAPI();
+            _couponAPI = new CouponAPI(_repo);
+            _promotionAPI = new PromotionAPI(_repo);
 
         }
         public class PromotionAPI : IPromotionAPI
         {
-            public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User)
+            readonly RepositoryServices _repo;
+
+            public PromotionAPI(RepositoryServices repo)
             {
-                throw new NotImplementedException();
-            }
-            //[CollectionDataContract(Name ="ArrayOfCoupons", ItemName = "Coupon")]
-            public Command AddCoupons(string PromotionCode, ICollection<Coupon> coupons)
-            {
-                throw new NotImplementedException();
+                _repo = repo;
             }
 
-            public Promotion Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
+            public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)
+            {
+                Impl.PromotionAPI promo = new Impl.PromotionAPI(_repo);
+                return promo.AddCoupon(PromotionCode, CouponCode, Holder, User, null);
+            }
+
+            public Command AddCoupons(string PromotionCode, IList<Coupon> Coupons)
             {
                 throw new NotImplementedException();
             }
@@ -45,36 +49,47 @@ namespace Web.Services.Soap
             {
                 throw new NotImplementedException();
             }
+
+            Command IPromotionAPI.Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public class CouponAPI : ICouponAPI{
 
+            readonly RepositoryServices _repo;
+
+            public CouponAPI(RepositoryServices repo)
+            {
+                _repo = repo;
+            }
             public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)
             {
                 throw new NotImplementedException();
             }
 
-            public Command Cancel()
+            public Command Cancel(string PromotionCode, string CouponCode)
             {
                 throw new NotImplementedException();
             }
 
-            public ICollection<Coupon> Get(string PromotionCode, string CouponCode)
+            public Coupon Get(string PromotionCode, string CouponCode)
             {
                 throw new NotImplementedException();
             }
 
-            public Command Redeem()
+            public Command Redeem(string PromotionCode, string CouponCode, string User)
             {
                 throw new NotImplementedException();
             }
 
-            public Command UndoRedeem()
+            public Command UndoRedeem(string PromotionCode, string CouponCode)
             {
                 throw new NotImplementedException();
             }
 
-            public ICollection<Coupon> Validate(string PromotionCode, string CouponCode)
+            public Command Validate(string PromotionCode, string CouponCode)
             {
                 throw new NotImplementedException();
             }

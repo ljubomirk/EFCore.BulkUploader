@@ -21,12 +21,7 @@ namespace CouponDatabase.Services
             API.Coupon result = new API.Coupon
             {
                 Code = this.coupon.Code,
-                AquireFrom = this.coupon.AquireFrom,
-                AquireTo = this.coupon.AquireTo,
-                AwardFrom = this.coupon.AwardFrom,
-                AwardTo = this.coupon.AwardTo,
-                CouponStatus = (CouponStatus)this.coupon.CouponStatus,
-                Active = now.CompareTo(this.coupon.AquireFrom) < 0 && now.CompareTo(this.coupon.AquireTo) > 0
+                Status = (CouponStatus)this.coupon.CouponStatus
             };
             return result;
         }

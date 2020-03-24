@@ -15,10 +15,7 @@ namespace WebApp.Services
         }
         public void Add(string code)
         {
-            Coupon coupon = new Coupon()
-            {
-                Code = code
-            };
+            Coupon coupon = new Coupon(code, null, null, CouponDatabase.Lifecycle.CouponStatus.Created, null);
             Context.Coupon.Add(coupon);
             Context.SaveChanges();
         }
