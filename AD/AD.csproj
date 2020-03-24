@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
+    <Description>Active Directory test script</Description>
   </PropertyGroup>
 
   <ItemGroup>
