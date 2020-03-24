@@ -6,7 +6,7 @@ namespace CouponDatabase.Models
 {
     class CouponHistory: Coupon
     {
-        
+        public CouponHistory() : base("", "", "", Lifecycle.CouponStatus.Created, null){ }
 
     }
 }
