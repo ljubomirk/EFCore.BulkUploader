@@ -6,6 +6,7 @@ namespace CouponDatabase.Models
 {
     public class Coupon
     {
+        public Coupon() { }
         public Coupon(string code, string holder, string user, CouponDatabase.Lifecycle.CouponStatus status, Promotion promo)
         {
             Code = code;

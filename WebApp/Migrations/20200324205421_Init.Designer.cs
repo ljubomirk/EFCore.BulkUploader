@@ -10,8 +10,8 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200319162425_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200324205421_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace WebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Models.Coupon", b =>
+            modelBuilder.Entity("CouponDatabase.Models.Coupon", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,11 +37,13 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<int>("CouponSeries");
+
                     b.Property<int>("CouponStatus");
 
                     b.Property<string>("Holder");
 
-                    b.Property<long>("PromotionId");
+                    b.Property<long?>("PromotionId");
 
                     b.Property<string>("User");
 
@@ -51,24 +53,37 @@ namespace WebApp.Migrations
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
 
+                    b.HasIndex("PromotionId");
+
                     b.ToTable("Coupon");
                 });
 
-            modelBuilder.Entity("Models.Promotion", b =>
+            modelBuilder.Entity("CouponDatabase.Models.Promotion", b =>
                 {
-                    b.Property<string>("Code");
-
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code");
 
                     b.Property<DateTime>("ValidFrom");
 
                     b.Property<DateTime>("ValidTo");
 
-                    b.HasKey("Code", "Id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasFilter("[Code] IS NOT NULL");
 
                     b.ToTable("Promotion");
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.Coupon", b =>
+                {
+                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
+                        .WithMany()
+                        .HasForeignKey("PromotionId");
                 });
 #pragma warning restore 612, 618
         }
