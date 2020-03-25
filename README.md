@@ -11,13 +11,22 @@
 # Getting Started
 Check out this repositry and open solution COMMANDO for start working on project:
 1.	Installation process 
-  - Open solutions COMMANDO
-  - Install dependencies
+  - Open solutions COMMANDO in Visual Studio 2019
+
+  - Install dependencies:
+    On Solution rigth click -> Restore NuGet packages
+
   - Setup local SQLServer
+    Open PackageManager Console
+    Call `Update-Database`
+
 2.	Software dependencies 
-  Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6
+  - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
+  - SoapCode 1.0.0
 3.	Latest releases 
-  0.1
+  0.2 TDB
+  0.1 Initial release
+
 4.	API references 
   API
     - build in MvcCore API
