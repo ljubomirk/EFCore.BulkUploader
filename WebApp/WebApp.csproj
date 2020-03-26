@@ -1,8 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Ljubomir Kraljević, Siniša Krunić, Luka Vuković, Dino Kraljeta</Authors>
+    <Company>Triple-Innovations Ltd, Budmanijeva 5, Zagreb, Croatia</Company>
+    <Product>COMMANDO</Product>
+    <Description>COMMANDO / COupon Multi-channel Management and Delivey Orchestration
+</Description>
+    <Copyright>Triple-Innovations Ltd</Copyright>
+    <PackageId>TripleI.COMMANDO.WebApp</PackageId>
+    <PackageProjectUrl>https://triple-innovations.com/solutions/CouponManagementSystem.php</PackageProjectUrl>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
