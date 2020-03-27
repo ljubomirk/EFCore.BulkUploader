@@ -60,6 +60,10 @@ namespace WebApp
 
             services.AddMvc().AddMvcOptions(o=> o.EnableEndpointRouting=false);
 
+#if DEBUG
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+#endif
+
             services.AddSoapCore();
 
             // Setup SOAP security

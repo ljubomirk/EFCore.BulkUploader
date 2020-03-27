@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.ViewModels
 {
-    public class PromotionDetailsViewModel
+    public class PromotionDetailsViewModel : ContextData
     {
 
     }

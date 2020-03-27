@@ -1,11 +1,12 @@
 ﻿
+@model WebApp.ViewModels.HomeViewModel;
 @{
     ViewData["Title"] = "Home Page";
     /* Handling ... */
 
-
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Go COMMANDO!</h1>
+    <h1 class="display-4">Go COMMANDO @Model.AgentUsername (@Model.AgentGroup) !</h1>
 </div>

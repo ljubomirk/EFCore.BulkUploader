@@ -14,7 +14,8 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Open solutions COMMANDO in Visual Studio 2019
 
   - Install dependencies:
-    On Solution rigth click -> Restore NuGet packages
+    On Solution right click -> Restore NuGet packages
+    Rebuild solution
 
   - Setup local SQLServer
     Open PackageManager Console
@@ -24,7 +25,8 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
-  0.2 TDB
+  0.2 Back2Store
+  - 
   0.1 Initial release
 
 4.	API references 

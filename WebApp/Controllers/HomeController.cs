@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -23,12 +24,14 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+            return View(model);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

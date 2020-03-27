@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Ljubomir Kraljević, Siniša Krunić, Luka Vuković, Dino Kraljeta</Authors>
     <Company>Triple-Innovations Ltd, Budmanijeva 5, Zagreb, Croatia</Company>
@@ -10,12 +10,16 @@
     <Description>COMMANDO / COupon Multi-channel Management and Delivey Orchestration
 </Description>
     <Copyright>Triple-Innovations Ltd</Copyright>
-    <PackageId>TripleI.COMMANDO.WebApp</PackageId>
+    <PackageId>COMMANDO.WebApp</PackageId>
     <PackageProjectUrl>https://triple-innovations.com/solutions/CouponManagementSystem.php</PackageProjectUrl>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
@@ -23,6 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.19.60" />
     <PackageReference Include="SoapCore" Version="1.0.0" />
   </ItemGroup>
