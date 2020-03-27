@@ -1,0 +1,13 @@
+﻿.home {
+    width: 100%;
+    height: 100%;
+    background-color: $grey;
+
+    &-img {
+        position:absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        width: 60%;
+    }
+}
