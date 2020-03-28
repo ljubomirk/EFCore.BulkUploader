@@ -15,9 +15,12 @@
 @import "components/badges";
 @import "components/icons-material-design";
 @import "components/grid";
+@import "components/utils";
 @import "components/navbar";
+@import "components/font";
 @import "components/typography";
 @import "components/transitions";
+@import "components/images";
 @import "components/cards";
 @import "components/toast";
 @import "components/tabs";
@@ -39,6 +42,3 @@
 @import "components/pulse";
 @import "components/datepicker";
 @import "components/timepicker";
-
-// pages
-@import "pages/home";

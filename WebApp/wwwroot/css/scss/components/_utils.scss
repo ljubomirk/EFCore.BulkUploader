@@ -1,0 +1,48 @@
+﻿.u {
+    /*margins*/
+    &-m {
+        &-r {
+            &-xs {
+                margin-right: 4px;
+            }
+
+            &-sm {
+                margin-right: 8px;
+            }
+
+            &-md {
+                margin-right: 16px;
+            }
+
+            &-lg {
+                margin-right: 36px;
+            }
+
+            &-lg {
+                margin-right: 72px;
+            }
+        }
+
+        &-l {
+            &-xs {
+                margin-left: 4px;
+            }
+
+            &-sm {
+                margin-left: 8px;
+            }
+
+            &-md {
+                margin-left: 16px;
+            }
+
+            &-lg {
+                margin-left: 36px;
+            }
+
+            &-lg {
+                margin-left: 72px;
+            }
+        }
+    }
+}

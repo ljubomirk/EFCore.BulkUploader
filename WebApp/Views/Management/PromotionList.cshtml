@@ -1,0 +1,96 @@
+﻿
+@model WebApp.ViewModels.HomeViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+    /* Handling ... */
+
+}
+<div class="row">
+    <h4>
+        Promotions
+        <a class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>Create New</a>
+        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> Filter</a>
+    </h4>
+</div>
+
+<div style="background-color:white">
+    <table class="striped highlight">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Valid From</th>
+                <th>Valid Until</th>
+                <th>Has Coupons</th>
+                <th>Active</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>NajIkad</td>
+                <td>01/01/2020</td>
+                <td>01/05/2020</td>
+                <td><i class="material-icons">check</i></td>
+                <td><i class="material-icons">check</i></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+            </tr>
+            <tr>
+                <td>SamoZaTebe</td>
+                <td>01/01/2020</td>
+                <td>01/07/2020</td>
+                <td><i class="material-icons">check</i></td>
+                <td><i class="material-icons">check</i></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+            </tr>
+            <tr>
+                <td>ZajednoDoGroba</td>
+                <td>01/01/2020</td>
+                <td>01/12/2020</td>
+                <td></td>
+                <td><i class="material-icons">check</i></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+            </tr>
+            <tr>
+                <td>OnoStoTiTreba</td>
+                <td>01/01/2020</td>
+                <td>01/02/2020</td>
+                <td><i class="material-icons">check</i></td>
+                <td></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ul class="pagination">
+    <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
+    <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
+</ul>
+
+
+
+<!-- Promotion action -->
+<ul id='promotion-actions' class='dropdown-content'>
+    <li><a href="#!"><i class="material-icons">create</i>edit</a></li>
+    <li><a href="#!"><i class="material-icons">add</i>add series</a></li>
+    <li class="danger"><a class="red-text" href="#!"><i class="material-icons">delete_forever</i>delete</a></li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-trigger').dropdown({
+            constrainWidth: false,
+            alignment: 'right'
+        });
+    });
+</script>
+
+

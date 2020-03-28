@@ -1,5 +1,6 @@
 nav {
-    margin-bottom: 64px;
+    margin-bottom: 46px;
+
     &.nav-extended {
         height: auto;
         box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08);
@@ -129,7 +130,7 @@ nav {
             font-size: $navbar-font-size;
             color: $navbar-font-color;
             display: block;
-            padding: 0 15px;
+            /*padding: 0 15px;*/
             cursor: pointer;
 
             &.btn, &.btn-large, &.btn-flat, &.btn-floating {

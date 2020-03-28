@@ -2,6 +2,7 @@
 
 html {
  box-sizing: border-box;
+ width: 100vw;
 }
 *, *:before, *:after {
  box-sizing: inherit;
@@ -12,7 +13,7 @@ body {
   // display: flex;
   min-height: 100vh;
   // flex-direction: column;
-  background-color: $grey;
+  background-color: $grey-light-2;
 }
 
 main {
@@ -167,40 +168,51 @@ video.responsive-video {
 
 .pagination {
 
-  li {
-    display: inline-block;
-    border-radius: 2px;
-    text-align: center;
-    vertical-align: top;
-    height: 30px;
+    li {
+        display: inline-block;
+        border-radius: 2px;
+        text-align: center;
+        vertical-align: top;
+        height: $pagination-height;
+        margin: 0 2px;
 
-    a {
-      color: #444;
-      display: inline-block;
-      font-size: 1.2rem;
-      padding: 0 10px;
-      line-height: 30px;
+        a {
+            color: #444;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 0 10px;
+            height: $pagination-height;
+            width: $pagination-width;
+            line-height: $pagination-height;
+            border-radius: $pagination-radius;
+        }
+
+        &.active a {
+            color: #fff;
+        }
+
+        &.active {
+            border-radius: $pagination-radius;
+            background-color: $primary-color;
+        }
+
+        &.disabled a {
+            cursor: default;
+            color: #999;
+        }
+
+        i {
+            line-height: $pagination-height;
+            font-size: 2rem;
+        }
     }
 
-    &.active a { color: #fff; }
 
-    &.active { background-color: $primary-color; }
-
-    &.disabled a {
-      cursor: default;
-      color: #999;
+    li.pages ul li {
+        display: inline-block;
+        float: none;
     }
-
-    i {
-      font-size: 2rem;
-    }
-  }
-
-
-  li.pages ul li {
-    display: inline-block;
-    float: none;
-  }
 }
 @media #{$medium-and-down} {
   .pagination {
@@ -399,39 +411,52 @@ table, th, td {
 }
 
 table {
-  width:100%;
-  display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08);
 
-  &.striped {
-    tr {
-      border-bottom: none;
+    &.striped {
+        th {
+            color: $grey;
+            font-weight: 600;
+        }
+
+        tr {
+            border-bottom: none;
+        }
+
+        > thead {
+            border-bottom: 1px solid $grey-light-1;
+        }
+
+        > tbody {
+            > tr:nth-child(odd) {
+                background-color: $table-striped-color;
+            }
+
+            > tr > td {
+                border-radius: 0;
+            }
+        }
     }
 
-    > tbody {
-      > tr:nth-child(odd) {
-        background-color: $table-striped-color;
-      }
+    &.highlight > tbody > tr {
+        transition: background-color .25s ease;
 
-      > tr > td {
-        border-radius: 0;
-      }
+        &:hover {
+            cursor:pointer;
+            color: $primary-color-light;
+            background-color: $table-striped-color;
+        }
     }
-  }
 
-  &.highlight > tbody > tr {
-    transition: background-color .25s ease;
-    &:hover {
-      background-color: $table-striped-color;
+    &.centered {
+        thead tr th, tbody tr td {
+            text-align: center;
+        }
     }
-  }
-
-  &.centered {
-    thead tr th, tbody tr td {
-      text-align: center;
-    }
-  }
 }
 
 tr {
@@ -439,11 +464,15 @@ tr {
 }
 
 td, th{
-  padding: 15px 5px;
+  padding: 15px 30px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
   border-radius: 2px;
+
+  > a {
+      color: inherit;
+  }
 }
 
 // Responsive Table

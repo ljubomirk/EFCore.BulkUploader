@@ -44,7 +44,9 @@ $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "darken-1") !default;
 
 $white: #fff;
-$grey: #f7f7fa;
+$grey: #9494a2;
+$grey-light-1: rgba(1, 0, 94, 0.08);
+$grey-light-2: #f7f7fa;
 $black: #2d2d37;
 
 // 2. Badges
@@ -59,11 +61,11 @@ $badge-height: 22px !default;
 // Shared styles
 $button-border: none !default;
 $button-background-focus: lighten($secondary-color, 4%) !default;
-$button-font-size: 14px !default;
+$button-font-size: 18px !default;
 $button-icon-font-size: 1.3rem !default;
-$button-height: 36px !default;
+$button-height: 46px !default;
 $button-padding: 0 16px !default;
-$button-radius: 2px !default;
+$button-radius: 4px !default;
 
 // Disabled styles
 $button-disabled-background: #DFDFDF !default;
@@ -157,7 +159,8 @@ $timepicker-clock-plate-bg: #eee !default;
 
 $dropdown-bg-color: #fff !default;
 $dropdown-hover-bg-color: #eee !default;
-$dropdown-color: $secondary-color !default;
+$dropdown-hover-bg-color-danger: color("red", "lighten-5") !default;;
+$dropdown-color: $black !default;
 $dropdown-item-height: 50px !default;
 
 
@@ -304,70 +307,6 @@ $toast-action-color: #eeff41;
 
 // 20. Typography
 // ==========================================================================
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-Regular.otf");
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-Bold.otf");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-BoldItalic.otf");
-    font-weight: bold;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-ExtraBold.otf");
-    font-weight: 900;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-ExtraBoldItalic.otf");
-    font-weight: 900;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-Italic.otf");
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-Medium.otf");
-    font-weight: 400;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-MediumItalic.otf");
-    font-weight: 400;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-Light.otf");
-    font-weight: 200;
-}
-
-@font-face {
-    font-family: "Primary";
-    src: url("/css/fonts/TTNorms-LightItalic.otf");
-    font-weight: 200;
-    font-style: italic;
-}
-
-
 
 $font-stack: Primary, sans-serif !default;
 $off-black: rgba(0, 0, 0, 0.87) !default;
@@ -413,3 +352,11 @@ $collection-line-height: 1.5rem !default;
 // ==========================================================================
 
 $progress-bar-color: $secondary-color !default;
+
+
+// 24. Pagination
+// ==========================================================================
+
+$pagination-height: 48px !default;
+$pagination-width: 48px !default;
+$pagination-radius: 4px !default;
