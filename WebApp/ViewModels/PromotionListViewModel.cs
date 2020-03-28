@@ -9,10 +9,18 @@ namespace WebApp.ViewModels
     public class PromotionListViewModel : ContextData
     {
         public List<Promotion> Promotions { get; set; }
+        public Filters Filter;
         public PromotionListViewModel()
         {
             Promotions = new List<Promotion>();
-            Promotions.Add(new Promotion() { Code = "ABC" });
+        }
+        public void Add(Promotion promo)
+        {
+            Promotions.Add(promo);
+        }
+        public void AddRange(IList<Promotion> promos)
+        {
+            Promotions.AddRange(promos);
         }
     }
 }

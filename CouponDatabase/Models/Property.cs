@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CouponDatabase.Models
 {
-    class Property
+    public class Property
     {
 
         public long Id { get; set; }
