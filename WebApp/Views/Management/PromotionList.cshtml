@@ -1,5 +1,5 @@
 ﻿
-@model WebApp.ViewModels.HomeViewModel;
+@model WebApp.ViewModels.PromotionListViewModel;
 @{
     ViewData["Title"] = "Home Page";
     /* Handling ... */
@@ -7,9 +7,9 @@
 }
 <div class="row">
     <h4>
-        Promotions
-        <a class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>Create New</a>
-        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> Filter</a>
+        @TripleI.CouponDatabase.Properties.Resources.Promotions_Title
+        <a class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Create</a>
+        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @TripleI.CouponDatabase.Properties.Resources.Btn_Filter</a>
     </h4>
 </div>
 
@@ -33,7 +33,7 @@
                 <td>01/05/2020</td>
                 <td><i class="material-icons">check</i></td>
                 <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
             </tr>
             <tr>
                 <td>SamoZaTebe</td>
@@ -41,7 +41,7 @@
                 <td>01/07/2020</td>
                 <td><i class="material-icons">check</i></td>
                 <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
             </tr>
             <tr>
                 <td>ZajednoDoGroba</td>
@@ -49,7 +49,7 @@
                 <td>01/12/2020</td>
                 <td></td>
                 <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
             </tr>
             <tr>
                 <td>OnoStoTiTreba</td>
@@ -57,7 +57,7 @@
                 <td>01/02/2020</td>
                 <td><i class="material-icons">check</i></td>
                 <td></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons">more_horiz</i></a></td>
+                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
             </tr>
         </tbody>
     </table>
@@ -79,9 +79,9 @@
 
 <!-- Promotion action -->
 <ul id='promotion-actions' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">create</i>edit</a></li>
-    <li><a href="#!"><i class="material-icons">add</i>add series</a></li>
-    <li class="danger"><a class="red-text" href="#!"><i class="material-icons">delete_forever</i>delete</a></li>
+    <li><a href="#!"><i class="material-icons">create</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Edit</a></li>
+    <li><a href="#!"><i class="material-icons">add</i>@TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries</a></li>
+    <li class="danger"><a class="red-text" href="#!"><i class="material-icons">delete_forever</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Delete</a></li>
 </ul>
 
 <script>

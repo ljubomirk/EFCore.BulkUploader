@@ -117,6 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Btn.AddSeries" xml:space="preserve">
+    <value>Add Series</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Create" xml:space="preserve">
+    <value>Create New</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Filter" xml:space="preserve">
+    <value>Filter</value>
+    <comment>Button label.</comment>
+  </data>
   <data name="CouponStatus.Canceled" xml:space="preserve">
     <value>Canceled</value>
     <comment>Coupon status.</comment>
@@ -164,5 +184,25 @@
   <data name="LifecycleAction.UndoRedeem" xml:space="preserve">
     <value>UndoRedeem</value>
     <comment>Lifecycle action.</comment>
+  </data>
+  <data name="Nav.Administration" xml:space="preserve">
+    <value>Administration</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Nav.Lifecycle" xml:space="preserve">
+    <value>Lifecycle</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Nav.LoggedIn" xml:space="preserve">
+    <value>You're logged in as </value>
+    <comment>Navigation user status.</comment>
+  </data>
+  <data name="Nav.Management" xml:space="preserve">
+    <value>Management</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Promotions.Title" xml:space="preserve">
+    <value>Promotions</value>
+    <comment>Title for promotion list page.</comment>
   </data>
 </root>

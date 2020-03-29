@@ -1,20 +1,33 @@
-﻿@model  WebApp.ViewModels.HomeViewModel;
-@{ 
+﻿@{ 
+    // TODO: refactor handling active class - stop nav from rerendering if route changes
+    string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
     string Role = Model.AgentGroup;
 }
 <nav class="nav-extended">
     <div class="container nav-content">
         <ul class="tabs tabs-transparent">
             <li class="tab" style="display:none"><a href="#"></a></li>
-            <li class="tab first"><a href="#">Management</a></li>
-            <li class="tab"><a href="#">Lifecycle</a></li>
+            <li class="tab first">
+                <a class="@(controllerName == "Management" ? "active" : "")" target="_self" href="@Url.Action("ListPromotions", "Management")">
+                    @TripleI.CouponDatabase.Properties.Resources.Nav_Management
+                </a>
+            </li>
+            <li class="tab">
+                <a class="@(controllerName == "Lifecycle" ? "active" : "")" href="#">
+                    @TripleI.CouponDatabase.Properties.Resources.Nav_Lifecycle
+                </a>
+            </li>
             @if (Role == "CouponAdmin")
             {
-                <li class="tab"><a href="#">Administration</a></li>
+                <li class="tab">
+                    <a class="@(controllerName == "Administration" ? "active" : "")" href="#">
+                        @TripleI.CouponDatabase.Properties.Resources.Nav_Administration
+                    </a>
+                </li>
             }
             <li class="tab last right bold-text">
                 <a href="#">
-                    <span class="grey-text">You're logged in as </span>
+                    <span class="grey-text">@TripleI.CouponDatabase.Properties.Resources.Nav_LoggedIn </span>
                     <span class="black-text">@@@Model.AgentUsername</span>
                 </a>
             </li>

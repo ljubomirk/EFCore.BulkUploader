@@ -2351,7 +2351,7 @@ table {
     table.highlight > tbody > tr:hover {
       cursor: pointer;
       color: #7f7ec6;
-      background-color: rgba(242, 242, 242, 0.5); }
+      /*background-color: $table-striped-color;*/ }
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 
@@ -2645,6 +2645,9 @@ table span.badge {
 .material-icons {
   text-rendering: optimizeLegibility;
   font-feature-settings: 'liga'; }
+  .material-icons__hover:hover {
+    background-color: rgba(1, 0, 94, 0.08);
+    border-radius: 4px; }
 
 .container {
   margin: 0 auto;

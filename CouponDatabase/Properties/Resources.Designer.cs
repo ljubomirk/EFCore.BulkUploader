@@ -22,7 +22,7 @@ namespace TripleI.CouponDatabase.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace TripleI.CouponDatabase.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TripleI.CouponDatabase.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace TripleI.CouponDatabase.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,54 @@ namespace TripleI.CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Series.
+        /// </summary>
+        public static string Btn_AddSeries {
+            get {
+                return ResourceManager.GetString("Btn.AddSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New.
+        /// </summary>
+        public static string Btn_Create {
+            get {
+                return ResourceManager.GetString("Btn.Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Btn_Delete {
+            get {
+                return ResourceManager.GetString("Btn.Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Btn_Edit {
+            get {
+                return ResourceManager.GetString("Btn.Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Btn_Filter {
+            get {
+                return ResourceManager.GetString("Btn.Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Canceled.
         /// </summary>
-        internal static string CouponStatus_Canceled {
+        public static string CouponStatus_Canceled {
             get {
                 return ResourceManager.GetString("CouponStatus.Canceled", resourceCulture);
             }
@@ -72,7 +117,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Issued.
         /// </summary>
-        internal static string CouponStatus_Issued {
+        public static string CouponStatus_Issued {
             get {
                 return ResourceManager.GetString("CouponStatus.Issued", resourceCulture);
             }
@@ -81,7 +126,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        internal static string CouponStatus_Open {
+        public static string CouponStatus_Open {
             get {
                 return ResourceManager.GetString("CouponStatus.Open", resourceCulture);
             }
@@ -90,7 +135,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Redeemed.
         /// </summary>
-        internal static string CouponStatus_Redeemed {
+        public static string CouponStatus_Redeemed {
             get {
                 return ResourceManager.GetString("CouponStatus.Redeemed", resourceCulture);
             }
@@ -99,7 +144,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Action is not allowed for the channel:.
         /// </summary>
-        internal static string ErrorInvalidChannel_Message {
+        public static string ErrorInvalidChannel_Message {
             get {
                 return ResourceManager.GetString("ErrorInvalidChannel.Message", resourceCulture);
             }
@@ -108,7 +153,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Coupon status change is not allowed:.
         /// </summary>
-        internal static string ErrorInvalidStatus_Message {
+        public static string ErrorInvalidStatus_Message {
             get {
                 return ResourceManager.GetString("ErrorInvalidStatus.Message", resourceCulture);
             }
@@ -117,7 +162,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Action is not allowed for the user:.
         /// </summary>
-        internal static string ErrorInvalidUser_Message {
+        public static string ErrorInvalidUser_Message {
             get {
                 return ResourceManager.GetString("ErrorInvalidUser.Message", resourceCulture);
             }
@@ -126,7 +171,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Promotion was not found for the code:.
         /// </summary>
-        internal static string ErrorPromotionNotFound_Message {
+        public static string ErrorPromotionNotFound_Message {
             get {
                 return ResourceManager.GetString("ErrorPromotionNotFound.Message", resourceCulture);
             }
@@ -135,7 +180,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
-        internal static string LifecycleAction_Assign {
+        public static string LifecycleAction_Assign {
             get {
                 return ResourceManager.GetString("LifecycleAction.Assign", resourceCulture);
             }
@@ -144,7 +189,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string LifecycleAction_Cancel {
+        public static string LifecycleAction_Cancel {
             get {
                 return ResourceManager.GetString("LifecycleAction.Cancel", resourceCulture);
             }
@@ -153,7 +198,7 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Redeem.
         /// </summary>
-        internal static string LifecycleAction_Redeem {
+        public static string LifecycleAction_Redeem {
             get {
                 return ResourceManager.GetString("LifecycleAction.Redeem", resourceCulture);
             }
@@ -162,9 +207,54 @@ namespace TripleI.CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to UndoRedeem.
         /// </summary>
-        internal static string LifecycleAction_UndoRedeem {
+        public static string LifecycleAction_UndoRedeem {
             get {
                 return ResourceManager.GetString("LifecycleAction.UndoRedeem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administration.
+        /// </summary>
+        public static string Nav_Administration {
+            get {
+                return ResourceManager.GetString("Nav.Administration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lifecycle.
+        /// </summary>
+        public static string Nav_Lifecycle {
+            get {
+                return ResourceManager.GetString("Nav.Lifecycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;re logged in as .
+        /// </summary>
+        public static string Nav_LoggedIn {
+            get {
+                return ResourceManager.GetString("Nav.LoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Management.
+        /// </summary>
+        public static string Nav_Management {
+            get {
+                return ResourceManager.GetString("Nav.Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotions.
+        /// </summary>
+        public static string Promotions_Title {
+            get {
+                return ResourceManager.GetString("Promotions.Title", resourceCulture);
             }
         }
     }
