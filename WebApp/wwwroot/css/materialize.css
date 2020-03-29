@@ -3224,7 +3224,12 @@ table span.badge {
         left: 100%; } }
 
 .u {
-  /*margins*/ }
+  /*margins*/
+  /*padding*/ }
+  .u-m-remove {
+    margin: 0; }
+  .u-m-r-remove {
+    margin-right: 0; }
   .u-m-r-xs {
     margin-right: 4px; }
   .u-m-r-sm {
@@ -3235,6 +3240,8 @@ table span.badge {
     margin-right: 36px; }
   .u-m-r-lg {
     margin-right: 72px; }
+  .u-m-l-remove {
+    margin-left: 0; }
   .u-m-l-xs {
     margin-left: 4px; }
   .u-m-l-sm {
@@ -3245,6 +3252,8 @@ table span.badge {
     margin-left: 36px; }
   .u-m-l-lg {
     margin-left: 72px; }
+  .u-m-t-remove {
+    margin-top: 0; }
   .u-m-t-xs {
     margin-top: 4px; }
   .u-m-t-sm {
@@ -3255,6 +3264,8 @@ table span.badge {
     margin-top: 36px; }
   .u-m-t-lg {
     margin-top: 72px; }
+  .u-m-b-remove {
+    margin-bottom: 0; }
   .u-m-b-xs {
     margin-bottom: 4px; }
   .u-m-b-sm {
@@ -3265,8 +3276,56 @@ table span.badge {
     margin-bottom: 24px; }
   .u-m-b-lg {
     margin-bottom: 36px; }
-  .u-m-b-remove {
-    margin-bottom: 0; }
+  .u-p-remove {
+    padding: 0; }
+  .u-p-r-remove {
+    padding-right: 0; }
+  .u-p-r-xs {
+    padding-right: 4px; }
+  .u-p-r-sm {
+    padding-right: 8px; }
+  .u-p-r-md {
+    padding-right: 16px; }
+  .u-p-r-lg {
+    padding-right: 36px; }
+  .u-p-r-lg {
+    padding-right: 72px; }
+  .u-p-l-remove {
+    padding-left: 0; }
+  .u-p-l-xs {
+    padding-left: 4px; }
+  .u-p-l-sm {
+    padding-left: 8px; }
+  .u-p-l-md {
+    padding-left: 16px; }
+  .u-p-l-lg {
+    padding-left: 36px; }
+  .u-p-l-lg {
+    padding-left: 72px; }
+  .u-p-t-remove {
+    padding-top: 0; }
+  .u-p-t-xs {
+    padding-top: 4px; }
+  .u-p-t-sm {
+    padding-top: 8px; }
+  .u-p-t-md {
+    padding-top: 16px; }
+  .u-p-t-lg {
+    padding-top: 36px; }
+  .u-p-t-lg {
+    padding-top: 72px; }
+  .u-p-b-remove {
+    padding-bottom: 0; }
+  .u-p-b-xs {
+    padding-bottom: 4px; }
+  .u-p-b-sm {
+    padding-bottom: 8px; }
+  .u-p-b-md {
+    padding-bottom: 16px; }
+  .u-p-b-lg {
+    padding-bottom: 24px; }
+  .u-p-b-lg {
+    padding-bottom: 36px; }
 
 nav {
   margin-bottom: 46px;
@@ -4586,6 +4645,12 @@ label {
   font-size: 0.8rem;
   color: #9e9e9e; }
 
+form {
+  padding: 25px 10px 10px 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
+
 /* Text Inputs + Textarea
    ========================================================================== */
 /* Style Placeholders */
@@ -4613,10 +4678,10 @@ textarea.materialize-textarea {
   border-radius: 4px;
   outline: none;
   height: 3rem;
-  width: 90%;
+  width: 100%;
   font-size: 16px;
   margin: 0 0 8px 0;
-  padding: 0 15px;
+  padding: 0 0 0 5px;
   box-shadow: none;
   box-sizing: content-box;
   transition: box-shadow .3s, border .3s; }
@@ -4645,8 +4710,9 @@ textarea.materialize-textarea {
   input[type=search]:not(.browser-default)[readonly="readonly"],
   textarea.materialize-textarea:disabled,
   textarea.materialize-textarea[readonly="readonly"] {
+    opacity: 0.8;
     color: rgba(0, 0, 0, 0.42);
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.42); }
+    border: none; }
   input:not([type]):disabled + label,
   input:not([type])[readonly="readonly"] + label,
   input[type=text]:not(.browser-default):disabled + label,
@@ -4673,6 +4739,7 @@ textarea.materialize-textarea {
   input[type=search]:not(.browser-default)[readonly="readonly"] + label,
   textarea.materialize-textarea:disabled + label,
   textarea.materialize-textarea[readonly="readonly"] + label {
+    font-weight: 600;
     color: rgba(0, 0, 0, 0.42); }
   input:not([type]):focus:not([readonly]),
   input[type=text]:not(.browser-default):focus:not([readonly]),
@@ -4771,8 +4838,8 @@ input[type=search].valid:not(.browser-default),
 input[type=search].valid:not(.browser-default):focus,
 textarea.materialize-textarea.valid,
 textarea.materialize-textarea.valid:focus, .select-wrapper.valid > input.select-dropdown {
-  border-bottom: 1px solid #4CAF50;
-  box-shadow: 0 1px 0 0 #4CAF50; }
+  border-bottom: 1px solid #4d4cac;
+  box-shadow: 0 1px 0 0 #4d4cac; }
 
 input.invalid:not([type]), input.invalid:not([type]):focus,
 input[type=text].invalid:not(.browser-default),
@@ -5015,6 +5082,36 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
     .input-field .prefix ~ input {
       width: 80%;
       width: calc(100% - 3rem); } }
+  .input-field .suffix {
+    position: absolute;
+    width: 3rem;
+    font-size: 2rem;
+    transition: color .2s;
+    top: 0.5rem;
+    right: 0; }
+    .input-field .suffix.active {
+      color: #26a69a; }
+    .input-field .suffix.disabled {
+      opacity: .5; }
+  .input-field .suffix ~ input,
+  .input-field .suffix ~ textarea,
+  .input-field .suffix ~ label,
+  .input-field .suffix ~ .validate ~ label,
+  .input-field .suffix ~ .helper-text,
+  .input-field .suffix ~ .autocomplete-content {
+    padding-right: 3rem;
+    width: 100%;
+    width: calc(100% - 3rem); }
+  .input-field .suffix ~ label {
+    margin-right: 3rem; }
+  @media only screen and (max-width: 992px) {
+    .input-field .suffix ~ input {
+      width: 86%;
+      width: calc(100% - 3rem); } }
+  @media only screen and (max-width: 600px) {
+    .input-field .suffix ~ input {
+      width: 80%;
+      width: calc(100% - 3rem); } }
 
 /* Search Field */
 .input-field input[type=search] {
@@ -5204,6 +5301,7 @@ textarea {
     height: 25px;
     line-height: 25px;
     font-size: 1rem;
+    color: #2d2d37;
     user-select: none; }
   [type="checkbox"] + span:not(.lever):before,
   [type="checkbox"]:not(.filled-in) + span:not(.lever):after {
@@ -5348,6 +5446,8 @@ textarea {
   user-select: none; }
 
 .switch label {
+  display: block;
+  margin: 0 auto;
   cursor: pointer; }
 
 .switch label input[type=checkbox] {

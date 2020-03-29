@@ -13,6 +13,14 @@ label {
   color: $input-border-color;
 }
 
+form {
+    padding: 25px 10px 10px 10px;
+    background-color: $white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(92,92,107,.08), 0 1px 3px 0 rgba(77,76,172,.08);
+}
+
+
 @import 'input-fields';
 @import 'radio-buttons';
 @import 'checkboxes';
