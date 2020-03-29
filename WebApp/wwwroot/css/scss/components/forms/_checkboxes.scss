@@ -105,96 +105,92 @@
 
 // Filled in Style
 [type="checkbox"].filled-in {
-  // General
-  + span:not(.lever):after {
-    border-radius: 2px;
-  }
-
-  + span:not(.lever):before,
-  + span:not(.lever):after {
-    content: '';
-    left: 0;
-    position: absolute;
-    /* .1s delay is for check animation */
-    transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
-    z-index: 1;
-  }
-
-  // Unchecked style
-  &:not(:checked) + span:not(.lever):before {
-    width: 0;
-    height: 0;
-    border: 3px solid transparent;
-    left: 6px;
-    top: 10px;
-    transform: rotateZ(37deg);
-    transform-origin: 100% 100%;
-  }
-
-  &:not(:checked) + span:not(.lever):after {
-    height: 20px;
-    width: 20px;
-    background-color: transparent;
-    border: 2px solid $radio-empty-color;
-    top: 0px;
-    z-index: 0;
-  }
-
-  // Checked style
-  &:checked {
-    + span:not(.lever):before {
-      top: 0;
-      left: 1px;
-      width: 8px;
-      height: 13px;
-      border-top: 2px solid transparent;
-      border-left: 2px solid transparent;
-      border-right: 2px solid $input-background;
-      border-bottom: 2px solid $input-background;
-      transform: rotateZ(37deg);
-      transform-origin: 100% 100%;
-    }
-
+    // General
     + span:not(.lever):after {
-      top: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid $secondary-color;
-      background-color: $secondary-color;
-      z-index: 0;
+        border-radius: 2px;
     }
-  }
 
-  // Focused styles
-  &.tabbed:focus + span:not(.lever):after {
-    border-radius: 2px;
-    border-color: $radio-empty-color;
-    background-color: rgba(0,0,0,.1);
-  }
+    + span:not(.lever):before,
+    + span:not(.lever):after {
+        content: '';
+        left: 0;
+        position: absolute;
+        /* .1s delay is for check animation */
+        transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+        z-index: 1;
+    }
+    // Unchecked style
+    &:not(:checked) + span:not(.lever):before {
+        width: 0;
+        height: 0;
+        border: 3px solid transparent;
+        left: 6px;
+        top: 10px;
+        transform: rotateZ(37deg);
+        transform-origin: 100% 100%;
+    }
 
-  &.tabbed:checked:focus + span:not(.lever):after {
-    border-radius: 2px;
-    background-color: $secondary-color;
-    border-color: $secondary-color;
-  }
+    &:not(:checked) + span:not(.lever):after {
+        height: 20px;
+        width: 20px;
+        background-color: transparent;
+        border: 2px solid $radio-empty-color;
+        top: 0px;
+        z-index: 0;
+    }
+    // Checked style
+    &:checked {
+        + span:not(.lever):before {
+            top: 0;
+            left: 1px;
+            width: 8px;
+            height: 13px;
+            border-top: 2px solid transparent;
+            border-left: 2px solid transparent;
+            border-right: 2px solid $input-background;
+            border-bottom: 2px solid $input-background;
+            transform: rotateZ(37deg);
+            transform-origin: 100% 100%;
+        }
 
-  // Disabled style
-  &:disabled:not(:checked) + span:not(.lever):before {
-    background-color: transparent;
-    border: 2px solid transparent;
-  }
+        + span:not(.lever):after {
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid $primary-color;
+            background-color: $primary-color;
+            z-index: 0;
+        }
+    }
+    // Focused styles
+    &.tabbed:focus + span:not(.lever):after {
+        border-radius: 2px;
+        border-color: $radio-empty-color;
+        background-color: rgba(0,0,0,.1);
+    }
 
-  &:disabled:not(:checked) + span:not(.lever):after {
-    border-color: transparent;
-    background-color: $input-disabled-solid-color;
-  }
+    &.tabbed:checked:focus + span:not(.lever):after {
+        border-radius: 2px;
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+    // Disabled style
+    &:disabled:not(:checked) + span:not(.lever):before {
+        background-color: transparent;
+        border: 2px solid transparent;
+    }
 
-  &:disabled:checked + span:not(.lever):before {
-    background-color: transparent;
-  }
+    &:disabled:not(:checked) + span:not(.lever):after {
+        border-color: transparent;
+        background-color: $input-disabled-solid-color;
+    }
 
-  &:disabled:checked + span:not(.lever):after {
-    background-color: $input-disabled-solid-color;
-    border-color: $input-disabled-solid-color;
-  }
+    &:disabled:checked + span:not(.lever):before {
+        background-color: transparent;
+    }
+
+    &:disabled:checked + span:not(.lever):after {
+        background-color: $input-disabled-solid-color;
+        border-color: $input-disabled-solid-color;
+    }
 }

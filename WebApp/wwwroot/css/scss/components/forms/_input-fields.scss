@@ -4,7 +4,9 @@
 /* Style Placeholders */
 
 ::placeholder {
-  color: $placeholder-text-color;
+    color: $placeholder-text-color;
+    font-weight: 600;
+    font-size: 20px;
 }
 
 /* Text inputs */
@@ -22,93 +24,81 @@ input[type=tel]:not(.browser-default),
 input[type=number]:not(.browser-default),
 input[type=search]:not(.browser-default),
 textarea.materialize-textarea {
+    // General Styles
+    background-color: $input-background;
+    border: $input-border;
+    border-radius: 4px;
+    outline: none;
+    height: $input-height;
+    width: 90%;
+    font-size: $input-font-size;
+    margin: $input-margin;
+    padding: $input-padding;
+    box-shadow: none;
+    box-sizing: content-box;
+    transition: box-shadow .3s, border .3s;
+    // Disabled input style
+    &:disabled,
+    &[readonly="readonly"] {
+        color: $input-disabled-color;
+        border-bottom: $input-disabled-border;
+    }
+    // Disabled label style
+    &:disabled + label,
+    &[readonly="readonly"] + label {
+        color: $input-disabled-color;
+    }
+    // Focused input style
+    &:focus:not([readonly]) {
+        border: 1px solid $primary-color;
+    }
+    // Focused label style
+    &:focus:not([readonly]) + label {
+        /*color: $input-focus-color;*/
+    }
+    // Hide helper text on data message
+    &.valid ~ .helper-text[data-success],
+    &:focus.valid ~ .helper-text[data-success],
+    &.invalid ~ .helper-text[data-error],
+    &:focus.invalid ~ .helper-text[data-error] {
+        @extend %hidden-text;
+    }
+    // Valid Input Style
+    &.valid,
+    &:focus.valid {
+        @extend %valid-input-style;
+    }
+    // Custom Success Message
+    &.valid ~ .helper-text:after,
+    &:focus.valid ~ .helper-text:after {
+        @extend %custom-success-message;
+    }
 
-  // General Styles
-  background-color: transparent;
-  border: none;
-  border-bottom: $input-border;
-  border-radius: 0;
-  outline: none;
-  height: $input-height;
-  width: 100%;
-  font-size: $input-font-size;
-  margin: $input-margin;
-  padding: $input-padding;
-  box-shadow: none;
-  box-sizing: content-box;
-  transition: box-shadow .3s, border .3s;
+    &:focus.valid ~ label {
+        color: $input-success-color;
+    }
+    // Invalid Input Style
+    &.invalid,
+    &:focus.invalid {
+        @extend %invalid-input-style;
+    }
+    // Custom Error message
+    &.invalid ~ .helper-text:after,
+    &:focus.invalid ~ .helper-text:after {
+        @extend %custom-error-message;
+    }
 
-  // Disabled input style
-  &:disabled,
-  &[readonly="readonly"] {
-    color: $input-disabled-color;
-    border-bottom: $input-disabled-border;
-  }
-
-  // Disabled label style
-  &:disabled+label,
-  &[readonly="readonly"]+label {
-    color: $input-disabled-color;
-  }
-
-  // Focused input style
-  &:focus:not([readonly]) {
-    border-bottom: 1px solid $input-focus-color;
-    box-shadow: 0 1px 0 0 $input-focus-color;
-  }
-
-  // Focused label style
-  &:focus:not([readonly])+label {
-    color: $input-focus-color;
-  }
-
-  // Hide helper text on data message
-  &.valid ~ .helper-text[data-success],
-  &:focus.valid ~ .helper-text[data-success],
-  &.invalid ~ .helper-text[data-error],
-  &:focus.invalid ~ .helper-text[data-error] {
-    @extend %hidden-text;
-  }
-
-  // Valid Input Style
-  &.valid,
-  &:focus.valid {
-    @extend %valid-input-style;
-  }
-
-  // Custom Success Message
-  &.valid ~ .helper-text:after,
-  &:focus.valid ~ .helper-text:after {
-    @extend %custom-success-message;
-  }
-  &:focus.valid ~ label {
-    color: $input-success-color;
-  }
-
-  // Invalid Input Style
-  &.invalid,
-  &:focus.invalid {
-    @extend %invalid-input-style;
-  }
-
-  // Custom Error message
-  &.invalid ~ .helper-text:after,
-  &:focus.invalid ~ .helper-text:after {
-    @extend %custom-error-message;
-  }
-  &:focus.invalid ~ label {
-    color: $input-error-color;
-  }
-
-  // Full width label when using validate for error messages
-  &.validate + label {
-    width: 100%;
-  }
-
-  // Form Message Shared Styles
-  & + label:after {
-    @extend %input-after-style;
-  }
+    &:focus.invalid ~ label {
+        color: $input-error-color;
+    }
+    // Full width label when using validate for error messages
+    &.validate + label {
+        width: 100%;
+    }
+    // Form Message Shared Styles
+    & + label:after {
+        @extend %input-after-style;
+    }
 }
 
 
@@ -147,112 +137,116 @@ textarea.materialize-textarea {
 
 // Styling for input field wrapper
 .input-field {
-  // Inline styles
-  &.inline {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 5px;
+    // Inline styles
+    &.inline {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
 
-    input,
-    .select-dropdown {
-      margin-bottom: 1rem;
+        input,
+        .select-dropdown {
+            margin-bottom: 1rem;
+        }
     }
-  }
+    // Gutter spacing
+    &.col {
+        label {
+            left: $gutter-width / 2;
+        }
 
-  // Gutter spacing
-  &.col {
-    label {
-      left: $gutter-width / 2;
-    }
-
-    .prefix ~ label,
-    .prefix ~ .validate ~ label {
-      width: calc(100% - 3rem - #{$gutter-width});
-    }
-  }
-
-  position: relative;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-
-  & > label {
-    color: $input-border-color;
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 1rem;
-    cursor: text;
-    transition: transform .2s ease-out, color .2s ease-out;
-    transform-origin: 0% 100%;
-    text-align: initial;
-    transform: translateY(12px);
-
-    &:not(.label-icon).active {
-      transform: translateY(-14px) scale(.8);
-      transform-origin: 0 0;
-    }
-  }
-
-  // Autofill + date + time inputs
-  & > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
-  & > input[type=date]:not(.browser-default) + label,
-  & > input[type=time]:not(.browser-default) + label {
-    transform: translateY(-14px) scale(.8);
-    transform-origin: 0 0;
-  }
-
-  .helper-text {
-    &::after {
-      opacity: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
+        .prefix ~ label,
+        .prefix ~ .validate ~ label {
+            width: calc(100% - 3rem - #{$gutter-width});
+        }
     }
 
     position: relative;
-    min-height: 18px;
-    display: block;
-    font-size: 12px;
-    color: rgba(0,0,0,.54);
-  }
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
-  // Prefix Icons
-  .prefix {
-    position: absolute;
-    width: $input-height;
-    font-size: $input-icon-size;
-    transition: color .2s;
-    top: ($input-height - $input-icon-size) / 2;
+    & > label {
+        color: $input-border-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 1rem;
+        cursor: text;
+        transition: transform .2s ease-out, color .2s ease-out;
+        transform-origin: 0% 100%;
+        text-align: initial;
+        transform: translateY(12px);
 
-    &.active { color: $input-focus-color; }
-  }
-
-  .prefix ~ input,
-  .prefix ~ textarea,
-  .prefix ~ label,
-  .prefix ~ .validate ~ label,
-  .prefix ~ .helper-text,
-  .prefix ~ .autocomplete-content {
-    margin-left: 3rem;
-    width: 92%;
-    width: calc(100% - 3rem);
-  }
-
-  .prefix ~ label { margin-left: 3rem; }
-
-  @media #{$medium-and-down} {
-    .prefix ~ input {
-      width: 86%;
-      width: calc(100% - 3rem);
+        &:not(.label-icon).active {
+            color: $grey;
+            font-weight: 600;
+            transform: translateY(-25px) scale(1);
+            transform-origin: 0 0;
+        }
     }
-  }
-
-  @media #{$small-and-down} {
-    .prefix ~ input {
-      width: 80%;
-      width: calc(100% - 3rem);
+    // Autofill + date + time inputs
+    & > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
+    & > input[type=date]:not(.browser-default) + label,
+    & > input[type=time]:not(.browser-default) + label {
+        font-weight: 600;
+        transform: translateY(-16px) scale(1);
+        transform-origin: 0 0;
     }
-  }
+
+    .helper-text {
+        &::after {
+            opacity: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        position: relative;
+        min-height: 18px;
+        display: block;
+        font-size: 12px;
+        color: rgba(0,0,0,.54);
+    }
+    // Prefix Icons
+    .prefix {
+        position: absolute;
+        width: $input-height;
+        font-size: $input-icon-size;
+        transition: color .2s;
+        top: ($input-height - $input-icon-size) / 2;
+
+        &.active {
+            color: $input-focus-color;
+        }
+    }
+
+    .prefix ~ input,
+    .prefix ~ textarea,
+    .prefix ~ label,
+    .prefix ~ .validate ~ label,
+    .prefix ~ .helper-text,
+    .prefix ~ .autocomplete-content {
+        margin-left: 3rem;
+        width: 92%;
+        width: calc(100% - 3rem);
+    }
+
+    .prefix ~ label {
+        margin-left: 3rem;
+    }
+
+    @media #{$medium-and-down} {
+        .prefix ~ input {
+            width: 86%;
+            width: calc(100% - 3rem);
+        }
+    }
+
+    @media #{$small-and-down} {
+        .prefix ~ input {
+            width: 80%;
+            width: calc(100% - 3rem);
+        }
+    }
 }
 
 

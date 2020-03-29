@@ -122,6 +122,14 @@
     <comment>Button label.</comment>
   </data>
   <data name="Btn.Create" xml:space="preserve">
+    <value>Create</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.CreateAndAddSeries" xml:space="preserve">
+    <value>Create And Add Series</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.CreateNew" xml:space="preserve">
     <value>Create New</value>
     <comment>Button label.</comment>
   </data>
@@ -204,5 +212,13 @@
   <data name="Promotions.Title" xml:space="preserve">
     <value>Promotions</value>
     <comment>Title for promotion list page.</comment>
+  </data>
+  <data name="Promotions.TitleCreate" xml:space="preserve">
+    <value>Create Promotion</value>
+    <comment>Title for promotion details page.</comment>
+  </data>
+  <data name="Promotions.TitleEdit" xml:space="preserve">
+    <value>Edit Promotion</value>
+    <comment>Title for promotions details page.</comment>
   </data>
 </root>

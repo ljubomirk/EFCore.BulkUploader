@@ -70,11 +70,29 @@ namespace TripleI.CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Btn_Create {
             get {
                 return ResourceManager.GetString("Btn.Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create And Add Series.
+        /// </summary>
+        public static string Btn_CreateAndAddSeries {
+            get {
+                return ResourceManager.GetString("Btn.CreateAndAddSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New.
+        /// </summary>
+        public static string Btn_CreateNew {
+            get {
+                return ResourceManager.GetString("Btn.CreateNew", resourceCulture);
             }
         }
         
@@ -255,6 +273,24 @@ namespace TripleI.CouponDatabase.Properties {
         public static string Promotions_Title {
             get {
                 return ResourceManager.GetString("Promotions.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Promotion.
+        /// </summary>
+        public static string Promotions_TitleCreate {
+            get {
+                return ResourceManager.GetString("Promotions.TitleCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Promotion.
+        /// </summary>
+        public static string Promotions_TitleEdit {
+            get {
+                return ResourceManager.GetString("Promotions.TitleEdit", resourceCulture);
             }
         }
     }

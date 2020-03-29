@@ -168,9 +168,10 @@ $dropdown-item-height: 50px !default;
 // ==========================================================================
 
 // Text Inputs + Textarea
+$input-background: #f7f7fa;
 $input-height: 3rem !default;
 $input-border-color: color("grey", "base") !default;
-$input-border: 1px solid $input-border-color !default;
+$input-border: solid 1px #d5d5df;
 $input-background: #fff !default;
 $input-error-color: $error-color !default;
 $input-success-color: $success-color !default;
@@ -178,7 +179,7 @@ $input-focus-color: $secondary-color !default;
 $input-font-size: 16px !default;
 $input-margin-bottom: 8px;
 $input-margin: 0 0 $input-margin-bottom 0 !default;
-$input-padding: 0 !default;
+$input-padding: 0 15px !default;
 $label-font-size: .8rem !default;
 $input-disabled-color: rgba(0,0,0, .42) !default;
 $input-disabled-solid-color: #949494 !default;
@@ -209,8 +210,8 @@ $select-radius: 2px !default;
 $select-disabled-color: rgba(0,0,0,.3) !default;
 
 // Switches
-$switch-bg-color: $secondary-color !default;
-$switch-checked-lever-bg: desaturate(lighten($switch-bg-color, 25%), 25%) !default;
+$switch-bg-color: #61ac77 !default;
+$switch-checked-lever-bg: $switch-bg-color !default;
 $switch-unchecked-bg: #F1F1F1 !default;
 $switch-unchecked-lever-bg: rgba(0,0,0,.38) !default;
 $switch-radius: 15px !default;

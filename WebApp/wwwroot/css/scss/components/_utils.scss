@@ -44,5 +44,53 @@
                 margin-left: 72px;
             }
         }
+
+        &-t {
+            &-xs {
+                margin-top: 4px;
+            }
+
+            &-sm {
+                margin-top: 8px;
+            }
+
+            &-md {
+                margin-top: 16px;
+            }
+
+            &-lg {
+                margin-top: 36px;
+            }
+
+            &-lg {
+                margin-top: 72px;
+            }
+        }
+
+        &-b {
+            &-xs {
+                margin-bottom: 4px;
+            }
+
+            &-sm {
+                margin-bottom: 8px;
+            }
+
+            &-md {
+                margin-bottom: 16px;
+            }
+
+            &-lg {
+                margin-bottom: 24px;
+            }
+
+            &-lg {
+                margin-bottom: 36px;
+            }
+
+            &-remove {
+                margin-bottom: 0;
+            }
+        }
     }
 }
