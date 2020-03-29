@@ -8,6 +8,7 @@ namespace WebApp.ViewModels
 {
     public class PromotionDetailsViewModel : ContextData
     {
-        Promotion promotion { get; set; }
+        public Promotion Promotion { get; set; }
     }
+
 }
