@@ -145,6 +145,10 @@
     <value>Filter</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Btn.SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+    <comment>Button label.</comment>
+  </data>
   <data name="CouponStatus.Canceled" xml:space="preserve">
     <value>Canceled</value>
     <comment>Coupon status.</comment>
@@ -209,16 +213,40 @@
     <value>Management</value>
     <comment>Navigation item.</comment>
   </data>
-  <data name="Promotions.Title" xml:space="preserve">
-    <value>Promotions</value>
-    <comment>Title for promotion list page.</comment>
+  <data name="Promotion.AllowedIssuer" xml:space="preserve">
+    <value>Allowed Issuer</value>
+    <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotions.TitleCreate" xml:space="preserve">
+  <data name="Promotion.AllowedUser" xml:space="preserve">
+    <value>Allowed User</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion.Properties" xml:space="preserve">
+    <value>Properties</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion.SetEndDateChkLabel" xml:space="preserve">
+    <value>This promotion has a set end date</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion.StatusDisabled" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion.StatusEnabled" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion.TitleCreate" xml:space="preserve">
     <value>Create Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
-  <data name="Promotions.TitleEdit" xml:space="preserve">
+  <data name="Promotion.TitleEdit" xml:space="preserve">
     <value>Edit Promotion</value>
-    <comment>Title for promotions details page.</comment>
+    <comment>Title for promotion details page.</comment>
+  </data>
+  <data name="Promotions.Title" xml:space="preserve">
+    <value>Promotions</value>
+    <comment>Title for promotion list page.</comment>
   </data>
 </root>

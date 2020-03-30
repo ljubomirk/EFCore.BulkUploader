@@ -3984,7 +3984,12 @@ p.section-headline {
   -webkit-tap-highlight-color: transparent; }
 
 .btn-default {
+  color: #4d4cac !important;
   background-color: rgba(1, 0, 94, 0.08) !important; }
+
+.btn-danger {
+  color: #F44336 !important;
+  background-color: #FFEBEE !important; }
 
 .btn.disabled, .disabled.btn-large, .disabled.btn-small,
 .btn-floating.disabled,
@@ -4645,7 +4650,7 @@ label {
   font-size: 0.8rem;
   color: #9e9e9e; }
 
-form {
+.form-box {
   padding: 25px 10px 10px 10px;
   background-color: #fff;
   border-radius: 4px;

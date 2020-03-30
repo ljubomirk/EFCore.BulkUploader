@@ -12,7 +12,13 @@
     -webkit-tap-highlight-color: transparent; // Gets rid of tap active state
 }
 .btn-default {
+    color: $primary-color !important;
     background-color: $grey-light-1 !important;
+}
+
+.btn-danger {
+    color: color("red", "base") !important;
+    background-color: $button-background-danger !important;
 }
 
 // Disabled shared style

@@ -124,6 +124,15 @@ namespace TripleI.CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string Btn_SaveChanges {
+            get {
+                return ResourceManager.GetString("Btn.SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Canceled.
         /// </summary>
         public static string CouponStatus_Canceled {
@@ -268,29 +277,83 @@ namespace TripleI.CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Promotions.
+        ///   Looks up a localized string similar to Allowed Issuer.
         /// </summary>
-        public static string Promotions_Title {
+        public static string Promotion_AllowedIssuer {
             get {
-                return ResourceManager.GetString("Promotions.Title", resourceCulture);
+                return ResourceManager.GetString("Promotion.AllowedIssuer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allowed User.
+        /// </summary>
+        public static string Promotion_AllowedUser {
+            get {
+                return ResourceManager.GetString("Promotion.AllowedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        public static string Promotion_Properties {
+            get {
+                return ResourceManager.GetString("Promotion.Properties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This promotion has a set end date.
+        /// </summary>
+        public static string Promotion_SetEndDateChkLabel {
+            get {
+                return ResourceManager.GetString("Promotion.SetEndDateChkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Promotion_StatusDisabled {
+            get {
+                return ResourceManager.GetString("Promotion.StatusDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string Promotion_StatusEnabled {
+            get {
+                return ResourceManager.GetString("Promotion.StatusEnabled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Create Promotion.
         /// </summary>
-        public static string Promotions_TitleCreate {
+        public static string Promotion_TitleCreate {
             get {
-                return ResourceManager.GetString("Promotions.TitleCreate", resourceCulture);
+                return ResourceManager.GetString("Promotion.TitleCreate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Edit Promotion.
         /// </summary>
-        public static string Promotions_TitleEdit {
+        public static string Promotion_TitleEdit {
             get {
-                return ResourceManager.GetString("Promotions.TitleEdit", resourceCulture);
+                return ResourceManager.GetString("Promotion.TitleEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotions.
+        /// </summary>
+        public static string Promotions_Title {
+            get {
+                return ResourceManager.GetString("Promotions.Title", resourceCulture);
             }
         }
     }

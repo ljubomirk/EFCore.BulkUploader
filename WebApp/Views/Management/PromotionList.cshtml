@@ -5,6 +5,8 @@
     /* Handling ... */
 
 }
+
+
 <div class="row">
     <h4>
         @TripleI.CouponDatabase.Properties.Resources.Promotions_Title
@@ -13,82 +15,100 @@
     </h4>
 </div>
 
-<div style="background-color:white">
-    <table class="striped highlight">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Valid From</th>
-                <th>Valid Until</th>
-                <th>Has Coupons</th>
-                <th>Active</th>
-                <th>&nbsp;</th>
-            </tr>
-        </thead>
+@if (Model.Promotions.Count() == 0)
+{
+    // this should be styled and, maybe some nice warm message as the user is obvioulsy new...
+    <p>There are no promotions.</p> 
+}
+else
+{
+    <div style="background-color:white">
+        <table class="striped highlight">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
+                    <th>Has Coupons</th>
+                    <th>Active</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <tr>
-                <td>NajIkad</td>
-                <td>01/01/2020</td>
-                <td>01/05/2020</td>
-                <td><i class="material-icons">check</i></td>
-                <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
-            </tr>
-            <tr>
-                <td>SamoZaTebe</td>
-                <td>01/01/2020</td>
-                <td>01/07/2020</td>
-                <td><i class="material-icons">check</i></td>
-                <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
-            </tr>
-            <tr>
-                <td>ZajednoDoGroba</td>
-                <td>01/01/2020</td>
-                <td>01/12/2020</td>
-                <td></td>
-                <td><i class="material-icons">check</i></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
-            </tr>
-            <tr>
-                <td>OnoStoTiTreba</td>
-                <td>01/01/2020</td>
-                <td>01/02/2020</td>
-                <td><i class="material-icons">check</i></td>
-                <td></td>
-                <td><a class='dropdown-trigger' href='#' data-target='promotion-actions'><i class="material-icons material-icons__hover">more_horiz</i></a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+            <tbody>
+                @foreach (var p in Model.Promotions)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(promoItem => p.Code)</td>
+                    <td>@Html.DisplayFor(promoItem => p.ValidFrom)</td>
+                    <td>@Html.DisplayFor(promoItem => p.ValidTo)</td>
+                    <td><i class="material-icons">check</i></td>
+                    <td><i class="material-icons">check</i></td>
+                    <td>
+                        <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-target='promotion-actions'>
+                            <i class="material-icons material-icons__hover">more_horiz</i>
+                        </a>
+                    </td>
+                </tr>
+                }
+                </tbody>
+        </table>
+    </div>
 
-<ul class="pagination">
-    <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
-    <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="active"><a href="#!">1</a></li>
-    <li class="waves-effect"><a href="#!">2</a></li>
-    <li class="waves-effect"><a href="#!">3</a></li>
-    <li class="waves-effect"><a href="#!">4</a></li>
-    <li class="waves-effect"><a href="#!">5</a></li>
-    <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-    <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
-</ul>
+    <ul class="pagination">
+        <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
+        <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
+    </ul>
 
 
 
-<!-- Promotion action -->
-<ul id='promotion-actions' class='dropdown-content'>
-    <li><a href="#!"><i class="material-icons">create</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Edit</a></li>
-    <li><a href="#!"><i class="material-icons">add</i>@TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries</a></li>
-    <li class="danger"><a class="red-text" href="#!"><i class="material-icons">delete_forever</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Delete</a></li>
-</ul>
+    <!-- Promotion action -->
+    <ul id='promotion-actions' class='dropdown-content'>
+        <li>
+            <a class="action-promo" href="@Url.Action("EditPromotion","Management")">
+                <i class="material-icons">create</i>
+                @TripleI.CouponDatabase.Properties.Resources.Btn_Edit
+            </a>
+        </li>
+        <li>
+            <a class="action-promo" href="@Url.Action("AddSeries","Management")">
+                <i class="material-icons">add</i>
+                @TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries
+            </a>
+        </li>
+        <li class="danger">
+            <a class="action-promo red-text" href="@Url.Action("DeletePromotion","Management")">
+                <i class="material-icons">delete_forever</i>
+                @TripleI.CouponDatabase.Properties.Resources.Btn_Delete
+            </a>
+        </li>
+    </ul>
 
-<script>
-    $(document).ready(function () {
-        $('.dropdown-trigger').dropdown({
-            constrainWidth: false,
-            alignment: 'right'
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-trigger').dropdown({
+                constrainWidth: false,
+                alignment: 'right'
+            });
+
+            // update url with id to corresponding promotion when clicked
+            $(".dropdown-trigger").click(function () {
+                var id = $(this).attr("data-id");
+
+                $(".action-promo").each(function () {
+                    var oldUrl = $(this).attr("href");
+                    var newUrl = oldUrl + "/" + id;
+                    $(this).attr("href", newUrl); 
+                })
+            })
         });
-    });
-</script>
+    </script>
+}
+

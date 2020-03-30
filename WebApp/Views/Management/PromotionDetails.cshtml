@@ -1,100 +1,135 @@
 ﻿@model WebApp.ViewModels.PromotionDetailsViewModel;
 @{
     ViewData["Title"] = "Promotion Details";
-    /* Handling ... */
 
+    // initial state
+    string strTitle = TripleI.CouponDatabase.Properties.Resources.Promotion_TitleCreate;
+    string strAllowIssuer =  TripleI.CouponDatabase.Properties.Resources.Promotion_AllowedIssuer;
+    string strAllowUser =  TripleI.CouponDatabase.Properties.Resources.Promotion_AllowedUser;
+    string strProperties =  TripleI.CouponDatabase.Properties.Resources.Promotion_Properties;
+    string strStatus = TripleI.CouponDatabase.Properties.Resources.Promotion_StatusEnabled;
+    string hasEndDateChk = ""; // checkbox for date picker
+    string hasEndDate = "disabled"; // ValidTo date picker - used as a className
+
+
+    if(Model.Promotion != null)
+    {
+        strTitle = @TripleI.CouponDatabase.Properties.Resources.Promotion_TitleEdit;
+
+        // if there is an end date, this will enable date input field and check checkbox
+        if(Model.Promotion.ValidTo != null)
+        {
+            hasEndDate = "";
+            hasEndDateChk = "checked";
+        }
+
+        //TODO: change strStatus if promo is disabled
+        //if(Model.Promotion.isEnabled == false)
+        //{
+        //    strStatus = TripleI.CouponDatabase.Properties.Resources.Promotion_StatusDisabled;
+        //}
+    }
 }
+
 <div class="container">
     <div class="row">
         <h4>
-            @TripleI.CouponDatabase.Properties.Resources.Promotions_TitleCreate
-            <a class="waves-effect waves-light btn-flat btn-default right"><i class="material-icons">clear</i></a>
+            @strTitle
+            <a href="@Url.Action("ListPromotions", "Management")" class="waves-effect waves-light btn-flat btn-default right"><i class="material-icons">clear</i></a>
             <span class="switch right">
                 <label>
-                    Status(2d)
+                    @strStatus
                     <input type="checkbox">
                     <span class="lever"></span>
                 </label>
             </span>
         </h4>
     </div>
-    <form>
-
+    <div class="form-box">
+        @Html.HiddenFor(p => p.Promotion.Id)
         <div class="row">
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="" id="code" type="text" class="validate">
-                    <label for="code">Code</label>
+                    @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @required = "required" } })
+                    @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                 </div>
             </div>
             <div class="input-field col s6">
-                <input placeholder="" type="text" id="ValidFrom" class="datepicker validate">
-                <label for="ValidFrom">Valid From</label>
+                @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "datepicker validate", @type = "text", placeholder = "", @required = "required" } })
+                @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                 <i class="material-icons suffix">event</i>
             </div>
             <div class="input-field col s6">
-                <input disabled placeholder="" type="text" id="ValidUntil" class="datepicker validate">
-                <label for="ValidUntil">Valid Until</label>
-                <i id="icon-endDate" class="material-icons suffix disabled">event</i>
+                <!--a bit of a hack just to add disabled in htmlAttr...-->
+                @if (hasEndDate != "disabled")
+                {
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "datepicker validate", @type = "text", @id = "ValidTo", placeholder = "" } })
+                }
+                else
+                {
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "datepicker validate", @type = "text", @id = "ValidTo", placeholder = "", @disabled = true } })
+                }
+                @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                <i id="icon-endDate" class="material-icons suffix @hasEndDate">event</i>
             </div>
             <div class="col s12">
                 <p class="u-m-t-remove">
-                    <label id="chk-endDate" >
-                        <input type="checkbox" class="filled-in" />
-                        <span>This promotion has a set end date</span>
+                    <label id="chk-endDate">
+                        <input type="checkbox" class="filled-in" @hasEndDateChk/>
+                        <span>@TripleI.CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
                     </label>
                 </p>
             </div>
             <div class="col s6">
-                <p class="section-headline">Allowed Issuer</p>
+                <p class="section-headline">@strAllowIssuer</p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Salesforce</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>POS</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Telesales</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in"  />
                         <span>Webshop</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Selfcare</span>
                     </label>
                 </p>
             </div>
             <div class="col s6">
-                <p class="section-headline">Allowed User</p>
+                <p class="section-headline">@strAllowUser</p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Salesforce</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Webshop</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Selfcare</span>
                     </label>
                 </p>
@@ -104,24 +139,24 @@
 
         <div class="row">
             <div class="col s12">
-                <p class="section-headline u-m-b-remove">Properties</p>
+                <p class="section-headline u-m-b-remove">@strProperties</p>
             </div>
             <div class="col s6">
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Unique coupons</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Named holders</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Named consumers</span>
                     </label>
                 </p>
@@ -129,30 +164,57 @@
             <div class="col s6">
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Holder is only consumer</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Allows multiple redeems</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" class="filled-in" checked="checked" />
+                        <input type="checkbox" class="filled-in" />
                         <span>Allow coupon series</span>
                     </label>
                 </p>
             </div>
         </div>
         <div class="row">
-            <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md"><i class="material-icons left">check</i>@TripleI.CouponDatabase.Properties.Resources.Btn_Create</a>
-            <a class="waves-effect waves-light btn-flat btn-default commando-primary-text"><i class="material-icons left">arrow_forward</i> @TripleI.CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries</a>
+            <div class="col s12">
 
+                <!-- set controls depending if model is present or not -->
+                @if (Model.Promotion == null)
+                {
+                    <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                        <i class="material-icons left">check</i>
+                        @TripleI.CouponDatabase.Properties.Resources.Btn_Create
+                    </a>
+                    <a class="waves-effect waves-light btn-flat btn-default commando-primary-text">
+                        <i class="material-icons left">arrow_forward</i>
+                        @TripleI.CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
+                    </a>
+                }
+                else
+                {
+                    <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                        <i class="material-icons left">add</i>
+                        @TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries
+                    </a>
+                    <a class="waves-effect waves-light btn-flat btn-default">
+                        <i class="material-icons left">save</i>
+                        @TripleI.CouponDatabase.Properties.Resources.Btn_SaveChanges
+                    </a>
+                    <a class="waves-effect waves-light btn-flat btn-danger  right">
+                        <i class="material-icons left">delete_forever</i>
+                        @TripleI.CouponDatabase.Properties.Resources.Btn_Delete
+                    </a>
+                }
+            </div>
         </div>
-    </form>
+    </div>
 
 </div>
 
@@ -171,11 +233,11 @@
         // enable end date input field
         $("label#chk-endDate").click(function () {
             if ($("input", this).prop("checked")) {
-                $("#ValidUntil").attr("disabled", false);
+                $("#ValidTo").attr("disabled", false);
                 $("#icon-endDate").removeClass("disabled");
             }
             else {
-                $("#ValidUntil").attr("disabled", true);
+                $("#ValidTo").attr("disabled", true);
                 $("#icon-endDate").addClass("disabled");
             }
         })
