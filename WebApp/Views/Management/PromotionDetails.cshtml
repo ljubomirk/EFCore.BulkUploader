@@ -3,18 +3,18 @@
     ViewData["Title"] = "Promotion Details";
 
     // initial state
-    string strTitle = TripleI.CouponDatabase.Properties.Resources.Promotion_TitleCreate;
-    string strAllowIssuer =  TripleI.CouponDatabase.Properties.Resources.Promotion_AllowedIssuer;
-    string strAllowUser =  TripleI.CouponDatabase.Properties.Resources.Promotion_AllowedUser;
-    string strProperties =  TripleI.CouponDatabase.Properties.Resources.Promotion_Properties;
-    string strStatus = TripleI.CouponDatabase.Properties.Resources.Promotion_StatusEnabled;
+    string strTitle = CouponDatabase.Properties.Resources.Promotion_TitleCreate;
+    string strAllowIssuer =  CouponDatabase.Properties.Resources.Promotion_AllowedIssuer;
+    string strAllowUser =  CouponDatabase.Properties.Resources.Promotion_AllowedUser;
+    string strProperties =  CouponDatabase.Properties.Resources.Promotion_Properties;
+    string strStatus = CouponDatabase.Properties.Resources.Promotion_StatusEnabled;
     string hasEndDateChk = ""; // checkbox for date picker
     string hasEndDate = "disabled"; // ValidTo date picker - used as a className
 
 
     if(Model.Promotion != null)
     {
-        strTitle = @TripleI.CouponDatabase.Properties.Resources.Promotion_TitleEdit;
+        strTitle = @CouponDatabase.Properties.Resources.Promotion_TitleEdit;
 
         // if there is an end date, this will enable date input field and check checkbox
         if(Model.Promotion.ValidTo != null)
@@ -26,7 +26,7 @@
         //TODO: change strStatus if promo is disabled
         //if(Model.Promotion.isEnabled == false)
         //{
-        //    strStatus = TripleI.CouponDatabase.Properties.Resources.Promotion_StatusDisabled;
+        //    strStatus = CouponDatabase.Properties.Resources.Promotion_StatusDisabled;
         //}
     }
 }
@@ -76,7 +76,7 @@
                 <p class="u-m-t-remove">
                     <label id="chk-endDate">
                         <input type="checkbox" class="filled-in" @hasEndDateChk/>
-                        <span>@TripleI.CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
+                        <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
                     </label>
                 </p>
             </div>
@@ -190,26 +190,26 @@
                 {
                     <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
                         <i class="material-icons left">check</i>
-                        @TripleI.CouponDatabase.Properties.Resources.Btn_Create
+                        @CouponDatabase.Properties.Resources.Btn_Create
                     </a>
                     <a class="waves-effect waves-light btn-flat btn-default commando-primary-text">
                         <i class="material-icons left">arrow_forward</i>
-                        @TripleI.CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
+                        @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
                     </a>
                 }
                 else
                 {
                     <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
                         <i class="material-icons left">add</i>
-                        @TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries
+                        @CouponDatabase.Properties.Resources.Btn_AddSeries
                     </a>
                     <a class="waves-effect waves-light btn-flat btn-default">
                         <i class="material-icons left">save</i>
-                        @TripleI.CouponDatabase.Properties.Resources.Btn_SaveChanges
+                        @CouponDatabase.Properties.Resources.Btn_SaveChanges
                     </a>
                     <a class="waves-effect waves-light btn-flat btn-danger  right">
                         <i class="material-icons left">delete_forever</i>
-                        @TripleI.CouponDatabase.Properties.Resources.Btn_Delete
+                        @CouponDatabase.Properties.Resources.Btn_Delete
                     </a>
                 }
             </div>

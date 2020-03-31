@@ -9,9 +9,9 @@
 
 <div class="row">
     <h4>
-        @TripleI.CouponDatabase.Properties.Resources.Promotions_Title
-        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>@TripleI.CouponDatabase.Properties.Resources.Btn_CreateNew</a>
-        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @TripleI.CouponDatabase.Properties.Resources.Btn_Filter</a>
+        @CouponDatabase.Properties.Resources.Promotions_Title
+        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>@CouponDatabase.Properties.Resources.Btn_CreateNew</a>
+        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @CouponDatabase.Properties.Resources.Btn_Filter</a>
     </h4>
 </div>
 
@@ -74,19 +74,19 @@ else
         <li>
             <a class="action-promo" href="@Url.Action("EditPromotion","Management")">
                 <i class="material-icons">create</i>
-                @TripleI.CouponDatabase.Properties.Resources.Btn_Edit
+                @CouponDatabase.Properties.Resources.Btn_Edit
             </a>
         </li>
         <li>
             <a class="action-promo" href="@Url.Action("AddSeries","Management")">
                 <i class="material-icons">add</i>
-                @TripleI.CouponDatabase.Properties.Resources.Btn_AddSeries
+                @CouponDatabase.Properties.Resources.Btn_AddSeries
             </a>
         </li>
         <li class="danger">
             <a class="action-promo red-text" href="@Url.Action("DeletePromotion","Management")">
                 <i class="material-icons">delete_forever</i>
-                @TripleI.CouponDatabase.Properties.Resources.Btn_Delete
+                @CouponDatabase.Properties.Resources.Btn_Delete
             </a>
         </li>
     </ul>
