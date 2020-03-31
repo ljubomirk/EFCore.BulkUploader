@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TripleI.CouponDatabase.Properties {
+namespace CouponDatabase.Properties {
     using System;
     
     
@@ -273,6 +273,33 @@ namespace TripleI.CouponDatabase.Properties {
         public static string Nav_Management {
             get {
                 return ResourceManager.GetString("Nav.Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string Promotion_Code {
+            get {
+                return ResourceManager.GetString("Promotion.Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum length is 20 characters.
+        /// </summary>
+        public static string Promotion_Code_Length {
+            get {
+                return ResourceManager.GetString("Promotion.Code.Length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion Code is required..
+        /// </summary>
+        public static string Promotion_Code_Required {
+            get {
+                return ResourceManager.GetString("Promotion.Code.Required", resourceCulture);
             }
         }
         

@@ -228,6 +228,21 @@
   <data name="Promotion.SetEndDateChkLabel" xml:space="preserve">
     <value>This promotion has a set end date</value>
     <comment>Text for promotion details page.</comment>
+  <data name="Promotion.Code" xml:space="preserve">
+    <value>Code</value>
+    <comment>Label of property</comment>
+  </data>
+  <data name="Promotion.Code.Length" xml:space="preserve">
+    <value>Maximum length is 20 characters</value>
+    <comment>Limit of Promotion.Code size</comment>
+  </data>
+  <data name="Promotion.Code.Required" xml:space="preserve">
+    <value>Promotion Code is required.</value>
+    <comment>Promotion.Code is required</comment>
+  </data>
+  <data name="Promotions.Title" xml:space="preserve">
+    <value>Promotions</value>
+    <comment>Title for promotion list page.</comment>
   </data>
   <data name="Promotion.StatusDisabled" xml:space="preserve">
     <value>Disabled</value>
