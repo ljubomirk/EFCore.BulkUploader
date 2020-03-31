@@ -228,6 +228,7 @@
   <data name="Promotion.SetEndDateChkLabel" xml:space="preserve">
     <value>This promotion has a set end date</value>
     <comment>Text for promotion details page.</comment>
+  </data>
   <data name="Promotion.Code" xml:space="preserve">
     <value>Code</value>
     <comment>Label of property</comment>

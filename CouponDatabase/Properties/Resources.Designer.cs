@@ -277,6 +277,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowed Issuer.
+        /// </summary>
+        public static string Promotion_AllowedIssuer {
+            get {
+                return ResourceManager.GetString("Promotion.AllowedIssuer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allowed User.
+        /// </summary>
+        public static string Promotion_AllowedUser {
+            get {
+                return ResourceManager.GetString("Promotion.AllowedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string Promotion_Code {
@@ -300,24 +318,6 @@ namespace CouponDatabase.Properties {
         public static string Promotion_Code_Required {
             get {
                 return ResourceManager.GetString("Promotion.Code.Required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allowed Issuer.
-        /// </summary>
-        public static string Promotion_AllowedIssuer {
-            get {
-                return ResourceManager.GetString("Promotion.AllowedIssuer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allowed User.
-        /// </summary>
-        public static string Promotion_AllowedUser {
-            get {
-                return ResourceManager.GetString("Promotion.AllowedUser", resourceCulture);
             }
         }
         
