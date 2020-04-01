@@ -21,6 +21,12 @@ Check out this repositry and open solution COMMANDO for start working on project
     Open PackageManager Console
     Call `Update-Database`
 
+  - Update local SQLDatabase after initial setup
+    Delete all objects from database
+    `Update-Database 0`
+    Install database  
+    `Update-Database`
+
 2.	Software dependencies 
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0

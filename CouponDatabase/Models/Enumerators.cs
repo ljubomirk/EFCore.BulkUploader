@@ -23,4 +23,30 @@ namespace CouponDatabase.Lifecycle
         ErrorInvalidUser = 4,
         ErrorSystem = 99
     }
+
+    public enum IssuerChannelEnum
+    {
+        POS = 1,
+        Salesforce = 2,
+        SelfCare = 3,
+        Telesales = 4,
+        Webshop = 5
+    }
+    public enum AwardChannelEnum
+    {
+        POS = 1,
+        SelfCare = 3,
+        Telesales = 4,
+        Webshop = 5
+    }
+
+    public enum PropertyTypeEnum
+    {
+        UniqueCoupons = 1,
+        NamedHolders = 2,
+        NamedConsumers = 3,
+        HolderIsOnlyConsumer = 4,
+        AlloweMultipleRedeems = 5,
+        AllowCouponSeries = 6
+    }
 }

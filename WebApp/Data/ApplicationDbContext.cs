@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CouponDatabase.Models;
+using CouponDatabase.Lifecycle;
 
 namespace WebApp.Data
 {
@@ -16,10 +17,16 @@ namespace WebApp.Data
 
         // Coupon
         public DbSet<Coupon> Coupon { get; set; }
+        public DbSet<CouponHistory> CouponHistory { get; set; }
 
-        // Coupon
+        // Promotion
         public DbSet<Promotion> Promotion { get; set; }
-
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<IssuerChannel> IssuerChannels { get; set; }
+        public DbSet<AwardChannel> AwardChannels { get; set; }
+        public DbSet<PromotionAwardChannel> PromotionAwardChannels { get; set; }
+        public DbSet<PromotionAwardChannel> PromotionIssuerChannels { get; set; }
+        public DbSet<PromotionAwardChannel> PromotionProperties { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -32,18 +39,34 @@ namespace WebApp.Data
             modelBuilder.Entity<Coupon>()
                         .HasIndex(b => b.Code)
                         .IsUnique();
-            /*
-            modelBuilder.Entity<Promotion>()
-                .HasKey(c => new { c.Code, c.Id });
-                */
+            /* Composite key */
+            modelBuilder.Entity<PromotionAwardChannel>().HasKey(
+                pac => new { pac.PromotionId, pac.AwardChannelId }
+            );
+            modelBuilder.Entity<PromotionIssuerChannel>().HasKey(
+                pac => new { pac.PromotionId, pac.IssuerChannelId }
+            );
+            modelBuilder.Entity<PromotionProperties>().HasKey(
+                pac => new { pac.PromotionId, pac.PropertyId }
+            );
 
             /* Test Data */
-            /*
+            modelBuilder.Entity<IssuerChannel>().HasData(
+                BaseDefs.ArrayFrom<IssuerChannel, IssuerChannelEnum>()
+            );
+            modelBuilder.Entity<AwardChannel>().HasData(
+                AwardChannel.ArrayFrom<AwardChannel,AwardChannelEnum>()
+            );
+            modelBuilder.Entity<Property>().HasData(
+                Property.ArrayFrom<Property,PropertyTypeEnum>()
+            );
+            //set Promotions
             modelBuilder.Entity<Promotion>().HasData(
                 new Promotion()
                 {
                     Id = 1,
                     Code = "Spring",
+                    Enabled = true,
                     ValidFrom = DateTime.Parse("01.03.2020"),
                     ValidTo = DateTime.Parse("01.05.2020")
                 },
@@ -51,6 +74,7 @@ namespace WebApp.Data
                 {
                     Id = 2,
                     Code = "Easter",
+                    Enabled = false,
                     ValidFrom = DateTime.Parse("01.04.2020"),
                     ValidTo = DateTime.Parse("01.05.2020")
                 },
@@ -58,14 +82,25 @@ namespace WebApp.Data
                 {
                     Id = 3,
                     Code = "Summer",
+                    Enabled = true,
                     ValidFrom = DateTime.Parse("01.06.2020"),
                     ValidTo = DateTime.Parse("01.09.2020")
                 }
-                );
+            );
+            modelBuilder.Entity<PromotionProperties>().HasData(
+                           new PromotionProperties() { PromotionId = 1, PropertyId = 2}
+                        );
             modelBuilder.Entity<Coupon>().HasData(
-                new Coupon("SP1234567890", "38640440480", "38640440480", CouponDatabase.Lifecycle.CouponStatus.Issued, Promotion.Where<Promotion>(item => item.Code == "Spring").FirstOrDefault())
-                );
-            */
+                new Coupon()
+                {
+                    Id = 1,
+                    Code = "SP1234567890",
+                    Holder = "38640440480",
+                    User = "38640440480",
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 1
+                }
+            );
         }
 
     }

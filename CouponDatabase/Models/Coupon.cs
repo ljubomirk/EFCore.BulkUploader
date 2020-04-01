@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,7 +13,7 @@ namespace CouponDatabase.Models
             Code = code;
             Holder = holder;
             User = user;
-            CouponStatus = (int)status;
+            Status = (int)status;
             Promotion = promo;
         }
 
@@ -25,13 +26,14 @@ namespace CouponDatabase.Models
         public string Holder { get; set; }
         public string User { get; set; }
 
-        public int CouponStatus { get; set; }
+        public int Status { get; set; }
         public DateTime AquireFrom { get; set; }
         public DateTime AquireTo { get; set; }
 
         public DateTime AwardFrom { get; set; }
         public DateTime AwardTo { get; set; }
 
+        public long PromotionId { get; set; }
         public Promotion Promotion { get; set; }
         public int CouponSeries { get; set; }
 
@@ -55,5 +57,8 @@ namespace CouponDatabase.Models
             
             return cr1 && cr2 && cr3 && cr4 && pr1 && pr2;
         }
+        #region Relations
+        public IList<CouponHistory> CouponHistories { get; set; }
+        #endregion
     }
 }

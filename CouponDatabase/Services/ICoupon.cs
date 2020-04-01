@@ -21,7 +21,7 @@ namespace CouponDatabase.Services
             API.Coupon result = new API.Coupon
             {
                 Code = this.coupon.Code,
-                Status = (CouponStatus)this.coupon.CouponStatus
+                Status = (CouponStatus)this.coupon.Status
             };
             return result;
         }
@@ -34,7 +34,7 @@ namespace CouponDatabase.Services
         public Lifecycle.Command Validate(Coupon coupon, string user)
         {
             Lifecycle.Command result = new Lifecycle.Command();
-            if (coupon.CouponStatus != (int)CouponStatus.Issued)
+            if (coupon.Status != (int)CouponStatus.Issued)
                 result.Status = CommandStatus.ErrorInvalidStatus;
             if (result.Status != CommandStatus.Valid)
             {

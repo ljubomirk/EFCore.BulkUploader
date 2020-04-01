@@ -21,18 +21,18 @@ namespace CouponDatabase.Models
         [Required(ErrorMessageResourceName = "Promotion.Code.Required", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Promotion.Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
-        public string Code { get; set; }
+        public String Code { get; set; }
         public Boolean Enabled { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
-
         #endregion
-        #region construction
+        #region Construction
         public Promotion()
         {
 
         }
-
+        #endregion
+        #region Behaviour
         /* Active is virtual value, read from other values */
         public Boolean Active
         {
@@ -50,6 +50,12 @@ namespace CouponDatabase.Models
             return Enabled && pr1 && pr2;
         }
 
+        #endregion
+        #region Relations
+        public IList<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
+        public IList<PromotionAwardChannel> PromotionAwardChannels { get; set; }
+        public IList<PromotionProperties> PromotionProperties { get; set; }
+        public IList<Coupon> Coupons { get; set; }
         #endregion
     }
 }

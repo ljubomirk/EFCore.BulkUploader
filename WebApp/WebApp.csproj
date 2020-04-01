@@ -18,6 +18,22 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Migrations\20200331192450_Initial.cs" />
+    <Compile Remove="Migrations\20200331192450_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200331193248_Initial.cs" />
+    <Compile Remove="Migrations\20200331193248_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200331200205_Initial.cs" />
+    <Compile Remove="Migrations\20200331200205_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200331205355_Init.cs" />
+    <Compile Remove="Migrations\20200331205355_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200331220018_Init.cs" />
+    <Compile Remove="Migrations\20200331220018_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200331222826_Init.cs" />
+    <Compile Remove="Migrations\20200331222826_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200331224147_Init.cs" />
+    <Compile Remove="Migrations\20200331224147_Init.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
