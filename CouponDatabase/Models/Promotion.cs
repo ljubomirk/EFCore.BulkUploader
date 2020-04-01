@@ -19,7 +19,7 @@ namespace CouponDatabase.Models
         //[System.ComponentModel.DataAnnotations.MaxLength(20,ErrorMessageResourceName = , ErrorMessageResourceType = 1]
         [StringLength(20, ErrorMessageResourceName = "Promotion.Code.Length", ErrorMessageResourceType = typeof(Resources))]
         [Required(ErrorMessageResourceName = "Promotion.Code.Required", ErrorMessageResourceType = typeof(Resources))]
-        [Display(Name = "Promotion.Code", ResourceType = typeof(Resources))]
+        //[Display(Name = "Promotion.Code", ShortName = "Promotion.Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
         public String Code { get; set; }
         public Boolean Enabled { get; set; }
