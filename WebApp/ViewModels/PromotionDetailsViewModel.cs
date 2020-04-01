@@ -8,9 +8,9 @@ namespace WebApp.ViewModels
 {
     public class PromotionDetailsViewModel : ContextData
     {
-        public Property Properties { get; }
-        public AwardChannel AwardChannels { get; }
-        public IssuerChannel IssuerChannels { get; }
+        public List<Property> Properties { get; }
+        public List<AwardChannel> AwardChannels { get; }
+        public List<IssuerChannel> IssuerChannels { get; }
         public Promotion Promotion { get; set; }
     }
 

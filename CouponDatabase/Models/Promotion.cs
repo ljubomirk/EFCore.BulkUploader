@@ -50,6 +50,10 @@ namespace CouponDatabase.Models
             return Enabled && pr1 && pr2;
         }
 
+        public Boolean HasCoupons
+        {
+            get => true;
+        }
         #endregion
         #region Relations
         public IList<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
