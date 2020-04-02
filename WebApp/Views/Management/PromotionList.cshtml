@@ -15,12 +15,7 @@
     </h4>
 </div>
 
-@if (Model.Promotions.Count() == 0)
-{
-    // this should be styled and, maybe some nice warm message as the user is obvioulsy new...
-    <p>There are no promotions.</p> 
-}
-else
+@if (Model.Promotions.Count() > 0)
 {
     <div style="background-color:white">
         <table class="striped highlight">
@@ -29,8 +24,8 @@ else
                     <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
                     <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
                     <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
-                    <th>Has Coupons</th>
-                    <th>Active</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -39,11 +34,20 @@ else
                 @foreach (var p in Model.Promotions)
                 {
                 <tr>
-                    <td>@Html.DisplayFor(promoItem => p.Code)</td>
-                    <td>@Html.DisplayFor(promoItem => p.ValidFrom)</td>
-                    <td>@Html.DisplayFor(promoItem => p.ValidTo)</td>
-                    <td><i class="material-icons">check</i></td>
-                    <td><i class="material-icons">check</i></td>
+                    <td>@p.Code</td>
+                    <td>@p.ValidFrom</td>
+                    <td>@p.ValidTo</td>
+                    <td> 
+                        @if (p.HasCoupons) { 
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        @if (p.Active)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
                     <td>
                         <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-target='promotion-actions'>
                             <i class="material-icons material-icons__hover">more_horiz</i>
