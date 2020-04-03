@@ -25,8 +25,8 @@ namespace WebApp.Data
         public DbSet<IssuerChannel> IssuerChannels { get; set; }
         public DbSet<AwardChannel> AwardChannels { get; set; }
         public DbSet<PromotionAwardChannel> PromotionAwardChannels { get; set; }
-        public DbSet<PromotionAwardChannel> PromotionIssuerChannels { get; set; }
-        public DbSet<PromotionAwardChannel> PromotionProperties { get; set; }
+        public DbSet<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
+        public DbSet<PromotionProperties> PromotionProperties { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -101,6 +101,7 @@ namespace WebApp.Data
                     PromotionId = 1
                 }
             );
+
         }
 
     }
