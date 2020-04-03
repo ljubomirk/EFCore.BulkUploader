@@ -65,9 +65,16 @@ namespace WebApp.Controllers
         {
             
             var promo = _repo.GetAllPromotions().Find(i => i.Id == viewModel.Promotion.Id);
-            if (promo == null) RedirectToAction("Error");
-            promo.ValidFrom = viewModel.Promotion.ValidFrom;
-            promo.ValidTo = viewModel.Promotion.ValidFrom;
+            if (promo == null) 
+            {
+                ViewBag.CommandStatus = "[ERROR]";
+                ViewBag.CommandMessage = "Promotion with that ID not found.";
+            }
+            else
+            {
+                ViewBag.CommandStatus = "[OK]";
+                ViewBag.CommandMessage = "Promotion saved.";
+            }
             return View("PromotionDetails", viewModel);
         }
 

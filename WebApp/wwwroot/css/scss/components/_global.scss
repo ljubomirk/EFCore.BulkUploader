@@ -446,9 +446,8 @@ table {
         transition: background-color .25s ease;
 
         &:hover {
-            cursor:pointer;
-            color: $primary-color-light;
-            /*background-color: $table-striped-color;*/
+            /*cursor: pointer;*/
+            background-color: rgba($primary-color-light ,.1);
         }
     }
 

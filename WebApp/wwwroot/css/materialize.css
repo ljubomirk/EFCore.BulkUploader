@@ -2349,9 +2349,8 @@ table {
   table.highlight > tbody > tr {
     transition: background-color .25s ease; }
     table.highlight > tbody > tr:hover {
-      cursor: pointer;
-      color: #7f7ec6;
-      /*background-color: $table-striped-color;*/ }
+      /*cursor: pointer;*/
+      background-color: rgba(127, 126, 198, 0.1); }
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 
@@ -4773,7 +4772,7 @@ textarea.materialize-textarea {
   input[type=number]:not(.browser-default):focus:not([readonly]) + label,
   input[type=search]:not(.browser-default):focus:not([readonly]) + label,
   textarea.materialize-textarea:focus:not([readonly]) + label {
-    /*color: $input-focus-color;*/ }
+    color: #4d4cac; }
   input:not([type]):focus.valid ~ label,
   input[type=text]:not(.browser-default):focus.valid ~ label,
   input[type=password]:not(.browser-default):focus.valid ~ label,
@@ -4787,7 +4786,7 @@ textarea.materialize-textarea {
   input[type=number]:not(.browser-default):focus.valid ~ label,
   input[type=search]:not(.browser-default):focus.valid ~ label,
   textarea.materialize-textarea:focus.valid ~ label {
-    color: #4CAF50; }
+    color: #4d4cac; }
   input:not([type]):focus.invalid ~ label,
   input[type=text]:not(.browser-default):focus.invalid ~ label,
   input[type=password]:not(.browser-default):focus.invalid ~ label,
@@ -5028,7 +5027,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
   .input-field.col .prefix ~ .validate ~ label {
     width: calc(100% - 3rem - 1.5rem); }
   .input-field > label {
-    color: #9e9e9e;
+    color: #4d4cac;
     position: absolute;
     top: 0;
     left: 0;
