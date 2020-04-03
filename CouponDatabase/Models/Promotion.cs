@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using CouponDatabase.Properties;
+using System.Linq;
 
 namespace CouponDatabase.Models
 {
@@ -25,6 +26,10 @@ namespace CouponDatabase.Models
         public Boolean Enabled { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
+        public Boolean HasCoupons
+        {
+            get => this.GetHasCoupons();
+        }
         #endregion
         #region Construction
         public Promotion()
@@ -50,10 +55,18 @@ namespace CouponDatabase.Models
             return Enabled && pr1 && pr2;
         }
 
-        public Boolean HasCoupons
+        private Boolean GetHasCoupons()
         {
-            get => true;
+            // Can be property that is checked by fetching Coupons connected to Promotion (Count>0) or
+            // Can be set in DB as true, when first coupons are added to Promotion
+            /*
+            if(Coupons.Count()>1)
+                return true 
+             */
+
+            return true;
         }
+
         #endregion
         #region Relations
         public IList<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
