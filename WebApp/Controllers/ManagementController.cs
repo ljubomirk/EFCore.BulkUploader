@@ -19,36 +19,10 @@ namespace WebApp.Controllers
     public class ManagementController : Controller
     {
         private readonly RepositoryServices _repo;
-
-        List<Promotion> promos = new List<Promotion>();//test data
         public ManagementController(ApplicationDbContext context)
-        {
-            _repo = new RepositoryServices(context);
-            //test data
-            promos.Add(new Promotion()
-            {
-                Id = 1,
-                Code = "BOBNewYear",
-                ValidFrom = DateTime.Parse("01.01.2020"),
-                ValidTo = DateTime.Parse("01.04.2020"),
-            }
-                    );
-            promos.Add(new Promotion()
-            {
-                Id = 2,
-                Code = "Easter2020",
-                ValidFrom = DateTime.Parse("01.04.2020"),
-                ValidTo = DateTime.Parse("01.06.2020")
-            }
-            );
-            promos.Add(new Promotion()
-            {
-                Id = 3,
-                Code = "Happy4thJuly",
-                ValidFrom = DateTime.Parse("01.06.2020"),
-                ValidTo = DateTime.Parse("01.09.2020"),
-            }
-            );
+        {      
+             _repo = new RepositoryServices(context);
+           
         }
 
         /// <summary>
@@ -59,14 +33,15 @@ namespace WebApp.Controllers
         public IActionResult ListPromotions()
         {
             PromotionListViewModel model = new PromotionListViewModel();
-            model.Promotions = promos;
+            model.Promotions.AddRange(_repo.GetAllPromotions());
             return View("PromotionList",model);
         }
 
         [HttpGet]
-        public IActionResult CreatePromotion()
+        public IActionResult CreatePromotion(Promotion promotion)
         {
             PromotionDetailsViewModel model = new PromotionDetailsViewModel();
+            _repo.CreatePromotion(promotion);
             return View("PromotionDetails", model);
         }
 
@@ -74,11 +49,13 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult EditPromotion(long Id)
         {
-            var promo = promos.Find(i => i.Id == Id);
-            if (promo == null) RedirectToAction("Error");
+           // if (promo == null) RedirectToAction("Error");
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
-                Promotion = promo
+                Promotion = _repo.GetAllPromotions().Find(i => i.Id == Id),
+                Properties = _repo.GetAllPromotionProperties(Id),
+                AwardChannels = _repo.GetAllPromotionAwardChannels(Id),
+                IssuerChannels = _repo.GetAllPromotionIssuerChannels(Id)
             };
             return View("PromotionDetails", model);
         }
@@ -87,7 +64,7 @@ namespace WebApp.Controllers
         public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
         {
             
-            var promo = promos.Find(i => i.Id == viewModel.Promotion.Id);
+            var promo = _repo.GetAllPromotions().Find(i => i.Id == viewModel.Promotion.Id);
             if (promo == null) RedirectToAction("Error");
             promo.ValidFrom = viewModel.Promotion.ValidFrom;
             promo.ValidTo = viewModel.Promotion.ValidFrom;
