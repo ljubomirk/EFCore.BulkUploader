@@ -1,5 +1,6 @@
 ﻿using CouponDatabase.Models;
 using System.Collections.Generic;
+using WebApp.Services;
 
 namespace WebApp.ViewModels
 {
@@ -16,5 +17,20 @@ namespace WebApp.ViewModels
             ShowInactive = false;
             Properties = new List<Property>();
         }
+
+        private IList<Promotion> getPromotionsFilteredByCode(List<Promotion> promotions, string Code, bool showInactive)
+        {
+            IList<Promotion> promotionsWithCode = new List<Promotion>();
+            foreach (var item in promotions)
+            {
+                if ((item.Code.Contains(Code) && item.Enabled ) && ((item.Active && !showInactive)||(showInactive)))
+                {
+                    promotionsWithCode.Add(item);
+                }
+            }
+
+            return promotionsWithCode;
+        }
+
     }
 }
