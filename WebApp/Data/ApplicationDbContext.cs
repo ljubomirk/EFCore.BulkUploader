@@ -22,15 +22,14 @@ namespace WebApp.Data
         // Promotion
         public DbSet<Promotion> Promotion { get; set; }
         public DbSet<Property> Properties { get; set; }
-        public DbSet<IssuerChannel> IssuerChannels { get; set; }
-        public DbSet<AwardChannel> AwardChannels { get; set; }
-        public DbSet<PromotionAwardChannel> PromotionAwardChannels { get; set; }
-        public DbSet<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
-        public DbSet<PromotionProperties> PromotionProperties { get; set; }
+        public DbSet<IssuerChannel> IssuerChannel { get; set; }
+        public DbSet<AwardChannel> AwardChannel { get; set; }
+        public DbSet<PromotionAwardChannel> PromotionAwardChannel { get; set; }
+        public DbSet<PromotionIssuerChannel> PromotionIssuerChannel { get; set; }
+        public DbSet<PromotionProperty> PromotionProperty { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             /* Unique keys */
             modelBuilder.Entity<Promotion>()
                         .HasIndex(b => b.Code)
@@ -46,7 +45,7 @@ namespace WebApp.Data
             modelBuilder.Entity<PromotionIssuerChannel>().HasKey(
                 pac => new { pac.PromotionId, pac.IssuerChannelId }
             );
-            modelBuilder.Entity<PromotionProperties>().HasKey(
+            modelBuilder.Entity<PromotionProperty>().HasKey(
                 pac => new { pac.PromotionId, pac.PropertyId }
             );
 
@@ -55,7 +54,7 @@ namespace WebApp.Data
                 BaseDefs.ArrayFrom<IssuerChannel, IssuerChannelEnum>()
             );
             modelBuilder.Entity<AwardChannel>().HasData(
-                AwardChannel.ArrayFrom<AwardChannel,AwardChannelEnum>()
+                CouponDatabase.Models.AwardChannel.ArrayFrom<AwardChannel, AwardChannelEnum>()
             );
             modelBuilder.Entity<Property>().HasData(
                 Property.ArrayFrom<Property,PropertyTypeEnum>()
@@ -87,8 +86,8 @@ namespace WebApp.Data
                     ValidTo = DateTime.Parse("01.09.2020")
                 }
             );
-            modelBuilder.Entity<PromotionProperties>().HasData(
-                           new PromotionProperties() { PromotionId = 1, PropertyId = 2}
+            modelBuilder.Entity<PromotionProperty>().HasData(
+                           new PromotionProperty() { PromotionId = 1, PropertyId = 2}
                         );
             modelBuilder.Entity<Coupon>().HasData(
                 new Coupon()

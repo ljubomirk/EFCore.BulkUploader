@@ -29,7 +29,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AwardChannels");
+                    b.ToTable("AwardChannel");
 
                     b.HasData(
                         new
@@ -136,7 +136,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IssuerChannels");
+                    b.ToTable("IssuerChannel");
 
                     b.HasData(
                         new
@@ -172,9 +172,7 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("Code");
 
                     b.Property<bool>("Enabled");
 
@@ -185,7 +183,8 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Code")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Code] IS NOT NULL");
 
                     b.ToTable("Promotion");
 
@@ -242,7 +241,7 @@ namespace WebApp.Migrations
                     b.ToTable("PromotionIssuerChannel");
                 });
 
-            modelBuilder.Entity("CouponDatabase.Models.PromotionProperties", b =>
+            modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
                 {
                     b.Property<long>("PromotionId");
 
@@ -252,7 +251,7 @@ namespace WebApp.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("PromotionProperties");
+                    b.ToTable("PromotionProperty");
 
                     b.HasData(
                         new
@@ -349,14 +348,14 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("CouponDatabase.Models.PromotionProperties", b =>
+            modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
                 {
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionProperties")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CouponDatabase.Models.Property", "Properties")
+                    b.HasOne("CouponDatabase.Models.Property", "Property")
                         .WithMany()
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade);

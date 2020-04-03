@@ -24,6 +24,8 @@ namespace CouponDatabase.Models
         [DataType(DataType.Text)]
         public String Code { get; set; }
         public Boolean Enabled { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public Boolean HasCoupons
@@ -71,7 +73,7 @@ namespace CouponDatabase.Models
         #region Relations
         public IList<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
         public IList<PromotionAwardChannel> PromotionAwardChannels { get; set; }
-        public IList<PromotionProperties> PromotionProperties { get; set; }
+        public IList<PromotionProperty> PromotionProperties { get; set; }
         public IList<Coupon> Coupons { get; set; }
         #endregion
     }

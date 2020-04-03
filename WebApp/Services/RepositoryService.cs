@@ -32,15 +32,15 @@ namespace WebApp.Services
         }
         public List<Property> GetAllPromotionProperties(long idPromotion)
         {
-            return Context.PromotionProperties.Where(x=>x.PromotionId==idPromotion).Select(c => c.Properties).Distinct().ToList<Property>();
+            return Context.PromotionProperty.Where(x=>x.PromotionId==idPromotion).Select(c => c.Property).Distinct().ToList<Property>();
         }
         public List<AwardChannel> GetAllPromotionAwardChannels(long idPromotion)
         {
-            return Context.PromotionAwardChannels.Where(x => x.PromotionId == idPromotion).Select(c => c.AwardChannel).Distinct().ToList<AwardChannel>();
+            return Context.PromotionAwardChannel.Where(x => x.PromotionId == idPromotion).Select(c => c.AwardChannel).Distinct().ToList<AwardChannel>();
         }
         public List<IssuerChannel> GetAllPromotionIssuerChannels(long idPromotion)
         {
-            return Context.PromotionIssuerChannels.Where(x => x.PromotionId == idPromotion).Select(c => c.IssuerChannel).Distinct().ToList<IssuerChannel>();
+            return Context.PromotionIssuerChannel.Where(x => x.PromotionId == idPromotion).Select(c => c.IssuerChannel).Distinct().ToList<IssuerChannel>();
         }
         public bool CreatePromotion(Promotion promotion)
         {
