@@ -34,6 +34,7 @@ namespace WebApp.Controllers
         {
             PromotionListViewModel model = new PromotionListViewModel();
             model.Promotions.AddRange(_repo.GetAllPromotions());
+            model.Filter = new Filters();
             return View("PromotionList",model);
         }
 
