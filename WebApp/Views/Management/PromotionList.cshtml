@@ -10,109 +10,125 @@
 <div class="row">
     <h4>
         @CouponDatabase.Properties.Resources.Promotions_Title
-        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat commando-primary white-text right"><i class="material-icons left">add</i>@CouponDatabase.Properties.Resources.Btn_CreateNew</a>
-        <a class="waves-effect waves-light btn-flat btn-default right u-m-r-md"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @CouponDatabase.Properties.Resources.Btn_Filter</a>
+        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat btn-primary right"><i class="material-icons left">add</i>@CouponDatabase.Properties.Resources.Btn_CreateNew</a>
+        <button class="waves-effect waves-light btn-flat btn-default right u-m-r-md" id="btn-filter"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @CouponDatabase.Properties.Resources.Btn_Filter</button>
     </h4>
 </div>
 
-@if (Model.Promotions.Count() > 0)
-{
-    <div style="background-color:white">
-        <table class="striped highlight">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
+<partial name="PromotionFilter" />
+    
 
-            <tbody>
-                @foreach (var p in Model.Promotions)
-                {
-                <tr>
-                    <td>@p.Code</td>
-                    <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
-                    <td>@p.ValidTo.ToString("dd.MM.yyyy")</td>
-                    <td> 
-                        @if (p.HasCoupons) { 
-                            <i class="material-icons">check</i>
-                        }
-                    </td>
-                    <td>
-                        @if (p.Active)
-                        {
-                            <i class="material-icons">check</i>
-                        }
-                    </td>
-                    <td>
-                        <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-target='promotion-actions'>
-                            <i class="material-icons material-icons__hover">more_horiz</i>
-                        </a>
-                    </td>
-                </tr>
-                }
+    @if (Model.Promotions.Count() > 0)
+    {
+        <div style="background-color:white">
+            <table class="striped highlight">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
+                        <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
+                        <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
+                        <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
+                        <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var p in Model.Promotions)
+                    {
+                        <tr>
+                            <td>@p.Code</td>
+                            <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
+                            <td>@p.ValidTo.ToString("dd.MM.yyyy")</td>
+                            <td>
+                                @if (p.HasCoupons)
+                                {
+                                    <i class="material-icons">check</i>
+                                }
+                            </td>
+                            <td>
+                                @if (p.Active)
+                                {
+                                    <i class="material-icons">check</i>
+                                }
+                            </td>
+                            <td>
+                                <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-target='promotion-actions'>
+                                    <i class="material-icons material-icons__hover">more_horiz</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
-        </table>
-    </div>
+            </table>
+        </div>
 
-    <ul class="pagination">
-        <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
-        <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="active"><a href="#!">1</a></li>
-        <li class="waves-effect"><a href="#!">2</a></li>
-        <li class="waves-effect"><a href="#!">3</a></li>
-        <li class="waves-effect"><a href="#!">4</a></li>
-        <li class="waves-effect"><a href="#!">5</a></li>
-        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
-    </ul>
+        <ul class="pagination">
+            <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
+            <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
+        </ul>
 
 
 
-    <!-- Promotion action -->
-    <ul id='promotion-actions' class='dropdown-content'>
-        <li>
-            <a class="action-promo" href="@Url.Action("EditPromotion","Management")">
-                <i class="material-icons">create</i>
-                @CouponDatabase.Properties.Resources.Btn_Edit
-            </a>
-        </li>
-        <li>
-            <a class="action-promo" href="@Url.Action("AddSeries","Management")">
-                <i class="material-icons">add</i>
-                @CouponDatabase.Properties.Resources.Btn_AddSeries
-            </a>
-        </li>
-        <li class="danger">
-            <a class="action-promo red-text" href="@Url.Action("DeletePromotion","Management")">
-                <i class="material-icons">delete_forever</i>
-                @CouponDatabase.Properties.Resources.Btn_Delete
-            </a>
-        </li>
-    </ul>
+        <!-- Promotion action -->
+        <ul id='promotion-actions' class='dropdown-content'>
+            <li>
+                <a class="action-promo" href="@Url.Action("EditPromotion","Management")">
+                    <i class="material-icons">create</i>
+                    @CouponDatabase.Properties.Resources.Btn_Edit
+                </a>
+            </li>
+            <li>
+                <a class="action-promo" href="@Url.Action("AddSeries","Management")">
+                    <i class="material-icons">add</i>
+                    @CouponDatabase.Properties.Resources.Btn_AddSeries
+                </a>
+            </li>
+            <li class="danger">
+                <a class="action-promo red-text" href="@Url.Action("DeletePromotion","Management")">
+                    <i class="material-icons">delete_forever</i>
+                    @CouponDatabase.Properties.Resources.Btn_Delete
+                </a>
+            </li>
+        </ul>
 
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-trigger').dropdown({
-                constrainWidth: false,
-                alignment: 'right'
-            });
+        <script>
+            $(document).ready(function () {
+                $('.dropdown-trigger').dropdown({
+                    constrainWidth: false,
+                    alignment: 'right'
+                });
 
-            // update url with id to corresponding promotion when clicked
-            $(".dropdown-trigger").click(function () {
-                var id = $(this).attr("data-id");
 
-                $(".action-promo").each(function () {
-                    var oldUrl = $(this).attr("href");
-                    var newUrl = oldUrl + "/" + id;
-                    $(this).attr("href", newUrl); 
+                // update url with id to corresponding promotion when clicked
+                $(".dropdown-trigger").click(function () {
+                    var id = $(this).attr("data-id");
+
+                    $(".action-promo").each(function () {
+                        var oldUrl = $(this).attr("href");
+                        var newUrl = oldUrl + "/" + id;
+                        $(this).attr("href", newUrl);
+                    })
                 })
-            })
-        });
-    </script>
-}
+
+                // open filter form
+                //$("#btn-filter").click(function () {
+                //    console.log("openaj");
+                //    //$(".form-filter").toggle("slow");
+                //})
+
+                $("#btn-filter").click(function(){
+                  $(".form-filter").slideToggle("slow");
+
+                });
+            });
+        </script>
+    }
 

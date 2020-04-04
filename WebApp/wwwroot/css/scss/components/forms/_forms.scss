@@ -20,6 +20,13 @@ label {
     box-shadow: 0 4px 8px 0 rgba(92,92,107,.08), 0 1px 3px 0 rgba(77,76,172,.08);
 }
 
+#form-filter {
+}
+.form-filter {
+    background-color: rgba($primary-color-light, .1);
+    padding-bottom: 20px;
+    display: none;
+}
 
 @import 'input-fields';
 @import 'radio-buttons';
