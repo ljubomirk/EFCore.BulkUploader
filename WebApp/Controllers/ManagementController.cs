@@ -52,7 +52,7 @@ namespace WebApp.Controllers
            // if (promo == null) RedirectToAction("Error");
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
-                Promotion = _repo.GetAllPromotions().Find(i => i.Id == Id),
+                Promotion = _repo.GetPromotionWithId(Id),
                 Properties = _repo.GetAllPromotionProperties(Id),
                 AwardChannels = _repo.GetAllPromotionAwardChannels(Id),
                 IssuerChannels = _repo.GetAllPromotionIssuerChannels(Id)
@@ -63,15 +63,17 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
         {
-            
-            var promo = _repo.GetAllPromotions().Find(i => i.Id == viewModel.Promotion.Id);
+
+            var promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
             if (promo == null) 
             {
-                ViewBag.CommandStatus = "[ERROR]";
-                ViewBag.CommandMessage = "Promotion with that ID not found.";
+                _repo.CreatePromotion(viewModel.Promotion);
+                ViewBag.CommandStatus = "[OK]";
+                ViewBag.CommandMessage = "Promotion created.";
             }
             else
             {
+                _repo.UpdatePromotion(promo);
                 ViewBag.CommandStatus = "[OK]";
                 ViewBag.CommandMessage = "Promotion saved.";
             }

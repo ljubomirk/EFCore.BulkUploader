@@ -26,25 +26,38 @@ namespace WebApp.Services
         {
             return Context.Promotion.ToList<Promotion>();
         }
+        public Promotion GetPromotionWithId(long id)
+        {
+            return Context.Promotion.First(x => x.Id == id);
+        }
         public List<Property> GetAllProperties()
         {
             return Context.Properties.ToList<Property>();
         }
         public List<Property> GetAllPromotionProperties(long idPromotion)
         {
-            return Context.PromotionProperty.Where(x=>x.PromotionId==idPromotion).Select(c => c.Property).Distinct().ToList<Property>();
+            return Context.PromotionProperties.Where(x=>x.PromotionId==idPromotion).Select(c => c.Property).Distinct().ToList<Property>();
         }
         public List<AwardChannel> GetAllPromotionAwardChannels(long idPromotion)
         {
-            return Context.PromotionAwardChannel.Where(x => x.PromotionId == idPromotion).Select(c => c.AwardChannel).Distinct().ToList<AwardChannel>();
+            List<AwardChannel> awardChannels = Context.AwardChannels.ToList<AwardChannel>();
+            return awardChannels.Where(x => awardChannels.Contains(x)).ToList<AwardChannel>();
         }
         public List<IssuerChannel> GetAllPromotionIssuerChannels(long idPromotion)
         {
-            return Context.PromotionIssuerChannel.Where(x => x.PromotionId == idPromotion).Select(c => c.IssuerChannel).Distinct().ToList<IssuerChannel>();
+            List<IssuerChannel> issuerChannels = Context.IssuerChannels.ToList<IssuerChannel>();
+            return issuerChannels.Where(x => issuerChannels.Contains(x)).ToList<IssuerChannel>();
         }
         public bool CreatePromotion(Promotion promotion)
         {
             Context.Promotion.Add(promotion);
+            Context.SaveChanges();
+            return true;
+        }
+        public bool UpdatePromotion(Promotion promotion)
+        {
+            Promotion selectedPromotion = Context.Promotion.First(x => x.Id == promotion.Id);
+            selectedPromotion = promotion;
             Context.SaveChanges();
             return true;
         }
