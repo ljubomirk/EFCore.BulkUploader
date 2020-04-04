@@ -3263,6 +3263,8 @@ table span.badge {
     margin-top: 36px; }
   .u-m-t-lg {
     margin-top: 72px; }
+  .u-m-t-negativ {
+    margin-top: -20px; }
   .u-m-b-remove {
     margin-bottom: 0; }
   .u-m-b-xs {
@@ -3310,8 +3312,8 @@ table span.badge {
   .u-p-t-md {
     padding-top: 16px; }
   .u-p-t-lg {
-    padding-top: 36px; }
-  .u-p-t-lg {
+    padding-top: 24px; }
+  .u-p-t-xl {
     padding-top: 72px; }
   .u-p-b-remove {
     padding-bottom: 0; }
@@ -3982,9 +3984,23 @@ p.section-headline {
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent; }
 
+.btn-primary {
+  color: #fff !important;
+  background-color: #4d4cac !important; }
+  .btn-primary:hover {
+    background-color: #7f7ec6 !important; }
+
 .btn-default {
-  color: #4d4cac !important;
+  color: #2d2d37 !important;
   background-color: rgba(1, 0, 94, 0.08) !important; }
+  .btn-default:hover {
+    background-color: #f7f7fa !important; }
+
+.btn-transparent {
+  color: #2d2d37 !important;
+  background-color: transparent !important; }
+  .btn-transparent:hover {
+    background-color: rgba(1, 0, 94, 0.08) !important; }
 
 .btn-danger {
   color: #F44336 !important;
@@ -4654,6 +4670,11 @@ label {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
+
+.form-filter {
+  background-color: rgba(127, 126, 198, 0.1);
+  padding-bottom: 20px;
+  display: none; }
 
 /* Text Inputs + Textarea
    ========================================================================== */
@@ -5441,6 +5462,17 @@ textarea {
 [type="checkbox"].filled-in:disabled:checked + span:not(.lever):after {
   background-color: #949494;
   border-color: #949494; }
+
+.checkbox-hover {
+  display: block;
+  border-radius: 4px;
+  padding: 5px 3px 3px 5px; }
+  .checkbox-hover:hover {
+    background-color: rgba(1, 0, 94, 0.08); }
+  .checkbox-hover label,
+  .checkbox-hover span {
+    cursor: pointer;
+    display: block; }
 
 /* Switch
    ========================================================================== */

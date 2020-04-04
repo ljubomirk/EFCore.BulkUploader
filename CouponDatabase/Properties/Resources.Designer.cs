@@ -70,6 +70,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply Filters.
+        /// </summary>
+        public static string Btn_ApplyFilters {
+            get {
+                return ResourceManager.GetString("Btn.ApplyFilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Btn_Cancel {
+            get {
+                return ResourceManager.GetString("Btn.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Btn_Create {
