@@ -4672,22 +4672,17 @@ label {
   box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
 
 .form-filter {
+  position: relative;
   background-color: rgba(127, 126, 198, 0.1);
   padding-bottom: 20px;
-  display: none; }
-
-.container {
-  margin: 0 auto;
-  max-width: 1280px;
-  width: 90%; }
-
-@media only screen and (min-width: 601px) {
-  .container {
-    width: 85%; } }
-
-@media only screen and (min-width: 993px) {
-  .container {
-    width: 70%; } }
+  display: none;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin: 0 -50vw 2rem -50vw;
+  border-top: 1px solid rgba(1, 0, 94, 0.08);
+  border-bottom: 1px solid rgba(1, 0, 94, 0.08); }
 
 /* Text Inputs + Textarea
    ========================================================================== */

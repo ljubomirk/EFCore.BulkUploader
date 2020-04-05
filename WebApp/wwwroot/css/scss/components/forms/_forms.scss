@@ -20,30 +20,18 @@ label {
     box-shadow: 0 4px 8px 0 rgba(92,92,107,.08), 0 1px 3px 0 rgba(77,76,172,.08);
 }
 
-#form-filter {
-}
 .form-filter {
+    position: relative;
     background-color: rgba($primary-color-light, .1);
     padding-bottom: 20px;
     display: none;
-}
-
-.container {
-    margin: 0 auto;
-    max-width: 1280px;
-    width: 90%;
-}
-
-@media #{$medium-and-up} {
-    .container {
-        width: 85%;
-    }
-}
-
-@media #{$large-and-up} {
-    .container {
-        width: 70%;
-    }
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin: 0 -50vw 2rem -50vw;
+    border-top: 1px solid $grey-light-1;
+    border-bottom: 1px solid $grey-light-1;
 }
 
 @import 'input-fields';
