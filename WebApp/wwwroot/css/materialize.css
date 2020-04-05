@@ -4676,6 +4676,19 @@ label {
   padding-bottom: 20px;
   display: none; }
 
+.container {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%; }
+
+@media only screen and (min-width: 601px) {
+  .container {
+    width: 85%; } }
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 70%; } }
+
 /* Text Inputs + Textarea
    ========================================================================== */
 /* Style Placeholders */
@@ -5467,6 +5480,9 @@ textarea {
   display: block;
   border-radius: 4px;
   padding: 5px 3px 3px 5px; }
+  .checkbox-hover__inline {
+    display: inline-block;
+    padding-right: 5px; }
   .checkbox-hover:hover {
     background-color: rgba(1, 0, 94, 0.08); }
   .checkbox-hover label,

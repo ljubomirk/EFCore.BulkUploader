@@ -17,11 +17,11 @@
             <div class="col s8">
                 <p class="section-headline">By State</p>
                 <p>
-                    <label class="u-m-r-lg">
+                    <label class="checkbox-hover checkbox-hover__inline u-m-r-lg">
                         @Html.CheckBoxFor(f => f.Filter.ShowActive, new { @class = "filled-in" })
                         <span>@Html.DisplayNameFor(f => f.Filter.ShowActive)</span>
                     </label>
-                    <label>
+                    <label class="checkbox-hover checkbox-hover__inline">
                         @Html.CheckBoxFor(f => f.Filter.ShowInactive, new { @class = "filled-in" })
                         <span>@Html.DisplayNameFor(f => f.Filter.ShowInactive)</span>
                     </label>
