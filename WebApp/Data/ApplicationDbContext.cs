@@ -22,11 +22,11 @@ namespace WebApp.Data
         // Promotion
         public DbSet<Promotion> Promotion { get; set; }
         public DbSet<Property> Properties { get; set; }
-        public DbSet<IssuerChannel> IssuerChannels { get; set; }
-        public DbSet<AwardChannel> AwardChannels { get; set; }
+        public DbSet<IssuerChannel> IssuerChannel { get; set; }
+        public DbSet<AwardChannel> AwardChannel { get; set; }
         public DbSet<PromotionAwardChannel> PromotionAwardChannel { get; set; }
         public DbSet<PromotionIssuerChannel> PromotionIssuerChannel { get; set; }
-        public DbSet<PromotionProperty> PromotionProperties { get; set; }
+        public DbSet<PromotionProperty> PromotionProperty { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
