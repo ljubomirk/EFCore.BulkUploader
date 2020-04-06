@@ -39,6 +39,24 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
+        public IActionResult Enable(long Id, bool enable)
+        {
+            Promotion promotion = _repo.GetPromotionWithId(Id);
+            promotion.Enabled = enable;
+            PromotionDetailsViewModel model = new PromotionDetailsViewModel
+            {
+                Promotion = promotion,
+                Properties = setModelProperties(_repo.GetAllProperties(), _repo.GetPromotionProperties(Id)),
+                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), _repo.GetPromotionAwardChannels(Id)),
+                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), _repo.GetPromotionIssuerChannels(Id))
+            };
+            _repo.UpdatePromotion(promotion);
+            ViewBag.CommandStatus = "[OK]";
+            ViewBag.CommandMessage = "Promotion saved.";
+
+            return View("PromotionDetails", model);
+        }
+        [HttpGet]
         public IActionResult CreatePromotion(Promotion promotion)
         {
             PromotionDetailsViewModel model = new PromotionDetailsViewModel();
@@ -59,6 +77,32 @@ namespace WebApp.Controllers
                 IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels() , _repo.GetPromotionIssuerChannels(Id))
             };
             return View("PromotionDetails", model);
+        }
+
+        [HttpPost]
+        public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
+        {
+
+            var promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
+            if (promo == null) 
+            {
+                _repo.CreatePromotion(viewModel.Promotion);
+                ViewBag.CommandStatus = "[OK]";
+                ViewBag.CommandMessage = "Promotion created.";
+            }
+            else
+            {
+                _repo.UpdatePromotion(promo);
+                ViewBag.CommandStatus = "[OK]";
+                ViewBag.CommandMessage = "Promotion saved.";
+            }
+            return View("PromotionDetails", viewModel);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         private List<CheckedItem> setModelIssuerChannels(List<IssuerChannel> allIssuerChannels, List<IssuerChannel> promotionIssuerChannels)
@@ -112,30 +156,5 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
-        [HttpPost]
-        public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
-        {
-
-            var promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
-            if (promo == null) 
-            {
-                _repo.CreatePromotion(viewModel.Promotion);
-                ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Promotion created.";
-            }
-            else
-            {
-                _repo.UpdatePromotion(promo);
-                ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Promotion saved.";
-            }
-            return View("PromotionDetails", viewModel);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
