@@ -271,7 +271,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Properties");
+                    b.ToTable("Property");
 
                     b.HasData(
                         new

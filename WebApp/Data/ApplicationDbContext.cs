@@ -21,7 +21,7 @@ namespace WebApp.Data
 
         // Promotion
         public DbSet<Promotion> Promotion { get; set; }
-        public DbSet<Property> Properties { get; set; }
+        public DbSet<Property> Property { get; set; }
         public DbSet<IssuerChannel> IssuerChannel { get; set; }
         public DbSet<AwardChannel> AwardChannel { get; set; }
         public DbSet<PromotionAwardChannel> PromotionAwardChannel { get; set; }
@@ -57,7 +57,7 @@ namespace WebApp.Data
                 CouponDatabase.Models.AwardChannel.ArrayFrom<AwardChannel, AwardChannelEnum>()
             );
             modelBuilder.Entity<Property>().HasData(
-                Property.ArrayFrom<Property,PropertyTypeEnum>()
+                CouponDatabase.Models.Property.ArrayFrom<Property, PropertyTypeEnum>()
             );
             //set Promotions
             modelBuilder.Entity<Promotion>().HasData(

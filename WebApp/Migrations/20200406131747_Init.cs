@@ -51,7 +51,7 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "Property",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -60,7 +60,7 @@ namespace WebApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    table.PrimaryKey("PK_Property", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,9 +156,9 @@ namespace WebApp.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PromotionProperty_Properties_PropertyId",
+                        name: "FK_PromotionProperty_Property_PropertyId",
                         column: x => x.PropertyId,
-                        principalTable: "Properties",
+                        principalTable: "Property",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -218,7 +218,7 @@ namespace WebApp.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Properties",
+                table: "Property",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
@@ -304,7 +304,7 @@ namespace WebApp.Migrations
                 name: "IssuerChannel");
 
             migrationBuilder.DropTable(
-                name: "Properties");
+                name: "Property");
 
             migrationBuilder.DropTable(
                 name: "Promotion");

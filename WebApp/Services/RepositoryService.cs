@@ -32,7 +32,7 @@ namespace WebApp.Services
         }
         public List<Property> GetAllProperties()
         {
-            return Context.Properties.ToList<Property>();
+            return Context.Property.ToList<Property>();
         }
         public List<Property> GetAllPromotionProperties(long idPromotion)
         {
@@ -42,6 +42,7 @@ namespace WebApp.Services
         {
             List<AwardChannel> awardChannels = Context.AwardChannel.ToList<AwardChannel>();
             return awardChannels.Where(x => awardChannels.Contains(x)).ToList<AwardChannel>();
+
         }
         public List<IssuerChannel> GetAllPromotionIssuerChannels(long idPromotion)
         {
