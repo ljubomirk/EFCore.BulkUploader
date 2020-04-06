@@ -34,20 +34,33 @@ namespace WebApp.Services
         {
             return Context.Property.ToList<Property>();
         }
-        public List<Property> GetAllPromotionProperties(long idPromotion)
+        public List<Property> GetPromotionProperties(long idPromotion)
         {
-            return Context.PromotionProperty.Where(x=>x.PromotionId==idPromotion).Select(c => c.Property).Distinct().ToList<Property>();
+            List<Property> properties = GetAllProperties();
+            Promotion promo = GetPromotionWithId(idPromotion);
+            return properties.Where(x => promo.PromotionProperties.FirstOrDefault(properties => properties.PromotionId == x.Id).PromotionId == x.Id).ToList<Property>();
         }
-        public List<AwardChannel> GetAllPromotionAwardChannels(long idPromotion)
+        public List<AwardChannel> GetAllAwardChannels()
         {
-            List<AwardChannel> awardChannels = Context.AwardChannel.ToList<AwardChannel>();
-            return awardChannels.Where(x => awardChannels.Contains(x)).ToList<AwardChannel>();
+            return Context.AwardChannel.ToList<AwardChannel>();
+        }
+        public List<AwardChannel> GetPromotionAwardChannels(long idPromotion)
+        {
+            List<AwardChannel> awardChannels = GetAllAwardChannels();
+            Promotion promo = GetPromotionWithId(idPromotion);
+            return awardChannels.Where(x => promo.PromotionAwardChannels.FirstOrDefault(awardChannels => awardChannels.AwardChannelId == x.Id).AwardChannelId == x.Id).ToList<AwardChannel>();
 
         }
-        public List<IssuerChannel> GetAllPromotionIssuerChannels(long idPromotion)
+        public List<IssuerChannel> GetAllIssuerChannels()
         {
-            List<IssuerChannel> issuerChannels = Context.IssuerChannel.ToList<IssuerChannel>();
-            return issuerChannels.Where(x => issuerChannels.Contains(x)).ToList<IssuerChannel>();
+            return Context.IssuerChannel.ToList<IssuerChannel>();
+        }
+        public List<IssuerChannel> GetPromotionIssuerChannels(long idPromotion)
+        {
+            List<IssuerChannel> issuerChannels = GetAllIssuerChannels();
+            Promotion promo = GetPromotionWithId(idPromotion);
+
+            return issuerChannels.Where(x => promo.PromotionIssuerChannels.FirstOrDefault(issuerChannel => issuerChannel.IssuerChannelId == x.Id).IssuerChannelId == x.Id).ToList<IssuerChannel>();
         }
         public bool CreatePromotion(Promotion promotion)
         {
