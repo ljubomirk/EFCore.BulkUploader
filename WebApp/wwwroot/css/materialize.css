@@ -2596,6 +2596,9 @@ input[type=range] + .thumb {
 .no-padding {
   padding: 0 !important; }
 
+.relative {
+  position: relative; }
+
 span.badge {
   min-width: 3rem;
   padding: 0 6px;
@@ -2647,10 +2650,6 @@ table span.badge {
   .material-icons__hover:hover {
     background-color: rgba(1, 0, 94, 0.08);
     border-radius: 4px; }
-
-.validation-error {
-  cursor: default;
-  color: #EF5350; }
 
 .container {
   margin: 0 auto;
@@ -3230,9 +3229,9 @@ table span.badge {
   /*margins*/
   /*padding*/ }
   .u-m-remove {
-    margin: 0; }
+    margin: 0 !important; }
   .u-m-r-remove {
-    margin-right: 0; }
+    margin-right: 0 !important; }
   .u-m-r-xs {
     margin-right: 4px; }
   .u-m-r-sm {
@@ -3244,7 +3243,7 @@ table span.badge {
   .u-m-r-lg {
     margin-right: 72px; }
   .u-m-l-remove {
-    margin-left: 0; }
+    margin-left: 0 !important; }
   .u-m-l-xs {
     margin-left: 4px; }
   .u-m-l-sm {
@@ -3256,11 +3255,13 @@ table span.badge {
   .u-m-l-lg {
     margin-left: 72px; }
   .u-m-t-remove {
-    margin-top: 0; }
+    margin-top: 0 !important; }
   .u-m-t-xs {
     margin-top: 4px; }
   .u-m-t-sm {
     margin-top: 8px; }
+  .u-m-t-md-btnGroup {
+    margin-top: 15px; }
   .u-m-t-md {
     margin-top: 16px; }
   .u-m-t-lg {
@@ -3270,7 +3271,7 @@ table span.badge {
   .u-m-t-negativ {
     margin-top: -20px; }
   .u-m-b-remove {
-    margin-bottom: 0; }
+    margin-bottom: 0 !important; }
   .u-m-b-xs {
     margin-bottom: 4px; }
   .u-m-b-sm {
@@ -3579,6 +3580,16 @@ h6 {
   font-size: 1.15rem;
   line-height: 110%;
   margin: 0.76667rem 0 0.46rem 0; }
+
+h5.section {
+  width: 672px;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: #5c5c6b; }
 
 em {
   font-style: italic; }
@@ -4265,6 +4276,42 @@ button.btn-floating {
 .btn-block {
   display: block; }
 
+.btn-group {
+  display: inline-block;
+  border: 1px solid #d5d5df;
+  border-radius: 4px; }
+  .btn-group > div {
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+    padding: 0 16px;
+    vertical-align: middle;
+    background-color: transparent;
+    border: none;
+    outline: 0;
+    font-weight: 600;
+    font-size: 18px;
+    color: #2d2d37 !important; }
+    .btn-group > div.active {
+      color: #4d4cac !important;
+      background-color: rgba(77, 76, 172, 0.1); }
+    .btn-group > div.disabled {
+      color: #9494a2 !important; }
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table; }
+
+.btn-group button:not(:last-child) {
+  border-right: none;
+  /* Prevent double borders */ }
+
+/* Add a background color on hover */
+/*.btn-group button:hover {
+    background-color: #3e8e41;
+}*/
 .dropdown-content {
   background-color: #fff;
   margin: 0;
@@ -4869,6 +4916,11 @@ textarea.materialize-textarea {
     width: 100%; }
 
 /* Validation Sass Placeholders */
+/* icon on input field */
+.validation-error {
+  cursor: default;
+  color: #EF5350 !important; }
+
 input.valid:not([type]), input.valid:not([type]):focus,
 input[type=text].valid:not(.browser-default),
 input[type=text].valid:not(.browser-default):focus,
@@ -5144,7 +5196,8 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
     font-size: 2rem;
     transition: color .2s;
     top: 0.5rem;
-    right: 0; }
+    right: 0;
+    color: rgba(0, 0, 0, 0.42); }
     .input-field .suffix.active {
       color: #26a69a; }
     .input-field .suffix.disabled {
@@ -5241,6 +5294,13 @@ textarea {
 /* Character Counter */
 .character-counter {
   min-height: 18px; }
+
+.label-offsetPosition {
+  position: absolute !important;
+  display: block;
+  left: -50px !important;
+  font-size: 1rem;
+  width: 150px !important; }
 
 /* Radio Buttons
    ========================================================================== */

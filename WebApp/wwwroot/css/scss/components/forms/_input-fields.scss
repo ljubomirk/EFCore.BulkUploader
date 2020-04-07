@@ -105,6 +105,14 @@ textarea.materialize-textarea {
 
 
 /* Validation Sass Placeholders */
+
+/* icon on input field */
+.validation-error {
+    cursor: default;
+    color: color("red","lighten-1") !important;
+}
+
+
 %valid-input-style {
     border-bottom: 1px solid $primary-color;
     box-shadow: 0 1px 0 0 $primary-color;
@@ -262,6 +270,7 @@ textarea.materialize-textarea {
         transition: color .2s;
         top: ($input-height - $input-icon-size) / 2;
         right: 0;
+        color: rgba(0,0,0,.42);
 
         &.active {
             color: $input-focus-color;
@@ -399,4 +408,12 @@ textarea {
 /* Character Counter */
 .character-counter {
     min-height: 18px;
+}
+
+.label-offsetPosition {
+    position: absolute !important;
+    display: block;
+    left: -50px !important;
+    font-size: 1rem;
+    width: 150px !important;
 }

@@ -2,12 +2,12 @@
     /*margins*/
     &-m {
         &-remove {
-            margin: 0;
+            margin: 0 !important;
         }
 
         &-r {
             &-remove {
-                margin-right: 0;
+                margin-right: 0 !important;
             }
 
             &-xs {
@@ -33,7 +33,7 @@
 
         &-l {
             &-remove {
-                margin-left: 0;
+                margin-left: 0 !important;
             }
 
             &-xs {
@@ -59,7 +59,7 @@
 
         &-t {
             &-remove {
-                margin-top: 0;
+                margin-top: 0 !important;
             }
 
             &-xs {
@@ -68,6 +68,10 @@
 
             &-sm {
                 margin-top: 8px;
+            }
+
+            &-md-btnGroup {
+                margin-top: 15px;
             }
 
             &-md {
@@ -81,7 +85,7 @@
             &-lg {
                 margin-top: 72px;
             }
-            
+
             &-negativ {
                 margin-top: -20px;
             }
@@ -89,7 +93,7 @@
 
         &-b {
             &-remove {
-                margin-bottom: 0;
+                margin-bottom: 0 !important;
             }
 
             &-xs {
@@ -195,8 +199,6 @@
             &-xl {
                 padding-top: 72px;
             }
-
-            
         }
 
         &-b {

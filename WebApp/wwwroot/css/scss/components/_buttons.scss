@@ -353,3 +353,50 @@ button.btn-floating {
 .btn-block {
   display: block;
 }
+
+// Button group
+.btn-group {
+    display: inline-block;
+    border: $button-group-border;
+    border-radius: 4px;
+
+    & > div {
+        display: inline-block;
+        height: $button-height;
+        //width: 100px;
+        line-height: $button-height;
+        padding: $button-padding;
+        vertical-align: middle;
+        background-color: transparent;
+        border: none;
+        outline: 0;
+        font-weight: 600;
+        font-size: $button-font-size;
+        color: $black !important;
+
+        &.active {
+            color: $primary-color !important;
+            background-color: rgba(#4d4cac, .1);
+        }
+
+        &.disabled {
+            color: $grey !important;
+        }
+    }
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+/*.btn-group button:hover {
+    background-color: #3e8e41;
+}*/

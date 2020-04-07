@@ -269,4 +269,12 @@
     <value>Cancel</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Btn.Generate" xml:space="preserve">
+    <value>Generate</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Import" xml:space="preserve">
+    <value>Import</value>
+    <comment>Button label.</comment>
+  </data>
 </root>
