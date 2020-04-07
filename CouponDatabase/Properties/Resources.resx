@@ -277,4 +277,12 @@
     <value>Import</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Btn.Disable" xml:space="preserve">
+    <value>Disable</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn.Enable" xml:space="preserve">
+    <value>Enable</value>
+    <comment>Button label.</comment>
+  </data>
 </root>

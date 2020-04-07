@@ -1,135 +1,190 @@
-﻿
+﻿@*
+    * TODO:
+    *   table sorting
+    *   pagination
+    *   filter
+    *   date localization
+*@
 @model WebApp.ViewModels.PromotionListViewModel;
-@{
-    ViewData["Title"] = "Home Page";
-    /* Handling ... */
 
+@{
+    ViewData["Title"] = "Promotion List";
 }
 
-
+<!-- heading -->
 <div class="row">
     <h4>
         @CouponDatabase.Properties.Resources.Promotions_Title
-        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat btn-primary right"><i class="material-icons left">add</i>@CouponDatabase.Properties.Resources.Btn_CreateNew</a>
-        <button class="waves-effect waves-light btn-flat btn-default right u-m-r-md" id="btn-filter"><i class="material-icons left"><img src="~/images/svg/filter.svg" /></i> @CouponDatabase.Properties.Resources.Btn_Filter</button>
+        <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat btn-primary right">
+            <i class="material-icons left">add</i>
+            @CouponDatabase.Properties.Resources.Btn_CreateNew
+        </a>
+        <button class="waves-effect waves-light btn-flat btn-default right u-m-r-md" id="btn-filter">
+            <i class="material-icons left"><img src="~/images/svg/filter.svg" /></i>
+            @CouponDatabase.Properties.Resources.Btn_Filter
+        </button>
     </h4>
 </div>
+<!-- /heading -->
 
 <partial name="PromotionFilter" />
-    
 
-    @if (Model.Promotions.Count() > 0)
-    {
-        <div style="background-color:white">
-            <table class="striped highlight">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
-                        <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
-                        <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
-                        <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
-                        <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
+@if (Model.Promotions.Count() > 0)
+{
+    <div style="background-color:white">
+        <!-- promotion table -->
+        <table class="striped highlight">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
+                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Enabled)</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    @foreach (var p in Model.Promotions)
-                    {
-                        <tr>
-                            <td>@p.Code</td>
-                            <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
-                            <td>@p.ValidTo.ToString("dd.MM.yyyy")</td>
-                            <td>
-                                @if (p.HasCoupons)
-                                {
-                                    <i class="material-icons">check</i>
-                                }
-                            </td>
-                            <td>
-                                @if (p.Active)
-                                {
-                                    <i class="material-icons">check</i>
-                                }
-                            </td>
-                            <td>
-                                <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-target='promotion-actions'>
-                                    <i class="material-icons material-icons__hover">more_horiz</i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+            <tbody>
+                @foreach (var p in Model.Promotions)
+                {
+                <tr>
+                    <td>@p.Code</td>
+                    <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
+                    <td>@p.ValidTo.ToString("dd.MM.yyyy")</td>
+                    <td>
+                        @if (p.HasCoupons)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        @if (p.Active)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        @if (p.Enabled)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-value="@p.Enabled" data-target='promotion-actions'>
+                            <i class="material-icons material-icons__hover">more_horiz</i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <!-- /promotion table -->
+    </div>
 
-        <ul class="pagination">
-            <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
-            <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
-            <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-            <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
-        </ul>
+    <!-- pagination -->
+    <ul class="pagination">
+        <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
+        <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
+    </ul>
+    <!-- /pagination -->
 
+    <!-- promotion action -->
+    <ul id='promotion-actions' class='dropdown-content'>
+        <li>
+            <a class="action-promo" data-action="Edit" href="">
+                <i class="material-icons">create</i>
+                @CouponDatabase.Properties.Resources.Btn_Edit
+            </a>
+        </li>
+        <li>
+            <a class="action-promo" data-action="AddSeries" href="">
+                <i class="material-icons">add</i>
+                @CouponDatabase.Properties.Resources.Btn_AddSeries
+            </a>
+        </li>
+        <li id="btn-enable">
+            <a class="action-promo" data-action="Enable" href="">
+            </a>
+        </li>
+    </ul>
+    <!-- /promotion action -->
 
-
-        <!-- Promotion action -->
-        <ul id='promotion-actions' class='dropdown-content'>
-            <li>
-                <a class="action-promo" href="@Url.Action("EditPromotion","Management")">
-                    <i class="material-icons">create</i>
-                    @CouponDatabase.Properties.Resources.Btn_Edit
-                </a>
-            </li>
-            <li>
-                <a class="action-promo" href="@Url.Action("EditCouponSeries","Management")">
-                    <i class="material-icons">add</i>
-                    @CouponDatabase.Properties.Resources.Btn_AddSeries
-                </a>
-            </li>
-            <li class="danger">
-                <a class="action-promo red-text" href="@Url.Action("DeletePromotion","Management")">
-                    <i class="material-icons">delete_forever</i>
-                    @CouponDatabase.Properties.Resources.Btn_Delete
-                </a>
-            </li>
-        </ul>
-
-        <script>
-            $(document).ready(function () {
-                $('.dropdown-trigger').dropdown({
-                    constrainWidth: false,
-                    alignment: 'right'
-                });
-
-
-                // update url with id to corresponding promotion when clicked
-                // TODO: store url in variable on document ready and use (bug - ids are stacked if multiple clicks)
-                $(".dropdown-trigger").click(function () {
-                    var id = $(this).attr("data-id");
-
-                    $(".action-promo").each(function () {
-                        var oldUrl = $(this).attr("href");
-                        var newUrl = oldUrl + "/" + id;
-                        $(this).attr("href", newUrl);
-                    })
-                })
-
-                // open filter form
-                //$("#btn-filter").click(function () {
-                //    console.log("openaj");
-                //    //$(".form-filter").toggle("slow");
-                //})
-
-                $("#btn-filter").click(function(){
-                  $(".form-filter").slideToggle("slow");
-
-                });
+    <script>
+        $(document).ready(function () {
+            // init dropdown menu
+            $('.dropdown-trigger').dropdown({
+                constrainWidth: false,
+                alignment: 'right',
+                outDuration: 100,
+                onCloseEnd: function () {
+                    // this fixes the "3 click bug" when dropbox opens and next click is another dropdown
+                    $("body").click();
+                }
             });
-        </script>
-    }
+
+
+            // update url with id to corresponding promotion when clicked
+            $(".dropdown-trigger").click(function () {
+                // base urls
+                var urlEdit = "@Url.Action("EditPromotion", "Management")";
+                var urlAddSeries = "@Url.Action("EditCouponSeries", "Management")";
+                var urlEnable = "@Url.Action("Enable", "Management")";
+
+                // model data
+                var id = $(this).attr("data-id");
+                var val = $(this).attr("data-value");
+
+                // set styling of enable button
+                // set opposite val to current Enable status
+                var enableBtn = $("#btn-enable");
+                var enableBtnText = $("#btn-enable > a");
+
+                if (val == "True") {
+                    val = "False";
+                    enableBtn.removeClass("enable");
+                    enableBtn.addClass("disable");
+                    enableBtnText.html(
+                        "<i class='material-icons'>power_settings_new</i>" +
+                        "@CouponDatabase.Properties.Resources.Btn_Disable"
+                    );
+
+                } else {
+                    val = "True";
+                    enableBtn.removeClass("disable");
+                    enableBtn.addClass("enable");
+                    enableBtnText.html(
+                        "<i class='material-icons'>power_settings_new</i>" +
+                        "@CouponDatabase.Properties.Resources.Btn_Enable"
+                    );
+                }
+
+                // set correct urls for each promo action
+                $(".action-promo").each(function () {
+                    var url = "";
+                    var action = $(this).attr("data-action");
+
+                    if (action == "Edit") url = urlEdit + "/" + id;
+                    else if (action == "AddSeries") url = urlAddSeries + "/" + id;
+                    else if (action == "Enable") url = urlEnable + encodeURI("?id=" + id + "&enable=" + val);
+
+                    $(this).attr("href", url);
+                })
+            })
+
+            // toggle filter
+            $("#btn-filter").click(function () {
+                $(".form-filter").slideToggle("slow");
+            });
+        });
+    </script>
+}
 

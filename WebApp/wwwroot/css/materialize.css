@@ -4308,10 +4308,19 @@ button.btn-floating {
   border-right: none;
   /* Prevent double borders */ }
 
-/* Add a background color on hover */
-/*.btn-group button:hover {
-    background-color: #3e8e41;
-}*/
+/* enable disable classes for promotion list actions */
+li.enable:hover {
+  background-color: #E8F5E9 !important; }
+
+li.enable > a {
+  color: #43A047 !important; }
+
+li.disable:hover {
+  background-color: #FFEBEE !important; }
+
+li.disable > a {
+  color: #E53935 !important; }
+
 .dropdown-content {
   background-color: #fff;
   margin: 0;

@@ -124,11 +124,29 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string Btn_Disable {
+            get {
+                return ResourceManager.GetString("Btn.Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Btn_Edit {
             get {
                 return ResourceManager.GetString("Btn.Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string Btn_Enable {
+            get {
+                return ResourceManager.GetString("Btn.Enable", resourceCulture);
             }
         }
         

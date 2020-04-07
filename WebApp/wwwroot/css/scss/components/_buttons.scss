@@ -396,7 +396,23 @@ button.btn-floating {
     border-right: none; /* Prevent double borders */
 }
 
-/* Add a background color on hover */
-/*.btn-group button:hover {
-    background-color: #3e8e41;
-}*/
+/* enable disable classes for promotion list actions */
+li.enable {
+    &:hover {
+        background-color: color("green", "lighten-5") !important;
+    }
+
+    & > a {
+        color: color("green", "darken-1") !important;
+    }
+}
+
+li.disable {
+    &:hover {
+        background-color: color("red", "lighten-5") !important;
+    }
+
+    & > a {
+        color: color("red", "darken-1") !important;
+    }
+}
