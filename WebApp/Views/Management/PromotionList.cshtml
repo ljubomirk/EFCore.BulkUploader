@@ -86,7 +86,7 @@
                 </a>
             </li>
             <li>
-                <a class="action-promo" href="@Url.Action("AddSeries","Management")">
+                <a class="action-promo" href="@Url.Action("EditCouponSeries","Management")">
                     <i class="material-icons">add</i>
                     @CouponDatabase.Properties.Resources.Btn_AddSeries
                 </a>
@@ -108,6 +108,7 @@
 
 
                 // update url with id to corresponding promotion when clicked
+                // TODO: store url in variable on document ready and use (bug - ids are stacked if multiple clicks)
                 $(".dropdown-trigger").click(function () {
                     var id = $(this).attr("data-id");
 

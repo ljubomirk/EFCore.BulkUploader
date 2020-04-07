@@ -197,14 +197,14 @@
                         <i class="material-icons left">check</i>
                         @CouponDatabase.Properties.Resources.Btn_Create
                     </button>
-                    <a class="waves-effect waves-light btn-flat btn-default commando-primary-text">
+                    <a href="@Url.Action("AddCouponSeries","Management")" class="waves-effect waves-light btn-flat btn-default commando-primary-text">
                         <i class="material-icons left">arrow_forward</i>
                         @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
                     </a>
                 }
                 else
                 {
-                    <a class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                    <a href="@Url.Action("AddCouponSeries","Management")" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
                         <i class="material-icons left">add</i>
                         @CouponDatabase.Properties.Resources.Btn_AddSeries
                     </a>

@@ -143,6 +143,22 @@ namespace WebApp.Controllers
             return View("PromotionDetails", viewModel);
         }
 
+        #region TEST
+        [HttpGet]
+        public IActionResult AddCouponSeries()
+        {
+            ContextData user = new ContextData();
+            return View("PromotionCouponSeries", user);
+        }
+        [Route("{Id}")]
+        [HttpGet]
+        public IActionResult EditCouponSeries(long id)
+        {
+            ContextData user = new ContextData();
+            return View("PromotionCouponSeries", user);
+        }
+        #endregion
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
