@@ -4,15 +4,16 @@
 
 @using (Html.BeginForm("SavePromotion", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
 {
-
-    <div class="row">
-        <h4>
-            Create Coupon Series
-            <a class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
-                <i class="material-icons left">clear</i>
-                @CouponDatabase.Properties.Resources.Btn_Cancel
-            </a>
-        </h4>
+    <div class="container">
+        <div class="row">
+            <h4>
+                Create Coupon Series
+                <a class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
+                    <i class="material-icons left">clear</i>
+                    @CouponDatabase.Properties.Resources.Btn_Cancel
+                </a>
+            </h4>
+        </div>
     </div>
 
     <div class="form-box">
@@ -62,10 +63,10 @@
                 <div class="col s12">
                     <p class="section-headline u-m-t-remove">Current Status</p>
                     <div class="btn-group">
-                        <div type="button" class="active">Created</div>
-                        <div type="button">Issued</div>
-                        <div type="button" class="disabled">Redeemed</div>
-                        <div type="button">Canceled</div>
+                        <div type="button" class="btn-status active">Created</div>
+                        <div type="button" class="btn-status">Issued</div>
+                        <div type="button" class="btn-status disabled">Redeemed</div>
+                        <div type="button" class="btn-status">Canceled</div>
                     </div>
                 </div>
             </div>
@@ -171,6 +172,9 @@
                 input.val(parseInt(inputVal) + 1);
             }
         });
+
+
+        // TODO: coupon sample generator
     });
 
 </script>
