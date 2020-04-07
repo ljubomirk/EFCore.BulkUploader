@@ -78,7 +78,7 @@ namespace WebApp.Controllers
             }
 
             model.Promotions.AddRange(filteredListOfPromotions);
-            model.Filter = new Filters();
+            model.Filter = filter;
             return View("PromotionList", model);
         }
 
