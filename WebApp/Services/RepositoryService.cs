@@ -73,15 +73,15 @@ namespace WebApp.Services
         public bool CreatePromotion(Promotion promotion)
         {
             Context.Promotion.Add(promotion);
-            Context.SaveChanges();
-            return true;
+            int returnValue = Context.SaveChanges();
+            return returnValue>0?true:false;
         }
         public bool UpdatePromotion(Promotion promotion)
         {
             Promotion selectedPromotion = Context.Promotion.First(x => x.Id == promotion.Id);
             selectedPromotion = promotion;
-            Context.SaveChanges();
-            return true;
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
         }
     }
 }

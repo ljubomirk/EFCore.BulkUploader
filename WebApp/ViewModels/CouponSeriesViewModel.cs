@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.ViewModels
 {
-    public class CouponSeriesViewModel
+    public class CouponSeriesViewModel : ContextData
     {
         public int NumberOfCoupons { get; set; }
         public DateTime AssignableFrom { get; set; }

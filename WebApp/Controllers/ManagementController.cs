@@ -90,8 +90,7 @@ namespace WebApp.Controllers
         public IActionResult AddCouponSeries()
         {
             CouponSeriesViewModel model = new CouponSeriesViewModel();
-            ContextData user = new ContextData();
-            return View("PromotionCouponSeries", user);
+            return View("PromotionCouponSeries", model);
         }
 
         [HttpGet]
@@ -113,10 +112,9 @@ namespace WebApp.Controllers
             return View("PromotionDetails", model);
         }
         [HttpGet]
-        public IActionResult CreatePromotion(Promotion promotion)
+        public IActionResult CreatePromotion()
         {
             PromotionDetailsViewModel model = new PromotionDetailsViewModel();
-            _repo.CreatePromotion(promotion);
             return View("PromotionDetails", model);
         }
 
@@ -148,7 +146,7 @@ namespace WebApp.Controllers
             }
             else
             {
-                _repo.UpdatePromotion(promo);
+                _repo.UpdatePromotion(viewModel.Promotion);
                 ViewBag.CommandStatus = "[OK]";
                 ViewBag.CommandMessage = "Promotion saved.";
             }
