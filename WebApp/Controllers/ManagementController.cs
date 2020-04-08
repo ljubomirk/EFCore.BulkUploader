@@ -82,6 +82,18 @@ namespace WebApp.Controllers
             return View("PromotionList", model);
         }
 
+        /// <summary>
+        /// Add coupon series
+        /// </summary>
+        /// <returns>Opens add coupon series form</returns>
+        [HttpGet]
+        public IActionResult AddCouponSeries()
+        {
+            CouponSeriesViewModel model = new CouponSeriesViewModel();
+            ContextData user = new ContextData();
+            return View("PromotionCouponSeries", user);
+        }
+
         [HttpGet]
         public IActionResult Enable(long Id, bool enable)
         {
@@ -144,12 +156,6 @@ namespace WebApp.Controllers
         }
 
         #region TEST
-        [HttpGet]
-        public IActionResult AddCouponSeries()
-        {
-            ContextData user = new ContextData();
-            return View("PromotionCouponSeries", user);
-        }
         [Route("{Id}")]
         [HttpGet]
         public IActionResult EditCouponSeries(long id)
