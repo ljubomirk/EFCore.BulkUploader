@@ -222,15 +222,19 @@
 
 
 .two-cols {
+}
+
+.three-cols {
     display: flex;
     flex-wrap: wrap;
     padding-top: 1rem !important;
 
 
     & > p {
-        flex: 0 50%;
+        flex: 0 33%;
         margin-top: 0;
-        &:nth-child(even){
+
+        &:nth-child(even) {
             padding-left: .75rem;
         }
     }

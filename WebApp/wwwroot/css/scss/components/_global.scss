@@ -428,6 +428,7 @@ table {
         }
 
         > thead {
+            background-color: $white;
             border-bottom: 1px solid $grey-light-1;
         }
 
@@ -438,6 +439,10 @@ table {
 
             > tr > td {
                 border-radius: 0;
+
+                &:not(:first-child) {
+                    text-align: center;
+                }
             }
         }
     }
@@ -447,7 +452,7 @@ table {
 
         &:hover {
             /*cursor: pointer;*/
-            background-color: rgba($primary-color-light ,.1);
+            background-color: rgba($primary-color-light,.1);
         }
     }
 

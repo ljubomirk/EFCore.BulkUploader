@@ -2341,11 +2341,14 @@ table {
   table.striped tr {
     border-bottom: none; }
   table.striped > thead {
+    background-color: #fff;
     border-bottom: 1px solid rgba(1, 0, 94, 0.08); }
   table.striped > tbody > tr:nth-child(odd) {
     background-color: rgba(242, 242, 242, 0.5); }
   table.striped > tbody > tr > td {
     border-radius: 0; }
+    table.striped > tbody > tr > td:not(:first-child) {
+      text-align: center; }
   table.highlight > tbody > tr {
     transition: background-color .25s ease; }
     table.highlight > tbody > tr:hover {
@@ -5578,14 +5581,14 @@ textarea {
     display: block; }
 
 /* half width paragraph for 2 collumn checkbox rendering */
-.two-cols {
+.three-cols {
   display: flex;
   flex-wrap: wrap;
   padding-top: 1rem !important; }
-  .two-cols > p {
-    flex: 0 50%;
+  .three-cols > p {
+    flex: 0 33%;
     margin-top: 0; }
-    .two-cols > p:nth-child(even) {
+    .three-cols > p:nth-child(even) {
       padding-left: .75rem; }
 
 /* Switch

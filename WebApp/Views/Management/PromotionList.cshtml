@@ -10,6 +10,8 @@
 @{
     ViewData["Title"] = "Promotion List";
 }
+<!-- table style -->
+<link rel="stylesheet" type="text/css" href="~/css/datatables.css">
 
 <!-- heading -->
 <div class="row">
@@ -31,24 +33,23 @@
 
 @if (Model.Promotions.Count() > 0)
 {
-    <div style="background-color:white">
-        <!-- promotion table -->
-        <table class="striped highlight">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
-                    <th>@Html.DisplayNameFor(m => m.Promotions[0].Enabled)</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
+    <!-- promotion table -->
+    <table id="promotion-list" class="striped highlight">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].Code)</th>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidFrom)</th>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].ValidTo)</th>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].HasCoupons)</th>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].Active)</th>
+                <th>@Html.DisplayNameFor(m => m.Promotions[0].Enabled)</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
 
-            <tbody>
-                @foreach (var p in Model.Promotions)
-                {
+        <tbody>
+            @foreach (var p in Model.Promotions)
+            {
                 <tr>
                     <td>@p.Code</td>
                     <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
@@ -77,11 +78,10 @@
                         </a>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-        <!-- /promotion table -->
-    </div>
+            }
+        </tbody>
+    </table>
+    <!-- /promotion table -->
 
     <!-- pagination -->
     <ul class="pagination">
@@ -118,8 +118,21 @@
     </ul>
     <!-- /promotion action -->
 
+    <!-- SCRIPTS -->
+
+    <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script>
         $(document).ready(function () {
+            // init data table
+            $('#promotion-list').DataTable({
+                searching: false,
+                info: false,
+                lengthChange: false,
+                pagingType: "full_numbers",
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ]
+            });
             // init dropdown menu
             $('.dropdown-trigger').dropdown({
                 constrainWidth: false,

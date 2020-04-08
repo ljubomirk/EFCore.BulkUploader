@@ -10,13 +10,12 @@
                 <div class="u-p-t-lg">
                     <div class="input-field">
                         @Html.EditorFor(f => f.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "" } })
-                        @*'By Code' should be put as name property of Filter.Code*@
-                        @Html.LabelFor(f => f.Filter.Code, "By Code", new { @class = "active" })
+                        @Html.LabelFor(f => f.Filter.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
                     </div>
                 </div>
             </div>
             <div class="col s8">
-                <p class="section-headline">By State</p>
+                <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
                 <p>
                     <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
                         @Html.CheckBoxFor(f => f.Filter.ShowActive, new { @class = "filled-in" })
@@ -30,13 +29,21 @@
             </div>
         </div>
         <div class="row u-m-t-negativ">
-            <div class="col s4">
-                @*'By Property' should be put as name property of Filter.Properties*@
-                <p class="section-headline">By Property</p>
+            <div class="col s12">
+                <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
+            </div>
+            <div class="col s12">
+                @*@foreach (var chkBox in Model.Filter.Properties)
+                {
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" checked="@p."/>
+                            <span>@p.label</span>
+                        </label>
+                    </p>
+                }*@
                 <p class="checkbox-hover">
                     <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
                         <input type="checkbox" class="filled-in" />
                         <span>Named holders</span>
                     </label>
@@ -44,7 +51,7 @@
                 <p class="checkbox-hover">
                     <label>
                         @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
+                <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
                         <input type="checkbox" class="filled-in" />
                         <span>Named consumers</span>
                     </label>

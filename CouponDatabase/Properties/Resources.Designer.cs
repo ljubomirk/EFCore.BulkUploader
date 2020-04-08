@@ -268,6 +268,33 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Code.
+        /// </summary>
+        public static string Filter_ByCode {
+            get {
+                return ResourceManager.GetString("Filter.ByCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Property.
+        /// </summary>
+        public static string Filter_ByProperty {
+            get {
+                return ResourceManager.GetString("Filter.ByProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By State.
+        /// </summary>
+        public static string Filter_ByState {
+            get {
+                return ResourceManager.GetString("Filter.ByState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
         public static string LifecycleAction_Assign {
