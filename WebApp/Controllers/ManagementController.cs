@@ -114,7 +114,13 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult CreatePromotion()
         {
-            PromotionDetailsViewModel model = new PromotionDetailsViewModel();
+            PromotionDetailsViewModel model = new PromotionDetailsViewModel
+            {
+                Promotion = new Promotion(),
+                Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>()),
+                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>()),
+                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>())
+            };
             return View("PromotionDetails", model);
         }
 
