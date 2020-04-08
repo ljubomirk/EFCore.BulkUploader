@@ -1,7 +1,5 @@
 ﻿@*
     * TODO:
-    *   table sorting
-    *   pagination
     *   filter
     *   date localization
 *@
@@ -10,8 +8,6 @@
 @{
     ViewData["Title"] = "Promotion List";
 }
-<!-- table style -->
-<link rel="stylesheet" type="text/css" href="~/css/datatables.css">
 
 <!-- heading -->
 <div class="row">
@@ -83,20 +79,6 @@
     </table>
     <!-- /promotion table -->
 
-    <!-- pagination -->
-    <ul class="pagination">
-        <li class="disabled btn-default"><a href="#!"><i class="material-icons">first_page</i></a></li>
-        <li class="disabled btn-default"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-        <li class="active"><a href="#!">1</a></li>
-        <li class="waves-effect"><a href="#!">2</a></li>
-        <li class="waves-effect"><a href="#!">3</a></li>
-        <li class="waves-effect"><a href="#!">4</a></li>
-        <li class="waves-effect"><a href="#!">5</a></li>
-        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        <li class="waves-effect btn-default"><a href="#!"><i class="material-icons">last_page</i></a></li>
-    </ul>
-    <!-- /pagination -->
-
     <!-- promotion action -->
     <ul id='promotion-actions' class='dropdown-content'>
         <li>
@@ -119,19 +101,31 @@
     <!-- /promotion action -->
 
     <!-- SCRIPTS -->
-
     <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script>
         $(document).ready(function () {
+
             // init data table
             $('#promotion-list').DataTable({
+                pageLength: 10,
                 searching: false,
                 info: false,
                 lengthChange: false,
                 pagingType: "full_numbers",
+                language: {
+                    paginate: {
+                        first: '<i class="material-icons">first_page</i>',
+                        last: '<i class="material-icons">last_page</i>',
+                        next: '<i class="material-icons">chevron_right</i>',
+                        previous: '<i class="material-icons">chevron_left</i>'
+                    }
+                },
                 columnDefs: [
                     { orderable: false, targets: -1 }
-                ]
+                ],
+                drawCallback: function () {
+                    $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
+                }
             });
             // init dropdown menu
             $('.dropdown-trigger').dropdown({
