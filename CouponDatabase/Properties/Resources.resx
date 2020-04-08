@@ -117,171 +117,171 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Btn.AddSeries" xml:space="preserve">
+  <data name="Btn_AddSeries" xml:space="preserve">
     <value>Add Series</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Create" xml:space="preserve">
+  <data name="Btn_Create" xml:space="preserve">
     <value>Create</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.CreateAndAddSeries" xml:space="preserve">
+  <data name="Btn_CreateAndAddSeries" xml:space="preserve">
     <value>Create And Add Series</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.CreateNew" xml:space="preserve">
+  <data name="Btn_CreateNew" xml:space="preserve">
     <value>Create New</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Delete" xml:space="preserve">
+  <data name="Btn_Delete" xml:space="preserve">
     <value>Delete</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Edit" xml:space="preserve">
+  <data name="Btn_Edit" xml:space="preserve">
     <value>Edit</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Filter" xml:space="preserve">
+  <data name="Btn_Filter" xml:space="preserve">
     <value>Filter</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.SaveChanges" xml:space="preserve">
+  <data name="Btn_SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
     <comment>Button label.</comment>
   </data>
-  <data name="CouponStatus.Canceled" xml:space="preserve">
+  <data name="CouponStatus_Canceled" xml:space="preserve">
     <value>Canceled</value>
     <comment>Coupon status.</comment>
   </data>
-  <data name="CouponStatus.Issued" xml:space="preserve">
+  <data name="CouponStatus_Issued" xml:space="preserve">
     <value>Issued</value>
     <comment>Coupon status.</comment>
   </data>
-  <data name="CouponStatus.Open" xml:space="preserve">
+  <data name="CouponStatus_Open" xml:space="preserve">
     <value>Open</value>
     <comment>Coupon status.</comment>
   </data>
-  <data name="CouponStatus.Redeemed" xml:space="preserve">
+  <data name="CouponStatus_Redeemed" xml:space="preserve">
     <value>Redeemed</value>
     <comment>Coupon status.</comment>
   </data>
-  <data name="ErrorInvalidChannel.Message" xml:space="preserve">
+  <data name="ErrorInvalidChannel_Message" xml:space="preserve">
     <value>Action is not allowed for the channel:</value>
     <comment>When Channel is not allowed.</comment>
   </data>
-  <data name="ErrorInvalidStatus.Message" xml:space="preserve">
+  <data name="ErrorInvalidStatus_Message" xml:space="preserve">
     <value>Coupon status change is not allowed:</value>
     <comment>When status change is not valid.</comment>
   </data>
-  <data name="ErrorInvalidUser.Message" xml:space="preserve">
+  <data name="ErrorInvalidUser_Message" xml:space="preserve">
     <value>Action is not allowed for the user:</value>
     <comment>When User is not allowed.</comment>
   </data>
-  <data name="ErrorPromotionNotFound.Message" xml:space="preserve">
+  <data name="ErrorPromotionNotFound_Message" xml:space="preserve">
     <value>Promotion was not found for the code:</value>
     <comment>When not found.</comment>
   </data>
-  <data name="LifecycleAction.Assign" xml:space="preserve">
+  <data name="LifecycleAction_Assign" xml:space="preserve">
     <value>Assign</value>
     <comment>Lifecycle action.</comment>
   </data>
-  <data name="LifecycleAction.Cancel" xml:space="preserve">
+  <data name="LifecycleAction_Cancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>Lifecycle action.</comment>
   </data>
-  <data name="LifecycleAction.Redeem" xml:space="preserve">
+  <data name="LifecycleAction_Redeem" xml:space="preserve">
     <value>Redeem</value>
     <comment>Lifecycle action.</comment>
   </data>
-  <data name="LifecycleAction.UndoRedeem" xml:space="preserve">
+  <data name="LifecycleAction_UndoRedeem" xml:space="preserve">
     <value>UndoRedeem</value>
     <comment>Lifecycle action.</comment>
   </data>
-  <data name="Nav.Administration" xml:space="preserve">
+  <data name="Nav_Administration" xml:space="preserve">
     <value>Administration</value>
     <comment>Navigation item.</comment>
   </data>
-  <data name="Nav.Lifecycle" xml:space="preserve">
+  <data name="Nav_Lifecycle" xml:space="preserve">
     <value>Lifecycle</value>
     <comment>Navigation item.</comment>
   </data>
-  <data name="Nav.LoggedIn" xml:space="preserve">
+  <data name="Nav_LoggedIn" xml:space="preserve">
     <value>You're logged in as </value>
     <comment>Navigation user status.</comment>
   </data>
-  <data name="Nav.Management" xml:space="preserve">
+  <data name="Nav_Management" xml:space="preserve">
     <value>Management</value>
     <comment>Navigation item.</comment>
   </data>
-  <data name="Promotion.AllowedIssuer" xml:space="preserve">
+  <data name="Promotion_AllowedIssuer" xml:space="preserve">
     <value>Allowed Issuer</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.AllowedUser" xml:space="preserve">
+  <data name="Promotion_AllowedUser" xml:space="preserve">
     <value>Allowed User</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.Properties" xml:space="preserve">
+  <data name="Promotion_Properties" xml:space="preserve">
     <value>Properties</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.SetEndDateChkLabel" xml:space="preserve">
+  <data name="Promotion_SetEndDateChkLabel" xml:space="preserve">
     <value>This promotion has a set end date</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.Code" xml:space="preserve">
+  <data name="Promotion_Code" xml:space="preserve">
     <value>Code</value>
     <comment>Label of property</comment>
   </data>
-  <data name="Promotion.Code.Length" xml:space="preserve">
+  <data name="Promotion_Code_Length" xml:space="preserve">
     <value>Maximum length is 20 characters</value>
-    <comment>Limit of Promotion.Code size</comment>
+    <comment>Limit of Promotion_Code size</comment>
   </data>
-  <data name="Promotion.Code.Required" xml:space="preserve">
+  <data name="Promotion_Code_Required" xml:space="preserve">
     <value>Promotion Code is required.</value>
-    <comment>Promotion.Code is required</comment>
+    <comment>Promotion_Code is required</comment>
   </data>
-  <data name="Promotions.Title" xml:space="preserve">
+  <data name="Promotions_Title" xml:space="preserve">
     <value>Promotions</value>
     <comment>Title for promotion list page.</comment>
   </data>
-  <data name="Promotion.StatusDisabled" xml:space="preserve">
+  <data name="Promotion_StatusDisabled" xml:space="preserve">
     <value>Disabled</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.StatusEnabled" xml:space="preserve">
+  <data name="Promotion_StatusEnabled" xml:space="preserve">
     <value>Enabled</value>
     <comment>Text for promotion details page.</comment>
   </data>
-  <data name="Promotion.TitleCreate" xml:space="preserve">
+  <data name="Promotion_TitleCreate" xml:space="preserve">
     <value>Create Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
-  <data name="Promotion.TitleEdit" xml:space="preserve">
+  <data name="Promotion_TitleEdit" xml:space="preserve">
     <value>Edit Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
-  <data name="Btn.ApplyFilters" xml:space="preserve">
+  <data name="Btn_ApplyFilters" xml:space="preserve">
     <value>Apply Filters</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Cancel" xml:space="preserve">
+  <data name="Btn_Cancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Generate" xml:space="preserve">
+  <data name="Btn_Generate" xml:space="preserve">
     <value>Generate</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Import" xml:space="preserve">
+  <data name="Btn_Import" xml:space="preserve">
     <value>Import</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Disable" xml:space="preserve">
+  <data name="Btn_Disable" xml:space="preserve">
     <value>Disable</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.Enable" xml:space="preserve">
+  <data name="Btn_Enable" xml:space="preserve">
     <value>Enable</value>
     <comment>Button label.</comment>
   </data>

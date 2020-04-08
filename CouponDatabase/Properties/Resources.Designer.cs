@@ -65,7 +65,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_AddSeries {
             get {
-                return ResourceManager.GetString("Btn.AddSeries", resourceCulture);
+                return ResourceManager.GetString("Btn_AddSeries", resourceCulture);
             }
         }
         
@@ -74,7 +74,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_ApplyFilters {
             get {
-                return ResourceManager.GetString("Btn.ApplyFilters", resourceCulture);
+                return ResourceManager.GetString("Btn_ApplyFilters", resourceCulture);
             }
         }
         
@@ -83,7 +83,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Cancel {
             get {
-                return ResourceManager.GetString("Btn.Cancel", resourceCulture);
+                return ResourceManager.GetString("Btn_Cancel", resourceCulture);
             }
         }
         
@@ -92,7 +92,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Create {
             get {
-                return ResourceManager.GetString("Btn.Create", resourceCulture);
+                return ResourceManager.GetString("Btn_Create", resourceCulture);
             }
         }
         
@@ -101,7 +101,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_CreateAndAddSeries {
             get {
-                return ResourceManager.GetString("Btn.CreateAndAddSeries", resourceCulture);
+                return ResourceManager.GetString("Btn_CreateAndAddSeries", resourceCulture);
             }
         }
         
@@ -110,7 +110,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_CreateNew {
             get {
-                return ResourceManager.GetString("Btn.CreateNew", resourceCulture);
+                return ResourceManager.GetString("Btn_CreateNew", resourceCulture);
             }
         }
         
@@ -119,7 +119,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Delete {
             get {
-                return ResourceManager.GetString("Btn.Delete", resourceCulture);
+                return ResourceManager.GetString("Btn_Delete", resourceCulture);
             }
         }
         
@@ -128,7 +128,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Disable {
             get {
-                return ResourceManager.GetString("Btn.Disable", resourceCulture);
+                return ResourceManager.GetString("Btn_Disable", resourceCulture);
             }
         }
         
@@ -137,7 +137,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Edit {
             get {
-                return ResourceManager.GetString("Btn.Edit", resourceCulture);
+                return ResourceManager.GetString("Btn_Edit", resourceCulture);
             }
         }
         
@@ -146,7 +146,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Enable {
             get {
-                return ResourceManager.GetString("Btn.Enable", resourceCulture);
+                return ResourceManager.GetString("Btn_Enable", resourceCulture);
             }
         }
         
@@ -155,7 +155,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Filter {
             get {
-                return ResourceManager.GetString("Btn.Filter", resourceCulture);
+                return ResourceManager.GetString("Btn_Filter", resourceCulture);
             }
         }
         
@@ -164,7 +164,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Generate {
             get {
-                return ResourceManager.GetString("Btn.Generate", resourceCulture);
+                return ResourceManager.GetString("Btn_Generate", resourceCulture);
             }
         }
         
@@ -173,7 +173,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Import {
             get {
-                return ResourceManager.GetString("Btn.Import", resourceCulture);
+                return ResourceManager.GetString("Btn_Import", resourceCulture);
             }
         }
         
@@ -182,7 +182,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_SaveChanges {
             get {
-                return ResourceManager.GetString("Btn.SaveChanges", resourceCulture);
+                return ResourceManager.GetString("Btn_SaveChanges", resourceCulture);
             }
         }
         
@@ -191,7 +191,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string CouponStatus_Canceled {
             get {
-                return ResourceManager.GetString("CouponStatus.Canceled", resourceCulture);
+                return ResourceManager.GetString("CouponStatus_Canceled", resourceCulture);
             }
         }
         
@@ -200,7 +200,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string CouponStatus_Issued {
             get {
-                return ResourceManager.GetString("CouponStatus.Issued", resourceCulture);
+                return ResourceManager.GetString("CouponStatus_Issued", resourceCulture);
             }
         }
         
@@ -209,7 +209,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string CouponStatus_Open {
             get {
-                return ResourceManager.GetString("CouponStatus.Open", resourceCulture);
+                return ResourceManager.GetString("CouponStatus_Open", resourceCulture);
             }
         }
         
@@ -218,7 +218,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string CouponStatus_Redeemed {
             get {
-                return ResourceManager.GetString("CouponStatus.Redeemed", resourceCulture);
+                return ResourceManager.GetString("CouponStatus_Redeemed", resourceCulture);
             }
         }
         
@@ -227,7 +227,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string ErrorInvalidChannel_Message {
             get {
-                return ResourceManager.GetString("ErrorInvalidChannel.Message", resourceCulture);
+                return ResourceManager.GetString("ErrorInvalidChannel_Message", resourceCulture);
             }
         }
         
@@ -236,7 +236,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string ErrorInvalidStatus_Message {
             get {
-                return ResourceManager.GetString("ErrorInvalidStatus.Message", resourceCulture);
+                return ResourceManager.GetString("ErrorInvalidStatus_Message", resourceCulture);
             }
         }
         
@@ -245,7 +245,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string ErrorInvalidUser_Message {
             get {
-                return ResourceManager.GetString("ErrorInvalidUser.Message", resourceCulture);
+                return ResourceManager.GetString("ErrorInvalidUser_Message", resourceCulture);
             }
         }
         
@@ -254,7 +254,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string ErrorPromotionNotFound_Message {
             get {
-                return ResourceManager.GetString("ErrorPromotionNotFound.Message", resourceCulture);
+                return ResourceManager.GetString("ErrorPromotionNotFound_Message", resourceCulture);
             }
         }
         
@@ -263,7 +263,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string LifecycleAction_Assign {
             get {
-                return ResourceManager.GetString("LifecycleAction.Assign", resourceCulture);
+                return ResourceManager.GetString("LifecycleAction_Assign", resourceCulture);
             }
         }
         
@@ -272,7 +272,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string LifecycleAction_Cancel {
             get {
-                return ResourceManager.GetString("LifecycleAction.Cancel", resourceCulture);
+                return ResourceManager.GetString("LifecycleAction_Cancel", resourceCulture);
             }
         }
         
@@ -281,7 +281,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string LifecycleAction_Redeem {
             get {
-                return ResourceManager.GetString("LifecycleAction.Redeem", resourceCulture);
+                return ResourceManager.GetString("LifecycleAction_Redeem", resourceCulture);
             }
         }
         
@@ -290,7 +290,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string LifecycleAction_UndoRedeem {
             get {
-                return ResourceManager.GetString("LifecycleAction.UndoRedeem", resourceCulture);
+                return ResourceManager.GetString("LifecycleAction_UndoRedeem", resourceCulture);
             }
         }
         
@@ -299,7 +299,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Nav_Administration {
             get {
-                return ResourceManager.GetString("Nav.Administration", resourceCulture);
+                return ResourceManager.GetString("Nav_Administration", resourceCulture);
             }
         }
         
@@ -308,7 +308,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Nav_Lifecycle {
             get {
-                return ResourceManager.GetString("Nav.Lifecycle", resourceCulture);
+                return ResourceManager.GetString("Nav_Lifecycle", resourceCulture);
             }
         }
         
@@ -317,7 +317,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Nav_LoggedIn {
             get {
-                return ResourceManager.GetString("Nav.LoggedIn", resourceCulture);
+                return ResourceManager.GetString("Nav_LoggedIn", resourceCulture);
             }
         }
         
@@ -326,7 +326,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Nav_Management {
             get {
-                return ResourceManager.GetString("Nav.Management", resourceCulture);
+                return ResourceManager.GetString("Nav_Management", resourceCulture);
             }
         }
         
@@ -335,7 +335,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_AllowedIssuer {
             get {
-                return ResourceManager.GetString("Promotion.AllowedIssuer", resourceCulture);
+                return ResourceManager.GetString("Promotion_AllowedIssuer", resourceCulture);
             }
         }
         
@@ -344,7 +344,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_AllowedUser {
             get {
-                return ResourceManager.GetString("Promotion.AllowedUser", resourceCulture);
+                return ResourceManager.GetString("Promotion_AllowedUser", resourceCulture);
             }
         }
         
@@ -353,7 +353,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_Code {
             get {
-                return ResourceManager.GetString("Promotion.Code", resourceCulture);
+                return ResourceManager.GetString("Promotion_Code", resourceCulture);
             }
         }
         
@@ -362,7 +362,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_Code_Length {
             get {
-                return ResourceManager.GetString("Promotion.Code.Length", resourceCulture);
+                return ResourceManager.GetString("Promotion_Code_Length", resourceCulture);
             }
         }
         
@@ -371,7 +371,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_Code_Required {
             get {
-                return ResourceManager.GetString("Promotion.Code.Required", resourceCulture);
+                return ResourceManager.GetString("Promotion_Code_Required", resourceCulture);
             }
         }
         
@@ -380,7 +380,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_Properties {
             get {
-                return ResourceManager.GetString("Promotion.Properties", resourceCulture);
+                return ResourceManager.GetString("Promotion_Properties", resourceCulture);
             }
         }
         
@@ -389,7 +389,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_SetEndDateChkLabel {
             get {
-                return ResourceManager.GetString("Promotion.SetEndDateChkLabel", resourceCulture);
+                return ResourceManager.GetString("Promotion_SetEndDateChkLabel", resourceCulture);
             }
         }
         
@@ -398,7 +398,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_StatusDisabled {
             get {
-                return ResourceManager.GetString("Promotion.StatusDisabled", resourceCulture);
+                return ResourceManager.GetString("Promotion_StatusDisabled", resourceCulture);
             }
         }
         
@@ -407,7 +407,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_StatusEnabled {
             get {
-                return ResourceManager.GetString("Promotion.StatusEnabled", resourceCulture);
+                return ResourceManager.GetString("Promotion_StatusEnabled", resourceCulture);
             }
         }
         
@@ -416,7 +416,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_TitleCreate {
             get {
-                return ResourceManager.GetString("Promotion.TitleCreate", resourceCulture);
+                return ResourceManager.GetString("Promotion_TitleCreate", resourceCulture);
             }
         }
         
@@ -425,7 +425,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotion_TitleEdit {
             get {
-                return ResourceManager.GetString("Promotion.TitleEdit", resourceCulture);
+                return ResourceManager.GetString("Promotion_TitleEdit", resourceCulture);
             }
         }
         
@@ -434,7 +434,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Promotions_Title {
             get {
-                return ResourceManager.GetString("Promotions.Title", resourceCulture);
+                return ResourceManager.GetString("Promotions_Title", resourceCulture);
             }
         }
     }

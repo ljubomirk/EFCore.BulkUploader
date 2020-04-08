@@ -17,16 +17,17 @@ namespace CouponDatabase.Models
         #region Properties 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        //[System.ComponentModel.DataAnnotations.MaxLength(20,ErrorMessageResourceName = , ErrorMessageResourceType = 1]
-        //[StringLength(20, ErrorMessageResourceName = "Promotion.Code.Length", ErrorMessageResourceType = typeof(Resources))]
-        //[Required(ErrorMessageResourceName = "Promotion.Code.Required", ErrorMessageResourceType = typeof(Resources))]
-        //[Display(Name = "Promotion.Code", ShortName = "Promotion.Code", ResourceType = typeof(Resources))]
+        [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
+        [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
         public String Code { get; set; }
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime ValidFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime ValidTo { get; set; }
         public Boolean HasCoupons
         {
