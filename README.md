@@ -31,8 +31,13 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
+  0.3 Alpha Centauri 
+  - Promotion List done
+  - Promotion Details prepared
+  - Promotion AddCoupon prepared
   0.2 Back2Store
-  - 
+  - Promotion List prepared
+  - Promotion List prepared
   0.1 Initial release
 
 4.	API references 

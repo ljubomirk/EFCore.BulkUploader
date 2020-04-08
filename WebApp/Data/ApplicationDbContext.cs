@@ -54,10 +54,10 @@ namespace WebApp.Data
                 BaseDefs.ArrayFrom<IssuerChannel, IssuerChannelEnum>()
             );
             modelBuilder.Entity<AwardChannel>().HasData(
-                CouponDatabase.Models.AwardChannel.ArrayFrom<AwardChannel, AwardChannelEnum>()
+                BaseDefs.ArrayFrom<AwardChannel, AwardChannelEnum>()
             );
             modelBuilder.Entity<Property>().HasData(
-                CouponDatabase.Models.Property.ArrayFrom<Property, PropertyTypeEnum>()
+                BaseDefs.ArrayFrom<Property, PropertyTypeEnum>()
             );
             //set Promotions
             modelBuilder.Entity<Promotion>().HasData(
