@@ -285,4 +285,8 @@
     <value>Enable</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Btn.ResetChanges" xml:space="preserve">
+    <value>Reset Changes</value>
+    <comment>Button label.</comment>
+  </data>
 </root>

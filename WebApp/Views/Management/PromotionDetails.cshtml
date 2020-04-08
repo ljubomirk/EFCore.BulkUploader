@@ -11,9 +11,9 @@
 
     // initial state
     string strTitle = CouponDatabase.Properties.Resources.Promotion_TitleCreate;
-    string strAllowIssuer = CouponDatabase.Properties.Resources.Promotion_AllowedIssuer;
+    //string strAllowIssuer = CouponDatabase.Properties.Resources.Promotion_AllowedIssuer;
     string strAllowUser = CouponDatabase.Properties.Resources.Promotion_AllowedUser;
-    string strProperties = CouponDatabase.Properties.Resources.Promotion_Properties;
+    //string strProperties = CouponDatabase.Properties.Resources.Promotion_Properties;
     string strStatus = CouponDatabase.Properties.Resources.Promotion_StatusEnabled;
     string hasEndDateChk = ""; // checkbox for date picker
     string hasEndDate = "disabled"; // ValidTo date picker - used as a className
@@ -83,7 +83,7 @@
                     <div class="input-field date col s6">
                         @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @required = "required" } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
-                        <i class="material-icons suffix validation-error" data-position="bottom" data-tooltip="yo, škagre!">warning</i>
+                        @*<i class="material-icons suffix validation-error" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
                     </div>
                 </div>
                 <div class="input-field col s6">
@@ -117,105 +117,50 @@
 
             <!-- checkboxes -->
             <div class="row">
+                <!-- IssuerChannels -->
                 <div class="col s6">
-                    <p class="section-headline">@strAllowIssuer</p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Salesforce</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>POS</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Telesales</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Webshop</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Selfcare</span>
-                        </label>
-                    </p>
+                    <p class="section-headline">@Html.DisplayNameFor(m => m.IssuerChannels)</p>
+                    @foreach (var chkBox in Model.IssuerChannels)
+                    {
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" name="@chkBox.Label" checked="@chkBox.Checked" />
+                                <span>@chkBox.Label</span>
+                            </label>
+                        </p>
+                    }
                 </div>
+                <!-- /IssuerChannels -->
+                <!-- AwardChannels -->
                 <div class="col s6">
-                    <p class="section-headline">@strAllowUser</p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Salesforce</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Webshop</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Selfcare</span>
-                        </label>
-                    </p>
+                    <p class="section-headline">@Html.DisplayNameFor(m => m.AwardChannels)</p>
+                    @foreach (var chkBox in Model.Properties)
+                    {
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" name="@chkBox.Label" checked="@chkBox.Checked" />
+                                <span>@chkBox.Label</span>
+                            </label>
+                        </p>
+                    }
                 </div>
-                <div class="row">
-                    <div class="col s12">
-                        <p class="section-headline u-m-b-remove">@strProperties</p>
-                    </div>
-                    <div class="col s6">
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Unique coupons</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Named holders</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Named consumers</span>
-                            </label>
-                        </p>
-                    </div>
-                    <div class="col s6">
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Holder is only consumer</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Allows multiple redeems</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input type="checkbox" class="filled-in" />
-                                <span>Allow coupon series</span>
-                            </label>
-                        </p>
-                    </div>
+                <!-- /AwardChannels -->
+                <!-- Properties -->
+                <div class="col s12">
+                    <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.Properties)</p>
                 </div>
+                <div class="col s12 two-cols">
+                    @foreach (var chkBox in Model.Properties)
+                    {
+                        <p>
+                            <label>
+                                <input type="checkbox" class="filled-in" name="@chkBox.Label" checked="@chkBox.Checked" />
+                                <span>@chkBox.Label</span>
+                            </label>
+                        </p>
+                    }
+                </div>
+                <!-- /Properties -->
             </div>
             <!-- /checkboxes -->
 
@@ -243,9 +188,9 @@
                             <i class="material-icons left">save</i>
                             @CouponDatabase.Properties.Resources.Btn_SaveChanges
                         </button>
-                        <a class="waves-effect waves-light btn-flat btn-danger  right">
-                            <i class="material-icons left">delete_forever</i>
-                            @CouponDatabase.Properties.Resources.Btn_Delete
+                        <a href="@Url.Action("EditPromotion","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-danger right">
+                            <i class="material-icons left">autorenew</i>
+                            @CouponDatabase.Properties.Resources.Btn_ResetChanges
                         </a>
                     }
                 </div>
@@ -259,6 +204,9 @@
 <script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
+        
+            var object = @(Html.Raw(Json.Serialize(Model)));
+            console.log(object);
         // init date picker
         $('.calendar').calendar().change(function (e) {
             // validate date format

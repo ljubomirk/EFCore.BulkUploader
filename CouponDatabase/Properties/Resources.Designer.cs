@@ -178,6 +178,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Changes.
+        /// </summary>
+        public static string Btn_ResetChanges {
+            get {
+                return ResourceManager.GetString("Btn.ResetChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Changes.
         /// </summary>
         public static string Btn_SaveChanges {
