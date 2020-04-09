@@ -93,17 +93,59 @@ namespace WebApp.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 2L,
+                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567892",
+                            CouponSeries = 0,
+                            Holder = "38640440481",
+                            PromotionId = 1L,
+                            Status = 4,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567893",
+                            CouponSeries = 0,
+                            Holder = "38640440482",
+                            PromotionId = 1L,
+                            Status = 2,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567894",
+                            CouponSeries = 0,
+                            Holder = "38640440483",
+                            PromotionId = 1L,
+                            Status = 3,
+                            User = "38640440483"
+                        },
+                        new
+                        {
                             Id = 1L,
                             AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SP1234567890",
+                            Code = "EASTER1234567891",
                             CouponSeries = 0,
-                            Holder = "38640440480",
+                            Holder = "",
                             PromotionId = 1L,
-                            Status = 2,
-                            User = "38640440480"
+                            Status = 1,
+                            User = ""
                         });
                 });
 
@@ -172,7 +214,9 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<bool>("Enabled");
 
@@ -183,8 +227,7 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Code")
-                        .IsUnique()
-                        .HasFilter("[Code] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Promotion");
 
@@ -212,6 +255,174 @@ namespace WebApp.Migrations
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Code = "Spring2",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Code = "Easter2",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Code = "Summer2",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Code = "Spring3",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Code = "Easter3",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Code = "Summer3",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Code = "Spring4",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Code = "Easter4",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Code = "Summer4",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Code = "Spring5",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Code = "Easter5",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            Code = "Summer5",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            Code = "Spring6",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            Code = "Easter6",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            Code = "Summer6",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            Code = "Spring7",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            Code = "Easter7",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            Code = "Summer7",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            Code = "Spring8",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            Code = "Easter8",
+                            Enabled = false,
+                            ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            Code = "Summer8",
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -226,6 +437,58 @@ namespace WebApp.Migrations
                     b.HasIndex("AwardChannelId");
 
                     b.ToTable("PromotionAwardChannel");
+
+                    b.HasData(
+                        new
+                        {
+                            PromotionId = 1L,
+                            AwardChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 1L,
+                            AwardChannelId = 3L
+                        },
+                        new
+                        {
+                            PromotionId = 1L,
+                            AwardChannelId = 5L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            AwardChannelId = 3L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            AwardChannelId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            AwardChannelId = 5L
+                        },
+                        new
+                        {
+                            PromotionId = 11L,
+                            AwardChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            AwardChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            AwardChannelId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            AwardChannelId = 3L
+                        });
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionIssuerChannel", b =>
@@ -239,6 +502,58 @@ namespace WebApp.Migrations
                     b.HasIndex("IssuerChannelId");
 
                     b.ToTable("PromotionIssuerChannel");
+
+                    b.HasData(
+                        new
+                        {
+                            PromotionId = 1L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 1L,
+                            IssuerChannelId = 2L
+                        },
+                        new
+                        {
+                            PromotionId = 1L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            IssuerChannelId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            PromotionId = 11L,
+                            IssuerChannelId = 2L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            IssuerChannelId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            IssuerChannelId = 5L
+                        });
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
@@ -258,6 +573,41 @@ namespace WebApp.Migrations
                         {
                             PromotionId = 1L,
                             PropertyId = 2L
+                        },
+                        new
+                        {
+                            PromotionId = 1L,
+                            PropertyId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            PropertyId = 6L
+                        },
+                        new
+                        {
+                            PromotionId = 2L,
+                            PropertyId = 1L
+                        },
+                        new
+                        {
+                            PromotionId = 7L,
+                            PropertyId = 2L
+                        },
+                        new
+                        {
+                            PromotionId = 5L,
+                            PropertyId = 4L
+                        },
+                        new
+                        {
+                            PromotionId = 3L,
+                            PropertyId = 6L
+                        },
+                        new
+                        {
+                            PromotionId = 11L,
+                            PropertyId = 1L
                         });
                 });
 

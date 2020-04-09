@@ -40,7 +40,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(maxLength: 20, nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
                     ValidFrom = table.Column<DateTime>(nullable: false),
                     ValidTo = table.Column<DateTime>(nullable: false)
@@ -200,11 +200,11 @@ namespace WebApp.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 4L, "Telesales" },
-                    { 3L, "SelfCare" },
-                    { 5L, "Webshop" },
                     { 1L, "POS" },
-                    { 2L, "Salesforce" }
+                    { 2L, "Salesforce" },
+                    { 3L, "SelfCare" },
+                    { 4L, "Telesales" },
+                    { 5L, "Webshop" }
                 });
 
             migrationBuilder.InsertData(
@@ -212,9 +212,30 @@ namespace WebApp.Migrations
                 columns: new[] { "Id", "Code", "Enabled", "ValidFrom", "ValidTo" },
                 values: new object[,]
                 {
-                    { 1L, "Spring", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 15L, "Summer5", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 16L, "Spring6", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 17L, "Easter6", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 18L, "Summer6", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 19L, "Spring7", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 23L, "Easter8", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 21L, "Summer7", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 22L, "Spring8", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 14L, "Easter5", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 24L, "Summer8", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 20L, "Easter7", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 13L, "Spring5", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 11L, "Easter4", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, "Summer", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10L, "Spring4", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9L, "Summer3", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8L, "Easter3", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7L, "Spring3", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6L, "Summer2", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5L, "Easter2", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4L, "Spring2", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 12L, "Summer4", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 2L, "Easter", false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3L, "Summer", true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1L, "Spring", true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -222,23 +243,73 @@ namespace WebApp.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
+                    { 4L, "HolderIsOnlyConsumer" },
+                    { 3L, "NamedConsumers" },
                     { 5L, "AlloweMultipleRedeems" },
                     { 1L, "UniqueCoupons" },
                     { 2L, "NamedHolders" },
-                    { 3L, "NamedConsumers" },
-                    { 4L, "HolderIsOnlyConsumer" },
                     { 6L, "AllowCouponSeries" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Coupon",
                 columns: new[] { "Id", "AquireFrom", "AquireTo", "AwardFrom", "AwardTo", "Code", "CouponSeries", "Holder", "PromotionId", "Status", "User" },
-                values: new object[] { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SP1234567890", 0, "38640440480", 1L, 2, "38640440480" });
+                values: new object[,]
+                {
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567892", 0, "38640440481", 1L, 4, "38640440481" },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567893", 0, "38640440482", 1L, 2, "38640440482" },
+                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567894", 0, "38640440483", 1L, 3, "38640440483" },
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567891", 0, "", 1L, 1, "" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PromotionAwardChannel",
+                columns: new[] { "PromotionId", "AwardChannelId" },
+                values: new object[,]
+                {
+                    { 3L, 3L },
+                    { 2L, 5L },
+                    { 2L, 4L },
+                    { 2L, 3L },
+                    { 11L, 1L },
+                    { 1L, 5L },
+                    { 1L, 3L },
+                    { 1L, 1L },
+                    { 3L, 1L },
+                    { 3L, 4L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PromotionIssuerChannel",
+                columns: new[] { "PromotionId", "IssuerChannelId" },
+                values: new object[,]
+                {
+                    { 3L, 5L },
+                    { 11L, 2L },
+                    { 3L, 4L },
+                    { 3L, 1L },
+                    { 2L, 5L },
+                    { 2L, 4L },
+                    { 2L, 1L },
+                    { 1L, 5L },
+                    { 1L, 2L },
+                    { 1L, 1L }
+                });
 
             migrationBuilder.InsertData(
                 table: "PromotionProperty",
                 columns: new[] { "PromotionId", "PropertyId" },
-                values: new object[] { 1L, 2L });
+                values: new object[,]
+                {
+                    { 2L, 1L },
+                    { 11L, 1L },
+                    { 1L, 2L },
+                    { 7L, 2L },
+                    { 1L, 4L },
+                    { 5L, 4L },
+                    { 2L, 6L },
+                    { 3L, 6L }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Coupon_Code",
@@ -261,8 +332,7 @@ namespace WebApp.Migrations
                 name: "IX_Promotion_Code",
                 table: "Promotion",
                 column: "Code",
-                unique: true,
-                filter: "[Code] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PromotionAwardChannel_AwardChannelId",
