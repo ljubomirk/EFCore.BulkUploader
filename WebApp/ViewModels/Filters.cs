@@ -12,13 +12,13 @@ namespace WebApp.ViewModels
         public bool ShowInactive { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidUntil { get; set; }
-        public IList<Property> Properties { get; set; }
+        public List<CheckedItem> Properties { get; set; }
 
         public Filters()
         {
             ShowActive = true;
             ShowInactive = false;
-            Properties = new List<Property>();
+            Properties = new List<CheckedItem>();
         }
 
 

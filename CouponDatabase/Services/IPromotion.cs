@@ -19,11 +19,19 @@ namespace CouponDatabase.Services
             ICollection<IPromotion> ret = new List<IPromotion>();
             return ret;
         }
-
         public Promotion UpdateDetails(Promotion newData)
         {
-            if (promo.Coupons.Count == 0)
+            if (promo.Coupons == null)
+            {
                 promo.Enabled = newData.Enabled;
+                promo.Code = newData.Code;
+                promo.ValidFrom = newData.ValidFrom;
+                promo.ValidTo = newData.ValidTo;
+                promo.Coupons = newData.Coupons;
+                promo.PromotionAwardChannels = newData.PromotionAwardChannels;
+                promo.PromotionIssuerChannels = newData.PromotionIssuerChannels;
+                promo.PromotionProperties = newData.PromotionProperties;
+            }
             return promo;
         }
     }

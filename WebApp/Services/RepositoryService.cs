@@ -4,6 +4,7 @@ using WebApp.Data;
 using CouponDatabase.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CouponDatabase.Services;
 
 namespace WebApp.Services
 {
@@ -79,7 +80,8 @@ namespace WebApp.Services
         public bool UpdatePromotion(Promotion promotion)
         {
             Promotion selectedPromotion = Context.Promotion.First(x => x.Id == promotion.Id);
-            selectedPromotion = promotion;
+            PromotionFactory pf = new PromotionFactory(selectedPromotion);
+            pf.UpdateDetails(promotion);
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
@@ -87,6 +89,14 @@ namespace WebApp.Services
         public IList<Coupon> GetUserCoupons(string user)
         {
             return null;
+        }
+    }
+
+    public class PromotionFactory : IPromotion
+    {
+        public PromotionFactory(Promotion promo) : base(promo)
+        {
+
         }
     }
 }
