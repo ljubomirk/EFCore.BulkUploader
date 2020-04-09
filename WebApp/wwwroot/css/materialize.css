@@ -5603,13 +5603,13 @@ textarea {
 
 .three-cols {
   display: flex;
-  flex-wrap: wrap;
-  padding-top: 1rem !important; }
+  flex-wrap: wrap; }
   .three-cols > p {
-    flex: 0 33%; }
-    .three-cols > p:nth-child(even) {
-      margin-left: .75rem;
-      margin-right: -.75rem; }
+    flex: 0 33%;
+    /*&:nth-child(even) {
+            margin-left: .75rem;
+            margin-right: -.75rem;
+        }*/ }
 
 /* Switch
    ========================================================================== */

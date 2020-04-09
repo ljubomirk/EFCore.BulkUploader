@@ -228,7 +228,6 @@
     flex-wrap: wrap;
     padding-top: 1rem !important;
 
-
     & > p {
         flex: 0 50%;
 
@@ -242,15 +241,13 @@
 .three-cols {
     display: flex;
     flex-wrap: wrap;
-    padding-top: 1rem !important;
-
 
     & > p {
         flex: 0 33%;
 
-        &:nth-child(even) {
+        /*&:nth-child(even) {
             margin-left: .75rem;
             margin-right: -.75rem;
-        }
+        }*/
     }
 }
