@@ -13,6 +13,9 @@ namespace CouponDatabase.Services
         Coupon Get(string PromotionCode, string CouponCode);
 
         [OperationContract]
+        List<Coupon> GetUserCoupons(string User);
+
+        [OperationContract]
         Command Assign(string PromotionCode, string CouponCode, string Holder, string User);
 
         [OperationContract]

@@ -19,5 +19,12 @@ namespace CouponDatabase.Services
             ICollection<IPromotion> ret = new List<IPromotion>();
             return ret;
         }
+
+        public Promotion UpdateDetails(Promotion newData)
+        {
+            if (promo.Coupons.Count == 0)
+                promo.Enabled = newData.Enabled;
+            return promo;
+        }
     }
 }

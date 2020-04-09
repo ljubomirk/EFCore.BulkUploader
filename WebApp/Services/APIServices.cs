@@ -36,7 +36,7 @@ namespace Web.Services.Impl
             throw new NotImplementedException();
         }
 
-        Command IPromotionAPI.Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
+        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
         {
             throw new NotImplementedException();
         }
@@ -63,6 +63,11 @@ namespace Web.Services.Impl
         public Coupon Get(string PromotionCode, string CouponCode)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Coupon> GetUserCoupons(string User)
+        {
+            return (List<Coupon>)_repo.GetUserCoupons(User);
         }
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)

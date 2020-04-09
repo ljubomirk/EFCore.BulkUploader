@@ -45,26 +45,31 @@ namespace WebApp.Controllers
         [HttpPut("{PromotionCode}")]
         public Command Validate(string PromotionCode, [FromBody]string CouponCode)
         {
-            throw new NotImplementedException();
+            return _service.Validate(PromotionCode, CouponCode);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public Command Redeem(string PromotionCode, [FromBody]string CouponCode, string User)
         {
-            throw new NotImplementedException();
+            return _service.Redeem(PromotionCode, CouponCode, User);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public Command UndoRedeem(string PromotionCode, [FromBody]string CouponCode)
         {
-            throw new NotImplementedException();
+            return _service.UndoRedeem(PromotionCode, CouponCode);
         }
 
         public Command Cancel(string PromotionCode, [FromBody]string CouponCode)
         {
-            throw new NotImplementedException();
+            return _service.Cancel(PromotionCode, CouponCode);
+        }
+
+        public List<Coupon> GetUserCoupons(string User)
+        {
+            return _service.GetUserCoupons(User);
         }
     }
 }

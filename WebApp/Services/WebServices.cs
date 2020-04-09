@@ -7,8 +7,6 @@ using WebApp.Services;
 using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
-using System.Runtime.Serialization;
-using System.Collections;
 
 namespace Web.Services.Soap
 {
@@ -21,77 +19,81 @@ namespace Web.Services.Soap
         public CouponService(ApplicationDbContext context)
         {
             _repo = new RepositoryServices(context);
-            _couponAPI = new CouponAPI(_repo);
-            _promotionAPI = new PromotionAPI(_repo);
+            _couponAPI = new CouponAPI(new Impl.CouponAPI(_repo));
+            _promotionAPI = new PromotionAPI(new Impl.PromotionAPI(_repo));
 
         }
         public class PromotionAPI : IPromotionAPI
         {
-            readonly RepositoryServices _repo;
+            readonly Impl.PromotionAPI _service;
 
-            public PromotionAPI(RepositoryServices repo)
+            public PromotionAPI(Impl.PromotionAPI service)
             {
-                _repo = repo;
+                _service = service;
             }
 
             public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)
             {
-                Impl.PromotionAPI promo = new Impl.PromotionAPI(_repo);
-                return promo.AddCoupon(PromotionCode, CouponCode, Holder, User, null);
+                return _service.AddCoupon(PromotionCode, CouponCode, Holder, User, ExpireDate);
             }
 
             public Command AddCoupons(string PromotionCode, IList<Coupon> Coupons)
             {
-                throw new NotImplementedException();
+                return _service.AddCoupons(PromotionCode, Coupons);
             }
 
             public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
             {
-                throw new NotImplementedException();
+                return _service.Get(Code, ValidFrom, ValidTo);
             }
 
             Command IPromotionAPI.Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
             {
-                throw new NotImplementedException();
+                return _service.Create(Code, Name, ValidFrom, ValidTo);
             }
         }
 
         public class CouponAPI : ICouponAPI{
 
-            readonly RepositoryServices _repo;
+            readonly Impl.CouponAPI _service;
 
-            public CouponAPI(RepositoryServices repo)
+            public CouponAPI(Impl.CouponAPI service)
             {
-                _repo = repo;
+                _service = service;
             }
             public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)
             {
-                throw new NotImplementedException();
+                return _service.Assign(PromotionCode, CouponCode, Holder, User);
             }
 
             public Command Cancel(string PromotionCode, string CouponCode)
             {
-                throw new NotImplementedException();
+                return _service.Cancel(PromotionCode, CouponCode);
             }
 
             public Coupon Get(string PromotionCode, string CouponCode)
             {
-                throw new NotImplementedException();
+                return _service.Get(PromotionCode, CouponCode);
+            }
+
+            public List<Coupon> GetUserCoupons(string User)
+            {
+                return _service.GetUserCoupons(User);
             }
 
             public Command Redeem(string PromotionCode, string CouponCode, string User)
             {
-                throw new NotImplementedException();
+                return _service.Redeem(PromotionCode, CouponCode, User);
             }
 
             public Command UndoRedeem(string PromotionCode, string CouponCode)
             {
-                throw new NotImplementedException();
+                return _service.UndoRedeem(PromotionCode, CouponCode);
             }
 
             public Command Validate(string PromotionCode, string CouponCode)
             {
-                throw new NotImplementedException();
+                return _service.Validate(PromotionCode, CouponCode);
             }
         }
     }

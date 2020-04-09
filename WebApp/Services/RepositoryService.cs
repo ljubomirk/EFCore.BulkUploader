@@ -83,5 +83,10 @@ namespace WebApp.Services
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
+
+        public IList<Coupon> GetUserCoupons(string user)
+        {
+            return null;
+        }
     }
 }

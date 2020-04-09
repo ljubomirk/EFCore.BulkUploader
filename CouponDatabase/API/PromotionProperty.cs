@@ -6,12 +6,12 @@ namespace TripleI.CouponDatabase.API
 {
     public enum PromotionPropertyEnum
     {
-        RequestNamedConsumers,
-        RequestNamedHolders,
-        HolderOnlyConsumer,
-        AllowedAwardChannels,
-        AllowMultipleRedeem,
-        AllowCouponSeries,
+        UniqueCoupons = 1,
+        RequestNamedConsumers = 2,
+        RequestNamedHolders = 3,
+        HolderOnlyConsumer = 4,
+        AllowMultipleRedeem = 5,
+        AllowCouponSeries = 6,
     }
     class PromotionProperty
     {
