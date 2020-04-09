@@ -301,4 +301,8 @@
     <value>By State</value>
     <comment>Filter label.</comment>
   </data>
+  <data name="Btn.Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>Button label.</comment>
+  </data>
 </root>

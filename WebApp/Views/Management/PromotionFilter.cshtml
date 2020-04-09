@@ -6,6 +6,7 @@
     {
     <div class="container">
         <div class="row">
+            @ViewBag.Title
             <div class="col s4">
                 <div class="u-p-t-lg">
                     <div class="input-field">
@@ -28,12 +29,12 @@
                 </p>
             </div>
         </div>
-        <div class="row u-m-t-negativ">
+        @*<div class="row u-m-t-negativ">
             <div class="col s12">
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
             </div>
-            <div class="col s12">
-                @*@foreach (var chkBox in Model.Filter.Properties)
+            <div class="col s12 three-cols">
+                @foreach (var chkBox in Model.Filter.Properties)
                 {
                     <p class="checkbox-hover">
                         <label>
@@ -41,90 +42,86 @@
                             <span>@p.label</span>
                         </label>
                     </p>
-                }*@
-                <p class="checkbox-hover">
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Named holders</span>
-                    </label>
-                </p>
-                <p class="checkbox-hover">
-                    <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
-                        <input type="checkbox" class="filled-in" />
-                        <span>Named consumers</span>
-                    </label>
-                </p>
+                }
             </div>
-            <div class="col s4">
-                <p class="section-headline">&nbsp;</p>
-                <p class="checkbox-hover">
-                    <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
-                        <input type="checkbox" class="filled-in" />
-                        <span>Unique coupons</span>
-                    </label>
-                </p>
-                <p class="checkbox-hover">
-                    <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
-                        <input type="checkbox" class="filled-in" />
-                        <span>Holder is only consumer</span>
-                    </label>
-                </p>
+        </div>*@
+            <div class="row u-m-t-negativ">
+                <div class="col s4">
+                    <p class="section-headline">By Property</p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Named holders</span>
+                        </label>
+                    </p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Named consumers</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="col s4">
+                    <p class="section-headline">&nbsp;</p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Unique coupons</span>
+                        </label>
+                    </p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Holder is only consumer</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="col s4">
+                    <p class="section-headline">&nbsp;</p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Allows coupon series</span>
+                        </label>
+                    </p>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                            <span>Allows multiple redeems</span>
+                        </label>
+                    </p>
+                </div>
             </div>
 
-            <div class="col s4">
-                <p class="section-headline">&nbsp;</p>
-                <p class="checkbox-hover">
-                    <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
-                        <input type="checkbox" class="filled-in" />
-                        <span>Allows multiple redeems</span>
-                    </label>
-                </p>
-                <p class="checkbox-hover">
-                    <label>
-                        @*@Html.CheckBoxFor(p => p.Filter.Properties.XXXX, new { @class = "filled-in" })
-                        <span>@Html.DisplayNameFor(f => f.Filter.Properties.XXXX)</span>*@
-                        <input type="checkbox" class="filled-in" />
-                        <span>Allow coupon series</span>
-                    </label>
-                </p>
+
+            <div class="row">
+                <div class="input-field date col s4">
+                    @Html.EditorFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
+                    @Html.LabelFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    <i class="material-icons suffix">event</i>
+                    @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
+                </div>
+                <div class="input-field date col s4">
+                    @Html.EditorFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
+                    @Html.LabelFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    <i class="material-icons suffix">event</i>
+                    @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button id="btn-submit" type="button" data-position="bottom" data-tooltip="Function not implemented" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
+                        <i class="material-icons left">check</i>
+                        @CouponDatabase.Properties.Resources.Btn_ApplyFilters
+                    </button>
+                    <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
+                        @CouponDatabase.Properties.Resources.Btn_Cancel
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="input-field date col s4">
-                @Html.EditorFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
-                @Html.LabelFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                <i class="material-icons suffix">event</i>
-                @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
-            </div>
-            <div class="input-field date col s4">
-                @Html.EditorFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
-                @Html.LabelFor(p => p.Promotions[0].ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                <i class="material-icons suffix">event</i>
-                @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <button id="btn-submit" type="button" data-position="bottom" data-tooltip="Function not implemented" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
-                    <i class="material-icons left">check</i>
-                    @CouponDatabase.Properties.Resources.Btn_ApplyFilters
-                </button>
-                <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
-                    @CouponDatabase.Properties.Resources.Btn_Cancel
-                </a>
-            </div>
-        </div>
+        }
     </div>
-    }
-</div>
 
 <script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
@@ -150,6 +147,8 @@
         // close filter
         $("#filter-close").click(function () {
             $(".form-filter").slideUp("slow");
+            $("#btn-filter").removeClass('btn-transparent');
+            $("#btn-filter i").html('unfold_more');
         })
 
         // todo tooltip

@@ -201,6 +201,8 @@
     display: block;
     border-radius: 4px;
     padding: 5px 3px 3px 5px;
+    margin: 0;
+    margin-top: .25rem;
 
     &__inline {
         display: inline-block;
@@ -222,6 +224,19 @@
 
 
 .two-cols {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1rem !important;
+
+
+    & > p {
+        flex: 0 50%;
+
+        &:nth-child(even) {
+            margin-left: .75rem;
+            margin-right: -.75rem;
+        }
+    }
 }
 
 .three-cols {
@@ -232,10 +247,10 @@
 
     & > p {
         flex: 0 33%;
-        margin-top: 0;
 
         &:nth-child(even) {
-            padding-left: .75rem;
+            margin-left: .75rem;
+            margin-right: -.75rem;
         }
     }
 }

@@ -4006,14 +4006,22 @@ p.section-headline {
 .btn-primary {
   color: #fff !important;
   background-color: #4d4cac !important; }
+  .btn-primary-text {
+    color: #4d4cac; }
   .btn-primary:hover {
-    background-color: #7f7ec6 !important; }
+    background-color: #302f6a !important; }
 
 .btn-default {
   color: #2d2d37 !important;
   background-color: rgba(1, 0, 94, 0.08) !important; }
   .btn-default:hover {
-    background-color: #f7f7fa !important; }
+    background-color: #bdbdbd !important; }
+
+.btn-default-primary {
+  color: #4d4cac !important;
+  background-color: rgba(1, 0, 94, 0.08) !important; }
+  .btn-default-primary:hover {
+    background-color: #bdbdbd !important; }
 
 .btn-transparent {
   color: #2d2d37 !important;
@@ -5569,7 +5577,9 @@ textarea {
 .checkbox-hover {
   display: block;
   border-radius: 4px;
-  padding: 5px 3px 3px 5px; }
+  padding: 5px 3px 3px 5px;
+  margin: 0;
+  margin-top: .25rem; }
   .checkbox-hover__inline {
     display: inline-block;
     padding-right: 5px; }
@@ -5581,15 +5591,25 @@ textarea {
     display: block; }
 
 /* half width paragraph for 2 collumn checkbox rendering */
+.two-cols {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 1rem !important; }
+  .two-cols > p {
+    flex: 0 50%; }
+    .two-cols > p:nth-child(even) {
+      margin-left: .75rem;
+      margin-right: -.75rem; }
+
 .three-cols {
   display: flex;
   flex-wrap: wrap;
   padding-top: 1rem !important; }
   .three-cols > p {
-    flex: 0 33%;
-    margin-top: 0; }
+    flex: 0 33%; }
     .three-cols > p:nth-child(even) {
-      padding-left: .75rem; }
+      margin-left: .75rem;
+      margin-right: -.75rem; }
 
 /* Switch
    ========================================================================== */
@@ -7894,6 +7914,8 @@ table.dataTable td {
   line-height: 48px;
   border-radius: 4px;
   margin: 0 4px; }
+  .dataTables_wrapper .dataTables_paginate .paginate_button.last, .dataTables_wrapper .dataTables_paginate .paginate_button.first {
+    background-color: #eeeeee; }
   .dataTables_wrapper .dataTables_paginate .paginate_button > i.material-icons {
     display: inline-block;
     margin: auto 0;
@@ -7920,12 +7942,12 @@ table.dataTable td {
     line-height: 48px; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  color: white !important;
   cursor: pointer;
-  background-color: #4d4cac; }
+  background-color: #e0e0e0; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   outline: none;
+  color: #fff;
   background-color: #4d4cac; }
 
 .dataTables_wrapper .dataTables_paginate .ellipsis {
