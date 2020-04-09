@@ -5,21 +5,23 @@
 .switch * {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  margin-top: -60px;
 }
 
 .switch label {
     display: block;
     margin: 0 auto;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 .switch label input[type=checkbox] {
   opacity: 0;
   width: 0;
   height: 0;
-
   &:checked + .lever {
-    background-color: $switch-checked-lever-bg;
+    background-color: $primary-color;
 
     &:before, &:after {
       left: 20px;
@@ -42,7 +44,7 @@
     margin-right: 10px;
     transition: background 0.3s ease;
     vertical-align: middle;
-    margin: 0 16px;
+    margin: 72px 16px 0 16px;
 
     &:before, &:after {
         content: "";

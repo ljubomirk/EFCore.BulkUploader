@@ -5616,19 +5616,22 @@ textarea {
 .switch,
 .switch * {
   -webkit-tap-highlight-color: transparent;
-  user-select: none; }
+  user-select: none;
+  margin-top: -60px; }
 
 .switch label {
   display: block;
   margin: 0 auto;
-  cursor: pointer; }
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem; }
 
 .switch label input[type=checkbox] {
   opacity: 0;
   width: 0;
   height: 0; }
   .switch label input[type=checkbox]:checked + .lever {
-    background-color: #61ac77; }
+    background-color: #4d4cac; }
     .switch label input[type=checkbox]:checked + .lever:before, .switch label input[type=checkbox]:checked + .lever:after {
       left: 20px; }
     .switch label input[type=checkbox]:checked + .lever:after {
@@ -5645,7 +5648,7 @@ textarea {
   margin-right: 10px;
   transition: background 0.3s ease;
   vertical-align: middle;
-  margin: 0 16px; }
+  margin: 72px 16px 0 16px; }
   .switch label .lever:before, .switch label .lever:after {
     content: "";
     position: absolute;
