@@ -3240,7 +3240,7 @@ table span.badge {
   .u-m-r-sm {
     margin-right: 8px; }
   .u-m-r-md {
-    margin-right: 16px; }
+    margin-right: 16px !important; }
   .u-m-r-lg {
     margin-right: 36px; }
   .u-m-r-lg {
@@ -4487,9 +4487,10 @@ body.keyboard-focused .dropdown-content li:focus {
   padding: 0;
   max-height: 70%;
   width: 55%;
+  max-width: 700px;
   margin: auto;
   overflow-y: auto;
-  border-radius: 2px;
+  border-radius: 4px;
   will-change: top, opacity; }
   .modal:focus {
     outline: none; }
@@ -4499,14 +4500,14 @@ body.keyboard-focused .dropdown-content li:focus {
   .modal h1, .modal h2, .modal h3, .modal h4 {
     margin-top: 0; }
   .modal .modal-content {
-    padding: 24px; }
+    padding: 36px;
+    background-color: #eeeeee; }
   .modal .modal-close {
     cursor: pointer; }
   .modal .modal-footer {
     border-radius: 0 0 2px 2px;
     background-color: #fafafa;
-    padding: 4px 6px;
-    height: 56px;
+    padding: 16px 24px;
     width: 100%;
     text-align: right; }
     .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-small, .modal .modal-footer .btn-flat {

@@ -101,12 +101,26 @@
             </a>
         </li>
         <li id="btn-enable">
-            <a class="action-promo" data-action="Enable" href="">
+            <a class="action-promo modal-trigger" data-action="Enable" href="#modal-confirmation">
             </a>
         </li>
     </ul>
     <!-- /promotion action -->
 
+    <!-- Modal -->
+    <div id="modal-confirmation" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a id="modal-close" class="waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+                @CouponDatabase.Properties.Resources.Btn_Cancel
+            </a>
+            <a id="modal-action" href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary"></a>
+        </div>
+    </div>
+    <!-- /Modal-->
     <!-- SCRIPTS -->
     <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script>
@@ -144,6 +158,8 @@
                     $("body").click();
                 }
             });
+            //init modal
+            $('#modal-confirmation').modal();
 
 
             // update url with id to corresponding promotion when clicked
@@ -157,11 +173,15 @@
                 var id = $(this).attr("data-id");
                 var val = $(this).attr("data-value");
 
-                // set styling of enable button
-                // set opposite val to current Enable status
                 var enableBtn = $("#btn-enable");
                 var enableBtnText = $("#btn-enable > a");
-
+                var modalHeader = $(".modal-content h4");
+                var modalContent = $(".modal-content p");
+                var modalAction = $("#modal-action");
+                
+                // set styling of enable button
+                // set opposite val to current Enable status
+                // set modal to display correct text and action
                 if (val == "True") {
                     val = "False";
                     enableBtn.removeClass("enable");
@@ -170,14 +190,26 @@
                         "<i class='material-icons'>power_settings_new</i>" +
                         "@CouponDatabase.Properties.Resources.Btn_Disable"
                     );
+                    modalHeader.html('@CouponDatabase.Properties.Resources.Modal_TitleSetDisabled');
+                    modalContent.html('@CouponDatabase.Properties.Resources.Modal_ContentDisable');
+                    modalAction.html(
+                        "<i class='material-icons left'>check</i>" +
+                        "@CouponDatabase.Properties.Resources.Btn_SetDisabled"
+                    );
 
                 } else {
                     val = "True";
                     enableBtn.removeClass("disable");
                     enableBtn.addClass("enable");
                     enableBtnText.html(
-                        "<i class='material-icons'>power_settings_new</i>" +
+                        "<i class='material-icons left'>power_settings_new</i>" +
                         "@CouponDatabase.Properties.Resources.Btn_Enable"
+                    );
+                    modalHeader.html('@CouponDatabase.Properties.Resources.Modal_TitleSetEnabled');
+                    modalContent.html('@CouponDatabase.Properties.Resources.Modal_ContentEnable');
+                    modalAction.html(
+                        "<i class='material-icons left'>check</i>" +
+                        "@CouponDatabase.Properties.Resources.Btn_SetEnabled"
                     );
                 }
 
@@ -186,11 +218,19 @@
                     var url = "";
                     var action = $(this).attr("data-action");
 
-                    if (action == "Edit") url = urlEdit + "/" + id;
-                    else if (action == "AddSeries") url = urlAddSeries + "/" + id;
-                    else if (action == "Enable") url = urlEnable + encodeURI("?id=" + id + "&enable=" + val);
+                    if (action == "Edit") {
+                        url = urlEdit + "/" + id;
+                        $(this).attr("href", url);
 
-                    $(this).attr("href", url);
+                    } else if (action == "AddSeries") {
+                        url = urlAddSeries + "/" + id;
+                        $(this).attr("href", url);
+                    } else if (action == "Enable") {
+                        url = urlEnable + encodeURI("?id=" + id + "&enable=" + val);
+                        modalAction.attr("href", url);
+                    }
+
+                    
                 })
             })
             // toggle filter
@@ -207,6 +247,11 @@
                     $("#btn-filter").addClass('btn-transparent');
                     $("#btn-filter i").html('unfold_less');
                 }
+            });
+
+            // close modal with button inside
+            $("#modal-close").click(function () {
+                $('#modal-confirmation').modal('close');
             });
         });
     </script>

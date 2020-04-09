@@ -285,24 +285,52 @@
     <value>Enable</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Btn.ResetChanges" xml:space="preserve">
+  <data name="Btn_ResetChanges" xml:space="preserve">
     <value>Reset Changes</value>
     <comment>Button label.</comment>
   </data>
-  <data name="Filter.ByCode" xml:space="preserve">
+  <data name="Filter_ByCode" xml:space="preserve">
     <value>By Code</value>
     <comment>Filter label.</comment>
   </data>
-  <data name="Filter.ByProperty" xml:space="preserve">
+  <data name="Filter_ByProperty" xml:space="preserve">
     <value>By Property</value>
     <comment>Filter label.</comment>
   </data>
-  <data name="Filter.ByState" xml:space="preserve">
+  <data name="Filter_ByState" xml:space="preserve">
     <value>By State</value>
     <comment>Filter label.</comment>
   </data>
-  <data name="Btn.Back" xml:space="preserve">
+  <data name="Btn_Back" xml:space="preserve">
     <value>Back</value>
     <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SetDisabled" xml:space="preserve">
+    <value>Set Disabled</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SetEnabled" xml:space="preserve">
+    <value>Set Enabled</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Modal_ContentDisable" xml:space="preserve">
+    <value>This will disable promotion until turned back on.</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_ContentEnable" xml:space="preserve">
+    <value>This will enable promotion until turned back off.</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_TitleSetDisabled" xml:space="preserve">
+    <value>Set disabled?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_TitleSetEnabled" xml:space="preserve">
+    <value>Set enabled?</value>
+    <comment>Modal text.</comment>
   </data>
 </root>

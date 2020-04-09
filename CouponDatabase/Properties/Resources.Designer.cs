@@ -83,7 +83,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_Back {
             get {
-                return ResourceManager.GetString("Btn.Back", resourceCulture);
+                return ResourceManager.GetString("Btn_Back", resourceCulture);
             }
         }
         
@@ -93,6 +93,15 @@ namespace CouponDatabase.Properties {
         public static string Btn_Cancel {
             get {
                 return ResourceManager.GetString("Btn_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Btn_Close {
+            get {
+                return ResourceManager.GetString("Btn_Close", resourceCulture);
             }
         }
         
@@ -191,7 +200,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Btn_ResetChanges {
             get {
-                return ResourceManager.GetString("Btn.ResetChanges", resourceCulture);
+                return ResourceManager.GetString("Btn_ResetChanges", resourceCulture);
             }
         }
         
@@ -201,6 +210,24 @@ namespace CouponDatabase.Properties {
         public static string Btn_SaveChanges {
             get {
                 return ResourceManager.GetString("Btn_SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Disabled.
+        /// </summary>
+        public static string Btn_SetDisabled {
+            get {
+                return ResourceManager.GetString("Btn_SetDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Enabled.
+        /// </summary>
+        public static string Btn_SetEnabled {
+            get {
+                return ResourceManager.GetString("Btn_SetEnabled", resourceCulture);
             }
         }
         
@@ -281,7 +308,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Filter_ByCode {
             get {
-                return ResourceManager.GetString("Filter.ByCode", resourceCulture);
+                return ResourceManager.GetString("Filter_ByCode", resourceCulture);
             }
         }
         
@@ -290,7 +317,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Filter_ByProperty {
             get {
-                return ResourceManager.GetString("Filter.ByProperty", resourceCulture);
+                return ResourceManager.GetString("Filter_ByProperty", resourceCulture);
             }
         }
         
@@ -299,7 +326,7 @@ namespace CouponDatabase.Properties {
         /// </summary>
         public static string Filter_ByState {
             get {
-                return ResourceManager.GetString("Filter.ByState", resourceCulture);
+                return ResourceManager.GetString("Filter_ByState", resourceCulture);
             }
         }
         
@@ -336,6 +363,42 @@ namespace CouponDatabase.Properties {
         public static string LifecycleAction_UndoRedeem {
             get {
                 return ResourceManager.GetString("LifecycleAction_UndoRedeem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will disable promotion until turned back on..
+        /// </summary>
+        public static string Modal_ContentDisable {
+            get {
+                return ResourceManager.GetString("Modal_ContentDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will enable promotion until turned back off..
+        /// </summary>
+        public static string Modal_ContentEnable {
+            get {
+                return ResourceManager.GetString("Modal_ContentEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set disabled?.
+        /// </summary>
+        public static string Modal_TitleSetDisabled {
+            get {
+                return ResourceManager.GetString("Modal_TitleSetDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set enabled?.
+        /// </summary>
+        public static string Modal_TitleSetEnabled {
+            get {
+                return ResourceManager.GetString("Modal_TitleSetEnabled", resourceCulture);
             }
         }
         
