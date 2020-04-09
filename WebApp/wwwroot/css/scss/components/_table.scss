@@ -393,6 +393,11 @@ table.dataTable td {
     border-radius: $pagination-radius;
     margin: 0 4px;
 
+    &.last,
+    &.first {
+        background-color: color("grey", "lighten-3");
+    }
+
     & > i.material-icons {
         display: inline-block;
         margin: auto 0;
@@ -430,13 +435,13 @@ table.dataTable td {
 
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    color: white !important;
     cursor: pointer;
-    background-color: color("commando-primary", "base");
+    background-color: color("grey", "lighten-2");
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
     outline: none;
+    color: $white;
     background-color: color("commando-primary", "base");
 }
 

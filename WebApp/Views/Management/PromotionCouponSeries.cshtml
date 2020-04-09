@@ -8,9 +8,9 @@
         <div class="row">
             <h4>
                 Create Coupon Series
-                <a class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
-                    <i class="material-icons left">clear</i>
+                <a href="@Url.Action("ListPromotion", "Management")" class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
                     @CouponDatabase.Properties.Resources.Btn_Cancel
+                    <i class="material-icons right">clear</i>
                 </a>
             </h4>
         </div>
@@ -115,11 +115,11 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    <button type="button" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md" data-position="bottom" data-tooltip="Not implemented!">
+                    <button type="button" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" data-position="bottom" data-tooltip="Not implemented!">
                         <i class="material-icons left">check</i>
                         @CouponDatabase.Properties.Resources.Btn_Generate
                     </button>
-                    <button type="button" class="waves-effect waves-light btn-flat btn-default commando-primary-text" data-position="bottom" data-tooltip="Not implemented!">
+                    <button type="button" class="waves-effect waves-light btn-flat btn-default-primary" data-position="bottom" data-tooltip="Not implemented!">
                         <i class="material-icons left">file_upload</i>
                         @CouponDatabase.Properties.Resources.Btn_Import
                     </button>

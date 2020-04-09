@@ -16,8 +16,12 @@
     color: $white !important;
     background-color: $primary-color !important;
 
+    &-text {
+        color: $primary-color;
+    }
+
     &:hover {
-        background-color: $primary-color-light !important;
+        background-color: color("commando-primary", "darken-2") !important;
     }
 }
 
@@ -27,7 +31,16 @@
     background-color: $grey-light-1 !important;
 
     &:hover {
-        background-color: $grey-light-2 !important;
+        background-color: color("grey", "lighten-1") !important;
+    }
+}
+.btn-default-primary {
+    color: $primary-color !important;
+    background-color: $grey-light-1 !important;
+
+    &:hover {
+        //color: color("commando-primary", "lighten-2") !important;
+        background-color: color("grey", "lighten-1") !important;
     }
 }
 
