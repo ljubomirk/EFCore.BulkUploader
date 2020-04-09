@@ -36,9 +36,9 @@ namespace WebApp.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
+        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
         {
-            return _service.Create(Code, Name, ValidFrom, ValidTo);
+            return _service.Create(Code, Name, ValidFrom, ValidTo, Enabled, PromotionProperties);
         }
 
         public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)

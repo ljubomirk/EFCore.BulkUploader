@@ -36,7 +36,7 @@ namespace Web.Services.Impl
             throw new NotImplementedException();
         }
 
-        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo)
+        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
             throw new NotImplementedException();
         }

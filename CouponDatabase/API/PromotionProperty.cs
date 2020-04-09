@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TripleI.CouponDatabase.API
+namespace CouponDatabase.API
 {
     public enum PromotionPropertyEnum
     {
@@ -13,10 +13,9 @@ namespace TripleI.CouponDatabase.API
         AllowMultipleRedeem = 5,
         AllowCouponSeries = 6,
     }
-    class PromotionProperty
+    public class PromotionProperty
     {
         public PromotionPropertyEnum Name { get; set; }
-        public object Value { get; set; } 
-        public ValueType ValueType { get; set; }
+        public bool Checked { get; set; } 
     }
 }
