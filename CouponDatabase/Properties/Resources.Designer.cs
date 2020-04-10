@@ -196,6 +196,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace File.
+        /// </summary>
+        public static string Btn_ReplaceFile {
+            get {
+                return ResourceManager.GetString("Btn_ReplaceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset Changes.
         /// </summary>
         public static string Btn_ResetChanges {
@@ -210,6 +219,15 @@ namespace CouponDatabase.Properties {
         public static string Btn_SaveChanges {
             get {
                 return ResourceManager.GetString("Btn_SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select File.
+        /// </summary>
+        public static string Btn_SelectFile {
+            get {
+                return ResourceManager.GetString("Btn_SelectFile", resourceCulture);
             }
         }
         

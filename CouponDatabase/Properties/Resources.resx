@@ -333,4 +333,12 @@
     <value>Set enabled?</value>
     <comment>Modal text.</comment>
   </data>
+  <data name="Btn_ReplaceFile" xml:space="preserve">
+    <value>Replace File</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SelectFile" xml:space="preserve">
+    <value>Select File</value>
+    <comment>Button label.</comment>
+  </data>
 </root>

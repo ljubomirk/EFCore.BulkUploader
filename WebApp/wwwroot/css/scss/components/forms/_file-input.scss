@@ -1,7 +1,7 @@
 /* File Input
    ========================================================================== */
 
-.file-field {
+.file-field-input {
   position: relative;
 
   .file-path-wrapper {
@@ -41,4 +41,8 @@
     opacity: 0;
     filter: alpha(opacity=0);
   }
+}
+
+#file-name-holder {
+    display: none;
 }

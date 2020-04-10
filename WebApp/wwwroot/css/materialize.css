@@ -3889,7 +3889,8 @@ p.section-headline {
       width: 100%;
       border-radius: 0; } }
 
-.tabs {
+.tabs,
+.tabs-section {
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
@@ -3897,39 +3898,55 @@ p.section-headline {
   width: 100%;
   background-color: #fff;
   white-space: nowrap; }
-  .tabs.tabs-white {
+  .tabs.tabs-white,
+  .tabs-section.tabs-white {
     background-color: #fff; }
     .tabs.tabs-white .tab a,
     .tabs.tabs-white .tab.disabled a,
-    .tabs.tabs-white .tab.disabled a:hover {
+    .tabs.tabs-white .tab.disabled a:hover,
+    .tabs-section.tabs-white .tab a,
+    .tabs-section.tabs-white .tab.disabled a,
+    .tabs-section.tabs-white .tab.disabled a:hover {
       color: rgba(255, 255, 255, 0.7); }
     .tabs.tabs-white .tab a:hover,
-    .tabs.tabs-white .tab a.active {
+    .tabs.tabs-white .tab a.active,
+    .tabs-section.tabs-white .tab a:hover,
+    .tabs-section.tabs-white .tab a.active {
       color: #4d4cac; }
-    .tabs.tabs-white .indicator {
+    .tabs.tabs-white .indicator,
+    .tabs-section.tabs-white .indicator {
       background-color: #4d4cac; }
-  .tabs-coupons {
+  .tabs-coupons,
+  .tabs-section-coupons {
     border-bottom: 1px solid #eeeeee; }
-  .tabs.tabs-fixed-width {
+  .tabs.tabs-fixed-width,
+  .tabs-section.tabs-fixed-width {
     display: flex; }
-    .tabs.tabs-fixed-width .tab {
+    .tabs.tabs-fixed-width .tab,
+    .tabs-section.tabs-fixed-width .tab {
       flex-grow: 1; }
-  .tabs .tab {
+  .tabs .tab,
+  .tabs-section .tab {
     display: inline-block;
     text-align: center;
     line-height: 64px;
     height: 64px;
     padding: 0;
     margin: 0 12px; }
-    .tabs .tab.first {
+    .tabs .tab.first,
+    .tabs-section .tab.first {
       margin-left: 0; }
-    .tabs .tab.last {
+    .tabs .tab.last,
+    .tabs-section .tab.last {
       margin-right: 0; }
-    .tabs .tab-coupon {
+    .tabs .tab-coupon,
+    .tabs-section .tab-coupon {
       min-width: 100px; }
-      .tabs .tab-coupon > a {
+      .tabs .tab-coupon > a,
+      .tabs-section .tab-coupon > a {
         font-weight: bold; }
-    .tabs .tab a {
+    .tabs .tab a,
+    .tabs-section .tab a {
       color: rgba(45, 45, 55, 0.7);
       display: block;
       width: 100%;
@@ -3939,17 +3956,24 @@ p.section-headline {
       text-overflow: ellipsis;
       overflow: hidden;
       transition: color .28s ease, background-color .28s ease; }
-      .tabs .tab a:focus, .tabs .tab a:focus.active {
+      .tabs .tab a:focus, .tabs .tab a:focus.active,
+      .tabs-section .tab a:focus,
+      .tabs-section .tab a:focus.active {
         /*background-color: transparentize($primary-color, .8);*/
         outline: none; }
-      .tabs .tab a:hover, .tabs .tab a.active {
+      .tabs .tab a:hover, .tabs .tab a.active,
+      .tabs-section .tab a:hover,
+      .tabs-section .tab a.active {
         background-color: transparent;
         color: #4d4cac; }
     .tabs .tab.disabled a,
-    .tabs .tab.disabled a:hover {
+    .tabs .tab.disabled a:hover,
+    .tabs-section .tab.disabled a,
+    .tabs-section .tab.disabled a:hover {
       color: rgba(77, 76, 172, 0.4);
       cursor: default; }
-  .tabs .indicator {
+  .tabs .indicator,
+  .tabs-section .indicator {
     position: absolute;
     clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
     bottom: 0;
@@ -5442,7 +5466,7 @@ textarea {
     cursor: pointer;
     float: left;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 18px;
     color: #2d2d37;
     border: none;
     display: inline-block;
@@ -5838,20 +5862,20 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 
 /* File Input
    ========================================================================== */
-.file-field {
+.file-field-input {
   position: relative; }
-  .file-field .file-path-wrapper {
+  .file-field-input .file-path-wrapper {
     overflow: hidden;
     padding-left: 10px; }
-  .file-field input.file-path {
+  .file-field-input input.file-path {
     width: 100%; }
-  .file-field .btn, .file-field .btn-large, .file-field .btn-small {
+  .file-field-input .btn, .file-field-input .btn-large, .file-field-input .btn-small {
     float: left;
     height: 3rem;
     line-height: 3rem; }
-  .file-field span {
+  .file-field-input span {
     cursor: pointer; }
-  .file-field input[type=file] {
+  .file-field-input input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -5864,8 +5888,11 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0); }
-    .file-field input[type=file]::-webkit-file-upload-button {
+    .file-field-input input[type=file]::-webkit-file-upload-button {
       display: none; }
+
+#file-name-holder {
+  display: none; }
 
 /* Range
    ========================================================================== */

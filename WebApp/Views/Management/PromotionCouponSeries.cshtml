@@ -74,7 +74,7 @@
                 <div class="col s12">
                     <div class="nav-extended">
                         <div class="nav-content">
-                            <ul class="tabs tabs-transparent tabs-coupons">
+                            <ul class="tabs-section tabs-transparent tabs-coupons">
                                 <li id="tab-init" class="tab first tab-coupon"><a class="active" href="#coupon-generate">Generate</a></li>
                                 <li class="tab last tab-coupon"><a href="#coupon-import">Import</a></li>
                             </ul>
@@ -85,7 +85,7 @@
             <!-- /options -->
 
             <!-- generate -->
-            <div id="coupon-generate" class="row">
+            <section id="coupon-generate">
                 <div class="row">
                     <div class="col s12">
                         <h5 class="section u-m-t-remove">Coupon Format</h5>
@@ -138,37 +138,45 @@
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col s12">
+                        <button type="button" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" data-position="bottom" data-tooltip="Not implemented!">
+                            <i class="material-icons left">check</i>
+                            @CouponDatabase.Properties.Resources.Btn_Generate
+                        </button>
+                    </div>
+                </div>
+            </section>
             <!-- /generate-->
 
             <!-- import -->
-            <div id="coupon-import" class="row">
-                <div class="col s12">
-                    <h5 class="section u-m-t-remove">Import coupons</h5>
+            <section id="coupon-import">
+                <div class="row">
+                    <div id="file-name-holder" class="input-field date col s6">
+                        <input id="file-name" placeholder="" class="" type="text" disabled />
+                    </div>
+                    <div class="col s6">
+                        <div class="file-field-input input-field">
+                            <button id="btn-file-input" type="button" class="waves-effect waves-light btn-flat btn-default-primary">
+                                <i class="material-icons left">file_upload</i>
+                                @CouponDatabase.Properties.Resources.Btn_SelectFile
+                            </button>
+                            <input id="file-input" type="file" />
+                        </div>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <input placeholder="" class="example-coupon" type="text" disabled>
-                    <label class="active" for="example">Example Coupon</label>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                <div class="row u-m-t-md">
+                    <div class="col s12">
+                        <button type="button" class="waves-effect waves-light btn-flat btn-primary" data-position="bottom" data-tooltip="Not implemented!">
+                            <i class="material-icons left">check</i>
+                            @CouponDatabase.Properties.Resources.Btn_Import
+                        </button>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <button type="button" class="waves-effect waves-light btn-flat btn-default-primary" data-position="bottom" data-tooltip="Not implemented!">
-                        <i class="material-icons left">file_upload</i>
-                        @CouponDatabase.Properties.Resources.Btn_Import
-                    </button>
-                </div>
-            </div>
+            </section>
             <!-- /import -->
 
 
-            <div class="row">
-                <div class="col s12">
-                    <button type="button" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" data-position="bottom" data-tooltip="Not implemented!">
-                        <i class="material-icons left">check</i>
-                        @CouponDatabase.Properties.Resources.Btn_Generate
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 }
@@ -176,7 +184,9 @@
 <script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
+        ///////
         // init date picker
+        ///
         $('.calendar').calendar().change(function (e) {
             // validate date format
             // TODO: regex should be changed depending on locale
@@ -191,8 +201,14 @@
                 input.removeClass("valid").addClass("invalid");
             }
         });
+        ///////
+        // init form tabs
+        ///
+        $(".tabs-section").tabs({ swipeable: true });
 
+        ///////
         // emable validation tooltip message
+        ///
         $("button[data-position='bottom']").tooltip();
 
         $(".btn-subtract").click(function () {
@@ -216,6 +232,30 @@
             }
         });
 
+        ///////
+        // file upload
+        ///
+        var fileInput = $("#file-input");
+        var fileBtn = $("#btn-file-input");
+        var fileName = $("#file-name");
+        var fileNameHolder = $("#file-name-holder");
+
+        // simulate click on input
+        fileBtn.click(function () {
+            fileInput.click();
+        })
+        // display name
+        fileInput.on('change', function () {
+            var name = $(this).val().split('\\').pop();
+            var replaceFile = '<i class="material-icons left">file_upload</i>' + '@CouponDatabase.Properties.Resources.Btn_ReplaceFile';
+            var btnLabel = fileBtn.html();
+
+            if (name && !btnLabel.includes(replaceFile)) {
+                fileBtn.html(replaceFile);
+                fileNameHolder.show('slow');
+            }
+            fileName.val(name);
+        })
 
         // TODO: coupon sample generator
     });
