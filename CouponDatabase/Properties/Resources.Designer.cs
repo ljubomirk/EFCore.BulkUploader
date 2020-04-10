@@ -349,6 +349,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search returned no results..
+        /// </summary>
+        public static string Filter_NoResults {
+            get {
+                return ResourceManager.GetString("Filter_NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assign.
         /// </summary>
         public static string LifecycleAction_Assign {

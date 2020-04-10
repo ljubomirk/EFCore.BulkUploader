@@ -341,4 +341,8 @@
     <value>Select File</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Filter_NoResults" xml:space="preserve">
+    <value>Search returned no results.</value>
+    <comment>Filter text if no results found.</comment>
+  </data>
 </root>

@@ -421,6 +421,10 @@ table {
         th {
             color: $grey;
             font-weight: 600;
+
+            &:first-child {
+                text-align: left;
+            }
         }
 
         tr {
@@ -439,6 +443,10 @@ table {
 
             > tr > td {
                 border-radius: 0;
+
+                &:first-child {
+                    padding-left: 18px;
+                }
 
                 &:not(:first-child) {
                     text-align: center;
