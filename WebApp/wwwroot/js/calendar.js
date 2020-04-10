@@ -470,7 +470,7 @@
             if (!this.isInline)
                 this.picker.appendTo(this.o.container);
             this.place();
-            this.picker.show();
+            this.picker.slideDown(300);
             this._attachSecondaryEvents();
             this._trigger('show');
             if ((window.navigator.msMaxTouchPoints || 'ontouchstart' in document) && this.o.disableTouchKeyboard) {
