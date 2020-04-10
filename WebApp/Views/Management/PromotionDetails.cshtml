@@ -108,8 +108,10 @@
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.IssuerChannels[0].Checked, new { @class = "filled-in" })
+                                @Html.CheckBoxFor(c => c.IssuerChannels[i].Checked, new { @class = "filled-in" })
                                 <span>@Html.DisplayFor(c => c.IssuerChannels[i].Label)</span>
+                                @Html.HiddenFor(c => c.IssuerChannels[i].Id)
+                                @Html.HiddenFor(c => c.IssuerChannels[i].Label)
                             </label>
                         </p>
                     }
@@ -122,8 +124,10 @@
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.AwardChannels[0].Checked, new { @class = "filled-in" })
+                                @Html.CheckBoxFor(c => c.AwardChannels[i].Checked, new { @class = "filled-in" })
                                 <span>@Html.DisplayFor(c => c.AwardChannels[i].Label)</span>
+                                @Html.HiddenFor(c => c.AwardChannels[i].Id)
+                                @Html.HiddenFor(c => c.AwardChannels[i].Label)
                             </label>
                         </p>
                     }
@@ -138,8 +142,10 @@
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.Properties[0].Checked, new { @class = "filled-in" })
+                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
                                 <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
+                                @Html.HiddenFor(c => c.Properties[i].Id)
+                                @Html.HiddenFor(c => c.Properties[i].Label)
                             </label>
                         </p>
                     }
