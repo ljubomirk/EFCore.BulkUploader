@@ -39,6 +39,8 @@
                         <label>
                             @Html.CheckBoxFor(c => c.Filter.Properties[i].Checked, new { @class = "filled-in"})
                             <span>@Html.DisplayFor(c => c.Filter.Properties[i].Label)</span>
+                            @Html.HiddenFor(c => c.Filter.Properties[i].Id)
+                            @Html.HiddenFor(c => c.Filter.Properties[i].Label)
                         </label>
                     </p>
                 }
