@@ -113,3 +113,49 @@
   background-color: $input-disabled-color;
   border-color: $input-disabled-solid-color;
 }
+
+
+.radio-buttons-wrapper {
+    clear: both;
+    display: inline-block;
+    border: 1px solid color("grey", "lighten-3");
+    border-radius: $button-radius;
+}
+
+.radio-button-group {
+    position: absolute;
+    left: -9999em;
+    top: -9999em;
+
+    &[disabled] + label {
+        cursor: default;
+        color: color("grey", "lighten-1");
+    }
+
+    & + label {
+        cursor: pointer;
+        float: left;
+        font-weight: 600;
+        font-size: 1rem;
+        color: $black;
+        border: $button-border;
+        display: inline-block;
+        height: $button-height;
+        line-height: $button-height;
+        padding: $button-padding;
+        vertical-align: middle;
+
+        &:first-of-type {
+            border-radius: $button-radius 0 0 $button-radius;
+        }
+
+        &:last-of-type {
+            border-radius: 0 $button-radius $button-radius 0;
+        }
+    }
+
+    &:checked + label {
+        color: $primary-color;
+        background-color: rgba($primary-color, 0.2);
+    }
+}

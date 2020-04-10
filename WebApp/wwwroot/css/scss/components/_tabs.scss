@@ -17,6 +17,9 @@
             background-color: $primary-color;
         }
     }
+    &-coupons {
+        border-bottom: 1px solid color("grey","lighten-3");
+    }
 
     &.tabs-fixed-width {
         display: flex;
@@ -48,6 +51,12 @@
 
         &.last {
             margin-right: 0;
+        }
+        &-coupon {
+            min-width: 100px;
+           & > a {
+               font-weight: bold;
+           }
         }
 
         a {
