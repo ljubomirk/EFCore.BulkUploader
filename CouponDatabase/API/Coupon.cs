@@ -13,6 +13,6 @@ namespace CouponDatabase.API
         public String User { get; set; }
         public CouponStatus Status { get; set; }
         public DateTime ExpireDate { get; set; }
-
+        public string PromotionCode { get; set; }
     }
 }
