@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="row">
                     <div class="input-field date col s6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @required = "required" } })
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                         @*<i class="material-icons suffix validation-error" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
                     </div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="input-field col s6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required" } })
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                     <i class="material-icons suffix">event</i>
                 </div>
@@ -79,11 +79,11 @@
                     <!--a bit of a hack just to add disabled in htmlAttr...-->
                     @if (hasEndDate != "disabled")
                     {
-                        @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", @id = "ValidTo", placeholder = "" } })
+                        @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", @id = "ValidTo", placeholder = "", @autocomplete = "off" } })
                     }
                     else
                     {
-                        @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", @id = "ValidTo", placeholder = "", @disabled = true } })
+                        @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", @id = "ValidTo", placeholder = "", @disabled = true, @autocomplete = "off" } })
                     }
                     @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
                     <i id="icon-endDate" class="material-icons suffix @hasEndDate">event</i>

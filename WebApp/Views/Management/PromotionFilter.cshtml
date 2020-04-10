@@ -9,7 +9,7 @@
             <div class="col s4">
                 <div class="u-p-t-lg">
                     <div class="input-field">
-                        @Html.EditorFor(f => f.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "" } })
+                        @Html.EditorFor(f => f.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @autocomplete = "off" } })
                         @Html.LabelFor(f => f.Filter.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
                     </div>
                 </div>
@@ -18,11 +18,11 @@
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
                 <p>
                     <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                        @Html.CheckBoxFor(f => f.Filter.ShowActive, new { @class = "filled-in" })
+                        @Html.CheckBoxFor(f => f.Filter.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
                         <span>@Html.DisplayNameFor(f => f.Filter.ShowActive)</span>
                     </label>
                     <label class="checkbox-hover checkbox-hover__inline">
-                        @Html.CheckBoxFor(f => f.Filter.ShowInactive, new { @class = "filled-in" })
+                        @Html.CheckBoxFor(f => f.Filter.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
                         <span>@Html.DisplayNameFor(f => f.Filter.ShowInactive)</span>
                     </label>
                 </p>
@@ -37,7 +37,7 @@
                 {
                     <p class="checkbox-hover">
                         <label>
-                            @Html.CheckBoxFor(c => c.Filter.Properties[i].Checked, new { @class = "filled-in"})
+                            @Html.CheckBoxFor(c => c.Filter.Properties[i].Checked, new { @class = "filled-in", @autocomplete = "off"})
                             <span>@Html.DisplayFor(c => c.Filter.Properties[i].Label)</span>
                             @Html.HiddenFor(c => c.Filter.Properties[i].Id)
                             @Html.HiddenFor(c => c.Filter.Properties[i].Label)
@@ -48,13 +48,13 @@
         </div>
         <div class="row">
             <div class="input-field date col s4">
-                @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
+                @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "", @autocomplete = "off" } })
                 @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                 <i class="material-icons suffix">event</i>
                 @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
             </div>
             <div class="input-field date col s4">
-                @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "" } })
+                @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "", @autocomplete = "off" } })
                 @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                 <i class="material-icons suffix">event</i>
                 @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
