@@ -143,19 +143,34 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
         {
+            Promotion promo = new Promotion();
+            if (viewModel.Promotion.Id != 0)
+                promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
 
-            var promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
-            if (promo == null) 
+            if (viewModel.Promotion.Id == 0) 
             {
-                _repo.CreatePromotion(viewModel.Promotion);
-                ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Promotion created.";
+                var Id = _repo.CreatePromotion(viewModel.Promotion);
+                bool fieldsUpdated = updatePromotionFields(viewModel, Id);
+                if (Id>0 || fieldsUpdated)
+                {
+                    ViewBag.CommandStatus = "[OK]";
+                    ViewBag.CommandMessage = "Promotion created.";
+                }
             }
             else
             {
-                _repo.UpdatePromotion(viewModel.Promotion);
-                ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Promotion saved.";
+                bool promotionUpdated = _repo.UpdatePromotion(viewModel.Promotion);
+                bool fieldsUpdated = updatePromotionFields(viewModel, viewModel.Promotion.Id);
+
+                if (promotionUpdated ||fieldsUpdated)
+                {
+                    ViewBag.CommandStatus = "[OK]";
+                    ViewBag.CommandMessage = "Promotion saved.";
+                }
+                else{
+                    ViewBag.CommandStatus = "[NOT OK]";
+                    ViewBag.CommandMessage = "Promotion didn't saved.";
+                }
             }
             return View("PromotionDetails", viewModel);
         }
@@ -183,11 +198,11 @@ namespace WebApp.Controllers
             {
                 if (promotionIssuerChannels.Contains(issuerChannel))
                 {
-                    checkedItems.Add(new CheckedItem { Checked = true, Label = issuerChannel.Name });
+                    checkedItems.Add(new CheckedItem { Checked = true, Label = issuerChannel.Name, Id = issuerChannel.Id });
                 }
                 else
                 {
-                    checkedItems.Add(new CheckedItem { Checked = false, Label = issuerChannel.Name });
+                    checkedItems.Add(new CheckedItem { Checked = false, Label = issuerChannel.Name, Id = issuerChannel.Id });
                 }
             }
             return checkedItems;
@@ -200,11 +215,11 @@ namespace WebApp.Controllers
             {
                 if (promotionAwardChannels.Contains(awardChannels))
                 {
-                    checkedItems.Add(new CheckedItem { Checked = true, Label = awardChannels.Name });
+                    checkedItems.Add(new CheckedItem { Checked = true, Label = awardChannels.Name, Id = awardChannels.Id });
                 }
                 else
                 {
-                    checkedItems.Add(new CheckedItem { Checked = false, Label = awardChannels.Name });
+                    checkedItems.Add(new CheckedItem { Checked = false, Label = awardChannels.Name, Id = awardChannels.Id });
                 }
             }
             return checkedItems;
@@ -217,14 +232,37 @@ namespace WebApp.Controllers
             {
                 if (promotionProperties.Contains(property))
                 {
-                    checkedItems.Add(new CheckedItem { Checked = true, Label = property.Name });
+                    checkedItems.Add(new CheckedItem { Checked = true, Label = property.Name, Id = property.Id });
                 }
                 else
                 {
-                    checkedItems.Add(new CheckedItem { Checked = false, Label = property.Name });
+                    checkedItems.Add(new CheckedItem { Checked = false, Label = property.Name, Id = property.Id });
                 }
             }
             return checkedItems;
+        }
+
+
+        private bool updatePromotionFields(PromotionDetailsViewModel viewModel, long Id)
+        {
+            List<PromotionProperty> promotionProperties = new List<PromotionProperty>();
+            List<PromotionAwardChannel> promotionAwardChannels = new List<PromotionAwardChannel>();
+            List<PromotionIssuerChannel> promotionIssuerChannels = new List<PromotionIssuerChannel>();
+
+            foreach (var item in viewModel.Properties.Where(x => x.Checked == true).ToList<CheckedItem>())
+            {
+                promotionProperties.Add(new PromotionProperty() { PromotionId = Id, PropertyId = item.Id });
+            }
+            foreach (var item in viewModel.AwardChannels.Where(x => x.Checked == true).ToList<CheckedItem>())
+            {
+                promotionAwardChannels.Add(new PromotionAwardChannel() { PromotionId = Id, AwardChannelId = item.Id });
+            }
+            foreach (var item in viewModel.IssuerChannels.Where(x => x.Checked == true).ToList<CheckedItem>())
+            {
+                promotionIssuerChannels.Add(new PromotionIssuerChannel() { PromotionId = Id, IssuerChannelId = item.Id });
+            }
+
+            return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
         }
 
     }
