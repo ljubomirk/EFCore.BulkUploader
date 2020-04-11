@@ -345,4 +345,12 @@
     <value>Search returned no results.</value>
     <comment>Filter text if no results found.</comment>
   </data>
+  <data name="Btn_Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="CouponFilter_Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>CouponFilter view text.</comment>
+  </data>
 </root>

@@ -223,6 +223,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Btn_Search {
+            get {
+                return ResourceManager.GetString("Btn_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select File.
         /// </summary>
         public static string Btn_SelectFile {
@@ -246,6 +255,15 @@ namespace CouponDatabase.Properties {
         public static string Btn_SetEnabled {
             get {
                 return ResourceManager.GetString("Btn_SetEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string CouponFilter_Search {
+            get {
+                return ResourceManager.GetString("CouponFilter_Search", resourceCulture);
             }
         }
         

@@ -13,14 +13,14 @@
                 </a>
             </li>
             <li class="tab">
-                <a class="@(controllerName == "Lifecycle" ? "active" : "")" href="#">
+                <a class="@(controllerName == "Lifecycle" ? "active" : "")" target="_self" href="@Url.Action("Index", "Lifecycle")">
                     @CouponDatabase.Properties.Resources.Nav_Lifecycle
                 </a>
             </li>
             @if (Role == "CouponAdmin")
             {
                 <li class="tab">
-                    <a class="@(controllerName == "Administration" ? "active" : "")" href="#">
+                    <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="#">
                         @CouponDatabase.Properties.Resources.Nav_Administration
                     </a>
                 </li>

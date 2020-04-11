@@ -5,12 +5,18 @@ select { display: none; }
 select.browser-default { display: block; }
 
 select {
-  background-color: $select-background;
-  width: 100%;
-  padding: $select-padding;
-  border: $select-border;
-  border-radius: $select-radius;
-  height: $input-height;
+    background-color: $input-background;
+    border: $input-border;
+    border-radius: 4px;
+    outline: none;
+    height: $input-height;
+    width: 100%;
+    font-size: $input-font-size;
+    margin: $input-margin;
+    padding: $input-padding;
+    box-shadow: none;
+    box-sizing: content-box;
+    transition: box-shadow .3s, border .3s;
 }
 
 .select-label {
@@ -18,80 +24,99 @@ select {
 }
 
 .select-wrapper {
-  &.valid .helper-text[data-success],
-  &.invalid ~ .helper-text[data-error] {
-    @extend %hidden-text;
-  }
-
-  &.valid {
-    & > input.select-dropdown {
-      @extend %valid-input-style;
+    &.valid .helper-text[data-success],
+    &.invalid ~ .helper-text[data-error] {
+        @extend %hidden-text;
     }
 
-    & ~ .helper-text:after {
-      @extend %custom-success-message;
+    &.valid {
+        & > input.select-dropdown {
+            @extend %valid-input-style;
+        }
+
+        & ~ .helper-text:after {
+            @extend %custom-success-message;
+        }
     }
-  }
 
-  &.invalid {
-    & > input.select-dropdown,
-    & > input.select-dropdown:focus {
-      @extend %invalid-input-style;
+    &.invalid {
+        & > input.select-dropdown,
+        & > input.select-dropdown:focus {
+            @extend %invalid-input-style;
+        }
+
+        & ~ .helper-text:after {
+            @extend %custom-error-message;
+        }
     }
 
-    & ~ .helper-text:after {
-      @extend %custom-error-message;
+    &.valid + label,
+    &.invalid + label {
+        width: 100%;
+        pointer-events: none;
     }
-  }
 
-  &.valid + label,
-  &.invalid + label {
-    width: 100%;
-    pointer-events: none;
-  }
-
-  & + label:after {
-    @extend %input-after-style;
-  }
-
-  position: relative;
-
-  input.select-dropdown {
-    &:focus {
-      border-bottom: 1px solid $input-focus-color;
+    & + label:after {
+        @extend %input-after-style;
     }
+
     position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    border-bottom: $input-border;
-    outline: none;
-    height: $input-height;
-    line-height: $input-height;
-    width: 100%;
-    font-size: $input-font-size;
-    margin: $input-margin;
-    padding: 0;
-    display: block;
-    user-select:none;
-    z-index: 1;
-  }
 
-  .caret {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
-    z-index: 0;
-    fill: rgba(0,0,0,.87);
-  }
+    input.select-dropdown {
+        &:focus {
+            border: 1px solid $primary-color;
 
-  & + label {
-    position: absolute;
-    top: -26px;
-    font-size: $label-font-size;
-  }
+            & + label {
+                color: $primary-color;
+            }
+        }
+
+        background-color: $white;
+        border: $input-border;
+        border-radius: 4px;
+        outline: none;
+        height: $input-height;
+        width: 100%;
+        font-size: $input-font-size;
+        margin: $input-margin;
+        padding: $input-padding;
+        box-shadow: none;
+        box-sizing: content-box;
+        transition: box-shadow .3s, border .3s;
+        position: relative;
+        cursor: pointer;
+        line-height: $input-height;
+        display: block;
+        user-select: none;
+        z-index: 1;
+    }
+
+    .caret {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        z-index: 20;
+        fill: rgba(0,0,0,.87);
+    }
+
+    & + label {
+        position: absolute;
+        top: -38px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: $grey;
+    }
+
+    & ul {
+        top: $input-height !important;
+        border-radius: 0 0 4px 4px;
+
+        & > li > span {
+            font-weight: 600;
+        }
+    }
 }
 
 // Disabled styles
@@ -126,21 +151,28 @@ select:disabled {
 }
 
 body.keyboard-focused {
-  .select-dropdown.dropdown-content li:focus {
-    background-color: $select-option-focus;
-  }
+    .select-dropdown.dropdown-content li:focus {
+        background-color: transparent;
+    }
 }
 
 .select-dropdown.dropdown-content {
-  li {
-    &:hover {
-      background-color: $select-option-hover;
-    }
+    li {
+        &:hover {
+            background-color: rgba($primary-color, .1);
 
-    &.selected {
-      background-color: $select-option-selected;
+            & span {
+                color: $primary-color !important;
+            }
+        }
+
+        &.selected {
+
+            & span {
+                color: color("commando-primary", "lighten-1") !important;
+            }
+        }
     }
-  }
 }
 
 // Prefix Icons
