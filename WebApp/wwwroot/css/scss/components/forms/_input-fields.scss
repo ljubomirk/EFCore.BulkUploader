@@ -35,7 +35,7 @@ textarea.materialize-textarea {
     margin: $input-margin;
     padding: $input-padding;
     box-shadow: none;
-    box-sizing: content-box;
+    /*box-sizing: content-box;*/
     transition: box-shadow .3s, border .3s;
     // Disabled input style
     &:disabled,

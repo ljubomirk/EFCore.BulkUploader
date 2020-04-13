@@ -5,8 +5,8 @@
     @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionForm", hidden = true}))
     {
     <div class="container">
-        <div class="row">
-            <div class="col s4">
+        <div class="row u-m-t-md">
+            <div class="col s12 m4 u-p-l-remove">
                 <div class="u-p-t-lg">
                     <div class="input-field">
                         @Html.EditorFor(f => f.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @autocomplete = "off" } })
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col s8">
+            <div class="col s12 m8 u-p-l-remove">
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
                 <p>
                     <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="row u-m-t-negativ">
-            <div class="col s12">
+            <div class="col s12 u-p-l-remove">
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
             </div>
             <div class="col s12 three-cols">
@@ -46,14 +46,14 @@
                 }
             </div>
         </div>
-        <div class="row">
-            <div class="input-field date col s4">
+        <div class="row u-m-t-xl u-m-l-sm-negative">
+            <div class="input-field date col s12 m4">
                 @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "", @autocomplete = "off" } })
                 @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                 <i class="material-icons suffix">event</i>
                 @*<span>@Html.ValidationMessageFor(model => model.Promotion.Code)</span>*@
             </div>
-            <div class="input-field date col s4">
+            <div class="input-field date col s12 m4">
                 @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar validate", @type = "text", placeholder = "", @autocomplete = "off" } })
                 @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                 <i class="material-icons suffix">event</i>
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12 u-p-l-remove">
                 <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
                     <i class="material-icons left">check</i>
                     @CouponDatabase.Properties.Resources.Btn_ApplyFilters

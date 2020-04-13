@@ -36,6 +36,10 @@
                 margin-left: 0 !important;
             }
 
+            &-sm-negative {
+                margin-left: -.75rem;
+            }
+
             &-xs {
                 margin-left: 4px;
             }
@@ -125,7 +129,7 @@
 
         &-r {
             &-remove {
-                padding-right: 0;
+                padding-right: 0 !important;
             }
 
             &-xs {
@@ -151,7 +155,7 @@
 
         &-l {
             &-remove {
-                padding-left: 0;
+                padding-left: 0 !important;
             }
 
             &-xs {

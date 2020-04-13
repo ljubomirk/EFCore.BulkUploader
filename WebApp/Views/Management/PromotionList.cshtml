@@ -18,8 +18,12 @@
 
 <!-- heading -->
 <div class="row">
-    <h4>
-        @CouponDatabase.Properties.Resources.Promotions_Title
+    <div class="col s12 m6 u-p-l-remove">
+        <h4 class="u-m-t-remove">
+            @CouponDatabase.Properties.Resources.Promotions_Title
+        </h4>
+    </div>
+    <div class="col s12 m6 u-p-r-remove">
         <a href="@Url.Action("CreatePromotion", "Management")" class="waves-effect waves-light btn-flat btn-primary right">
             <i class="material-icons left">add</i>
             @CouponDatabase.Properties.Resources.Btn_CreateNew
@@ -28,7 +32,7 @@
             <i class="material-icons left">unfold_more</i>
             @CouponDatabase.Properties.Resources.Btn_Filter
         </button>
-    </h4>
+    </div>
 </div>
 <!-- /heading -->
 
@@ -128,6 +132,7 @@
 
             // init data table
             $('#promotion-list').DataTable({
+                responsive: true,
                 pageLength: 10,
                 searching: false,
                 info: false,
