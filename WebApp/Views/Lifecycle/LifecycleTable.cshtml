@@ -1,0 +1,84 @@
+﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
+@{
+    ViewData["Title"] = "LifecycleTable";
+}
+
+@if (Model.Coupons.Count() > 0)
+{
+    <!-- coupon table -->
+    <table id="coupon-list" class="striped highlight">
+        <thead>
+            <tr>
+                <th>
+                    <p class="checkbox-hover">
+                        <label>
+                            <input type="checkbox" class="filled-in" />
+                        </label>
+                    </p>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Code)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Holder)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].User)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Status)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Active)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var c in Model.Coupons)
+            {
+                <tr>
+                    <td>
+                        <p class="checkbox-hover">
+                            <label>
+                                <input type="checkbox" class="filled-in" />
+                            </label>
+                        </p>
+                    </td>
+                    <td>@c.Code</td>
+                    <td>@c.Holder</td>
+                    <td>@c.User</td>
+                    <td>@c.Status</td>
+                    <td>
+                        @if (c.Active)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- /coupon table -->
+}
+<script src="~/js/datatables.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+
+        // init data table
+        $('#coupon-list').DataTable({
+            responsive: true,
+            pageLength: 10,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pagingType: "full_numbers",
+            language: {
+                infoEmpty: '@CouponDatabase.Properties.Resources.Filter_NoResults',
+                paginate: {
+                    first: '<i class="material-icons">first_page</i>',
+                    last: '<i class="material-icons">last_page</i>',
+                    next: '<i class="material-icons">chevron_right</i>',
+                    previous: '<i class="material-icons">chevron_left</i>'
+                }
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ],
+            drawCallback: function () {
+                return $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
+            }
+        });
+    });
+
+</script>

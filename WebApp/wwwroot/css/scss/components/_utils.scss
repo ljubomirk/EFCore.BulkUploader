@@ -1,4 +1,13 @@
 ﻿.u {
+    /* dipslays */
+    &-block {
+        display: block;
+    }
+
+    &-inline {
+        display: inline-block !important;
+    }
+
     /*margins*/
     &-m {
         &-remove {
@@ -230,9 +239,5 @@
                 padding-bottom: 36px;
             }
         }
-    }
-
-    &-inline {
-        display: inline-block !important;
     }
 }

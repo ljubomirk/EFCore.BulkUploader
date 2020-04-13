@@ -1,9 +1,9 @@
-﻿@model WebApp.ViewModels.ContextData;
+﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
 @{
     ViewData["Title"] = "CouponFilter";
 }
 
-@using (Html.BeginForm("Search", "Lifecycle", new { role = "form", id = "PromotionForm" }))
+@using (Html.BeginForm("Search", "Lifecycle", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
 {
 
     <!-- header -->
@@ -30,68 +30,41 @@
             <!-- promotion details -->
             <div class="row">
                 <div class="input-field date col s6">
-                    <input placeholder="" id="aaa" type="text" />
-                    <label class="active" for="aaa">Code</label>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @Html.EditorFor(p => p.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.LabelFor(p => p.Filter.Code, new { htmlAttributes = new { @class = "active" } })
+                    @*<i class="material-icons suffix validation-error" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
                 </div>
             </div>
             <div class="row">
                 <div class="input-field date col s6">
-                    <input placeholder="" id="bbb" class="calendar" type="text" />
-                    <label class="active" for="bbb">Valid From</label>
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    <i class="material-icons suffix">event</i>
                 </div>
                 <div class="input-field date col s6">
-                    <input placeholder="" id="bbb" class="calendar" type="text" />
-                    <label class="active" for="bbb">Valid Until</label>
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    <i class="material-icons suffix">event</i>
                 </div>
             </div>
             <!-- /promotion details -->
             <!-- properties -->
             <div class="row">
                 <div class="col s12">
-                    <p class="section-headline u-m-b-remove">Properties</p>
+                    <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.Filter.Properties)</p>
                 </div>
                 <div class="col s12 two-cols">
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Unique coupons</span>
-                        </label>
-                    </p>
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Holder is only consumer</span>
-                        </label>
-                    </p>
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Named holders</span>
-                        </label>
-                    </p>
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Allows multiple redeems</span>
-                        </label>
-                    </p>
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Named consumers</span>
-                        </label>
-                    </p>
-                    <p class="checkbox-hover">
-                        <label>
-                            <input type="checkbox" class="filled-in" />
-                            <span>Allow coupon series</span>
-                        </label>
-                    </p>
+                    @for (int i = 0; i < Model.Filter.Properties.Count; i++)
+                    {
+                        <p class="checkbox-hover">
+                            <label>
+                                @Html.CheckBoxFor(c => c.Filter.Properties[i].Checked, new { @class = "filled-in" })
+                                <span>@Html.DisplayFor(c => c.Filter.Properties[i].Label)</span>
+                                @Html.HiddenFor(c => c.Filter.Properties[i].Id)
+                                @Html.HiddenFor(c => c.Filter.Properties[i].Label)
+                            </label>
+                        </p>
+                    }
                 </div>
             </div>
             <!-- /properties -->
@@ -232,10 +205,10 @@
             <!-- actions -->
             <div class="row u-m-t-xl">
                 <div class="col s12">
-                    <a href="@Url.Action("Search", "Lifecycle")" class="waves-effect waves-light btn-flat btn-primary">
+                    <button type="submit" class="waves-effect waves-light btn-flat btn-primary">
                         <i class="material-icons left">search</i>
                         @CouponDatabase.Properties.Resources.Btn_Search
-                    </a>
+                    </button>
                 </div>
             </div>
             <!-- /actions -->

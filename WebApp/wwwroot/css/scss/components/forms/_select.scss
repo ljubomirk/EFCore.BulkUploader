@@ -15,7 +15,7 @@ select {
     margin: $input-margin;
     padding: $input-padding;
     box-shadow: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
     transition: box-shadow .3s, border .3s;
 }
 
@@ -81,7 +81,7 @@ select {
         margin: $input-margin;
         padding: $input-padding;
         box-shadow: none;
-        box-sizing: content-box;
+        box-sizing: border-box;
         transition: box-shadow .3s, border .3s;
         position: relative;
         cursor: pointer;

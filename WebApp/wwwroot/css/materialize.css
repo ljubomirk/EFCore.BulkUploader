@@ -3234,8 +3234,13 @@ table span.badge {
         left: 100%; } }
 
 .u {
+  /* dipslays */
   /*margins*/
   /*padding*/ }
+  .u-block {
+    display: block; }
+  .u-inline {
+    display: inline-block !important; }
   .u-m-remove {
     margin: 0 !important; }
   .u-m-r-remove {
@@ -3342,8 +3347,6 @@ table span.badge {
     padding-bottom: 24px; }
   .u-p-b-lg {
     padding-bottom: 36px; }
-  .u-inline {
-    display: inline-block !important; }
 
 nav {
   margin-bottom: 46px;
@@ -5788,7 +5791,7 @@ select {
   margin: 0 0 8px 0;
   padding: 0 0 0 15px;
   box-shadow: none;
-  box-sizing: content-box;
+  box-sizing: border-box;
   transition: box-shadow .3s, border .3s; }
 
 .select-label {
@@ -5811,7 +5814,7 @@ select {
     margin: 0 0 8px 0;
     padding: 0 0 0 15px;
     box-shadow: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
     transition: box-shadow .3s, border .3s;
     position: relative;
     cursor: pointer;

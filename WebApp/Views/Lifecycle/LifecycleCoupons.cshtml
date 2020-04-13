@@ -1,32 +1,32 @@
-﻿@model WebApp.ViewModels.ContextData;
+﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
 @{
     ViewData["Title"] = "CouponList";
 }
 
 <!-- header -->
 <div class="row">
-    <h4 class="u-inline u-t-m-remove">
-        @CouponDatabase.Properties.Resources.CouponFilter_Search
-    </h4>
-    <div class="relative s2 right">
-        <a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+    <div class="col s6">
+        <h4 class="u-inline u-m-t-remove">
+            @CouponDatabase.Properties.Resources.CouponFilter_Search
+        </h4>
     </div>
-    <div class="relative s2 right u-m-r-md">
+    <div class="col s2">
         <select>
-            <option value="" disabled selected>Choose your option</option>
+            <option value="" disabled selected>-options-</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
             <option value="3">Option 3</option>
         </select>
     </div>
-    <div class="relative s2 right u-m-r-md">
+    <div class="col s2">
         <select>
-            <option value="" disabled selected>Choose your option</option>
+            <option value="" disabled selected>-options-</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
             <option value="3">Option 3</option>
         </select>
     </div>
+    <a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
 </div>
 <!-- /header -->
 <!-- update form -->
@@ -60,6 +60,8 @@
     </div>
 </div>
 <!-- /update form -->
+
+<partial name="LifecycleTable" />
 
 <script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
