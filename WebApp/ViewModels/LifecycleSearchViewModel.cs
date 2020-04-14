@@ -8,17 +8,29 @@ namespace WebApp.ViewModels
 {
     public class LifecycleSearchViewModel : ContextData
     {
+        public List<Promotion> Promotions { get; set; }
+        public Filters PromotionFilter;
         public List<Coupon> Coupons { get; set; }
-        public Filters Filter;
+        public CouponFilters CouponFilter;
         public LifecycleSearchViewModel()
         {
             Coupons = new List<Coupon>();
+            Promotions = new List<Promotion>();
+
         }
-        public void Add(Coupon coupon)
+        public void AddPromotion(Promotion promo)
+        {
+            Promotions.Add(promo);
+        }
+        public void AddPromotionRange(IList<Promotion> promos)
+        {
+            Promotions.AddRange(promos);
+        }
+        public void AddCoupon(Coupon coupon)
         {
             Coupons.Add(coupon);
         }
-        public void AddRange(IList<Coupon> coupons)
+        public void AddCouponRange(IList<Coupon> coupons)
         {
             Coupons.AddRange(coupons);
         }
