@@ -48,7 +48,10 @@ namespace CouponDatabase.Models
         /// <returns>Boolean value</returns>
         private Boolean GetActive()
         {
-            return Promotion.Active;
+            if(Promotion != null)
+                return Promotion.Active;
+            else 
+                return false
         }
         #region Relations
         public IList<CouponHistory> CouponHistories { get; set; }
