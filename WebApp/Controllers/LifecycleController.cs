@@ -166,7 +166,6 @@ namespace WebApp.Controllers
 
         private List<CheckedItem> setModelCurrentStatus(List<CurrentCouponStatus> allProperties, List<CurrentCouponStatus> promotionProperties)
         {
-            // CouponStatus
             List<CheckedItem> checkedItems = new List<CheckedItem>();
             foreach (CurrentCouponStatus property in allProperties)
             {
