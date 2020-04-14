@@ -17,6 +17,8 @@ namespace CouponDatabase.Models
             Promotion = promo;
         }
 
+        public class CurrentCouponStatus : BaseDefs { }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         //[System.ComponentModel.DataAnnotations.MaxLength(20,ErrorMessageResourceName = , ErrorMessageResourceType = 1]

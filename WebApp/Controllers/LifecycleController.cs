@@ -11,6 +11,7 @@ using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
+using static CouponDatabase.Models.Coupon;
 
 namespace WebApp.Controllers
 {
@@ -34,8 +35,15 @@ namespace WebApp.Controllers
         public IActionResult Index(Filters filter)
         {
             LifecycleSearchViewModel model = new LifecycleSearchViewModel();
-            model.Filter = new Filters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
-            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            model.PromotionFilter = new Filters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            model.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            
+            model.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
+            model.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
+            model.CouponFilter.CurrentCouponStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentCouponStatus>());
+            model.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+
             return View("LifecycleSearch", model);
         }
 
@@ -44,11 +52,48 @@ namespace WebApp.Controllers
         /// </summary>
         /// <returns>Opens list of filtered promotions</returns>
         [HttpPost]
-        public IActionResult Search(Filters filter)
+        public IActionResult Search(Filters promotionFilter, CouponFilters couponFilter)
         {
             LifecycleSearchViewModel model = new LifecycleSearchViewModel();
+
+            List<Promotion> filteredListOfPromotions = new List<Promotion>();
+            List<Coupon> filteredListOfCoupons = new List<Coupon>();
+
+            if (promotionFilter.ShowActive)
+                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == true).ToList<Promotion>());
+            if (promotionFilter.ShowInactive)
+                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
+
+            if (promotionFilter.ValidFrom != null && promotionFilter.ValidUntil != null)
+            {
+                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+            }
+            else if (promotionFilter.ValidFrom != null || promotionFilter.ValidUntil != null)
+            {
+                if (promotionFilter.ValidFrom != null)
+                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>());
+                if (promotionFilter.ValidUntil != null)
+                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+            }
+
+            if (promotionFilter.Code != null)
+            {
+                if (filteredListOfPromotions.Count > 0)
+                {
+                    filteredListOfPromotions = filteredListOfPromotions.Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>();
+                }
+                else
+                {
+                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>());
+                }
+            }
+
+            model.Promotions.AddRange(filteredListOfPromotions);
+
+
             model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
-            model.Filter = filter;
+            model.PromotionFilter = promotionFilter;
+
             return View("LifecycleCoupons", model);
         }
 
@@ -119,6 +164,23 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
+        private List<CheckedItem> setModelCurrentStatus(List<CurrentCouponStatus> allProperties, List<CurrentCouponStatus> promotionProperties)
+        {
+            // CouponStatus
+            List<CheckedItem> checkedItems = new List<CheckedItem>();
+            foreach (CurrentCouponStatus property in allProperties)
+            {
+                if (promotionProperties.Contains(property))
+                {
+                    checkedItems.Add(new CheckedItem { Checked = true, Label = property.Name, Id = property.Id });
+                }
+                else
+                {
+                    checkedItems.Add(new CheckedItem { Checked = false, Label = property.Name, Id = property.Id });
+                }
+            }
+            return checkedItems;
+        }
 
         private bool updatePromotionFields(PromotionDetailsViewModel viewModel, long Id)
         {

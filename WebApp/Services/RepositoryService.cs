@@ -5,6 +5,8 @@ using CouponDatabase.Models;
 using System.Collections.Generic;
 using System.Linq;
 using CouponDatabase.Services;
+using static CouponDatabase.Models.Coupon;
+using System;
 
 namespace WebApp.Services
 {
@@ -52,6 +54,11 @@ namespace WebApp.Services
         {
             return Context.Property.ToList<Property>();
         }
+
+        public List<CurrentCouponStatus> GetCouponStatuses()
+        {
+            return new List<CurrentCouponStatus>();
+        }
         public List<Property> GetPromotionProperties(long idPromotion)
         {
             List<Property> properties = GetAllProperties();
@@ -92,6 +99,9 @@ namespace WebApp.Services
         {
             return Context.IssuerChannel.ToList<IssuerChannel>();
         }
+
+        
+
         public List<IssuerChannel> GetPromotionIssuerChannels(long idPromotion)
         {
             List<IssuerChannel> issuerChannels = GetAllIssuerChannels();
