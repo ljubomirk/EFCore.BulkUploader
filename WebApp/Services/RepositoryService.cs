@@ -31,6 +31,21 @@ namespace WebApp.Services
         {
             Promotion promotion = new Promotion();
                 promotion = Context.Promotion.First(x => x.Id == id);
+                //List<Property> promotionProperties = GetPromotionProperties(promotion.Id);
+                //foreach (var property in promotionProperties)
+                //{
+                //    promotion.PromotionProperties.Add(new PromotionProperty() { Promotion = promotion, PromotionId = promotion.Id, Property = property, PropertyId = property.Id });
+                //}
+                //List<AwardChannel> promotionAwardChannels = GetPromotionAwardChannels(promotion.Id);
+                //foreach (var awardChannel in promotionAwardChannels)
+                //{
+                //    promotion.PromotionAwardChannels.Add(new PromotionAwardChannel() { Promotion = promotion, PromotionId = promotion.Id, AwardChannel = awardChannel, AwardChannelId = awardChannel.Id });
+                //}
+                //List<IssuerChannel> promotionIssuerChannels = GetPromotionIssuerChannels(promotion.Id);
+                //foreach (var issuerChannel in promotionIssuerChannels)
+                //{
+                //    promotion.PromotionIssuerChannels.Add(new PromotionIssuerChannel() { Promotion = promotion, PromotionId = promotion.Id, IssuerChannel = issuerChannel, IssuerChannelId = issuerChannel.Id });
+                //}
                 return promotion;
         }
         public List<Property> GetAllProperties()
@@ -115,30 +130,30 @@ namespace WebApp.Services
 
         public bool updatePromotionFields(long id, List<PromotionProperty> promotionProperties, List<PromotionAwardChannel> awardChannels, List<PromotionIssuerChannel> issuerChannels)
         {
-            //foreach (PromotionProperty item in Context.PromotionProperty.Where(x=>x.PromotionId==id).ToList<PromotionProperty>())
-            //{
-            //    Context.PromotionProperty.Remove(new PromotionProperty() { PromotionId = id, PropertyId = item.PropertyId });
-            //}
+            foreach (PromotionProperty item in Context.PromotionProperty.Where(x => x.PromotionId == id).ToList<PromotionProperty>())
+            {
+                Context.PromotionProperty.Remove(item);
+            }
             foreach (PromotionProperty item in promotionProperties)
             {
                 PromotionProperty prop = new PromotionProperty() { PromotionId = id, PropertyId = item.PropertyId };
                 Context.PromotionProperty.Add(prop);
             }
 
-            //foreach (PromotionAwardChannel item in Context.PromotionAwardChannel.Where(x => x.PromotionId == id).ToList<PromotionAwardChannel>())
-            //{
-            //    Context.PromotionAwardChannel.Remove(new PromotionAwardChannel() { PromotionId = id, AwardChannelId = item.AwardChannelId });
-            //}
+            foreach (PromotionAwardChannel item in Context.PromotionAwardChannel.Where(x => x.PromotionId == id).ToList<PromotionAwardChannel>())
+            {
+               Context.PromotionAwardChannel.Remove(item);
+            }
             foreach (PromotionAwardChannel item in awardChannels)
             {
                 PromotionAwardChannel awardChannel = new PromotionAwardChannel() { PromotionId = id, AwardChannelId = item.AwardChannelId };
                 Context.PromotionAwardChannel.Add(awardChannel);
             }
 
-            //foreach (PromotionIssuerChannel item in Context.PromotionIssuerChannel.Where(x => x.PromotionId == id).ToList<PromotionIssuerChannel>())
-            //{
-            //    Context.PromotionIssuerChannel.Remove(new PromotionIssuerChannel() { PromotionId = id, IssuerChannelId = item.IssuerChannelId });
-            //}
+            foreach (PromotionIssuerChannel item in Context.PromotionIssuerChannel.Where(x => x.PromotionId == id).ToList<PromotionIssuerChannel>())
+            {
+               Context.PromotionIssuerChannel.Remove(item) ;
+            }
             foreach (PromotionIssuerChannel item in issuerChannels)
             {
                 PromotionIssuerChannel issuerChannel = new PromotionIssuerChannel() { PromotionId = id, IssuerChannelId = item.IssuerChannelId };
