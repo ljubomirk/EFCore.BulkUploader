@@ -1,0 +1,90 @@
+﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
+
+<div class="row">
+    <div class="col s12">
+        <h5 class="section u-m-t-remove">Coupon Details</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field date col s6">
+        @Html.EditorFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+        @Html.LabelFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+        <i class="material-icons suffix">event</i>
+    </div>
+    <div class="input-field date col s6">
+        @Html.EditorFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+        @Html.LabelFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+        <i class="material-icons suffix">event</i>
+    </div>
+</div>
+
+
+<div class="row">
+    <!-- issuer channel checkboxes -->
+    <div class="col s3">
+        <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.CouponFilter.IssuerChannels)</p>
+        @for (int i = 0; i < Model.CouponFilter.IssuerChannels.Count; i++)
+        {
+            <p class="checkbox-hover">
+                <label>
+                    @Html.CheckBoxFor(c => c.CouponFilter.IssuerChannels[i].Checked, new { @class = "filled-in" })
+                    <span>@Html.DisplayFor(c => c.CouponFilter.IssuerChannels[i].Label)</span>
+                    @Html.HiddenFor(c => c.CouponFilter.IssuerChannels[i].Id)
+                    @Html.HiddenFor(c => c.CouponFilter.IssuerChannels[i].Label)
+                </label>
+            </p>
+        }
+    </div>
+    <!-- /issuer channel checkboxes -->
+
+    <!-- award channel checkboxes -->
+    <div class="col s3">
+        <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.CouponFilter.AwardChannels)</p>
+        @for (int i = 0; i < Model.CouponFilter.AwardChannels.Count; i++)
+        {
+            <p class="checkbox-hover">
+                <label>
+                    @Html.CheckBoxFor(c => c.CouponFilter.AwardChannels[i].Checked, new { @class = "filled-in" })
+                    <span>@Html.DisplayFor(c => c.CouponFilter.AwardChannels[i].Label)</span>
+                    @Html.HiddenFor(c => c.CouponFilter.AwardChannels[i].Id)
+                    @Html.HiddenFor(c => c.CouponFilter.AwardChannels[i].Label)
+                </label>
+            </p>
+        }
+    </div>
+    <!-- /issuer channel checkboxes -->
+
+    <!-- current status checkboxes -->
+    <div class="col s3">
+        <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.CouponFilter.CurrentStatus)</p>
+        @for (int i = 0; i < Model.CouponFilter.CurrentStatus.Count; i++)
+        {
+            <p class="checkbox-hover">
+                <label>
+                    @Html.CheckBoxFor(c => c.CouponFilter.CurrentStatus[i].Checked, new { @class = "filled-in" })
+                    <span>@Html.DisplayFor(c => c.CouponFilter.CurrentStatus[i].Label)</span>
+                    @Html.HiddenFor(c => c.CouponFilter.CurrentStatus[i].Id)
+                    @Html.HiddenFor(c => c.CouponFilter.CurrentStatus[i].Label)
+                </label>
+            </p>
+        }
+    </div>
+    <!-- /current status checkboxes -->
+
+    <!-- active/inactive checkboxes -->
+    <div class="col s3">
+        <p class="section-headline u-m-b-remove">@CouponDatabase.Properties.Resources.Filter_ActiveInactive</p>
+        <p>
+            <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                @Html.CheckBoxFor(f => f.CouponFilter.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.CouponFilter.ShowActive)</span>
+            </label>
+            <label class="checkbox-hover checkbox-hover__inline">
+                @Html.CheckBoxFor(f => f.CouponFilter.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.CouponFilter.ShowInactive)</span>
+            </label>
+        </p>
+    </div>
+    <!-- / active/inactive checkboxes -->
+
+</div>
