@@ -61,7 +61,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Management\" />
-    <Folder Include="Views\Lifecycle\" />
     <Folder Include="Views\Administration\" />
   </ItemGroup>
 

@@ -340,6 +340,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active/Inactive.
+        /// </summary>
+        public static string Filter_ActiveInactive {
+            get {
+                return ResourceManager.GetString("Filter_ActiveInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Code.
         /// </summary>
         public static string Filter_ByCode {

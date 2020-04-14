@@ -353,4 +353,8 @@
     <value>Search</value>
     <comment>CouponFilter view text.</comment>
   </data>
+  <data name="Filter_ActiveInactive" xml:space="preserve">
+    <value>Active/Inactive</value>
+    <comment>Filter label.</comment>
+  </data>
 </root>
