@@ -17,7 +17,7 @@ namespace CouponDatabase.Models
             Promotion = promo;
         }
 
-        public class CurrentCouponStatus : BaseDefs { }
+        public class CurrentStatus : BaseDefs { }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

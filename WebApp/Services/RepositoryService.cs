@@ -55,9 +55,9 @@ namespace WebApp.Services
             return Context.Property.ToList<Property>();
         }
 
-        public List<CurrentCouponStatus> GetCouponStatuses()
+        public List<CurrentStatus> GetCouponStatuses()
         {
-            return new List<CurrentCouponStatus>();
+            return new List<CurrentStatus>();
         }
         public List<Property> GetPromotionProperties(long idPromotion)
         {

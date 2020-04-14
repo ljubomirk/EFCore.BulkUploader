@@ -9,7 +9,7 @@ namespace WebApp.ViewModels
     {
         public List<CheckedItem> IssuerChannels { get; set; }
         public List<CheckedItem> AwardChannels { get; set; }
-        public List<CheckedItem> CurrentCouponStatus { get; set; }
+        public List<CheckedItem> CurrentStatus { get; set; }
 
         public CouponFilters()
         {
@@ -17,7 +17,7 @@ namespace WebApp.ViewModels
             ShowInactive = false;
             IssuerChannels = new List<CheckedItem>();
             AwardChannels = new List<CheckedItem>();
-            CurrentCouponStatus = new List<CheckedItem>();
+            CurrentStatus = new List<CheckedItem>();
             Properties = new List<CheckedItem>();
         }
     }

@@ -41,7 +41,7 @@ namespace WebApp.Controllers
             
             model.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
             model.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
-            model.CouponFilter.CurrentCouponStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentCouponStatus>());
+            model.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
             model.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
 
             return View("LifecycleSearch", model);
@@ -164,12 +164,12 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
-        private List<CheckedItem> setModelCurrentStatus(List<CurrentCouponStatus> allProperties, List<CurrentCouponStatus> promotionProperties)
+        private List<CheckedItem> setModelCurrentStatus(List<CurrentStatus> allProperties, List<CurrentStatus> couponStatuses)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
-            foreach (CurrentCouponStatus property in allProperties)
+            foreach (CurrentStatus property in allProperties)
             {
-                if (promotionProperties.Contains(property))
+                if (couponStatuses.Contains(property))
                 {
                     checkedItems.Add(new CheckedItem { Checked = true, Label = property.Name, Id = property.Id });
                 }
