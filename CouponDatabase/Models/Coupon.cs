@@ -29,11 +29,19 @@ namespace CouponDatabase.Models
         public string User { get; set; }
 
         public int Status { get; set; }
-        public DateTime AquireFrom { get; set; }
-        public DateTime AquireTo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AquireFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AquireTo { get; set; }
 
-        public DateTime AwardFrom { get; set; }
-        public DateTime AwardTo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AwardFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AwardTo { get; set; }
 
         public long PromotionId { get; set; }
         public Promotion Promotion { get; set; }

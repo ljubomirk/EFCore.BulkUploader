@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200409154908_Init")]
+    [Migration("20200415142501_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,13 +62,13 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AquireFrom");
+                    b.Property<DateTime?>("AquireFrom");
 
-                    b.Property<DateTime>("AquireTo");
+                    b.Property<DateTime?>("AquireTo");
 
-                    b.Property<DateTime>("AwardFrom");
+                    b.Property<DateTime?>("AwardFrom");
 
-                    b.Property<DateTime>("AwardTo");
+                    b.Property<DateTime?>("AwardTo");
 
                     b.Property<string>("Code");
 
@@ -96,10 +96,6 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 2L,
-                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567892",
                             CouponSeries = 0,
                             Holder = "38640440481",
@@ -110,10 +106,6 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 3L,
-                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567893",
                             CouponSeries = 0,
                             Holder = "38640440482",
@@ -124,10 +116,6 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 4L,
-                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567894",
                             CouponSeries = 0,
                             Holder = "38640440483",
@@ -138,10 +126,6 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 1L,
-                            AquireFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567891",
                             CouponSeries = 0,
                             Holder = "",
@@ -222,9 +206,9 @@ namespace WebApp.Migrations
 
                     b.Property<bool>("Enabled");
 
-                    b.Property<DateTime>("ValidFrom");
+                    b.Property<DateTime?>("ValidFrom");
 
-                    b.Property<DateTime>("ValidTo");
+                    b.Property<DateTime?>("ValidTo");
 
                     b.HasKey("Id");
 
@@ -436,8 +420,6 @@ namespace WebApp.Migrations
 
                     b.HasKey("PromotionId", "AwardChannelId");
 
-                    b.HasIndex("AwardChannelId");
-
                     b.ToTable("PromotionAwardChannel");
 
                     b.HasData(
@@ -501,8 +483,6 @@ namespace WebApp.Migrations
 
                     b.HasKey("PromotionId", "IssuerChannelId");
 
-                    b.HasIndex("IssuerChannelId");
-
                     b.ToTable("PromotionIssuerChannel");
 
                     b.HasData(
@@ -565,8 +545,6 @@ namespace WebApp.Migrations
                     b.Property<long>("PropertyId");
 
                     b.HasKey("PromotionId", "PropertyId");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("PromotionProperty");
 
@@ -676,12 +654,7 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionAwardChannel", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.AwardChannel", "AwardChannel")
-                        .WithMany()
-                        .HasForeignKey("AwardChannelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
+                    b.HasOne("CouponDatabase.Models.Promotion")
                         .WithMany("PromotionAwardChannels")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -689,12 +662,7 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionIssuerChannel", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
-                        .WithMany()
-                        .HasForeignKey("IssuerChannelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
+                    b.HasOne("CouponDatabase.Models.Promotion")
                         .WithMany("PromotionIssuerChannels")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -702,14 +670,9 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
+                    b.HasOne("CouponDatabase.Models.Promotion")
                         .WithMany("PromotionProperties")
                         .HasForeignKey("PromotionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CouponDatabase.Models.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

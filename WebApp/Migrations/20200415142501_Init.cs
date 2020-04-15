@@ -42,8 +42,8 @@ namespace WebApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Code = table.Column<string>(maxLength: 20, nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
-                    ValidFrom = table.Column<DateTime>(nullable: false),
-                    ValidTo = table.Column<DateTime>(nullable: false)
+                    ValidFrom = table.Column<DateTime>(nullable: true),
+                    ValidTo = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,10 +73,10 @@ namespace WebApp.Migrations
                     Holder = table.Column<string>(nullable: true),
                     User = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    AquireFrom = table.Column<DateTime>(nullable: false),
-                    AquireTo = table.Column<DateTime>(nullable: false),
-                    AwardFrom = table.Column<DateTime>(nullable: false),
-                    AwardTo = table.Column<DateTime>(nullable: false),
+                    AquireFrom = table.Column<DateTime>(nullable: true),
+                    AquireTo = table.Column<DateTime>(nullable: true),
+                    AwardFrom = table.Column<DateTime>(nullable: true),
+                    AwardTo = table.Column<DateTime>(nullable: true),
                     PromotionId = table.Column<long>(nullable: false),
                     CouponSeries = table.Column<int>(nullable: false)
                 },
@@ -102,12 +102,6 @@ namespace WebApp.Migrations
                 {
                     table.PrimaryKey("PK_PromotionAwardChannel", x => new { x.PromotionId, x.AwardChannelId });
                     table.ForeignKey(
-                        name: "FK_PromotionAwardChannel_AwardChannel_AwardChannelId",
-                        column: x => x.AwardChannelId,
-                        principalTable: "AwardChannel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_PromotionAwardChannel_Promotion_PromotionId",
                         column: x => x.PromotionId,
                         principalTable: "Promotion",
@@ -125,12 +119,6 @@ namespace WebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PromotionIssuerChannel", x => new { x.PromotionId, x.IssuerChannelId });
-                    table.ForeignKey(
-                        name: "FK_PromotionIssuerChannel_IssuerChannel_IssuerChannelId",
-                        column: x => x.IssuerChannelId,
-                        principalTable: "IssuerChannel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PromotionIssuerChannel_Promotion_PromotionId",
                         column: x => x.PromotionId,
@@ -153,12 +141,6 @@ namespace WebApp.Migrations
                         name: "FK_PromotionProperty_Promotion_PromotionId",
                         column: x => x.PromotionId,
                         principalTable: "Promotion",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PromotionProperty_Property_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Property",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -256,10 +238,10 @@ namespace WebApp.Migrations
                 columns: new[] { "Id", "AquireFrom", "AquireTo", "AwardFrom", "AwardTo", "Code", "CouponSeries", "Holder", "PromotionId", "Status", "User" },
                 values: new object[,]
                 {
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567892", 0, "38640440481", 1L, 4, "38640440481" },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567893", 0, "38640440482", 1L, 2, "38640440482" },
-                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567894", 0, "38640440483", 1L, 3, "38640440483" },
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "EASTER1234567891", 0, "", 1L, 1, "" }
+                    { 2L, null, null, null, null, "EASTER1234567892", 0, "38640440481", 1L, 4, "38640440481" },
+                    { 3L, null, null, null, null, "EASTER1234567893", 0, "38640440482", 1L, 2, "38640440482" },
+                    { 4L, null, null, null, null, "EASTER1234567894", 0, "38640440483", 1L, 3, "38640440483" },
+                    { 1L, null, null, null, null, "EASTER1234567891", 0, "", 1L, 1, "" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,15 +249,15 @@ namespace WebApp.Migrations
                 columns: new[] { "PromotionId", "AwardChannelId" },
                 values: new object[,]
                 {
-                    { 3L, 3L },
                     { 2L, 5L },
                     { 2L, 4L },
                     { 2L, 3L },
+                    { 3L, 3L },
+                    { 3L, 1L },
                     { 11L, 1L },
                     { 1L, 5L },
                     { 1L, 3L },
                     { 1L, 1L },
-                    { 3L, 1L },
                     { 3L, 4L }
                 });
 
@@ -284,16 +266,16 @@ namespace WebApp.Migrations
                 columns: new[] { "PromotionId", "IssuerChannelId" },
                 values: new object[,]
                 {
-                    { 3L, 5L },
-                    { 11L, 2L },
                     { 3L, 4L },
                     { 3L, 1L },
-                    { 2L, 5L },
-                    { 2L, 4L },
+                    { 3L, 5L },
                     { 2L, 1L },
+                    { 2L, 4L },
+                    { 11L, 2L },
                     { 1L, 5L },
                     { 1L, 2L },
-                    { 1L, 1L }
+                    { 1L, 1L },
+                    { 2L, 5L }
                 });
 
             migrationBuilder.InsertData(
@@ -301,14 +283,14 @@ namespace WebApp.Migrations
                 columns: new[] { "PromotionId", "PropertyId" },
                 values: new object[,]
                 {
-                    { 2L, 1L },
-                    { 11L, 1L },
-                    { 1L, 2L },
-                    { 7L, 2L },
-                    { 1L, 4L },
-                    { 5L, 4L },
                     { 2L, 6L },
-                    { 3L, 6L }
+                    { 2L, 1L },
+                    { 1L, 4L },
+                    { 1L, 2L },
+                    { 3L, 6L },
+                    { 5L, 4L },
+                    { 7L, 2L },
+                    { 11L, 1L }
                 });
 
             migrationBuilder.CreateIndex(
@@ -333,27 +315,18 @@ namespace WebApp.Migrations
                 table: "Promotion",
                 column: "Code",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PromotionAwardChannel_AwardChannelId",
-                table: "PromotionAwardChannel",
-                column: "AwardChannelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PromotionIssuerChannel_IssuerChannelId",
-                table: "PromotionIssuerChannel",
-                column: "IssuerChannelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PromotionProperty_PropertyId",
-                table: "PromotionProperty",
-                column: "PropertyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AwardChannel");
+
+            migrationBuilder.DropTable(
                 name: "CouponHistory");
+
+            migrationBuilder.DropTable(
+                name: "IssuerChannel");
 
             migrationBuilder.DropTable(
                 name: "PromotionAwardChannel");
@@ -365,16 +338,10 @@ namespace WebApp.Migrations
                 name: "PromotionProperty");
 
             migrationBuilder.DropTable(
-                name: "Coupon");
-
-            migrationBuilder.DropTable(
-                name: "AwardChannel");
-
-            migrationBuilder.DropTable(
-                name: "IssuerChannel");
-
-            migrationBuilder.DropTable(
                 name: "Property");
+
+            migrationBuilder.DropTable(
+                name: "Coupon");
 
             migrationBuilder.DropTable(
                 name: "Promotion");

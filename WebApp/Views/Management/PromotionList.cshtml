@@ -59,9 +59,9 @@
             {
                 <tr>
                     <td>@p.Code</td>
-                    <td>@p.ValidFrom.ToString("dd.MM.yyyy")</td>
-                    <td>@p.ValidTo.ToString("dd.MM.yyyy")</td>
-                    <td>
+                    <td>@if(p.ValidFrom.HasValue){ @p.ValidFrom.Value.ToString("dd.MM.yyyy") }</td>
+                    <td>@if (p.ValidTo.HasValue) { @p.ValidTo.Value.ToString("dd.MM.yyyy") } </td>
+<td>
                         @if (p.HasCoupons)
                         {
                             <i class="material-icons">check</i>
