@@ -7,6 +7,7 @@ using System.Linq;
 using CouponDatabase.Services;
 using static CouponDatabase.Models.Coupon;
 using System;
+using CouponDatabase.Lifecycle;
 
 namespace WebApp.Services
 {
@@ -54,10 +55,27 @@ namespace WebApp.Services
         {
             return Context.Property.ToList<Property>();
         }
+
+        /*
+         * Generate list of CurrentStatus class instances from CouponStatus.
+         * Assign CouponStatus enum's values and names to instances.
+         * Used for populating CouponFilter view.
+         */
         public List<CurrentStatus> GetCouponStatuses()
         {
-            return new List<CurrentStatus>();
+            List<string> enumNames = Enum.GetNames(typeof(CouponStatus)).ToList();
+            List<CurrentStatus> statusList = new List<CurrentStatus>();
+            for (var i = 0; i < enumNames.Count(); i++)
+            {
+                statusList.Add(new CurrentStatus()
+                {
+                    Id = i+1,
+                    Name = enumNames[i]
+                });
+            }
+            return statusList;
         }
+
         public List<Property> GetPromotionProperties(long idPromotion)
         {
             List<Property> properties = GetAllProperties();
