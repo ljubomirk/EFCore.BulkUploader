@@ -9,7 +9,7 @@ namespace WebApp.ViewModels
     public class LifecycleSearchViewModel : ContextData
     {
         public List<Promotion> Promotions { get; set; }
-        public Filters PromotionFilter;
+        public PromotionFilter PromotionFilter;
         public List<Coupon> Coupons { get; set; }
         public CouponFilters CouponFilter;
         public LifecycleSearchViewModel()

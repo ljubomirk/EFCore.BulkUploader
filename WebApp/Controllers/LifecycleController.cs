@@ -32,10 +32,19 @@ namespace WebApp.Controllers
         /// </summary>
         /// <returns>Opens Lifecycle search page</returns>
         [HttpGet]
-        public IActionResult Index(Filters filter)
+        public IActionResult Index(Filters promotionFilter, CouponFilters couponFilter)
         {
+            /*
+             * TO DO: 
+             *  - get promotionFilter and couponFilter from session stored object
+             *  - if object retrieved: update LifecycleSearchViewModel instance with retrieved object
+             *  - if not retrieved: update LifecycleSearchViewModel instance with defaults
+             *  - store filters to session object before returning view
+             * 
+             */
+
             LifecycleSearchViewModel model = new LifecycleSearchViewModel();
-            model.PromotionFilter = new Filters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
             model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
             model.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
             
@@ -52,8 +61,17 @@ namespace WebApp.Controllers
         /// </summary>
         /// <returns>Opens list of filtered promotions</returns>
         [HttpPost]
-        public IActionResult Search(Filters promotionFilter, CouponFilters couponFilter)
+        public IActionResult Search(PromotionFilter promotionFilter, CouponFilters couponFilter)
         {
+            /*
+             * TO DO: 
+             *  - get promotionFilter and couponFilter from session stored object
+             *  - if object retrieved: update LifecycleSearchViewModel instance with retrieved object
+             *  - if not retrieved: update LifecycleSearchViewModel instance with defaults
+             *  - store filters to session object before returning view
+             * 
+             */
+
             LifecycleSearchViewModel model = new LifecycleSearchViewModel();
 
             List<Promotion> filteredListOfPromotions = new List<Promotion>();
@@ -90,9 +108,18 @@ namespace WebApp.Controllers
 
             model.Promotions.AddRange(filteredListOfPromotions);
 
+            // Return promotions for promo filter and coupon series for coupon series filter
+            List<string> promotionCodes = new List<string>();
+            promotionCodes = filteredListOfPromotions.Select(p => p.Code).ToList();
+            ViewBag.Promotions = promotionCodes;
 
-            model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
+            List<int> couponSeries = new List<int>();
+            // Find coupon series and store in variable
+            ViewBag.Series = new List<Promotion>();
+
+            //model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
             model.PromotionFilter = promotionFilter;
+            model.CouponFilter = couponFilter;
 
             return View("LifecycleCoupons", model);
         }
