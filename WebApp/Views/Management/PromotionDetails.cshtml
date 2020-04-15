@@ -172,7 +172,7 @@
                     }
                     else
                     {
-                        <a href="@Url.Action("AddCouponSeries","Management")" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                        <a href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
                             <i class="material-icons left">add</i>
                             @CouponDatabase.Properties.Resources.Btn_AddSeries
                         </a>

@@ -54,7 +54,6 @@ namespace WebApp.Services
         {
             return Context.Property.ToList<Property>();
         }
-
         public List<CurrentStatus> GetCouponStatuses()
         {
             return new List<CurrentStatus>();
@@ -99,9 +98,6 @@ namespace WebApp.Services
         {
             return Context.IssuerChannel.ToList<IssuerChannel>();
         }
-
-        
-
         public List<IssuerChannel> GetPromotionIssuerChannels(long idPromotion)
         {
             List<IssuerChannel> issuerChannels = GetAllIssuerChannels();
@@ -170,6 +166,16 @@ namespace WebApp.Services
                 Context.PromotionIssuerChannel.Add(issuerChannel);
             }
 
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
+        }
+
+        internal bool insertCoupons(List<Coupon> listOfCoupons)
+        {
+            foreach (Coupon coupon in listOfCoupons)
+            {
+                Context.Coupon.Add(coupon);
+            }
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }

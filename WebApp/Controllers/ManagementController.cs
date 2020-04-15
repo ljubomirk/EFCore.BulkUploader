@@ -87,10 +87,12 @@ namespace WebApp.Controllers
         /// Add coupon series
         /// </summary>
         /// <returns>Opens add coupon series form</returns>
+        /// [Route("{Id}")]
         [HttpGet]
-        public IActionResult AddCouponSeries()
+        public IActionResult AddCouponSeries(long id)
         {
             CouponSeriesViewModel model = new CouponSeriesViewModel();
+            model.PromotionId = id;
             return View("PromotionCouponSeries", model);
         }
 
@@ -149,7 +151,7 @@ namespace WebApp.Controllers
 
             if (viewModel.Promotion.Id == 0) 
             {
-                var Id = _repo.CreatePromotion(viewModel.Promotion);
+                long Id = _repo.CreatePromotion(viewModel.Promotion);
                 bool fieldsUpdated = updatePromotionFields(viewModel, Id);
                 if (Id>0 || fieldsUpdated)
                 {
@@ -175,6 +177,30 @@ namespace WebApp.Controllers
             return View("PromotionDetails", viewModel);
         }
 
+        [HttpPost]
+        public IActionResult GenerateCoupons(CouponSeriesViewModel model)
+        {
+            bool returnValue = GenerateCouponsFromModel(model); 
+            if (returnValue)
+            {
+                ViewBag.CommandStatus = "[OK]";
+                ViewBag.CommandMessage = "Coupons successfully generated.";
+            }
+            else
+            {
+                ViewBag.CommandStatus = "[NOT OK]";
+                ViewBag.CommandMessage = "Coupons unsuccessfully generated.";
+            }
+            return View("PromotionCouponSeries", model);
+        }
+
+        [HttpPost]
+        public IActionResult ImportCoupons(CouponSeriesViewModel model)
+        {
+            //_repo.ImportCoupons(model);
+            return View("PromotionDetails", model);
+        }
+
         #region TEST
         [Route("{Id}")]
         [HttpGet]
@@ -191,6 +217,7 @@ namespace WebApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        #region Helpers
         private List<CheckedItem> setModelIssuerChannels(List<IssuerChannel> allIssuerChannels, List<IssuerChannel> promotionIssuerChannels)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
@@ -265,5 +292,27 @@ namespace WebApp.Controllers
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
         }
 
+
+        private bool GenerateCouponsFromModel(CouponSeriesViewModel viewModel)
+        {
+            List<Coupon> listOfCoupons = new List<Coupon>();
+            for (int i = 0; i < viewModel.NumberOfCoupons; i++)
+            {
+
+                listOfCoupons.Add(new Coupon()
+                {
+                    Code = viewModel.Prefix != null ? viewModel.Suffix != null ? viewModel.Prefix + String.Format("{0:D5}", i) + i + viewModel.Suffix : viewModel.Prefix + String.Format("{0:D5}", i) + i : viewModel.Suffix != null ? String.Format("{0:D5}", i) + i + viewModel.Suffix : String.Format("{0:D5}", i) + i,
+                    PromotionId = viewModel.PromotionId,
+                    AquireFrom = viewModel.AssignableFrom,
+                    AquireTo = viewModel.AssignableUntil,
+                    AwardFrom = viewModel.RedeemableFrom,
+                    AwardTo = viewModel.RedeemableUntil,
+                    Status = viewModel.Status
+                });
+            }
+
+            return _repo.insertCoupons(listOfCoupons);
+        }
+        #endregion
     }
 }
