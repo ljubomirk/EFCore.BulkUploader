@@ -87,7 +87,7 @@ namespace WebApp.Controllers
         /// Add coupon series
         /// </summary>
         /// <returns>Opens add coupon series form</returns>
-        /// [Route("{Id}")]
+        [Route("{Id}")]
         [HttpGet]
         public IActionResult AddCouponSeries(long id)
         {
