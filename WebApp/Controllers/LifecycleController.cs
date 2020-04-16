@@ -32,28 +32,19 @@ namespace WebApp.Controllers
         /// </summary>
         /// <returns>Opens Lifecycle search page</returns>
         [HttpGet]
-        public IActionResult Index(Filters promotionFilter, CouponFilters couponFilter)
+        public IActionResult Index()
         {
-            /*
-             * TO DO: 
-             *  - get promotionFilter and couponFilter from session stored object
-             *  - if object retrieved: update LifecycleSearchViewModel instance with retrieved object
-             *  - if not retrieved: update LifecycleSearchViewModel instance with defaults
-             *  - store filters to session object before returning view
-             * 
-             */
+            LifecycleSearchViewModel initModel = new LifecycleSearchViewModel();
+            initModel.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            initModel.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            initModel.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
 
-            LifecycleSearchViewModel model = new LifecycleSearchViewModel();
-            model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
-            model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
-            model.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
-            
-            model.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
-            model.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
-            model.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
-            model.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            initModel.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
+            initModel.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
+            initModel.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
+            initModel.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
 
-            return View("LifecycleSearch", model);
+            return View("LifecycleSearch", initModel);
         }
 
         // <summary>
@@ -65,14 +56,14 @@ namespace WebApp.Controllers
         {
             /*
              * TO DO: 
-             *  - get promotionFilter and couponFilter from session stored object
-             *  - if object retrieved: update LifecycleSearchViewModel instance with retrieved object
-             *  - if not retrieved: update LifecycleSearchViewModel instance with defaults
-             *  - store filters to session object before returning view
-             * 
+             *  - optimize promotion filtering
+             *  - add coupon filtering
+             *  - store filtered coupons into model
+             *  - store filtered promotions and coupons into session before returning view
+             *  - figure out session storage (WIP)
              */
 
-            LifecycleSearchViewModel model = new LifecycleSearchViewModel();
+            LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
 
             List<Promotion> filteredListOfPromotions = new List<Promotion>();
             List<Coupon> filteredListOfCoupons = new List<Coupon>();
@@ -106,20 +97,11 @@ namespace WebApp.Controllers
                 }
             }
 
-            model.Promotions.AddRange(filteredListOfPromotions);
+            model.Promotions = filteredListOfPromotions;
 
-            // Return promotions for promo filter and coupon series for coupon series filter
-            List<string> promotionCodes = new List<string>();
-            promotionCodes = filteredListOfPromotions.Select(p => p.Code).ToList();
-            ViewBag.Promotions = promotionCodes;
+            // model.Coupons = ...
 
-            List<int> couponSeries = new List<int>();
-            // Find coupon series and store in variable
-            ViewBag.Series = new List<Promotion>();
-
-            //model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
-            model.PromotionFilter = promotionFilter;
-            model.CouponFilter = couponFilter;
+            model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
 
             return View("LifecycleCoupons", model);
         }
@@ -131,6 +113,18 @@ namespace WebApp.Controllers
             {
                 command.Status = CommandStatus.Valid;
             }
+            return View("LifecycleCoupons", model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
+        {
+            /*
+             * - get promotions and coupons from session
+             * - apply model filters of PromotionCode and CouponSeries if possible
+             * - return new list of promotions and coupons
+             * - store new list into session
+             */
             return View("LifecycleCoupons", model);
         }
 

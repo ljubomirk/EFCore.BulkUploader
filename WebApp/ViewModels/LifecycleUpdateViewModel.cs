@@ -8,8 +8,11 @@ namespace WebApp.ViewModels
 {
     public class LifecycleUpdateViewModel : ContextData
     {
+        public List<Promotion> Promotions { get; set; }
+        public long PromotionCode { get; set; }
         public List<Coupon> Coupons { get; set; }
         public List<CouponCommand> CouponsSelected { get; set; }
+        public int CouponSeries { get; set; }
         public Filters Filter;
         public List<LifecycleCommand> LifecycleCommands { get; set; }
     public LifecycleUpdateViewModel()
