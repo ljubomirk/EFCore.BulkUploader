@@ -357,4 +357,20 @@
     <value>Active/Inactive</value>
     <comment>Filter label.</comment>
   </data>
+  <data name="LifecycleCouponFilter_Title" xml:space="preserve">
+    <value>Coupon Details</value>
+    <comment>LifecycleCouponFilter text.</comment>
+  </data>
+  <data name="LifecyclePromotionFilter_Title" xml:space="preserve">
+    <value>Promotion Details Format</value>
+    <comment>LifecyclePromotionsFilter text.</comment>
+  </data>
+  <data name="Btn_Update" xml:space="preserve">
+    <value>Update</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_UpdateSelected" xml:space="preserve">
+    <value>Update Selected</value>
+    <comment>Button label.</comment>
+  </data>
 </root>

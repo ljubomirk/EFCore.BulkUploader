@@ -259,6 +259,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Btn_Update {
+            get {
+                return ResourceManager.GetString("Btn_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Selected.
+        /// </summary>
+        public static string Btn_UpdateSelected {
+            get {
+                return ResourceManager.GetString("Btn_UpdateSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string CouponFilter_Search {
@@ -417,6 +435,24 @@ namespace CouponDatabase.Properties {
         public static string LifecycleAction_UndoRedeem {
             get {
                 return ResourceManager.GetString("LifecycleAction_UndoRedeem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coupon Details.
+        /// </summary>
+        public static string LifecycleCouponFilter_Title {
+            get {
+                return ResourceManager.GetString("LifecycleCouponFilter_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion Details Format.
+        /// </summary>
+        public static string LifecyclePromotionFilter_Title {
+            get {
+                return ResourceManager.GetString("LifecyclePromotionFilter_Title", resourceCulture);
             }
         }
         
