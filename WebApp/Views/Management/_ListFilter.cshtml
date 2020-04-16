@@ -1,6 +1,9 @@
-﻿@using Microsoft.AspNetCore.Html;
-@model WebApp.ViewModels.PromotionListViewModel;
+﻿@*
+    ROLE: displays search filter and handles posting data to controller
+*@
 
+@using Microsoft.AspNetCore.Html;
+@model WebApp.ViewModels.Filters;
 
 <div id="form-filter">
     @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
@@ -10,9 +13,9 @@
                 <div class="col s12 m4 u-p-l-remove">
                     <div class="u-p-t-lg">
                         <div class="input-field">
-                            @Html.EditorFor(f => f.Filter.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @autocomplete = "off" } })
-                            @Html.LabelFor(f => f.Filter.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
-                            @ValidationHelper(ViewData, "Filter.Code", false)
+                            @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
+                            @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
+                            @ValidationHelper(ViewData, "Code", false)
                         </div>
                     </div>
                 </div>
@@ -20,12 +23,12 @@
                     <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
                     <p>
                         <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                            @Html.CheckBoxFor(f => f.Filter.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
-                            <span>@Html.DisplayNameFor(f => f.Filter.ShowActive)</span>
+                            @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                            <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
                         </label>
                         <label class="checkbox-hover checkbox-hover__inline">
-                            @Html.CheckBoxFor(f => f.Filter.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
-                            <span>@Html.DisplayNameFor(f => f.Filter.ShowInactive)</span>
+                            @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                            <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
                         </label>
                     </p>
                 </div>
@@ -35,29 +38,31 @@
                     <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
                 </div>
                 <div class="col s12 three-cols">
-                    @for (int i = 0; i < Model.Filter.Properties.Count; i++)
+
+                    @for (int i = 0; i < Model.Properties.Count; i++)
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.Filter.Properties[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
-                                <span>@Html.DisplayFor(c => c.Filter.Properties[i].Label)</span>
-                                @Html.HiddenFor(c => c.Filter.Properties[i].Id)
-                                @Html.HiddenFor(c => c.Filter.Properties[i].Label)
+                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
+                                <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
+                                @Html.HiddenFor(c => c.Properties[i].Id)
+                                @Html.HiddenFor(c => c.Properties[i].Label)
                             </label>
                         </p>
                     }
+
                 </div>
             </div>
             <div class="row u-m-t-xl u-m-l-sm-negative">
                 <div class="input-field date col s12 m4">
-                    @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-                    @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "Filter.ValidFrom", true)
+                    @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+                    @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    @ValidationHelper(ViewData, "ValidFrom", true)
                 </div>
                 <div class="input-field date col s12 m4">
-                    @Html.EditorFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-                    @Html.LabelFor(p => p.Filter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "Filter.ValidUntil", true)
+                    @Html.EditorFor(p => p.ValidUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+                    @Html.LabelFor(p => p.ValidUntil, new { htmlAttributes = new { @class = "active" } })
+                    @ValidationHelper(ViewData, "ValidFrom", true)
                 </div>
             </div>
             <div class="row">
@@ -80,20 +85,21 @@
     $(document).ready(function () {
 
         // init date picker
-        $(".calendar").calendar().change(function (e) {
-            // validate date format
-            // TODO: regex should be changed depending on locale
+        $(".calendar").calendar();
 
-            var input = $(this);
-            var re = /^[0-9]{2}.[0-9]{2}.[0-9]{4}$/;
-            var valid = re.test(e.target.value);
-            if (valid) {
-                input.removeClass("invalid").addClass("valid");
-            }
-            else {
-                input.removeClass("valid").addClass("invalid");
-            }
+        // toggle filter on master filter button
+        $("#btn-filter").click(function () {
+            $(".form-filter").slideToggle("slow");
+            var filterState = $("#btn-filter").hasClass('btn-transparent');
+            if (filterState) {
 
+                $("#btn-filter").removeClass('btn-transparent');
+                $("#btn-filter i").html('unfold_more');
+                sessionStorage.setItem("FilterStatus", false);
+            } else {
+                $("#btn-filter").addClass('btn-transparent');
+                $("#btn-filter i").html('unfold_less');
+            }
         });
 
         // close filter

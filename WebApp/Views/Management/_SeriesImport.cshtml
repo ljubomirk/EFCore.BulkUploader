@@ -1,0 +1,89 @@
+﻿@*
+    ROLE: displays part of form that handles importing coupon series
+*@
+
+@using Microsoft.AspNetCore.Html;
+@model WebApp.ViewModels.CouponSeriesViewModel;
+
+<section id="coupon-import">
+    <div class="row">
+        <div id="file-name-holder" class="input-field date col s6">
+            <input id="file-name" placeholder="" class="" type="text" disabled />
+        </div>
+        <div class="col s6">
+            <div class="file-field-input input-field">
+                <button id="btn-file-input" type="button" class="waves-effect waves-light btn-flat btn-default-primary">
+                    <i class="material-icons left">file_upload</i>
+                    @CouponDatabase.Properties.Resources.Btn_SelectFile
+                </button>
+                <input id="file-input" type="file" />
+            </div>
+        </div>
+    </div>
+    <div class="row u-m-t-md">
+        <div class="col s12">
+            <button type="button" class="waves-effect waves-light btn-flat btn-primary" data-position="bottom" data-tooltip="Not implemented!">
+                <i class="material-icons left">check</i>
+                @CouponDatabase.Properties.Resources.Btn_Import
+            </button>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        var fileInput = $("#file-input");
+        var fileBtn = $("#btn-file-input");
+        var fileName = $("#file-name");
+        var fileNameHolder = $("#file-name-holder");
+
+        // simulate click on input
+        fileBtn.click(function () {
+            fileInput.click();
+        })
+        // display name
+        fileInput.on('change', function () {
+            var name = $(this).val().split('\\').pop();
+            var replaceFile = '<i class="material-icons left">file_upload</i>' + '@CouponDatabase.Properties.Resources.Btn_ReplaceFile';
+            var btnLabel = fileBtn.html();
+
+            if (name && !btnLabel.includes(replaceFile)) {
+                fileBtn.html(replaceFile);
+                fileNameHolder.show('slow');
+            }
+            fileName.val(name);
+        })
+    });
+
+</script>
+
+
+@functions{
+    /// <summary>
+    /// Validation messages helper
+    /// </summary>
+    /// <param name="viewData">Context</param>
+    /// <param name="property">Model property</param>
+    /// <param name="date">Bool for date input validation</param>
+    /// <returns>Icon displaying validation messages inside tooltip</returns>
+    /// <remarks>If date input, it returns an icon</remarks>
+    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
+    {
+        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
+        {
+            string msg = "";
+            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
+            {
+                msg += context.ModelState[property].Errors[i].ErrorMessage;
+            }
+            msg.Trim();
+
+            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
+        }
+        else if (date)
+        {
+            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
+        }
+        return null;
+    }
+}

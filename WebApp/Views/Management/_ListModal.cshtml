@@ -1,0 +1,30 @@
+﻿@*
+    ROLE: displays a confirmation modal to enable/disable a promotion
+*@
+
+<!-- Modal -->
+<div id="modal-confirmation" class="modal">
+    <div class="modal-content">
+        <h4></h4>
+        <p></p>
+    </div>
+    <div class="modal-footer">
+        <a id="modal-close" class="waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+            @CouponDatabase.Properties.Resources.Btn_Cancel
+        </a>
+        <a id="modal-action" href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary"></a>
+    </div>
+</div>
+<!-- /Modal-->
+
+<script>
+    $(document).ready(function () {
+        //init modal
+        $('#modal-confirmation').modal();
+
+        // close modal with button inside
+        $("#modal-close").click(function () {
+            $('#modal-confirmation').modal('close');
+        });
+    });
+</script>

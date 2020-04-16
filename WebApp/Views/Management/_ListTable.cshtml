@@ -1,0 +1,95 @@
+﻿@*
+    ROLE: displays a list of promotions as a table
+*@
+
+@model IEnumerable<CouponDatabase.Models.Promotion>;
+
+<table id="promotion-list" class="striped highlight">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Code)</th>
+            <th>@Html.DisplayNameFor(m => m.ValidFrom)</th>
+            <th>@Html.DisplayNameFor(m => m.ValidTo)</th>
+            <th>@Html.DisplayNameFor(m => m.HasCoupons)</th>
+            <th>@Html.DisplayNameFor(m => m.Active)</th>
+            <th>@Html.DisplayNameFor(m => m.Enabled)</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(item => p.Code)</td>
+                <td>@Html.DisplayFor(item => p.ValidFrom)</td>
+                <td>@Html.DisplayFor(item => p.ValidTo)
+                <td>
+                    @if (p.HasCoupons)
+                    {
+                        <i class="material-icons">check</i>
+                    }
+                </td>
+                <td>
+                    @if (p.Active)
+                    {
+                        <i class="material-icons">check</i>
+                    }
+                </td>
+                <td>
+                    @if (p.Enabled)
+                    {
+                        <i class="material-icons">check</i>
+                    }
+                </td>
+                <td>
+                    <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-value="@p.Enabled" data-target='promotion-actions'>
+                        <i class="material-icons material-icons__hover">more_horiz</i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/datatables.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+
+        // init data table
+        $('#promotion-list').DataTable({
+            responsive: true,
+            pageLength: 10,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pagingType: "full_numbers",
+            language: {
+                infoEmpty: '@CouponDatabase.Properties.Resources.Filter_NoResults',
+                paginate: {
+                    first: '<i class="material-icons">first_page</i>',
+                    last: '<i class="material-icons">last_page</i>',
+                    next: '<i class="material-icons">chevron_right</i>',
+                    previous: '<i class="material-icons">chevron_left</i>'
+                }
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ],
+            drawCallback: function () {
+                $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
+            }
+        });
+
+        // init dropdown menu
+        $('.dropdown-trigger').dropdown({
+            constrainWidth: false,
+            alignment: 'right',
+            outDuration: 100,
+            onCloseEnd: function () {
+                // this fixes the "3 click bug" when dropbox opens and next click is another dropdown
+                $("body").click();
+            }
+        });
+    });
+</script>

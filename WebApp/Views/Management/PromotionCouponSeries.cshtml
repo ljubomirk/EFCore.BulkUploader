@@ -1,22 +1,25 @@
-﻿@using Microsoft.AspNetCore.Html;
+﻿@*
+    ROLE: displays form for coupon series and handles form data for posting to controller
+*@
+
+@using Microsoft.AspNetCore.Html;
 @model WebApp.ViewModels.CouponSeriesViewModel;
-@{
-}
+
+<div class="container">
+    <div class="row">
+        <h4>
+            Create Coupon Series
+            <a href="@Url.Action("ListPromotions", "Management")" class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
+                @CouponDatabase.Properties.Resources.Btn_Cancel
+                <i class="material-icons right">clear</i>
+            </a>
+        </h4>
+    </div>
+</div>
 
 @using (Html.BeginForm("GenerateCoupons", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
 {
     @Html.HiddenFor(p => p.PromotionId)
-    <div class="container">
-        <div class="row">
-            <h4>
-                Create Coupon Series
-                <a href="@Url.Action("ListPromotions", "Management")" class="waves-effect waves-light btn-flat btn-default commando-primary-text right">
-                    @CouponDatabase.Properties.Resources.Btn_Cancel
-                    <i class="material-icons right">clear</i>
-                </a>
-            </h4>
-        </div>
-    </div>
 
     <div class="form-box">
         <div class="container">
@@ -79,96 +82,11 @@
                 </div>
             </div>
             <!-- /options -->
-            <!-- generate -->
-            <section id="coupon-generate">
-                <div class="row">
-                    <div class="col s12">
-                        <h5 class="section u-m-t-remove">Coupon Format</h5>
-                    </div>
-                    <div class="input-field col s3">
-                        @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
-                        @Html.LabelFor(p => p.Prefix, new { htmlAttributes = new { @class = "active" } })
-                        @ValidationHelper(ViewData, "Prefix", false)
-                        <p class="checkbox-hover">
-                            <label>
-                                @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in" })
-                                <span>Use letters</span>
-                            </label>
-                        </p>
-                    </div>
-                    <div class="input-field col s3">
-                        @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
-                        @Html.LabelFor(p => p.Suffix, new { htmlAttributes = new { @class = "active" } })
-                        @ValidationHelper(ViewData, "Suffix", false)
-                        <p class="checkbox-hover">
-                            <label>
-                                @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in" })
-                                <span>Use numbers</span>
-                            </label>
-                        </p>
-                    </div>
-                    <div class="col s6">
-                        <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
-                        <div class="input-field col s4">
-                            @Html.EditorFor(p => p.CouponMaxLength, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
-                            @Html.LabelFor(p => p.CouponMaxLength, new { htmlAttributes = new { @class = "active" } })
-                            @ValidationHelper(ViewData, "CouponMaxLength", false)
-                        </div>
-                        <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
-                    </div>
-                </div>
-                <div class="row u-m-t-md">
-                    <div class="input-field col s6">
-                        <input placeholder="" class="example-coupon" type="text" disabled>
-                        <label class="active" for="example">Example Coupon</label>
-                    </div>
-                    <div class="col s6">
-                        <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
-                        <div class="input-field col s4">
-                            @Html.EditorFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
-                            @Html.LabelFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @class = "active" } })
-                            @ValidationHelper(ViewData, "NumberOfCoupons", false)
-                        </div>
-                        <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <button type="submit" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" data-position="bottom" data-tooltip="Not implemented!">
-                            <i class="material-icons left">check</i>
-                            @CouponDatabase.Properties.Resources.Btn_Generate
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <!-- /generate-->
-            <!-- import -->
-            <section id="coupon-import">
-                <div class="row">
-                    <div id="file-name-holder" class="input-field date col s6">
-                        <input id="file-name" placeholder="" class="" type="text" disabled />
-                    </div>
-                    <div class="col s6">
-                        <div class="file-field-input input-field">
-                            <button id="btn-file-input" type="button" class="waves-effect waves-light btn-flat btn-default-primary">
-                                <i class="material-icons left">file_upload</i>
-                                @CouponDatabase.Properties.Resources.Btn_SelectFile
-                            </button>
-                            <input id="file-input" type="file" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row u-m-t-md">
-                    <div class="col s12">
-                        <button type="button" class="waves-effect waves-light btn-flat btn-primary" data-position="bottom" data-tooltip="Not implemented!">
-                            <i class="material-icons left">check</i>
-                            @CouponDatabase.Properties.Resources.Btn_Import
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <!-- /import -->
+            <!-- generate form -->
+            <partial name="_SeriesGenerate" />
 
+            <!-- import form -->
+            <partial name="_SeriesImport" />
 
         </div>
     </div>
@@ -199,9 +117,6 @@
         ///
         $(".tabs-section").tabs({ swipeable: true });
 
-        ///////
-        // emable validation tooltip message
-        ///
         $("button[data-position='bottom']").tooltip();
 
         $(".btn-subtract").click(function () {
@@ -224,32 +139,6 @@
                 input.val(parseInt(inputVal) + 1);
             }
         });
-
-        ///////
-        // file upload
-        ///
-        var fileInput = $("#file-input");
-        var fileBtn = $("#btn-file-input");
-        var fileName = $("#file-name");
-        var fileNameHolder = $("#file-name-holder");
-
-        // simulate click on input
-        fileBtn.click(function () {
-            fileInput.click();
-        })
-        // display name
-        fileInput.on('change', function () {
-            var name = $(this).val().split('\\').pop();
-            var replaceFile = '<i class="material-icons left">file_upload</i>' + '@CouponDatabase.Properties.Resources.Btn_ReplaceFile';
-            var btnLabel = fileBtn.html();
-
-            if (name && !btnLabel.includes(replaceFile)) {
-                fileBtn.html(replaceFile);
-                fileNameHolder.show('slow');
-            }
-            fileName.val(name);
-        })
-
         // TODO: coupon sample generator
     });
 
