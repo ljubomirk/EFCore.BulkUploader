@@ -95,27 +95,6 @@
 <script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
-        ///////
-        // init date picker
-        ///
-        $('.calendar').calendar().change(function (e) {
-            // validate date format
-            // TODO: regex should be changed depending on locale
-
-            var input = $(this);
-            var re = /^[0-9]{2}.[0-9]{2}.[0-9]{4}$/;
-            var valid = re.test(e.target.value);
-            if (valid) {
-                input.removeClass("invalid").addClass("valid");
-            }
-            else {
-                input.removeClass("valid").addClass("invalid");
-            }
-        });
-        ///////
-        // init form tabs
-        ///
-        $(".tabs-section").tabs({ swipeable: true });
 
         $("button[data-position='bottom']").tooltip();
 

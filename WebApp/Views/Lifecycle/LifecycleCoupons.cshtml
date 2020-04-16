@@ -3,17 +3,21 @@
     ViewData["Title"] = "CouponList";
 }
 
-    <!-- header -->
-    <div class="row">
-        <div class="col s6">
-            <h4 class="u-inline u-m-t-remove">
-                @CouponDatabase.Properties.Resources.CouponFilter_Search
-            </h4>
-        </div>
-        <partial name="_CouponsFilter" />
+<!-- header -->
+<div class="row">
+    <div class="col s6">
+        <h4 class="u-inline u-m-t-remove">
+            @CouponDatabase.Properties.Resources.CouponFilter_Search
+        </h4>
     </div>
-    <!-- /header -->
+    <partial name="_CouponsFilter" />
 
-    <!-- table form -->
-    <partial name="_CouponsForm" />
-    <!-- /table form -->
+    <a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+</div>
+<!-- /header -->
+
+@using (Html.BeginForm("Update", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateCoupons" }))
+{
+    <partial name="_CouponsUpdateFields" />
+    <partial name="_CouponsTable" model="Model.Coupons" />
+}

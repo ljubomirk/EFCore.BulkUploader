@@ -4,7 +4,7 @@
 
 @model IEnumerable<CouponDatabase.Models.Promotion>;
 
-<table id="promotion-list" class="striped highlight">
+<table data-nosort-target="-1" id="promotion-list" class="striped highlight">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(m => m.Code)</th>
@@ -51,45 +51,3 @@
         }
     </tbody>
 </table>
-
-<script src="~/js/datatables.js" asp-append-version="true"></script>
-<script>
-    $(document).ready(function () {
-
-        // init data table
-        $('#promotion-list').DataTable({
-            responsive: true,
-            pageLength: 10,
-            searching: false,
-            info: false,
-            lengthChange: false,
-            pagingType: "full_numbers",
-            language: {
-                infoEmpty: '@CouponDatabase.Properties.Resources.Filter_NoResults',
-                paginate: {
-                    first: '<i class="material-icons">first_page</i>',
-                    last: '<i class="material-icons">last_page</i>',
-                    next: '<i class="material-icons">chevron_right</i>',
-                    previous: '<i class="material-icons">chevron_left</i>'
-                }
-            },
-            columnDefs: [
-                { orderable: false, targets: -1 }
-            ],
-            drawCallback: function () {
-                $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
-            }
-        });
-
-        // init dropdown menu
-        $('.dropdown-trigger').dropdown({
-            constrainWidth: false,
-            alignment: 'right',
-            outDuration: 100,
-            onCloseEnd: function () {
-                // this fixes the "3 click bug" when dropbox opens and next click is another dropdown
-                $("body").click();
-            }
-        });
-    });
-</script>

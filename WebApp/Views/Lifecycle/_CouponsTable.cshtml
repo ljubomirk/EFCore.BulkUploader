@@ -1,84 +1,55 @@
-﻿@model WebApp.ViewModels.LifecycleUpdateViewModel;
+﻿@model IEnumerable<CouponDatabase.Models.Coupon>;
 @{
     ViewData["Title"] = "LifecycleTable";
 }
 
-@if (Model.Coupons.Count() > 0)
-{
-    <!-- coupon table -->
-    <table id="coupon-list" class="striped highlight">
-        <thead>
+<!-- coupon table -->
+<table data-nosort-target="0" id="coupon-list" class="striped highlight">
+    <thead>
+        <tr>
+            <th>
+                <label>
+                    <input id="checkbox-master" type="checkbox" class="filled-in" />
+                    <span></span>
+                </label>
+            </th>
+            <th>@Html.DisplayNameFor(m => m.Code)</th>
+            <th>@Html.DisplayNameFor(m => m.Holder)</th>
+            <th>@Html.DisplayNameFor(m => m.User)</th>
+            <th>@Html.DisplayNameFor(m => m.Status)</th>
+            <th>@Html.DisplayNameFor(m => m.Active)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var c in Model)
+        {
             <tr>
-                <th>
+                <td>
                     <label>
-                        <input id="checkbox-master" type="checkbox" class="filled-in"/>
+                        <input id="@c.Id" type="checkbox" class="filled-in checkbox-coupon" />
                         <span></span>
                     </label>
-                </th>
-                <th>@Html.DisplayNameFor(m => m.Coupons[0].Code)</th>
-                <th>@Html.DisplayNameFor(m => m.Coupons[0].Holder)</th>
-                <th>@Html.DisplayNameFor(m => m.Coupons[0].User)</th>
-                <th>@Html.DisplayNameFor(m => m.Coupons[0].Status)</th>
-                <th>@Html.DisplayNameFor(m => m.Coupons[0].Active)</th>
+                </td>
+                <td>@Html.DisplayFor(item => c.Code)</td>
+                <td>@Html.DisplayFor(item => c.Holder)</td>
+                <td>@Html.DisplayFor(item => c.User)</td>
+                <td>@Html.DisplayFor(item => c.Status)</td>
+                <td>
+                    @if (c.Active)
+                    {
+                        <i class="material-icons">check</i>
+                    }
+                </td>
             </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var c in Model.Coupons)
-            {
-                <tr>
-                    <td>
-                        <label>
-                            <input id="@c.Id" type="checkbox" class="filled-in checkbox-coupon" />
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>@c.Code</td>
-                    <td>@c.Holder</td>
-                    <td>@c.User</td>
-                    <td>@c.Status</td>
-                    <td>
-                        @if (c.Active)
-                        {
-                            <i class="material-icons">check</i>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <!-- /coupon table -->
-}
+        }
+    </tbody>
+</table>
+<!-- /coupon table -->
 
 <script src="~/js/datatables.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
-        // init data table
-        $('#coupon-list').DataTable({
-            responsive: true,
-            pageLength: 10,
-            searching: false,
-            info: false,
-            lengthChange: false,
-            pagingType: "full_numbers",
-            language: {
-                infoEmpty: '@CouponDatabase.Properties.Resources.Filter_NoResults',
-                paginate: {
-                    first: '<i class="material-icons">first_page</i>',
-                    last: '<i class="material-icons">last_page</i>',
-                    next: '<i class="material-icons">chevron_right</i>',
-                    previous: '<i class="material-icons">chevron_left</i>'
-                }
-            },
-            columnDefs: [
-                { orderable: false, targets: -1 }
-            ],
-            drawCallback: function () {
-                return $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
-            }
-        });
-
-        
 
         // check changes on update params, update modal text and enable action
         $(".input-coupon").change(enableModalTrigger);
@@ -88,7 +59,7 @@
             setMaterCheckbox(num);
             enableModalTrigger();
         })
-        
+
         // handle chekcbox status
         // checkbox: MASTER
         $("#checkbox-master").on('click', function (e) {
@@ -98,7 +69,6 @@
             $(this).prop("indeterminate", false).change();
             // set class if changed
             if (chkMaster.hasClass("filled-in-indeterminate")) {
-                console.log("class current:\t", chkMaster.prop("class"))
                 chkMaster.removeClass("filled-in-indeterminate")
                 chkMaster.addClass("filled-in");
             }
@@ -116,6 +86,7 @@
                     }
                 })
             }
+            enableModalTrigger();
         })
 
         // enable or disable action button (_CouponsFilter)

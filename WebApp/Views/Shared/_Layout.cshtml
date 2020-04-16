@@ -11,7 +11,7 @@
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/customServerValidation.js" asp-append-version="true"></script>
     @*<script src="~/js/jquery.validate.min.js"></script>
-        <script src="~/js/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>*@
 </head>
 <body>
     <header>
@@ -26,6 +26,43 @@
     </div>
 
     <script src="~/js/materialize.min.js" asp-append-version="true"></script>
+    <script src="~/js/datatables.js" asp-append-version="true"></script>
+    <script src="~/js/calendar.js" asp-append-version="true"></script>
+    <script src="~/js/config.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            // init tooltip model validations
+            if ($(".validation-error").length > 0) $(".validation-error").tooltip();
+
+            // init calendars in forms
+            if ($(".calendar").length > 0) $(".calendar").calendar();
+
+            // init tabs
+            if ($(".tabs-section") > 0) $(".tabs-section").tabs(config.options.tabs);
+
+            // init table
+            if ($("table").length > 0) {
+                var target = parseInt($("table")[0].getAttribute("data-nosort-target"))
+                config.options.table.columnDefs[0].targets = target;
+                $('table').DataTable(config.options.table);
+            }
+
+            // init dropdowns
+            if ($('.dropdown-trigger').length > 0) $('.dropdown-trigger').dropdown(config.options.table);
+
+            // init modals
+            if ($(".modal").length > 0) {
+                $(".modal").modal();
+                // close modal with button inside
+                $("#modal-close").click(function () {
+                    $('#modal-confirmation').modal('close');
+                });
+            }
+
+            // init select fields
+            if ($('select').length >0) $('select').formSelect();
+        })
+    </script>
     @RenderSection("Scripts", required: false)
 
 </body>

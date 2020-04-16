@@ -4386,7 +4386,7 @@ li.disable > a {
   background-color: #fff;
   margin: 0;
   display: none;
-  min-width: 100px;
+  min-width: 160px;
   overflow-y: auto;
   opacity: 0;
   position: absolute;
