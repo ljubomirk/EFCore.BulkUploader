@@ -1,4 +1,5 @@
 ﻿using CouponDatabase.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,15 @@ namespace WebApp.ViewModels
 {
     public class LifecycleUpdateViewModel : ContextData
     {
+        public List<SelectListItem> PromotionCodes { get; set; }
+        public List<SelectListItem> CouponSeries { get; set; }
+
+        public string SelectedPromoCode { get; set; }
+        public string SelectedCouponSeries { get; set; }
+
         public List<Promotion> Promotions { get; set; }
-        public long PromotionCode { get; set; }
         public List<Coupon> Coupons { get; set; }
         public List<CouponCommand> CouponsSelected { get; set; }
-        public int CouponSeries { get; set; }
         public Filters Filter;
         public List<LifecycleCommand> LifecycleCommands { get; set; }
     public LifecycleUpdateViewModel()

@@ -30,6 +30,14 @@ namespace WebApp.Services
         {
             return Context.Promotion.ToList<Promotion>();
         }
+
+        /*
+         * Returns promotions with coupons.
+         */
+        public List<Promotion> GetCouponPromotions()
+        {
+            return Context.Promotion.Where(p => p.HasCoupons).ToList();
+        }
         public Promotion GetPromotionWithId(long id)
         {
             Promotion promotion = new Promotion();
@@ -150,6 +158,11 @@ namespace WebApp.Services
         public IList<Coupon> GetUserCoupons(string user)
         {
             return null;
+        }
+
+        public List<Coupon> GetPromotionCoupons(Promotion promotion)
+        {
+            return Context.Coupon.Where(c => c.PromotionId == promotion.Id).ToList();
         }
 
         public bool updatePromotionFields(long id, List<PromotionProperty> promotionProperties, List<PromotionAwardChannel> awardChannels, List<PromotionIssuerChannel> issuerChannels)

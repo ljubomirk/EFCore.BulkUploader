@@ -1,25 +1,33 @@
-﻿
+﻿@model WebApp.ViewModels.LifecycleUpdateViewModel
 @{
     ViewData["Title"] = "_UpdateFilter";
+
+    List<SelectListItem> promotionCodes = new List<SelectListItem>();
+    if (Model.PromotionCodes != null)
+    {
+        promotionCodes = Model.PromotionCodes;
+    }
+
+    List<SelectListItem> couponSeries = new List<SelectListItem>();
+    if (Model.CouponSeries != null)
+    {
+        couponSeries = Model.CouponSeries;
+    }
 }
 
-<div class="col s2">
-    <select class="filter-coupon">
-        <option value="" disabled selected>-options-</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-</div>
-<div class="col s2">
-    <select class="filter-coupon">
-        <option value="" disabled selected>-options-</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-</div>
-<a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+<!-- Form submit on dropdown filter change -->
+@using (Html.BeginForm("UpdateSearchFilter", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateSearchFilter" }))
+{
+    <div class="col s2">
+        @Html.DropDownListFor(p => p.SelectedPromoCode, promotionCodes, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+    </div>
+
+    <div class="col s2">
+        @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+    </div>
+
+    <a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+}
 
 <script>
     $(document).ready(function () {

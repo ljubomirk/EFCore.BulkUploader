@@ -3,17 +3,17 @@
     ViewData["Title"] = "CouponList";
 }
 
-<!-- header -->
-<div class="row">
-    <div class="col s6">
-        <h4 class="u-inline u-m-t-remove">
-            @CouponDatabase.Properties.Resources.CouponFilter_Search
-        </h4>
+    <!-- header -->
+    <div class="row">
+        <div class="col s6">
+            <h4 class="u-inline u-m-t-remove">
+                @CouponDatabase.Properties.Resources.CouponFilter_Search
+            </h4>
+        </div>
+        <partial name="_CouponsFilter" />
     </div>
-    <partial name="_CouponsFilter" />
-</div>
-<!-- /header -->
+    <!-- /header -->
 
-<!-- table form -->
-<partial name="_CouponsForm" />
-<!-- /table form -->
+    <!-- table form -->
+    <partial name="_CouponsForm" />
+    <!-- /table form -->

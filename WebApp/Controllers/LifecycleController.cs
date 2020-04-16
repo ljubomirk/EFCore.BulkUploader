@@ -7,6 +7,7 @@ using CouponDatabase.Lifecycle;
 using CouponDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
@@ -65,43 +66,74 @@ namespace WebApp.Controllers
 
             LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
 
-            List<Promotion> filteredListOfPromotions = new List<Promotion>();
-            List<Coupon> filteredListOfCoupons = new List<Coupon>();
+            List<Promotion> f_ListOfPromotions = new List<Promotion>();
+            List<Coupon> f_ListOfCoupons = new List<Coupon>();
 
             if (promotionFilter.ShowActive)
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == true).ToList<Promotion>());
+                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == true).ToList<Promotion>());
             if (promotionFilter.ShowInactive)
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
+                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
 
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidUntil != null)
             {
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidUntil != null)
             {
                 if (promotionFilter.ValidFrom != null)
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>());
+                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>());
                 if (promotionFilter.ValidUntil != null)
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
             }
 
             if (promotionFilter.Code != null)
             {
-                if (filteredListOfPromotions.Count > 0)
+                if (f_ListOfPromotions.Count > 0)
                 {
-                    filteredListOfPromotions = filteredListOfPromotions.Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>();
                 }
                 else
                 {
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>());
+                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>());
                 }
             }
 
-            model.Promotions = filteredListOfPromotions;
 
-            // model.Coupons = ...
+            List<Promotion> f_PromoWithCoupons = new List<Promotion>();
+
+            foreach(Promotion p in f_ListOfPromotions)
+            {
+                if (p.HasCoupons)
+                {
+                    List<Coupon> promotionCoupons = _repo.GetPromotionCoupons(p);
+                    // continue filtering ...
+                    f_ListOfCoupons.AddRange(promotionCoupons);
+                }
+            }
+
+            /*
+             * TODO:
+             * - Implement coupon filtering based on filtered promotions and coupon filters
+             * - Implement method getFilteredPromotions() : filteredListOfPromotions, promotionFilters
+             * - Implement getFilteredCoupons(): filteredListOfPromotions, filteredListOfCoupons, couponFilters
+             */
+
+            model.PromotionCodes = getSelectListPromotions(f_ListOfPromotions);
+            model.CouponSeries = getSelectListSeries(f_ListOfCoupons); // implement method for mapping Coupon to SelectListItem
+            model.Coupons = f_ListOfCoupons;
+
+            /*
+             * TODO:
+             * Store PromotionCodes, CouponSeries and filtered coupons into session
+             */
 
             model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
+
+            /*
+             * TODO:
+             * If no coupons found, return error / no results view
+             * If coupons found, return LifecycleCoupons view
+             */
 
             return View("LifecycleCoupons", model);
         }
@@ -109,6 +141,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Update(LifecycleUpdateViewModel model)
         {
+            /*
+             * TODO: 
+             */
             foreach(CouponCommand command in model.CouponsSelected)
             {
                 command.Status = CommandStatus.Valid;
@@ -120,13 +155,51 @@ namespace WebApp.Controllers
         public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
         {
             /*
-             * - get promotions and coupons from session
-             * - apply model filters of PromotionCode and CouponSeries if possible
-             * - return new list of promotions and coupons
+             * TODO:
+             * - get from session everything required for the update (selected promotion code and selected coupon series, coupons ...)
+             * - apply model filters of SelectedPromoCode and SelectedCouponSeries if possible
+             * - return new coupon list
+             * - return list of promotion codes from session and new coupon series (after filtering)
              * - store new list into session
              */
             return View("LifecycleCoupons", model);
         }
+
+        public List<SelectListItem> getSelectListPromotions(List<Promotion> promotions)
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            foreach(Promotion p in promotions)
+            {
+                selectList.Add(new SelectListItem { 
+                    Text = p.Code,
+                    Value = p.Code
+                });
+            }
+            return selectList;
+        }
+
+        /*
+         * Returns select list 
+         */
+        public List<SelectListItem> getSelectListSeries(List<Coupon> coupons)
+        {
+            List<SelectListItem> seriesList = new List<SelectListItem>();
+            List<int> availableSeries = new List<int>();
+            foreach(Coupon c in coupons)
+            {
+                if(!availableSeries.Contains(c.CouponSeries))
+                {
+                    availableSeries.Add(c.CouponSeries);
+                    seriesList.Add(new SelectListItem
+                    {
+                        Text = String.Format("Series #{0}", c.CouponSeries),
+                        Value = c.CouponSeries.ToString()
+                    });
+                }
+            }
+            return seriesList;
+        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
