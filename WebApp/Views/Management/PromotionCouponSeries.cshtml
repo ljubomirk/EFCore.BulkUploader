@@ -1,4 +1,5 @@
-﻿@model WebApp.ViewModels.CouponSeriesViewModel;
+﻿@using Microsoft.AspNetCore.Html;
+@model WebApp.ViewModels.CouponSeriesViewModel;
 @{
 }
 
@@ -19,52 +20,38 @@
 
     <div class="form-box">
         <div class="container">
-            <div class="@(ViewBag.CommandStatus == "[ERROR]" ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.CommandStatus == null ? "hiddendiv" : "")">@ViewBag.CommandStatus  @ViewBag.CommandMessage</div>
+            <div class="@(ViewBag.CommandStatus == "[NOT OK]" ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.CommandStatus == null ? "hiddendiv" : "")">@ViewBag.CommandStatus  @ViewBag.CommandMessage</div>
             <div class="row u-m-b-remove">
                 <div class="row">
                     <div class="input-field col s6">
                         <input placeholder="" id="serialNumber" type="text" disabled>
                         <label class="active" for="serialNumber">Series Number</label>
-                        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
                     </div>
                 </div>
                 <div class="input-field date col s6">
-                    @*<input placeholder="" id="assignableFrom" class="calendar" type="text" />
-                        <label class="active" for="assignableFrom">Assignable From</label>*@
                     @Html.EditorFor(p => p.AssignableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.AssignableFrom, new { htmlAttributes = new { @class = "active" } })
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @ValidationHelper(ViewData, "AssignableFrom", true)
                 </div>
                 <div class="input-field date col s6">
-                    @*<input placeholder="" id="assignableUntil" class="calendar" type="text" />
-                        <label class="active" for="assignableUntil">Assignable Until</label>*@
                     @Html.EditorFor(p => p.AssignableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.AssignableUntil, new { htmlAttributes = new { @class = "active" } })
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @ValidationHelper(ViewData, "AssignableUntil", true)
                 </div>
                 <div class="input-field date col s6 u-m-b-remove">
-                    @*<input placeholder="" id="redeemableFrom" class="calendar" type="text" />
-                        <label class="active" for="redeemableFrom">Redeemable From</label>*@
                     @Html.EditorFor(p => p.RedeemableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.RedeemableFrom, new { htmlAttributes = new { @class = "active" } })
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @ValidationHelper(ViewData, "RedeemableFrom", true)
                 </div>
                 <div class="input-field date col s6 u-m-b-remove">
-                    @*<input placeholder="" id="redeemableUntil" class="calendar" type="text" />
-                        <label class="active" for="redeemableUntil">Redeemable Until</label>*@
                     @Html.EditorFor(p => p.RedeemableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.RedeemableUntil, new { htmlAttributes = new { @class = "active" } })
-                    <i id="icon-endDate" class="material-icons suffix">event</i>
-                    @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                    @ValidationHelper(ViewData, "RedeemableUntil", true)
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
                     <p class="section-headline u-m-t-remove">Current Status</p>
-
                     <div class="radio-buttons-wrapper">
                         <input type="radio" class="radio-button-group" name="currentStatus" value="1" id="button1" checked />
                         <label for="button1">Created</label>
@@ -99,28 +86,22 @@
                         <h5 class="section u-m-t-remove">Coupon Format</h5>
                     </div>
                     <div class="input-field col s3">
-                        @*<input placeholder="" id="prefix" type="text" class="disabled">
-                            <label class="active" for="prefix">Prefix</label>*@
                         @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
                         @Html.LabelFor(p => p.Prefix, new { htmlAttributes = new { @class = "active" } })
-                        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                        @ValidationHelper(ViewData, "Prefix", false)
                         <p class="checkbox-hover">
                             <label>
-                                @*<input type="checkbox" class="filled-in" />*@
                                 @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in" })
                                 <span>Use letters</span>
                             </label>
                         </p>
                     </div>
                     <div class="input-field col s3">
-                        @*<input placeholder="" id="suffix" type="text" class="disabled">
-                            <label class="active" for="suffix">Suffix</label>*@
                         @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
                         @Html.LabelFor(p => p.Suffix, new { htmlAttributes = new { @class = "active" } })
-                        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                        @ValidationHelper(ViewData, "Suffix", false)
                         <p class="checkbox-hover">
                             <label>
-                                @*<input type="checkbox" class="filled-in" />*@
                                 @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in" })
                                 <span>Use numbers</span>
                             </label>
@@ -129,11 +110,9 @@
                     <div class="col s6">
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
                         <div class="input-field col s4">
-                            @*<input placeholder="" id="characterLength" type="number" class="validate">
-                                <label class="active label-offsetPosition" for="characterLength">Character Length</label>*@
                             @Html.EditorFor(p => p.CouponMaxLength, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
                             @Html.LabelFor(p => p.CouponMaxLength, new { htmlAttributes = new { @class = "active" } })
-                            @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                            @ValidationHelper(ViewData, "CouponMaxLength", false)
                         </div>
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
                     </div>
@@ -142,16 +121,13 @@
                     <div class="input-field col s6">
                         <input placeholder="" class="example-coupon" type="text" disabled>
                         <label class="active" for="example">Example Coupon</label>
-                        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
                     </div>
                     <div class="col s6">
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
                         <div class="input-field col s4">
-                            @*<input placeholder="" id="numberOfCoupons" type="number" class="validate">
-                                <label class="active label-offsetPosition" for="numberOfCoupons">Number of Coupons</label>*@
                             @Html.EditorFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
                             @Html.LabelFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @class = "active" } })
-                            @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
+                            @ValidationHelper(ViewData, "NumberOfCoupons", false)
                         </div>
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
                     </div>
@@ -279,4 +255,32 @@
 
 </script>
 
+@functions{
+    /// <summary>
+    /// Validation messages helper
+    /// </summary>
+    /// <param name="viewData">Context</param>
+    /// <param name="property">Model property</param>
+    /// <param name="date">Bool for date input validation</param>
+    /// <returns>Icon displaying validation messages inside tooltip</returns>
+    /// <remarks>If date input, it returns an icon</remarks>
+    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
+    {
+        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
+        {
+            string msg = "";
+            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
+            {
+                msg += context.ModelState[property].Errors[i].ErrorMessage;
+            }
+            msg.Trim();
 
+            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
+        }
+        else if (date)
+        {
+            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
+        }
+        return null;
+    }
+}
