@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "_UpdateModal";
+}
+
+<!-- Modal -->
+<div id="modal-confirmation" class="modal">
+    <div class="modal-content">
+        <h4>Change <span id="coupon-number-modal"></span> coupons?</h4>
+        <p>
+            <span id="modal-customer"></span>
+            <span id="modal-validuntil"></span>
+            <span id="modal-status"></span>
+            <span id="modal-enabled"></span>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a id="modal-close" class="waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+            @CouponDatabase.Properties.Resources.Btn_Cancel
+        </a>
+        <a id="modal-action" href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary">
+            @CouponDatabase.Properties.Resources.Btn_Update
+        </a>
+    </div>
+</div>
+<!-- /Modal-->
+<script>
+    $(document).ready(function () {
+        //init modal
+        $('#modal-confirmation').modal();
+
+        // close modal with button inside
+        $("#modal-close").click(function () {
+            $('#modal-confirmation').modal('close');
+        });
+
+        // update modal text
+        $(".input-coupon").change(function (e) {
+            var val = e.target.value;
+            var fieldName = this.id.split("-")[1];
+            var modalFieldName = $("#modal-" + fieldName);
+
+            if (val) {
+                modalFieldName.html("Set " + fieldName + " to: <strong>" + val + "</strong>;")
+
+            } else {
+                modalFieldName.html("")
+            }
+        })
+
+        // display number of checked items inside modal header
+        $(".checkbox-coupon").change(function () {
+            var num = $("input:checked.checkbox-coupon").length;
+            if (num > 0) {
+                $("#coupon-number").text('(' + num + ')');
+                $("#coupon-number-modal").text(num);
+            } else {
+                $("#coupon-number").text('');
+                $("#coupon-number-modal").text('');
+            }
+        })
+    })
+</script>

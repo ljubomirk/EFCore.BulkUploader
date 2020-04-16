@@ -1,31 +1,33 @@
-﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
+﻿
+@model WebApp.ViewModels.LifecycleSearchViewModel;
 @{
     ViewData["Title"] = "CouponFilter";
 }
 
+
+
+<!-- header -->
+<div class="container">
+    <div class="row">
+        <h4>
+            @CouponDatabase.Properties.Resources.CouponFilter_Search
+        </h4>
+    </div>
+</div>
+<!-- /header -->
+
 @using (Html.BeginForm("Search", "Lifecycle", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
 {
-
-    <!-- header -->
-    <div class="container">
-        <div class="row">
-            <h4>
-                @CouponDatabase.Properties.Resources.CouponFilter_Search
-            </h4>
-        </div>
-    </div>
-    <!-- /header -->
-
     <!-- form -->
     <div class="form-box">
         <div class="container">
             <!-- top form return msg -->
             <div class="@(ViewBag.CommandStatus == "[ERROR]" ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.CommandStatus == null ? "hiddendiv" : "")">@ViewBag.CommandStatus  @ViewBag.CommandMessage</div>
-            
-            
-            <partial name="LifecyclePromotionFilter" />
 
-            <partial name="LifecycleCouponFilter" />
+
+            <partial name="_SearchPromotionFilter" />
+
+            <partial name="_SearchCouponFilter" />
 
             <!-- actions -->
             <div class="row u-m-t-xl">
@@ -64,8 +66,4 @@
         // emable validation tooltip message
         $('.validation-error').tooltip();
     });
-
 </script>
-
-
-

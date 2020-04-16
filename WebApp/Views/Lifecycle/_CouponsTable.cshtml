@@ -1,0 +1,184 @@
+﻿@model WebApp.ViewModels.LifecycleUpdateViewModel;
+@{
+    ViewData["Title"] = "LifecycleTable";
+}
+
+@if (Model.Coupons.Count() > 0)
+{
+    <!-- coupon table -->
+    <table id="coupon-list" class="striped highlight">
+        <thead>
+            <tr>
+                <th>
+                    <label>
+                        <input id="checkbox-master" type="checkbox" class="filled-in"/>
+                        <span></span>
+                    </label>
+                </th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Code)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Holder)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].User)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Status)</th>
+                <th>@Html.DisplayNameFor(m => m.Coupons[0].Active)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var c in Model.Coupons)
+            {
+                <tr>
+                    <td>
+                        <label>
+                            <input id="@c.Id" type="checkbox" class="filled-in checkbox-coupon" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>@c.Code</td>
+                    <td>@c.Holder</td>
+                    <td>@c.User</td>
+                    <td>@c.Status</td>
+                    <td>
+                        @if (c.Active)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- /coupon table -->
+}
+
+<script src="~/js/datatables.js" asp-append-version="true"></script>
+<script>
+    $(document).ready(function () {
+        // init data table
+        $('#coupon-list').DataTable({
+            responsive: true,
+            pageLength: 10,
+            searching: false,
+            info: false,
+            lengthChange: false,
+            pagingType: "full_numbers",
+            language: {
+                infoEmpty: '@CouponDatabase.Properties.Resources.Filter_NoResults',
+                paginate: {
+                    first: '<i class="material-icons">first_page</i>',
+                    last: '<i class="material-icons">last_page</i>',
+                    next: '<i class="material-icons">chevron_right</i>',
+                    previous: '<i class="material-icons">chevron_left</i>'
+                }
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 }
+            ],
+            drawCallback: function () {
+                return $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
+            }
+        });
+
+        
+
+        // check changes on update params, update modal text and enable action
+        $(".input-coupon").change(enableModalTrigger);
+        // display number of checked items and enable action
+        $(".checkbox-coupon").change(function () {
+            var num = getChecked();
+            setMaterCheckbox(num);
+            enableModalTrigger();
+        })
+        
+        // handle chekcbox status
+        // checkbox: MASTER
+        $("#checkbox-master").on('click', function (e) {
+            var chkMaster = $(this);
+            var chkBoxes = $(".checkbox-coupon");
+
+            $(this).prop("indeterminate", false).change();
+            // set class if changed
+            if (chkMaster.hasClass("filled-in-indeterminate")) {
+                console.log("class current:\t", chkMaster.prop("class"))
+                chkMaster.removeClass("filled-in-indeterminate")
+                chkMaster.addClass("filled-in");
+            }
+            // check state and set all other chkboxes
+            if (chkMaster.is(":checked")) {
+                chkBoxes.each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).prop("checked", true);
+                    }
+                })
+            } else {
+                chkBoxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        $(this).prop("checked", false);
+                    }
+                })
+            }
+        })
+
+        // enable or disable action button (_CouponsFilter)
+        function enableModalTrigger() {
+            var btn = $("#modal-trigger");
+            var inputVal = getInputs();
+            var chkVal = getChecked();
+
+            if (inputVal > 0 && chkVal > 0) {
+                btn.removeAttr("disabled")
+            } else {
+                btn.attr("disabled", true);
+            }
+        }
+
+        // handle master checkbox status
+        function setMaterCheckbox(curr) {
+            var chkMaster = $("#checkbox-master");
+            var max = $("input.checkbox-coupon").length;
+            // if all checked
+            if (curr == max) {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", true);
+                // if some cheked
+            } else if (curr > 0 && curr < max) {
+                chkMaster.prop("indeterminate", true);
+
+                if (chkMaster.hasClass("filled-in")) {
+                    chkMaster
+                        .removeClass("filled-in")
+                        .addClass("filled-in-indeterminate");
+                }
+                chkMaster.prop("checked", false);
+                // if none checked
+            } else {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", false);
+
+            }
+        }
+
+        // get number of checked items
+        function getChecked() {
+            return $("input:checked.checkbox-coupon").length;
+        }
+        // get number of input items that have value
+        function getInputs() {
+            return $(".input-coupon").filter(function () {
+                return $(this).val();
+            }).length
+        }
+    });
+
+</script>

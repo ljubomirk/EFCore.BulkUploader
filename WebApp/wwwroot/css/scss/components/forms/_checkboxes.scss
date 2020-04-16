@@ -82,26 +82,35 @@
 }
 
 /* Indeterminate checkbox */
-[type="checkbox"]:indeterminate {
-  + span:not(.lever):before {
-    top: -11px;
-    left: -12px;
-    width: 10px;
-    height: 22px;
-    border-top: none;
-    border-left: none;
-    border-right: $radio-border;
-    border-bottom: none;
-    transform: rotate(90deg);
-    backface-visibility: hidden;
-    transform-origin: 100% 100%;
-  }
+[type="checkbox"]:indeterminate,
+[type="checkbox"].filed-in-indeterminate {
+    border-radius: 4px;
 
-  // Disabled indeterminate
-  &:disabled + span:not(.lever):before {
-    border-right: 2px solid $input-disabled-color;
-    background-color: transparent;
-  }
+    + span:not(.lever):before {
+        top: 0px;
+        left: 0;
+        width: 18px;
+        height: 2px;
+        border-top: 10px solid #757575;
+        border-left: 3px solid #757575;
+        border-right: 3px solid #757575;
+        border-bottom: 10px solid #757575;
+        backface-visibility: hidden;
+        transform-origin: 100% 100%;
+    }
+    // Disabled indeterminate
+    &:disabled + span:not(.lever):before {
+        top: 0px;
+        left: 0;
+        width: 18px;
+        height: 2px;
+        border-top: 10px solid #757575;
+        border-left: 3px solid #757575;
+        border-right: 3px solid #757575;
+        border-bottom: 10px solid #757575;
+        backface-visibility: hidden;
+        transform-origin: 100% 100%;
+    }
 }
 
 // Filled in Style

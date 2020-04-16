@@ -1,20 +1,21 @@
-﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
+﻿@using Microsoft.AspNetCore.Html;
+@model WebApp.ViewModels.LifecycleSearchViewModel;
 
 <div class="row">
     <div class="col s12">
-        <h5 class="section u-m-t-remove">Coupon Details</h5>
+        <h5 class="section u-m-t-remove">@CouponDatabase.Properties.Resources.LifecycleCouponFilter_Title</h5>
     </div>
 </div>
 <div class="row">
     <div class="input-field date col s6">
         @Html.EditorFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
         @Html.LabelFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-        <i class="material-icons suffix">event</i>
+        @ValidationHelper(ViewData, "CouponFilter.ValidFrom", true)
     </div>
     <div class="input-field date col s6">
-        @Html.EditorFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-        @Html.LabelFor(p => p.CouponFilter.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-        <i class="material-icons suffix">event</i>
+        @Html.EditorFor(p => p.CouponFilter.ValidUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+        @Html.LabelFor(p => p.CouponFilter.ValidUntil, new { htmlAttributes = new { @class = "active" } })
+        @ValidationHelper(ViewData, "CouponFilter.ValidUntil", true)
     </div>
 </div>
 
@@ -36,7 +37,6 @@
         }
     </div>
     <!-- /issuer channel checkboxes -->
-
     <!-- award channel checkboxes -->
     <div class="col s3">
         <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.CouponFilter.AwardChannels)</p>
@@ -53,7 +53,6 @@
         }
     </div>
     <!-- /issuer channel checkboxes -->
-
     <!-- current status checkboxes -->
     <div class="col s3">
         <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.CouponFilter.CurrentStatus)</p>
@@ -70,7 +69,6 @@
         }
     </div>
     <!-- /current status checkboxes -->
-
     <!-- active/inactive checkboxes -->
     <div class="col s3">
         <p class="section-headline u-m-b-remove">@CouponDatabase.Properties.Resources.Filter_ActiveInactive</p>
@@ -86,5 +84,35 @@
         </p>
     </div>
     <!-- / active/inactive checkboxes -->
-
 </div>
+
+
+@functions{
+    /// <summary>
+    /// Validation messages helper
+    /// </summary>
+    /// <param name="viewData">Context</param>
+    /// <param name="property">Model property</param>
+    /// <param name="date">Bool for date input validation</param>
+    /// <returns>Icon displaying validation messages inside tooltip</returns>
+    /// <remarks>If date input, it returns an icon</remarks>
+    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
+    {
+        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
+        {
+            string msg = "";
+            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
+            {
+                msg += context.ModelState[property].Errors[i].ErrorMessage;
+            }
+            msg.Trim();
+
+            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
+        }
+        else if (date)
+        {
+            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
+        }
+        return null;
+    }
+}

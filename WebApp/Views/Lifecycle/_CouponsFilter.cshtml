@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "_UpdateFilter";
+}
+
+<div class="col s2">
+    <select class="filter-coupon">
+        <option value="" disabled selected>-options-</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</div>
+<div class="col s2">
+    <select class="filter-coupon">
+        <option value="" disabled selected>-options-</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</div>
+<a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+
+<script>
+    $(document).ready(function () {
+        $('.filter-coupon').formSelect();
+    })
+</script>

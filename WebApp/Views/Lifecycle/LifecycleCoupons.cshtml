@@ -1,4 +1,4 @@
-﻿@model WebApp.ViewModels.LifecycleSearchViewModel;
+﻿@model WebApp.ViewModels.LifecycleUpdateViewModel;
 @{
     ViewData["Title"] = "CouponList";
 }
@@ -10,82 +10,10 @@
             @CouponDatabase.Properties.Resources.CouponFilter_Search
         </h4>
     </div>
-    <div class="col s2">
-        <select>
-            <option value="" disabled selected>-options-</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </div>
-    <div class="col s2">
-        <select>
-            <option value="" disabled selected>-options-</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </div>
-    <a href="@Url.Action("Index", "Lifecycle")" class="waves-effect waves-light btn-flat btn-default right">@CouponDatabase.Properties.Resources.Btn_Back<i class="material-icons right">clear</i></a>
+    <partial name="_CouponsFilter" />
 </div>
 <!-- /header -->
-<!-- update form -->
-<div class="row">
-    <div class="input-field col s2">
-        <input placeholder="" id="bbb" class="white" type="text" />
-        <label class="active" for="bbb">Customer</label>
-        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
-    </div>
-    <div class="input-field date col s2">
-        <input placeholder="" id="bbb" class="white calendar" type="text" />
-        <label class="active" for="bbb">Valid Until</label>
-        <i id="icon-endDate" class="material-icons suffix">event</i>
-        @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
-    </div>
-    <div class="input-field col s2">
-        <select>
-            <option value="1" selected>Created</option>
-            <option value="2">Issued</option>
-            <option value="3">Redeemed</option>
-            <option value="3">Canceled</option>
-        </select>
-        <label>Status</label>
-    </div>
-    <div class="input-field col s2">
-        <select>
-            <option value="1" selected>Yes</option>
-            <option value="2">No</option>
-        </select>
-        <label>Enabled</label>
-    </div>
-</div>
-<!-- /update form -->
 
-<partial name="LifecycleTable" />
-
-<script src="~/js/calendar.js" asp-append-version="true"></script>
-<script>
-    $(document).ready(function () {
-        // init date picker
-        $('.calendar').calendar().change(function (e) {
-            // validate date format
-            // TODO: regex should be changed depending on locale
-            var input = $(this);
-            var re = /^[0-9]{2}.[0-9]{2}.[0-9]{4}$/;
-            var valid = re.test(e.target.value);
-            if (valid) {
-                input.removeClass("invalid").addClass("valid");
-            }
-            else {
-                input.removeClass("valid").addClass("invalid");
-            }
-
-        });
-
-        $('select').formSelect();
-
-        // emable validation tooltip message
-        $('.validation-error').tooltip();
-    });
-
-</script>
+<!-- table form -->
+<partial name="_CouponsForm" />
+<!-- /table form -->
