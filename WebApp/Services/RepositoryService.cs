@@ -145,7 +145,7 @@ namespace WebApp.Services
                 // Filter based on award channel
                 if (f_AwardChannel.Count() > 0 && !couponRemove)
                 {
-                    List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                    List<long> awardChannels = GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
                     foreach (long id in awardChannels)
                     {
                         if (!f_AwardChannel.Contains(id))
@@ -160,7 +160,7 @@ namespace WebApp.Services
                 // Filter based on issuer channel
                 if (f_IssuerChannel.Count() > 0 && !couponRemove)
                 {
-                    List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                    List<long> issuerChannels = GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
                     foreach (long ids in issuerChannels)
                     {
                         if (!f_IssuerChannel.Contains(ids))
