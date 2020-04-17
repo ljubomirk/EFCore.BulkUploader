@@ -8,9 +8,9 @@ namespace CouponDatabase.Models
     {
 
         public long PromotionId { get; set; }
-       // public Promotion Promotion { get; set; }
+        public Promotion Promotion { get; set; }
         public long IssuerChannelId { get; set; }
-       // public IssuerChannel IssuerChannel { get; set; }
+        public IssuerChannel IssuerChannel { get; set; }
 
     }
 }

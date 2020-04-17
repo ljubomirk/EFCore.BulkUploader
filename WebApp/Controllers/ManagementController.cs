@@ -58,16 +58,16 @@ namespace WebApp.Controllers
             if (filter.ShowInactive)
                 filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
 
-            if(filter.ValidFrom != null && filter.ValidUntil != null)
+            if(filter.ValidFrom != null && filter.ValidTo != null)
             {
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= filter.ValidFrom && x.ValidTo <= filter.ValidUntil).ToList<Promotion>());
+                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= filter.ValidFrom && x.ValidTo <= filter.ValidTo).ToList<Promotion>());
             }
-            else if (filter.ValidFrom != null || filter.ValidUntil != null)
+            else if (filter.ValidFrom != null || filter.ValidTo != null)
             {
                 if (filter.ValidFrom != null)
                     filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom>=filter.ValidFrom).ToList<Promotion>());
-                if (filter.ValidUntil != null)
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= filter.ValidUntil).ToList<Promotion>());
+                if (filter.ValidTo != null)
+                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= filter.ValidTo).ToList<Promotion>());
             }
 
             if (filter.Code != null)

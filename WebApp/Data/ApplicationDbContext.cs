@@ -14,16 +14,18 @@ namespace WebApp.Data
     : base(options)
         {
         }
-
-        // Coupon
-        public DbSet<Coupon> Coupon { get; set; }
-        public DbSet<CouponHistory> CouponHistory { get; set; }
-
-        // Promotion
-        public DbSet<Promotion> Promotion { get; set; }
+        // Base entities
         public DbSet<Property> Property { get; set; }
         public DbSet<IssuerChannel> IssuerChannel { get; set; }
         public DbSet<AwardChannel> AwardChannel { get; set; }
+        // Coupon
+        public DbSet<Coupon> Coupon { get; set; }
+        public DbSet<CouponHistory> CouponHistory { get; set; }
+        public DbSet<CouponAwardChannel> CouponAwardChannel { get; set; }
+        public DbSet<CouponIssuerChannel> CouponIssuerChannel { get; set; }
+
+        // Promotion
+        public DbSet<Promotion> Promotion { get; set; }
         public DbSet<PromotionAwardChannel> PromotionAwardChannel { get; set; }
         public DbSet<PromotionIssuerChannel> PromotionIssuerChannel { get; set; }
         public DbSet<PromotionProperty> PromotionProperty { get; set; }
@@ -47,6 +49,12 @@ namespace WebApp.Data
             );
             modelBuilder.Entity<PromotionProperty>().HasKey(
                 pac => new { pac.PromotionId, pac.PropertyId }
+            );
+            modelBuilder.Entity<CouponAwardChannel>().HasKey(
+                pac => new { pac.CouponId, pac.AwardChannelId }
+            );
+            modelBuilder.Entity<CouponIssuerChannel>().HasKey(
+                pac => new { pac.CouponId, pac.IssuerChannelId }
             );
 
             /* Test Data */

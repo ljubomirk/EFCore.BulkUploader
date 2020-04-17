@@ -40,7 +40,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(maxLength: 20, nullable: false),
+                    Code = table.Column<string>(nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
                     ValidFrom = table.Column<DateTime>(nullable: true),
                     ValidTo = table.Column<DateTime>(nullable: true)
@@ -102,6 +102,12 @@ namespace WebApp.Migrations
                 {
                     table.PrimaryKey("PK_PromotionAwardChannel", x => new { x.PromotionId, x.AwardChannelId });
                     table.ForeignKey(
+                        name: "FK_PromotionAwardChannel_AwardChannel_AwardChannelId",
+                        column: x => x.AwardChannelId,
+                        principalTable: "AwardChannel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_PromotionAwardChannel_Promotion_PromotionId",
                         column: x => x.PromotionId,
                         principalTable: "Promotion",
@@ -119,6 +125,12 @@ namespace WebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PromotionIssuerChannel", x => new { x.PromotionId, x.IssuerChannelId });
+                    table.ForeignKey(
+                        name: "FK_PromotionIssuerChannel_IssuerChannel_IssuerChannelId",
+                        column: x => x.IssuerChannelId,
+                        principalTable: "IssuerChannel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PromotionIssuerChannel_Promotion_PromotionId",
                         column: x => x.PromotionId,
@@ -315,18 +327,22 @@ namespace WebApp.Migrations
                 table: "Promotion",
                 column: "Code",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromotionAwardChannel_AwardChannelId",
+                table: "PromotionAwardChannel",
+                column: "AwardChannelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PromotionIssuerChannel_IssuerChannelId",
+                table: "PromotionIssuerChannel",
+                column: "IssuerChannelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AwardChannel");
-
-            migrationBuilder.DropTable(
                 name: "CouponHistory");
-
-            migrationBuilder.DropTable(
-                name: "IssuerChannel");
 
             migrationBuilder.DropTable(
                 name: "PromotionAwardChannel");
@@ -342,6 +358,12 @@ namespace WebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Coupon");
+
+            migrationBuilder.DropTable(
+                name: "AwardChannel");
+
+            migrationBuilder.DropTable(
+                name: "IssuerChannel");
 
             migrationBuilder.DropTable(
                 name: "Promotion");

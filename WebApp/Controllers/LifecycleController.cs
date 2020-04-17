@@ -36,9 +36,9 @@ namespace WebApp.Controllers
         public IActionResult Index()
         {
             LifecycleSearchViewModel initModel = new LifecycleSearchViewModel();
-            initModel.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            initModel.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
             initModel.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
-            initModel.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidUntil = DateTime.Today.AddMonths(1) };
+            initModel.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
 
             initModel.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
             initModel.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
@@ -74,16 +74,16 @@ namespace WebApp.Controllers
             if (promotionFilter.ShowInactive)
                 f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
 
-            if (promotionFilter.ValidFrom != null && promotionFilter.ValidUntil != null)
+            if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
-                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>());
             }
-            else if (promotionFilter.ValidFrom != null || promotionFilter.ValidUntil != null)
+            else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
                 if (promotionFilter.ValidFrom != null)
                     f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>());
-                if (promotionFilter.ValidUntil != null)
-                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidUntil).ToList<Promotion>());
+                if (promotionFilter.ValidTo != null)
+                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>());
             }
 
             if (promotionFilter.Code != null)

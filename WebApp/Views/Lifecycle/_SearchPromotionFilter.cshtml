@@ -22,9 +22,9 @@
         @ValidationHelper(ViewData, "ValidFrom", true)
     </div>
     <div class="input-field date col s6">
-        @Html.EditorFor(p => p.ValidUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-        @Html.LabelFor(p => p.ValidUntil, new { htmlAttributes = new { @class = "active" } })
-        @ValidationHelper(ViewData, "ValidUntil", true)
+        @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+        @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
+        @ValidationHelper(ViewData, "ValidTo", true)
     </div>
 </div>
 <!-- /promotion details -->

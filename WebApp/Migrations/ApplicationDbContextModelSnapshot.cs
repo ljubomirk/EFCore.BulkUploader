@@ -199,8 +199,7 @@ namespace WebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                        .IsRequired();
 
                     b.Property<bool>("Enabled");
 
@@ -418,6 +417,8 @@ namespace WebApp.Migrations
 
                     b.HasKey("PromotionId", "AwardChannelId");
 
+                    b.HasIndex("AwardChannelId");
+
                     b.ToTable("PromotionAwardChannel");
 
                     b.HasData(
@@ -480,6 +481,8 @@ namespace WebApp.Migrations
                     b.Property<long>("IssuerChannelId");
 
                     b.HasKey("PromotionId", "IssuerChannelId");
+
+                    b.HasIndex("IssuerChannelId");
 
                     b.ToTable("PromotionIssuerChannel");
 
@@ -652,7 +655,12 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionAwardChannel", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.Promotion")
+                    b.HasOne("CouponDatabase.Models.AwardChannel", "AwardChannel")
+                        .WithMany()
+                        .HasForeignKey("AwardChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionAwardChannels")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -660,7 +668,12 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionIssuerChannel", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.Promotion")
+                    b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
+                        .WithMany()
+                        .HasForeignKey("IssuerChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionIssuerChannels")
                         .HasForeignKey("PromotionId")
                         .OnDelete(DeleteBehavior.Cascade);

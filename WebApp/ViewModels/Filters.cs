@@ -11,7 +11,7 @@ namespace WebApp.ViewModels
         public bool ShowActive { get; set; }
         public bool ShowInactive { get; set; }
         public DateTime ValidFrom { get; set; }
-        public DateTime ValidUntil { get; set; }
+        public DateTime ValidTo { get; set; }
         public List<CheckedItem> Properties { get; set; }
 
         public Filters()
