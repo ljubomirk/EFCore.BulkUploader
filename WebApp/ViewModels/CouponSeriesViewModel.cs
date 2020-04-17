@@ -94,12 +94,14 @@ namespace WebApp.ViewModels
             }
             else
             {
+
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
 
                     listOfCoupons.Add(new Coupon()
                     {
-                        Code = Prefix != null ? Suffix != null ? Prefix + String.Format("{0:D5}", i) + i + Suffix : Prefix + String.Format("{0:D5}", i) + i : Suffix != null ? String.Format("{0:D5}", i) + i + Suffix : String.Format("{0:D5}", i) + i,
+                        //Code = Prefix != null ? Suffix != null ? Prefix + String.Format("{0:D5}", i) + Suffix : Prefix + String.Format("{0:D5}", i) : Suffix != null ? String.Format("{0:D5}", i) + Suffix : String.Format("{0:D5}", i),
+                        Code = getCouponCode(),
                         PromotionId = PromotionId,
                         AquireFrom = AssignableFrom,
                         AquireTo = AssignableUntil,
@@ -111,6 +113,42 @@ namespace WebApp.ViewModels
             }
 
             return listOfCoupons;
+        }
+
+        static long countPermutations(int N, int B)
+        {
+            return Convert.ToInt64(Math.Pow(B, N));
+        }
+
+        private string getCouponCode()
+        {
+
+            string chars = "";
+            var result = "";
+            if (CouponWithLetters)
+            {
+                chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            }
+            if (CouponWithNumbers)
+            {
+                chars += "0123456789";
+            }
+     
+            if (NumberOfCoupons < countPermutations(CouponMaxLength<=8?8:CouponMaxLength, chars.Length))
+            {
+            var random = new Random();
+            result = new string(
+                Enumerable.Repeat(chars, CouponMaxLength<8?8:CouponMaxLength)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            }
+            else
+            {
+                result += "INVALID";
+            }
+
+
+            return Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
         }
     }
 }
