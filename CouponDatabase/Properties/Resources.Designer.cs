@@ -61,11 +61,56 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notify List.
+        /// </summary>
+        public static string Administration_ChannelsNotifyList {
+            get {
+                return ResourceManager.GetString("Administration_ChannelsNotifyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systems.
+        /// </summary>
+        public static string Administration_ChannelsSystems {
+            get {
+                return ResourceManager.GetString("Administration_ChannelsSystems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Btn_Add {
+            get {
+                return ResourceManager.GetString("Btn_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Series.
         /// </summary>
         public static string Btn_AddSeries {
             get {
                 return ResourceManager.GetString("Btn_AddSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add System.
+        /// </summary>
+        public static string Btn_AddSystem {
+            get {
+                return ResourceManager.GetString("Btn_AddSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add To Notify List.
+        /// </summary>
+        public static string Btn_AddToNotifyList {
+            get {
+                return ResourceManager.GetString("Btn_AddToNotifyList", resourceCulture);
             }
         }
         
@@ -169,6 +214,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Btn_Export {
+            get {
+                return ResourceManager.GetString("Btn_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Btn_Filter {
@@ -192,6 +246,15 @@ namespace CouponDatabase.Properties {
         public static string Btn_Import {
             get {
                 return ResourceManager.GetString("Btn_Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Btn_Remove {
+            get {
+                return ResourceManager.GetString("Btn_Remove", resourceCulture);
             }
         }
         
@@ -475,6 +538,78 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you shure you want to remove this notify list?.
+        /// </summary>
+        public static string Modal_ContentRemoveNotifyList {
+            get {
+                return ResourceManager.GetString("Modal_ContentRemoveNotifyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you shure you want to remove this system?.
+        /// </summary>
+        public static string Modal_ContentRemoveSystem {
+            get {
+                return ResourceManager.GetString("Modal_ContentRemoveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add System.
+        /// </summary>
+        public static string Modal_HeadingAddSystem {
+            get {
+                return ResourceManager.GetString("Modal_HeadingAddSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add To Notify List.
+        /// </summary>
+        public static string Modal_HeadingAddToNotifyList {
+            get {
+                return ResourceManager.GetString("Modal_HeadingAddToNotifyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit a Notify List.
+        /// </summary>
+        public static string Modal_HeadingEditANotifyList {
+            get {
+                return ResourceManager.GetString("Modal_HeadingEditANotifyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EditSystem.
+        /// </summary>
+        public static string Modal_HeadingEditSystem {
+            get {
+                return ResourceManager.GetString("Modal_HeadingEditSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove notify list.
+        /// </summary>
+        public static string Modal_HeadingRemoveNotifyList {
+            get {
+                return ResourceManager.GetString("Modal_HeadingRemoveNotifyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove system.
+        /// </summary>
+        public static string Modal_HeadingRemoveSystem {
+            get {
+                return ResourceManager.GetString("Modal_HeadingRemoveSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set disabled?.
         /// </summary>
         public static string Modal_TitleSetDisabled {
@@ -498,6 +633,33 @@ namespace CouponDatabase.Properties {
         public static string Nav_Administration {
             get {
                 return ResourceManager.GetString("Nav_Administration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access History.
+        /// </summary>
+        public static string Nav_AdministrationAccessHistory {
+            get {
+                return ResourceManager.GetString("Nav_AdministrationAccessHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channels.
+        /// </summary>
+        public static string Nav_AdministrationChannels {
+            get {
+                return ResourceManager.GetString("Nav_AdministrationChannels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Nav_AdministrationUsers {
+            get {
+                return ResourceManager.GetString("Nav_AdministrationUsers", resourceCulture);
             }
         }
         

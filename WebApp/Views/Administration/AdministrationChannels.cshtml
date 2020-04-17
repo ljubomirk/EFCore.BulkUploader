@@ -1,0 +1,131 @@
+﻿@model WebApp.ViewModels.ContextData;
+
+@{
+    ViewBag.PageName = "AdministrationChannels";
+}
+
+
+<partial name="_AdministrationNavigation" />
+
+<!-- heading systems-->
+<div class="row u-m-t-xl u-p-t-xl">
+    <div class="col s12 m6 u-p-l-remove">
+        <h4 class="u-m-t-remove">
+            @CouponDatabase.Properties.Resources.Administration_ChannelsSystems
+        </h4>
+    </div>
+    <div class="col s12 m6 u-p-r-remove">
+        <a class="channel-action modal-trigger btn-flat btn-primary right" data-target-modal="systems" data-action="add" href="#modal-form">
+            <i class="material-icons">add</i>
+            @CouponDatabase.Properties.Resources.Btn_Add
+        </a>
+    </div>
+</div>
+<!-- /heading systems -->
+<!-- systems table -->
+<partial name="_ChannelsSystemsTable" />
+
+<!-- heading notify list -->
+<div class="row u-m-t-lg u-p-t-xl">
+    <div class="col s12 m6 u-p-l-remove">
+        <h4 class="u-m-t-remove">
+            @CouponDatabase.Properties.Resources.Administration_ChannelsNotifyList
+        </h4>
+    </div>
+    <div class="col s12 m6 u-p-r-remove">
+        <a class="channel-action modal-trigger btn-flat btn-primary right" data-target-modal="notifyList" data-action="add" href="#modal-form">
+            <i class="material-icons">add</i>
+            @CouponDatabase.Properties.Resources.Btn_Add
+        </a>
+    </div>
+</div>
+<!-- /heading notify list -->
+<!-- notify list table -->
+<partial name="_ChannelsNotifyListTable" />
+
+<partial name="_ChannelsActions" />
+<partial name="_ChannelsModal" />
+
+
+<script>
+    /*
+     * TODO:
+     *  - abstract checkbox behavior for all cases
+    */
+    $(document).ready(function () {
+        // display number of checked items and enable action
+        $(".item-checkbox").change(function () {
+            var className = $(this).attr("class").split(/\s+/)[2];
+            setMaterCheckbox(className);
+        })
+
+        // handle chekcbox status
+        // checkbox: MASTER
+        $(".checkbox-master").on('click', function (e) {
+            var chkMaster = $(this);
+            var targetClass = "." + this.getAttribute("data-target");
+
+            var chkBoxes = $(targetClass);
+
+            $(this).prop("indeterminate", false).change();
+            // set class if changed
+            if (chkMaster.hasClass("filled-in-indeterminate")) {
+                chkMaster.removeClass("filled-in-indeterminate")
+                chkMaster.addClass("filled-in");
+            }
+            // check state and set all other chkboxes
+            if (chkMaster.is(":checked")) {
+                chkBoxes.each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).prop("checked", true);
+                    }
+                })
+            } else {
+                chkBoxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        $(this).prop("checked", false);
+                    }
+                })
+            }
+        })
+
+        // handle master checkbox status
+        function setMaterCheckbox(target) {
+            var chkMaster = $("input[data-target=" + target + "]");
+            var max = $("." + target).length;
+            var curr = $("input:checked." + target).length;
+            // if all checked
+            if (curr == max) {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", true);
+                // if some cheked
+            } else if (curr > 0 && curr < max) {
+                chkMaster.prop("indeterminate", true);
+
+                if (chkMaster.hasClass("filled-in")) {
+                    chkMaster
+                        .removeClass("filled-in")
+                        .addClass("filled-in-indeterminate");
+                }
+                chkMaster.prop("checked", false);
+                // if none checked
+            } else {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", false);
+
+            }
+        }
+    })
+</script>

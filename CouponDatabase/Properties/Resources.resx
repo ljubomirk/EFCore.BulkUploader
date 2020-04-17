@@ -373,4 +373,76 @@
     <value>Update Selected</value>
     <comment>Button label.</comment>
   </data>
+  <data name="Nav_AdministrationAccessHistory" xml:space="preserve">
+    <value>Access History</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Nav_AdministrationChannels" xml:space="preserve">
+    <value>Channels</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Nav_AdministrationUsers" xml:space="preserve">
+    <value>Users</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Btn_Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_AddSystem" xml:space="preserve">
+    <value>Add System</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_AddToNotifyList" xml:space="preserve">
+    <value>Add To Notify List</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Modal_HeadingAddSystem" xml:space="preserve">
+    <value>Add System</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingAddToNotifyList" xml:space="preserve">
+    <value>Add To Notify List</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingEditANotifyList" xml:space="preserve">
+    <value>Edit a Notify List</value>
+    <comment>Modl text.</comment>
+  </data>
+  <data name="Modal_HeadingEditSystem" xml:space="preserve">
+    <value>EditSystem</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Administration_ChannelsNotifyList" xml:space="preserve">
+    <value>Notify List</value>
+    <comment>Channels heading.</comment>
+  </data>
+  <data name="Administration_ChannelsSystems" xml:space="preserve">
+    <value>Systems</value>
+    <comment>Channels heading.</comment>
+  </data>
+  <data name="Modal_ContentRemoveNotifyList" xml:space="preserve">
+    <value>Are you shure you want to remove this notify list?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_ContentRemoveSystem" xml:space="preserve">
+    <value>Are you shure you want to remove this system?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingRemoveNotifyList" xml:space="preserve">
+    <value>Remove notify list</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingRemoveSystem" xml:space="preserve">
+    <value>Remove system</value>
+    <comment>Modal text.</comment>
+  </data>
 </root>

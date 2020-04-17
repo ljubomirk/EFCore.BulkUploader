@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model WebApp.ViewModels.ContextData;
+
+@{
+    ViewBag.PageName = "AdministrationUsers";
+}
+
+
+<partial name="_AdministrationNavigation" />
+
+
+@*
+    ROLE: container for Administration Users, handles update users form
+*@
+
+<!-- heading -->
+<div class="row u-m-t-xl u-p-t-xl">
+    <div class="col s12 m7 u-p-l-remove">
+        <h4 class="u-m-t-remove">
+            @CouponDatabase.Properties.Resources.Nav_AdministrationUsers
+        </h4>
+    </div>
+    <div class="col s12 m3 select-wrapper-action u-p-r-remove">
+        <select id="select-users" class="">
+            <option value="all" selected>Show Users And Admins</option>
+            <option value="admin">Show Admins</option>
+            <option value="user">Show Users</option>
+        </select>
+    </div>
+    <div class="col s12 m2 u-p-r-remove">
+        <!-- update users form -->
+        @using (Html.BeginForm("UpdateUsers", "Administration", FormMethod.Post, new { role = "form", id = "UpdateUsers" }))
+        {
+            <button type="submit" class="waves-effect waves-light btn-flat btn-primary right">
+                <i class="material-icons left">update</i>
+                @CouponDatabase.Properties.Resources.Btn_Update
+            </button>
+        }
+    </div>
+</div>
+<!-- /heading -->
+
+<!-- users table -->
+<partial name="_UsersTable" />
+
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            alert("a je.")
+        })
+    })
+</script>

@@ -20,7 +20,7 @@
             @if (Role == "CouponAdmin")
             {
                 <li class="tab">
-                    <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="#">
+                    <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="@Url.Action("Users","Administration")">
                         @CouponDatabase.Properties.Resources.Nav_Administration
                     </a>
                 </li>

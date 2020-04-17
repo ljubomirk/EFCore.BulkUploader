@@ -1,0 +1,121 @@
+﻿@*
+    ROLE: displays form modal to add/edit systems and notify lists
+*@
+
+<!-- form modal -->
+<div id="modal-form" class="modal">
+    <div class="modal-content">
+        <h4>@CouponDatabase.Properties.Resources.Modal_HeadingAddSystem</h4>
+        @using (Html.BeginForm("AddSystem", "Administration", FormMethod.Post, new { role = "form", id = "AdministrationModal" }))
+        {
+            <input type="hidden" id="entry-id" />
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="" id="sys" type="text" class="validate">
+                    <label for="sys">System</label>
+                </div>
+                <div class="input-field col s12">
+                    <input placeholder="" id="username" type="text" class="validate">
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field col s12">
+                    <input placeholder="" id="password" type="password" class="validate">
+                    <label for="password"></label>
+                    <i class='material-icons suffix'>remove_red_eye</i>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <a class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+            @CouponDatabase.Properties.Resources.Btn_Close
+        </a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary">
+            <i class="material-icons left">check</i>
+            @CouponDatabase.Properties.Resources.Btn_AddSystem
+        </a>
+    </div>
+</div>
+<!-- /form modal-->
+
+<!-- remove modal -->
+<div id="modal-remove" class="modal">
+    <div class="modal-content">
+        <h4></h4>
+        <p></p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+            @CouponDatabase.Properties.Resources.Btn_Close
+        </a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary">
+            <i class="material-icons left">check</i>
+            @CouponDatabase.Properties.Resources.Btn_Remove
+        </a>
+    </div>
+</div>
+<!-- /for modal-->
+
+<script>
+
+    $(document).ready(function () {
+        var ctx = {
+            systems: {
+                add: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddSystem',
+                },
+                remove: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveSystem',
+                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveSystem'
+                },
+                edit: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditSystem'
+                }
+            },
+            notifyList: {
+                add: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList'
+                },
+                remove: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveNotifyList',
+                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList'
+                },
+                edit: {
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList'
+                }
+            }
+        }
+        $(".channel-action").click(function () {
+            var id = this.getAttribute("data-id");
+            var target = this.getAttribute("data-target-modal");
+            var action = this.getAttribute("data-action");
+            var title = ctx[target][action].heading;
+
+            console.log("id: ", id)
+            console.log("target: ", target)
+            console.log("action: ", action)
+            console.log("title: ", title)
+
+            var heading = $(".modal-content h4");
+            var content = $(".modal-content p");
+            var actionBtn = $(".modal-footer a.btn-primary");
+            var inputId = $("#entry-id");
+
+            if (action == "add") {
+                heading.html(title)
+                console.log("add")
+            } else if (action == "remove") {
+                var text = ctx[target][action].content
+                heading.html(title)
+                content.html(text)
+                //actionBtn.attr("href", "akcijanakontroler/" + id)
+                console.log("remove")
+
+            } else if (action == "edit") {
+                heading.html(title)
+                inputId.attr("id", id)
+                console.log("edit")
+            }
+        })
+    })
+</script>

@@ -1,0 +1,110 @@
+﻿@*
+    ROLE: displays access history search filter and handles posting data to controller
+*@
+
+<div id="form-filter">
+    @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
+    {
+        <div class="container">
+            <div class="row u-m-t-md">
+                <div class="col s12 m4">
+                    <p class="section-headline">Type</p>
+                    <p>
+                        <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                            <input type="checkbox" class="filled-in" />
+                            <span>Application</span>
+                        </label>
+                        <label class="checkbox-hover checkbox-hover__inline">
+                            <input type="checkbox" class="filled-in" />
+                            <span>API</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="col s12 m4 u-p-l-remove">
+                    <p class="section-headline">Access Granted</p>
+                    <p>
+                        <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                            <input type="checkbox" class="filled-in" />
+                            <span>Yes</span>
+                        </label>
+                        <label class="checkbox-hover checkbox-hover__inline">
+                            <input type="checkbox" class="filled-in" />
+                            <span>No</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+            <div class="row u-m-t-negativ">
+                <div class="col s12 u-p-l-remove">
+                    <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
+                </div>
+                <div class="col s12 three-cols">
+                    @{ 
+                        string[] cb = new string[] { "Create Promotion", "Add Coupon", "Redeem Coupon", "Create Series", "Issue Coupon", "Log in" };
+                    }
+                    @for (int i = 0; i < cb.Length; i++)
+                    {
+                        <p class="checkbox-hover">
+                            <label>
+                                <input type="checkbox" />
+                                <span>@cb[i]</span>
+                            </label>
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <div class="row u-m-t-xl u-m-l-sm-negative">
+                <div class="input-field date col s12 m4">
+                    <input placeholder="" type="text" id="start" class="datepicker validate">
+                    <label for="start">Start Date</label>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+                <div class="input-field date col s12 m4">
+                    <input placeholder="" type="text" id="end" class="datepicker validate">
+                    <label for="end">End Date</label>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 u-p-l-remove">
+                    <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
+                        <i class="material-icons left">check</i>
+                        @CouponDatabase.Properties.Resources.Btn_ApplyFilters
+                    </button>
+                    <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
+                        @CouponDatabase.Properties.Resources.Btn_Cancel
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        // toggle filter on master filter button
+        $("#btn-filter").click(function () {
+            $(".form-filter").slideToggle("slow");
+            var filterState = $("#btn-filter").hasClass('btn-transparent');
+            if (filterState) {
+
+                $("#btn-filter").removeClass('btn-transparent');
+                $("#btn-filter i").html('unfold_more');
+                sessionStorage.setItem("FilterStatus", false);
+            } else {
+                $("#btn-filter").addClass('btn-transparent');
+                $("#btn-filter i").html('unfold_less');
+            }
+        });
+
+        // close filter
+        $("#filter-close").click(function () {
+            $(".form-filter").slideUp("slow");
+            $("#btn-filter").removeClass('btn-transparent');
+            $("#btn-filter i").html('unfold_more');
+        })
+    })
+    
+</script>

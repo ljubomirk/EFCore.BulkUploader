@@ -38,12 +38,21 @@
             if ($(".calendar").length > 0) $(".calendar").calendar();
 
             // init tabs
-            if ($(".tabs-section").length > 0) $(".tabs-section").tabs(config.options.tabs);
+            if ($(".tabs-section").length > 0) {
+                console.log("ima");
+                $(".tabs-section").tabs(config.options.tabs);
+            }
 
             // init table
             if ($("table").length > 0) {
-                var target = parseInt($("table")[0].getAttribute("data-nosort-target"))
-                config.options.table.columnDefs[0].targets = target;
+                var column = $("table")[0].getAttribute("data-nosort-target");
+
+                if (column) {
+                    var target = parseInt(column)
+                    config.options.table.columnDefs[0].targets = target;
+                } else {
+                    config.options.table.columnDefs = [];
+                }
                 $('table').DataTable(config.options.table);
             }
 
@@ -54,8 +63,8 @@
             if ($(".modal").length > 0) {
                 $(".modal").modal();
                 // close modal with button inside
-                $("#modal-close").click(function () {
-                    $('#modal-confirmation').modal('close');
+                $(".modal-close").click(function () {
+                    $('.modal').modal('close');
                 });
             }
 

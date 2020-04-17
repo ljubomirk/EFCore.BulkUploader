@@ -50,6 +50,11 @@ table.dataTable tfoot td {
     border-top: 1px solid #111;
 }
 
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc{
+    color: $primary-color
+}
+
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc,
@@ -982,4 +987,9 @@ a.dt-button.processing:after {
     -ms-animation: dtb-spinner 1500ms infinite linear;
     -webkit-animation: dtb-spinner 1500ms infinite linear;
     -moz-animation: dtb-spinner 1500ms infinite linear;
+}
+
+
+td.table-password {
+    cursor: pointer;
 }

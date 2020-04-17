@@ -1,0 +1,32 @@
+﻿@model WebApp.ViewModels.ContextData;
+
+@{
+    ViewBag.PageName = "AdministrationAccessHistory";
+}
+
+<partial name="_AdministrationNavigation" />
+
+<!-- heading -->
+<div class="row u-m-t-xl u-p-t-xl">
+    <div class="col s12 m6 u-p-l-remove">
+        <h4 class="u-m-t-remove">
+            @CouponDatabase.Properties.Resources.Nav_AdministrationAccessHistory
+        </h4>
+    </div>
+    <div class="col s12 m6 select-wrapper-action u-p-r-remove">
+        <a href="#" class="waves-effect waves-light btn-flat btn-primary right">
+            <i class="material-icons left">file_download</i>
+            @CouponDatabase.Properties.Resources.Btn_Export
+        </a>
+        <button class="waves-effect waves-light btn-flat btn-default right u-m-r-md" id="btn-filter">
+            <i class="material-icons left">unfold_more</i>
+            @CouponDatabase.Properties.Resources.Btn_Filter
+        </button>
+    </div>
+</div>
+<!-- /heading -->
+
+<!-- search filter -->
+<partial name="_AccessHistoryFilter" />
+<!-- history table -->
+<partial name="_AccessHistoryTable" />

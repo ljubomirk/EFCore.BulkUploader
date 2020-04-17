@@ -424,6 +424,7 @@ table {
             font-weight: 600;
 
             &:first-child {
+                padding-left: 25px;
                 text-align: left;
             }
         }
@@ -446,12 +447,31 @@ table {
                 border-radius: 0;
 
                 &:first-child {
-                    padding-left: 18px;
+                    padding-left: 25px;
                 }
 
                 &:not(:first-child) {
                     text-align: center;
                 }
+            }
+        }
+    }
+
+    &.all-left {
+        th {
+            text-align: left !important;
+
+            &:first-child {
+                padding-left: 25px;
+            }
+        }
+
+        > tbody > tr > td {
+            text-align: left !important;
+            padding-left: 18px;
+
+            &:first-child {
+                padding-left: 25px;
             }
         }
     }

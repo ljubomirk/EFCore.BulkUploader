@@ -213,3 +213,18 @@ nav {
     height: $navbar-height;
   }
 }
+
+.nav-subnav {
+    position: absolute;
+    z-index: 999;
+    top: $navbar-height;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid color("grey", "lighten-3");
+}
+
+.subnav {
+    &-link {
+        font-size: .9rem !important;
+    }
+}

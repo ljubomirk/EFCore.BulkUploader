@@ -1,0 +1,110 @@
+﻿@*
+    ROLE: displays a list of systems as a table
+*@
+
+
+<table id="users-list" class="striped highlight all-left">
+    <thead>
+        <tr>
+            <th>
+                <label>
+                    <input id="checkbox-master-systems" data-target="systems-checkbox" type="checkbox" class="filled-in checkbox-master" />
+                    <span></span>
+                </label>
+            </th>
+            <th>System</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>
+                <label>
+                    <input type="checkbox" class="filled-in item-checkbox systems-checkbox" />
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                CRM
+            </td>
+            <td>
+                gazda007
+            </td>
+            <td class="table-password" data-password="zicerone">
+                <span class="password">***********</span>
+                <i class="material-icons u-m-l-sm">remove_red_eye</i>
+            </td>
+            <td>
+                <a class='dropdown-trigger' href='!#' data-id="1" data-target='channel-actions' data-target-modal="systems">
+                    <i class="material-icons material-icons__hover">more_horiz</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    <input type="checkbox" class="filled-in item-checkbox systems-checkbox" />
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                SalesForce
+            </td>
+            <td>
+                Marija
+            </td>
+            <td class="table-password" data-password="zanimateA">
+                <span class="password">***********</span>
+                <i class="material-icons u-m-l-sm">remove_red_eye</i>
+            </td>
+            <td>
+                <a class='dropdown-trigger' href='!#' data-id="sys2" data-target='channel-actions' data-target-modal="systems">
+                    <i class="material-icons material-icons__hover">more_horiz</i>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    <input type="checkbox" class="filled-in item-checkbox systems-checkbox" />
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                Kudergrofnschlaffen
+            </td>
+            <td>Webshop</td>
+            <td class="table-password" data-password="nematukruva">
+                <span class="password">***********</span>
+                <i class="material-icons u-m-l-sm">remove_red_eye</i>
+            </td>
+            <td>
+                <a class='dropdown-trigger' href='!#' data-id="sys3" data-target='channel-actions' data-target-modal="systems">
+                    <i class="material-icons material-icons__hover">more_horiz</i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        
+        $(".table-password").mousedown(function () {
+            var pw = this.getAttribute("data-password")
+            var span = $(this).children("span");
+            var icon = $(this).children("i");
+            icon.fadeOut("fast");
+            span.html(pw);
+        }).mouseup(function () {
+            var hiddenPw = '***********';
+            var span = $(this).children("span");
+            var icon = $(this).children("i");
+            icon.fadeIn("fast");
+            span.html(hiddenPw);
+        })
+    })
+</script>
