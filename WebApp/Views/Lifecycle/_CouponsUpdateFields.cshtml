@@ -1,39 +1,40 @@
-﻿@model WebApp.ViewModels.LifecycleUpdateViewModel;
+﻿@using Microsoft.AspNetCore.Html;
+@model WebApp.ViewModels.LifecycleUpdateViewModel;
 
 @{
     ViewData["Title"] = "_UpdateFields";
+    List<SelectListItem> statusList = new List<SelectListItem>();
+    if (Model.DropCouponStatus != null)
+    {
+        statusList = Model.DropCouponStatus;
+    }
+
+    List<SelectListItem> enabledList = new List<SelectListItem>();
+    if (Model.DropEnabled != null)
+    {
+        enabledList = Model.DropEnabled;
+    }
 }
 
 <!-- form controls -->
     <div class="row">
         <div class="input-field col s2">
-            <input placeholder="-not selected-" id="input-customer" class="white input-coupon" type="text" />
-            <label class="active" for="bbb">Customer</label>
+            @Html.EditorFor(p => p.Customer, new { htmlAttributes = new { @type = "text", placeholder = "-not selected-", @class = "white input-coupon" , @autocomplete = "off" } })
+            @Html.LabelFor(p => p.Customer)
             @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
         </div>
         <div class="input-field date col s2">
-            <input placeholder="-not selected-" id="input-validuntil" class="white calendar input-coupon" type="text" />
-            <label class="active" for="bbb">Valid Until</label>
-            <i id="icon-endDate" class="material-icons suffix">event</i>
+            @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "-not selected-", @autocomplete = "off" } })
+            @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "" } })
             @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
         </div>
         <div class="input-field col s2">
-            <select id="input-status" class="input-coupon select-coupon">
-                <option value="" selected>-not selected-</option>
-                <option value="Created">Created</option>
-                <option value="Issued">Issued</option>
-                <option value="Redeemed">Redeemed</option>
-                <option value="Canceled">Canceled</option>
-            </select>
-            <label>Status</label>
+            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon" })
+            @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
         </div>
         <div class="input-field col s2">
-            <select id="input-enabled" class="input-coupon select-coupon">
-                <option value="" selected>-not selected-</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            <label>Enabled</label>
+            @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
+            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon" })
         </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s4 u-p-r-remove">
@@ -46,7 +47,6 @@
         <!-- action to call confirmation modal -->
     </div>
 <!-- /form controls -->
-
 <!-- confirmation modal -->
 <partial name="_CouponsModal" />
 <!-- /confirmation modal -->

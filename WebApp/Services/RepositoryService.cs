@@ -56,10 +56,6 @@ namespace WebApp.Services
             List<Promotion> promotionsByValidDate = new List<Promotion>();
             List<Promotion> promotionsByCode = new List<Promotion>();
 
-            //List<int> list1 = new List<int> { 1, 12, 12, 5 };
-            //List<int> list2 = new List<int> { 12, 5, 7, 9, 1 };
-            //List<int> ulist = list1.Union(list2).ToList();
-
             if (promotionFilter.ShowActive)
                 f_ListOfPromotions.AddRange(allPromotions.Where(x => x.Active == true).ToList<Promotion>());
             if (promotionFilter.ShowInactive)
@@ -76,9 +72,6 @@ namespace WebApp.Services
                 if (promotionFilter.ValidTo != null)
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
             }
-
-            //f_ListOfPromotions = promotionsByStatus.Union(promotionsByValidDate).ToList();
-            //List<Promotion> f_ListOfPromotions1 = promotionsByValidDate.Union(promotionsByStatus).ToList();
 
             if (promotionFilter.Code != null)
             {
@@ -247,7 +240,7 @@ namespace WebApp.Services
          */
         public List<CurrentStatus> GetCouponStatuses()
         {
-            List<string> enumNames = Enum.GetNames(typeof(CouponStatus)).ToList();
+            List<string> enumNames = GetCouponStatusList();
             List<CurrentStatus> statusList = new List<CurrentStatus>();
             for (var i = 0; i < enumNames.Count(); i++)
             {
@@ -258,6 +251,14 @@ namespace WebApp.Services
                 });
             }
             return statusList;
+        }
+
+        /*
+         * Get list of coupon status names. Generated from enum.
+         */
+        public List<string> GetCouponStatusList()
+        {
+            return Enum.GetNames(typeof(CouponStatus)).ToList();
         }
 
         public List<Property> GetPromotionProperties(long idPromotion)

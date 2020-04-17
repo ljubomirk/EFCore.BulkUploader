@@ -16,7 +16,7 @@
 </div>
 <!-- /header -->
 
-@using (Html.BeginForm("Update", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateCoupons" }))
+@using (Html.BeginForm("UpdateCoupons", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateCoupons" }))
 {
     <partial name="_CouponsUpdateFields" />
     <partial name="_CouponsTable" model="Model.Coupons" />

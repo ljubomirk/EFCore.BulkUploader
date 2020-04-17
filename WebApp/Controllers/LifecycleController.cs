@@ -70,16 +70,17 @@ namespace WebApp.Controllers
             //List<Coupon> f_ListOfCoupons = new List<Coupon>();
             List<Coupon> f_ListOfCoupons = _repo.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
 
-
-            model.PromotionCodes = getSelectListPromotions(f_ListOfPromotions);
-            model.CouponSeries = getSelectListSeries(f_ListOfCoupons); // implement method for mapping Coupon to SelectListItem
-            model.Coupons = f_ListOfCoupons;
+            // Dropdown data
+            model.DropPromoCodes = getSelectListPromotions(f_ListOfPromotions);
+            model.DropCouponSeries = getSelectListSeries(f_ListOfCoupons); 
+            model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
+            model.DropEnabled = getSelectListEnabled();
 
             /*
              * TODO:
-             * Store PromotionCodes, CouponSeries and filtered coupons into session
+             * Store PromotionCodes, CouponSeries and filtered coupons into session and view model
              */
-
+            model.Coupons = f_ListOfCoupons;
             model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
 
             /*
@@ -96,7 +97,7 @@ namespace WebApp.Controllers
          * Used on LifecycleCoupons view for UpdateSelected action.
          */
         [HttpPost]
-        public IActionResult Update(LifecycleUpdateViewModel model)
+        public IActionResult UpdateCoupons(LifecycleUpdateViewModel model)
         {
             /*
              * TODO: 
@@ -164,6 +165,44 @@ namespace WebApp.Controllers
                 }
             }
             return seriesList;
+        }
+
+        /*
+         * Returns list of SelectedListItems for coupon status.
+         * Used on LifecycleCoupons view for DropDown element.
+         */
+        public List<SelectListItem> getSelectListStatus(List<string> statuses)
+        {
+            List<SelectListItem> statusList = new List<SelectListItem>();
+            for (var i = 0; i < statuses.Count(); i++)
+            {
+                statusList.Add(new SelectListItem()
+                {
+                    Text = statuses[i],
+                    Value = (i + 1).ToString()
+                });
+            }
+            return statusList;
+        }
+
+
+        /*
+         * Returns list of SelectListItems for coupon enabled status.
+         * Used on LifecycleCoupons view for DropDown element.
+         */
+        public List<SelectListItem> getSelectListEnabled()
+        {
+            List<SelectListItem> selectList = new List<SelectListItem>();
+            selectList.Add(new SelectListItem
+            {
+                Text = "Yes",
+                Value = "1"
+            });
+            selectList.Add(new SelectListItem {
+                Text = "No",
+                Value = "0"
+            });
+            return selectList;
         }
 
 
