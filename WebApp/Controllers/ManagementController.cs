@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
 using CouponDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,9 @@ using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using ExcelDataReader;
 
 namespace WebApp.Controllers
 {
@@ -149,6 +153,9 @@ namespace WebApp.Controllers
             if (viewModel.Promotion.Id != 0)
                 promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
 
+            if (!viewModel.hasEndDate)
+                viewModel.Promotion.ValidTo = null;
+            
             if (viewModel.Promotion.Id == 0) 
             {
                 long Id = _repo.CreatePromotion(viewModel.Promotion);
@@ -180,25 +187,18 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
         {
-            bool returnValue = GenerateCouponsFromModel(model); 
+            bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
             if (returnValue)
             {
                 ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Coupons successfully generated.";
+                ViewBag.CommandMessage = "Coupons inserted.";
             }
             else
             {
                 ViewBag.CommandStatus = "[NOT OK]";
-                ViewBag.CommandMessage = "Coupons unsuccessfully generated.";
+                ViewBag.CommandMessage = "Coupons didn't inserted.";
             }
             return View("PromotionCouponSeries", model);
-        }
-
-        [HttpPost]
-        public IActionResult ImportCoupons(CouponSeriesViewModel model)
-        {
-            //_repo.ImportCoupons(model);
-            return View("PromotionDetails", model);
         }
 
         #region TEST
@@ -292,27 +292,6 @@ namespace WebApp.Controllers
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
         }
 
-
-        private bool GenerateCouponsFromModel(CouponSeriesViewModel viewModel)
-        {
-            List<Coupon> listOfCoupons = new List<Coupon>();
-            for (int i = 0; i < viewModel.NumberOfCoupons; i++)
-            {
-
-                listOfCoupons.Add(new Coupon()
-                {
-                    Code = viewModel.Prefix != null ? viewModel.Suffix != null ? viewModel.Prefix + String.Format("{0:D5}", i) + i + viewModel.Suffix : viewModel.Prefix + String.Format("{0:D5}", i) + i : viewModel.Suffix != null ? String.Format("{0:D5}", i) + i + viewModel.Suffix : String.Format("{0:D5}", i) + i,
-                    PromotionId = viewModel.PromotionId,
-                    AquireFrom = viewModel.AssignableFrom,
-                    AquireTo = viewModel.AssignableUntil,
-                    AwardFrom = viewModel.RedeemableFrom,
-                    AwardTo = viewModel.RedeemableUntil,
-                    Status = viewModel.Status
-                });
-            }
-
-            return _repo.insertCoupons(listOfCoupons);
-        }
         #endregion
     }
 }

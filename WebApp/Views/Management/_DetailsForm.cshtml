@@ -116,7 +116,7 @@
                             <i class="material-icons left">check</i>
                             @CouponDatabase.Properties.Resources.Btn_Create
                         </button>
-                        <a href="@Url.Action("AddCouponSeries","Management")" class="waves-effect waves-light btn-flat btn-default-primary">
+                        <a href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary">
                             <i class="material-icons left">arrow_forward</i>
                             @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
                         </a>

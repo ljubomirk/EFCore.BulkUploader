@@ -17,7 +17,7 @@
     </div>
 </div>
 
-@using (Html.BeginForm("GenerateCoupons", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
+@using (Html.BeginForm("GenerateCoupons", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm", enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(p => p.PromotionId)
 

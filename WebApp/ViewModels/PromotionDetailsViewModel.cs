@@ -12,6 +12,7 @@ namespace WebApp.ViewModels
         public List<CheckedItem> AwardChannels { get; set; }
         public List<CheckedItem> IssuerChannels { get; set; }
         public Promotion Promotion { get; set; }
+        public bool hasEndDate { get; set; }
     }
 
 }

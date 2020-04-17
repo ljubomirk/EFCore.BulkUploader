@@ -17,9 +17,9 @@ namespace CouponDatabase.Models
         #region Properties 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
+       // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
         [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
-        [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
+       // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
         public String Code { get; set; }
         public Boolean Enabled { get; set; }
@@ -52,8 +52,8 @@ namespace CouponDatabase.Models
         /// <returns>Boolean value</returns>
         private Boolean GetActive()
         {
-            var pr1 = (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false;
-            var pr2 = (DateTime.Now.CompareTo(ValidTo) < 0) ? true : false;
+            var pr1 =ValidFrom != null? (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false : false;
+            var pr2 = ValidTo != null? (DateTime.Now.CompareTo(ValidTo) < 0) ? true : false : true;
 
             return Enabled && pr1 && pr2;
         }

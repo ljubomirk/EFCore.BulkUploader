@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using CouponDatabase.Properties;
 using System.Web;
+using Microsoft.AspNetCore.Http;
+using CouponDatabase.Models;
+using System.IO;
+using ExcelDataReader;
+using System.Data;
 
 namespace WebApp.ViewModels
 {
@@ -35,6 +40,77 @@ namespace WebApp.ViewModels
         public int CouponMaxLength { get; set; }
         public bool CouponWithLetters { get; set; }
         public bool CouponWithNumbers { get; set; }
-        //public HttpPostedFileBase file { get; set; }
+        public IFormFile file { get; set; }
+
+        public List<Coupon> GenerateCoupons()
+        {
+            DataSet resultFromFile = new DataSet();
+            List<Coupon> listOfCoupons = new List<Coupon>();
+
+            if (file != null)
+            {
+                if (file.Length > 0)
+                {
+                    var filePath = "C:\\temp\\" + file.FileName;
+                    string extension = Path.GetExtension(file.FileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyToAsync(fileStream);
+                    }
+
+                    using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        if(extension == ".xls" || extension == ".xlsx")
+                        {
+                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                            { 
+                                resultFromFile = reader.AsDataSet();
+                            }
+                        }
+                        else if (extension == ".csv")
+                        {
+                            using (IExcelDataReader reader = ExcelReaderFactory.CreateCsvReader(stream))
+                            {
+                                resultFromFile = reader.AsDataSet();
+                            }
+                        }
+                    }
+
+                    foreach (DataRow row in resultFromFile.Tables[0].Rows)
+                    {
+                        listOfCoupons.Add(new Coupon()
+                        {
+                            Code = row.ItemArray[0].ToString(),
+                            PromotionId = PromotionId,
+                            AquireFrom = AssignableFrom,
+                            AquireTo = AssignableUntil,
+                            AwardFrom = RedeemableFrom,
+                            AwardTo = RedeemableUntil,
+                            Status = Status
+                        });
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < NumberOfCoupons; i++)
+                {
+
+                    listOfCoupons.Add(new Coupon()
+                    {
+                        Code = Prefix != null ? Suffix != null ? Prefix + String.Format("{0:D5}", i) + i + Suffix : Prefix + String.Format("{0:D5}", i) + i : Suffix != null ? String.Format("{0:D5}", i) + i + Suffix : String.Format("{0:D5}", i) + i,
+                        PromotionId = PromotionId,
+                        AquireFrom = AssignableFrom,
+                        AquireTo = AssignableUntil,
+                        AwardFrom = RedeemableFrom,
+                        AwardTo = RedeemableUntil,
+                        Status = Status
+                    });
+                }
+            }
+
+            return listOfCoupons;
+        }
     }
 }
