@@ -39,6 +39,7 @@
     <tbody>
         @foreach (var c in Model)
         {
+            string statusText = ((CouponDatabase.Lifecycle.CouponStatus)c.Status).ToString();
             <tr>
                 <td>
                     <label>
@@ -49,7 +50,7 @@
                 <td>@Html.DisplayFor(item => c.Code)</td>
                 <td>@Html.DisplayFor(item => c.Holder)</td>
                 <td>@Html.DisplayFor(item => c.User)</td>
-                <td>@Html.DisplayFor(item => c.Status)</td>
+                <td>@Html.DisplayFor(item => statusText)</td>
                 <td>
                     @if (c.Active)
                     {
