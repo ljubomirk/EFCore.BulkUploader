@@ -76,7 +76,7 @@ table.dataTable thead .sorting_desc_disabled::before {
     right: 15px;
 }
 
-table.dataTable thead .sorting::before {
+/*table.dataTable thead .sorting::before {
     content: url("/images/sort_both.png");
 }
 
@@ -94,7 +94,7 @@ table.dataTable thead .sorting_asc_disabled::before {
 
 table.dataTable thead .sorting_desc_disabled::before {
     content: url("DataTables-1.10.20/images/sort_desc_disabled.png");
-}
+}*/
 
 /*table.dataTable thead .sorting {
     background-image: url("/images/sort_both.png");
@@ -992,4 +992,9 @@ a.dt-button.processing:after {
 
 td.table-password {
     cursor: pointer;
+}
+
+.sorting-icon {
+    display: inline-block;
+    margin: 0 0 -4px 0;
 }

@@ -2062,7 +2062,8 @@ body {
   position: relative;
   min-height: 100vh;
   background-color: #f7f7fa;
-  padding-bottom: 100px; }
+  padding-bottom: 100px;
+  overflow-x: hidden; }
 
 button,
 input,
@@ -2338,9 +2339,10 @@ table {
   box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
   table.striped th {
     color: #9494a2;
-    font-weight: 600; }
+    font-weight: 600;
+    padding-left: 36px !important; }
     table.striped th:first-child {
-      padding-left: 25px;
+      padding-left: 25px !important;
       text-align: left; }
   table.striped tr {
     border-bottom: none; }
@@ -2356,7 +2358,8 @@ table {
     table.striped > tbody > tr > td:not(:first-child) {
       text-align: center; }
   table.all-left th {
-    text-align: left !important; }
+    text-align: left !important;
+    padding-left: 18px !important; }
     table.all-left th:first-child {
       padding-left: 25px; }
   table.all-left > tbody > tr > td {
@@ -3322,9 +3325,11 @@ table span.badge {
     padding-right: 8px; }
   .u-p-r-md {
     padding-right: 16px; }
+  .u-p-r-md-2 {
+    padding-right: calc(15px + .75rem) !important; }
   .u-p-r-lg {
-    padding-right: 36px; }
-  .u-p-r-lg {
+    padding-right: 36px !important; }
+  .u-p-r-xl {
     padding-right: 72px; }
   .u-p-l-remove {
     padding-left: 0 !important; }
@@ -4916,9 +4921,9 @@ textarea.materialize-textarea {
   input[type=search]:not(.browser-default)[readonly="readonly"],
   textarea.materialize-textarea:disabled,
   textarea.materialize-textarea[readonly="readonly"] {
-    opacity: 0.8;
+    background-color: #fafafa;
     color: rgba(0, 0, 0, 0.42);
-    border: none; }
+    border: 1px dotted #bdbdbd; }
   input:not([type]):disabled + label,
   input:not([type])[readonly="readonly"] + label,
   input[type=text]:not(.browser-default):disabled + label,
@@ -4945,8 +4950,7 @@ textarea.materialize-textarea {
   input[type=search]:not(.browser-default)[readonly="readonly"] + label,
   textarea.materialize-textarea:disabled + label,
   textarea.materialize-textarea[readonly="readonly"] + label {
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.42); }
+    font-weight: bold; }
   input:not([type]):focus:not([readonly]),
   input[type=text]:not(.browser-default):focus:not([readonly]),
   input[type=password]:not(.browser-default):focus:not([readonly]),
@@ -5242,10 +5246,11 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
     transition: transform .2s ease-out, color .2s ease-out;
     transform-origin: 0% 100%;
     text-align: initial;
-    transform: translateY(12px); }
+    transform: translateY(12px);
+    font-weight: bold; }
     .input-field > label:not(.label-icon).active {
       color: #9494a2;
-      font-weight: 600;
+      font-weight: bold;
       transform: translateY(-25px) scale(1);
       transform-origin: 0 0; }
   .input-field > input[type]:-webkit-autofill:not(.browser-default):not([type="search"]) + label,
@@ -5523,7 +5528,7 @@ textarea {
     display: inline-block;
     height: 50px;
     line-height: 50px;
-    padding: 0 25px;
+    padding: 0 35px;
     vertical-align: middle; }
     .radio-button-group + label:first-of-type {
       border-radius: 4px 0 0 4px; }
@@ -5552,6 +5557,7 @@ textarea {
     height: 25px;
     line-height: 25px;
     font-size: 1rem;
+    font-weight: 600;
     color: #2d2d37;
     user-select: none; }
   [type="checkbox"] + span:not(.lever):before,
@@ -7609,6 +7615,9 @@ fieldset[disabled] .calendar table tr td span.active.disabled:hover.focus {
   padding: 8px 16px; }
 
 /*# sourceMappingURL=bootstrap-datepicker3.standalone.css.map */
+.date-icon {
+  cursor: pointer; }
+
 /* Timepicker Containers */
 .timepicker-modal {
   max-width: 325px;
@@ -7827,21 +7836,25 @@ table.dataTable thead .sorting_desc_disabled::before {
   position: absolute;
   right: 15px; }
 
-table.dataTable thead .sorting::before {
-  content: url("/images/sort_both.png"); }
+/*table.dataTable thead .sorting::before {
+    content: url("/images/sort_both.png");
+}
 
 table.dataTable thead .sorting_asc::before {
-  content: url("/images/sort_asc.png"); }
+    content: url("/images/sort_asc.png");
+}
 
 table.dataTable thead .sorting_desc::before {
-  content: url("/images/sort_desc.png"); }
+    content: url("/images/sort_desc.png");
+}
 
 table.dataTable thead .sorting_asc_disabled::before {
-  content: url("/images/sort_asc_disabled.png"); }
+    content: url("/images/sort_asc_disabled.png");
+}
 
 table.dataTable thead .sorting_desc_disabled::before {
-  content: url("scss/DataTables-1.10.20/images/sort_desc_disabled.png"); }
-
+    content: url("scss/DataTables-1.10.20/images/sort_desc_disabled.png");
+}*/
 /*table.dataTable thead .sorting {
     background-image: url("/images/sort_both.png");
 }
@@ -8591,3 +8604,7 @@ a.dt-button.processing:after {
 
 td.table-password {
   cursor: pointer; }
+
+.sorting-icon {
+  display: inline-block;
+  margin: 0 0 -4px 0; }

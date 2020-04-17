@@ -39,15 +39,14 @@ textarea.materialize-textarea {
     // Disabled input style
     &:disabled,
     &[readonly="readonly"] {
-        opacity: 0.8;
+        background-color: color("grey", "lighten-5");
         color: $input-disabled-color;
-        border: none;
+        border: $input-disabled-border;
     }
     // Disabled label style
     &:disabled + label,
     &[readonly="readonly"] + label {
-        font-weight: 600;
-        color: $input-disabled-color;
+        font-weight: bold;
     }
     // Focused input style
     &:focus:not([readonly]) {
@@ -188,10 +187,11 @@ textarea.materialize-textarea {
         transform-origin: 0% 100%;
         text-align: initial;
         transform: translateY(12px);
+        font-weight: bold;
 
         &:not(.label-icon).active {
             color: $grey;
-            font-weight: 600;
+            font-weight: bold;
             transform: translateY(-25px) scale(1);
             transform-origin: 0 0;
         }

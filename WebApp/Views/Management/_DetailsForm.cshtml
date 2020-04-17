@@ -46,7 +46,7 @@
                 <div class="col s12">
                     <p class="u-m-t-remove">
                         <label id="chk-endDate">
-                            <input type="checkbox" class="filled-in" id="toggle-validTo" />
+                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo"})
                             <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
                         </label>
                     </p>
@@ -143,84 +143,33 @@
     </div>
 }
 
-<script src="~/js/calendar.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
 
         // enable end date input field
         // - on first render, check state and set input style
-        handleValidTo($("#Promotion_ValidTo").val())
+        handleValidTo($("#toggle-validTo").is(":checked"))
         // - state check on click
         $("label#chk-endDate").click(function () {
             handleValidTo($("input", this).prop("checked"))
-        })
-
-        // enable promotion if on edit
-        $("#action-enable").click(function () {
-            console.log("evo ga na")
-            var id = $(this).attr("data-id");
-            if (id) {
-                var val = $(this).attr("data-value");
-
-                if (val == "True") val = "False";
-                else val = "True";
-
-                var url = "@Url.Action("Enable", "Management")" +
-                    encodeURI("?id=" + id + "&enable=" + val);
-
-                // wait for the automation to finish
-                setTimeout(function () {
-                    window.location.assign(url)
-                }, 500);
-            }
         })
 
         function handleValidTo(condition) {
             if (condition) {
                 $("#Promotion_ValidTo").prop("disabled", false);
                 $("#toggle-validTo").prop("checked", true);
+                $("#Promotion_ValidTo").parent()
+                    .children(".date-icon").removeClass("disabled");
                 $("#icon-endDate").removeClass("disabled");
             } else {
                 $("#Promotion_ValidTo").val("");
                 $("#Promotion_ValidTo").removeClass("valid invalid");
                 $("#Promotion_ValidTo").prop("disabled", true);
                 $("#toggle-validTo").prop("checked", false);
-                $("#icon-endDate").addClass("disabled");
+                $("#Promotion_ValidTo").parent()
+                    .children(".date-icon").addClass("disabled");
             }
         }
-
-
-        @*// ajax call for form submit
-        $('form').submit(function (e) {
-            e.preventDefault();
-            var inputs = $('input');
-            var data = new FormData();
-
-            for (var i = 0; i < inputs.length; i++) {
-                var key = inputs[i].name;
-                var val = inputs[i].value;
-                if (key) {
-                    data.append(key, val);
-                }
-            }
-
-            var object = {};
-            data.forEach(function(value, key){
-                object[key] = value;
-            });
-            console.log(object);
-
-           $.ajax({
-                type: "POST",
-                url: '@Url.Action("SavePromotion", "Management")',
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    alert("jej");
-                }
-            })
-        })*@
     });
 </script>
 @functions{

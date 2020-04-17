@@ -349,6 +349,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Coupon Series.
+        /// </summary>
+        public static string CouponSeries_TitleCreate {
+            get {
+                return ResourceManager.GetString("CouponSeries_TitleCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Canceled.
         /// </summary>
         public static string CouponStatus_Canceled {
@@ -511,7 +520,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Promotion Details Format.
+        ///   Looks up a localized string similar to Promotion Details.
         /// </summary>
         public static string LifecyclePromotionFilter_Title {
             get {

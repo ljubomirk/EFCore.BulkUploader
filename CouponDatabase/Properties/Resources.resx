@@ -362,7 +362,7 @@
     <comment>LifecycleCouponFilter text.</comment>
   </data>
   <data name="LifecyclePromotionFilter_Title" xml:space="preserve">
-    <value>Promotion Details Format</value>
+    <value>Promotion Details</value>
     <comment>LifecyclePromotionsFilter text.</comment>
   </data>
   <data name="Btn_Update" xml:space="preserve">
@@ -444,5 +444,9 @@
   <data name="Modal_HeadingRemoveSystem" xml:space="preserve">
     <value>Remove system</value>
     <comment>Modal text.</comment>
+  </data>
+  <data name="CouponSeries_TitleCreate" xml:space="preserve">
+    <value>Create Coupon Series</value>
+    <comment>Title for coupon series page.</comment>
   </data>
 </root>

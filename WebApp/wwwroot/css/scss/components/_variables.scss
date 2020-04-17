@@ -185,7 +185,7 @@ $input-padding: 0 0 0 15px !default;
 $label-font-size: .8rem !default;
 $input-disabled-color: rgba(0,0,0, .42) !default;
 $input-disabled-solid-color: #949494 !default;
-$input-disabled-border: 1px dotted $input-disabled-color !default;
+$input-disabled-border: 1px dotted color("grey", "lighten-1") !default;
 $input-invalid-border: 1px solid $input-error-color !default;
 $input-icon-size: 2rem;
 $placeholder-text-color: lighten($input-border-color, 20%) !default;

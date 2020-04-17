@@ -20,7 +20,7 @@
                 </div>
                 <div class="input-field col s12">
                     <input placeholder="" id="password" type="password" class="validate">
-                    <label for="password"></label>
+                    <label for="password">Password</label>
                     <i class='material-icons suffix'>remove_red_eye</i>
                 </div>
             </div>
@@ -63,25 +63,31 @@
             systems: {
                 add: {
                     heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddSystem',
+                    button: '@CouponDatabase.Properties.Resources.Btn_AddSystem'
                 },
                 remove: {
                     heading: '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveSystem',
-                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveSystem'
+                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveSystem',
+                    button: '@CouponDatabase.Properties.Resources.Btn_Remove'
                 },
                 edit: {
-                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditSystem'
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditSystem',
+                    button: '@CouponDatabase.Properties.Resources.Btn_SaveChanges'
                 }
             },
             notifyList: {
                 add: {
-                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList'
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList',
+                    button: '@CouponDatabase.Properties.Resources.Btn_AddToNotifyList'
                 },
                 remove: {
                     heading: '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveNotifyList',
-                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList'
+                    content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList',
+                    button: '@CouponDatabase.Properties.Resources.Btn_Remove'
                 },
                 edit: {
-                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList'
+                    heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList',
+                    button: '@CouponDatabase.Properties.Resources.Btn_SaveChanges'
                 }
             }
         }
@@ -89,32 +95,31 @@
             var id = this.getAttribute("data-id");
             var target = this.getAttribute("data-target-modal");
             var action = this.getAttribute("data-action");
-            var title = ctx[target][action].heading;
 
-            console.log("id: ", id)
-            console.log("target: ", target)
-            console.log("action: ", action)
-            console.log("title: ", title)
+            var titleTxt = ctx[target][action].heading;
+            var btnTxt = ctx[target][action].button;
+
+            //console.log("id: ", id)
+            //console.log("target: ", target)
+            //console.log("action: ", action)
+            //console.log("title: ", title)
 
             var heading = $(".modal-content h4");
             var content = $(".modal-content p");
             var actionBtn = $(".modal-footer a.btn-primary");
             var inputId = $("#entry-id");
 
-            if (action == "add") {
-                heading.html(title)
-                console.log("add")
-            } else if (action == "remove") {
-                var text = ctx[target][action].content
-                heading.html(title)
-                content.html(text)
-                //actionBtn.attr("href", "akcijanakontroler/" + id)
-                console.log("remove")
+            heading.html(titleTxt);
+            actionBtn.html(btnTxt);
 
+            if (action == "add") {
+                // update form action
+            } else if (action == "remove") {
+                // update form action
+                content.html(text)
             } else if (action == "edit") {
-                heading.html(title)
-                inputId.attr("id", id)
-                console.log("edit")
+                // update form action
+                inputId.val(id)
             }
         })
     })

@@ -153,11 +153,15 @@
                 padding-right: 16px;
             }
 
-            &-lg {
-                padding-right: 36px;
+            &-md-2 {
+                padding-right: calc(15px + .75rem) !important;
             }
 
             &-lg {
+                padding-right: 36px !important;
+            }
+
+            &-xl {
                 padding-right: 72px;
             }
         }
