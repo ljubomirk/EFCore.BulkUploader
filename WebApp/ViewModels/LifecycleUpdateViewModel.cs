@@ -9,9 +9,11 @@ namespace WebApp.ViewModels
 {
     public class LifecycleUpdateViewModel : ContextData
     {
+        // Dropdown filters, list
         public List<SelectListItem> PromotionCodes { get; set; }
         public List<SelectListItem> CouponSeries { get; set; }
 
+        // Dropdown filters, selection
         public string SelectedPromoCode { get; set; }
         public string SelectedCouponSeries { get; set; }
 

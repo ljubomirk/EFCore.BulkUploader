@@ -57,7 +57,6 @@ namespace WebApp.Controllers
         {
             /*
              * TO DO: 
-             *  - optimize promotion filtering
              *  - add coupon filtering
              *  - store filtered coupons into model
              *  - store filtered promotions and coupons into session before returning view
@@ -66,57 +65,11 @@ namespace WebApp.Controllers
 
             LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
 
-            List<Promotion> f_ListOfPromotions = new List<Promotion>();
-            List<Coupon> f_ListOfCoupons = new List<Coupon>();
+            List<Promotion> f_ListOfPromotions = _repo.GetFilteredPromotionList(promotionFilter, true);
 
-            if (promotionFilter.ShowActive)
-                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == true).ToList<Promotion>());
-            if (promotionFilter.ShowInactive)
-                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
+            //List<Coupon> f_ListOfCoupons = new List<Coupon>();
+            List<Coupon> f_ListOfCoupons = _repo.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
 
-            if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
-            {
-                f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>());
-            }
-            else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
-            {
-                if (promotionFilter.ValidFrom != null)
-                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>());
-                if (promotionFilter.ValidTo != null)
-                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>());
-            }
-
-            if (promotionFilter.Code != null)
-            {
-                if (f_ListOfPromotions.Count > 0)
-                {
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>();
-                }
-                else
-                {
-                    f_ListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Code.Contains(promotionFilter.Code)).ToList<Promotion>());
-                }
-            }
-
-
-            List<Promotion> f_PromoWithCoupons = new List<Promotion>();
-
-            foreach(Promotion p in f_ListOfPromotions)
-            {
-                if (p.HasCoupons)
-                {
-                    List<Coupon> promotionCoupons = _repo.GetPromotionCoupons(p);
-                    // continue filtering ...
-                    f_ListOfCoupons.AddRange(promotionCoupons);
-                }
-            }
-
-            /*
-             * TODO:
-             * - Implement coupon filtering based on filtered promotions and coupon filters
-             * - Implement method getFilteredPromotions() : filteredListOfPromotions, promotionFilters
-             * - Implement getFilteredCoupons(): filteredListOfPromotions, filteredListOfCoupons, couponFilters
-             */
 
             model.PromotionCodes = getSelectListPromotions(f_ListOfPromotions);
             model.CouponSeries = getSelectListSeries(f_ListOfCoupons); // implement method for mapping Coupon to SelectListItem
@@ -138,6 +91,10 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", model);
         }
 
+        /*
+         * Updates coupons.
+         * Used on LifecycleCoupons view for UpdateSelected action.
+         */
         [HttpPost]
         public IActionResult Update(LifecycleUpdateViewModel model)
         {
@@ -151,6 +108,10 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", model);
         }
 
+        /*
+         * Updates filter results with selection from DropDown element.
+         * Called on submit (DropDown change) from LifecycleCoupons view.
+         */
         [HttpPost]
         public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
         {
@@ -165,6 +126,10 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", model);
         }
 
+        /*
+         * Returns list of SelectListItems for promotions.
+         * Used on LifecycleCoupons view for DropDown element.
+         */
         public List<SelectListItem> getSelectListPromotions(List<Promotion> promotions)
         {
             List<SelectListItem> selectList = new List<SelectListItem>();
@@ -179,7 +144,8 @@ namespace WebApp.Controllers
         }
 
         /*
-         * Returns select list 
+         * Returns list of SelectedListItems for coupon series.
+         * Used on LifecycleCoupons view for DropDown element.
          */
         public List<SelectListItem> getSelectListSeries(List<Coupon> coupons)
         {
@@ -199,7 +165,22 @@ namespace WebApp.Controllers
             }
             return seriesList;
         }
-        
+
+
+        /*
+         * Returns list of coupons for received list of promotions.
+         */
+        public List<Coupon> getCouponsForPromotions(List<Promotion> promotions)
+        {
+            List<Coupon> p_Coupons = new List<Coupon>();
+            foreach(Promotion p in promotions)
+            {
+
+            }
+            return p_Coupons;
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -296,6 +277,5 @@ namespace WebApp.Controllers
 
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
         }
-
     }
 }

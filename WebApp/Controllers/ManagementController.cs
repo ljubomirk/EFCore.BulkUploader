@@ -48,39 +48,10 @@ namespace WebApp.Controllers
         /// </summary>
         /// <returns>Opens list of filtered promotions</returns>
         [HttpGet]
-        public IActionResult FilteredListPromotions(Filters filter)
+        public IActionResult FilteredListPromotions(PromotionFilter filter)
         {
             PromotionListViewModel model = new PromotionListViewModel();
-            List<Promotion> filteredListOfPromotions = new List<Promotion>();
-
-            if (filter.ShowActive)
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == true).ToList<Promotion>());
-            if (filter.ShowInactive)
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Active == false).ToList<Promotion>());
-
-            if(filter.ValidFrom != null && filter.ValidTo != null)
-            {
-                filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom >= filter.ValidFrom && x.ValidTo <= filter.ValidTo).ToList<Promotion>());
-            }
-            else if (filter.ValidFrom != null || filter.ValidTo != null)
-            {
-                if (filter.ValidFrom != null)
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidFrom>=filter.ValidFrom).ToList<Promotion>());
-                if (filter.ValidTo != null)
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.ValidTo <= filter.ValidTo).ToList<Promotion>());
-            }
-
-            if (filter.Code != null)
-            {
-                if (filteredListOfPromotions.Count > 0)
-                {
-                    filteredListOfPromotions = filteredListOfPromotions.Where(x => x.Code.Contains(filter.Code)).ToList<Promotion>();
-                }
-                else
-                {
-                    filteredListOfPromotions.AddRange(_repo.GetAllPromotions().Where(x => x.Code.Contains(filter.Code)).ToList<Promotion>());
-                }
-            }
+            List<Promotion> filteredListOfPromotions = _repo.GetFilteredPromotionList(filter);
 
             model.Promotions.AddRange(filteredListOfPromotions);
             model.Filter = filter;

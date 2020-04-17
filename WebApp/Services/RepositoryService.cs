@@ -8,6 +8,7 @@ using CouponDatabase.Services;
 using static CouponDatabase.Models.Coupon;
 using System;
 using CouponDatabase.Lifecycle;
+using WebApp.ViewModels;
 
 namespace WebApp.Services
 {
@@ -26,18 +27,191 @@ namespace WebApp.Services
             Context.SaveChanges();
         }
 
+        #region PromotionCommands
         public List<Promotion> GetAllPromotions()
         {
             return Context.Promotion.ToList<Promotion>();
         }
 
         /*
-         * Returns promotions with coupons.
+         * Returns promotions with HasCoupons property true.
          */
-        public List<Promotion> GetCouponPromotions()
+        public List<Promotion> GetPromotionsWithCoupons()
         {
             return Context.Promotion.Where(p => p.HasCoupons).ToList();
         }
+
+        public List<Promotion> GetFilteredPromotionList(PromotionFilter promotionFilter, bool promotionsWithCoupons = false)
+        {
+            /*
+             * TODO:
+             *  - optimize promotion filtering
+             *  
+             */
+            
+            List<Promotion> allPromotions = GetAllPromotions();
+            List<Promotion> f_ListOfPromotions = new List<Promotion>();
+
+            List<Promotion> promotionsByStatus = new List<Promotion>();
+            List<Promotion> promotionsByValidDate = new List<Promotion>();
+            List<Promotion> promotionsByCode = new List<Promotion>();
+
+            //List<int> list1 = new List<int> { 1, 12, 12, 5 };
+            //List<int> list2 = new List<int> { 12, 5, 7, 9, 1 };
+            //List<int> ulist = list1.Union(list2).ToList();
+
+            if (promotionFilter.ShowActive)
+                f_ListOfPromotions.AddRange(allPromotions.Where(x => x.Active == true).ToList<Promotion>());
+            if (promotionFilter.ShowInactive)
+                f_ListOfPromotions.AddRange(allPromotions.Where(x => x.Active == false).ToList<Promotion>());
+
+            if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
+            {
+                f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+            }
+            else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
+            {
+                if (promotionFilter.ValidFrom != null)
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
+                if (promotionFilter.ValidTo != null)
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+            }
+
+            //f_ListOfPromotions = promotionsByStatus.Union(promotionsByValidDate).ToList();
+            //List<Promotion> f_ListOfPromotions1 = promotionsByValidDate.Union(promotionsByStatus).ToList();
+
+            if (promotionFilter.Code != null)
+            {
+                if (f_ListOfPromotions.Count > 0)
+                {
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Code.ToLower().Contains(promotionFilter.Code.ToLower())).ToList<Promotion>();
+                }
+                else
+                {
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Code.ToLower().Contains(promotionFilter.Code.ToLower())).ToList<Promotion>();
+                }
+            }
+
+            //f_ListOfPromotions = f_ListOfPromotions.Union(promotionsByCode).ToList();
+
+            // Return filtered list of promotions with existing coupons
+            if (promotionsWithCoupons)
+            {
+                f_ListOfPromotions.Where(p => p.HasCoupons).ToList();
+            }
+            
+            return f_ListOfPromotions;
+        }
+
+
+
+        /*
+         * Returns filtered list of coupons
+         */
+        public List<Coupon> GetFilteredCouponListForPromotions(List<Coupon> coupons, CouponFilters couponFilter)
+        {
+            /*
+             * TODO:
+             * - Implement received coupon filtering based on filtered coupon filters
+             * - Implement method getFilteredPromotions() : filteredListOfPromotions, promotionFilters
+             * - Implement getFilteredCoupons(): filteredListOfPromotions, filteredListOfCoupons, couponFilters
+             * - TEST METHOD!
+             */
+
+            List<Coupon> f_ListOfCoupons = new List<Coupon>();
+            bool couponRemove = false;
+            List<long> f_AwardChannel = couponFilter.AwardChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
+            List<long> f_IssuerChannel = couponFilter.IssuerChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
+            List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
+
+            // Create method get filterActiveProducts(list, filter)
+            if (couponFilter.ShowActive)
+            {
+                List<Coupon> tempCoupon = coupons.Where(x => x.Active == true).ToList();
+                f_ListOfCoupons.AddRange(tempCoupon);
+            }
+            if (couponFilter.ShowInactive)
+            {
+                // Initial populating of list with inactive coupons
+                f_ListOfCoupons.AddRange(coupons.Where(x => x.Active == false).ToList<Coupon>());
+            }
+
+
+            // Filter using checkbox filters
+            foreach (Coupon coup in coupons)
+            {
+                couponRemove = false;
+
+                // Filter based on award channel
+                if (f_AwardChannel.Count() > 0 && !couponRemove)
+                {
+                    List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                    foreach (long id in awardChannels)
+                    {
+                        if (!f_AwardChannel.Contains(id))
+                        {
+                            // all awardChannel filters need to be met to return coupon ?
+                            // if even single coupon 
+                            couponRemove = true;
+                        }
+                    }
+                }
+
+                // Filter based on issuer channel
+                if (f_IssuerChannel.Count() > 0 && !couponRemove)
+                {
+                    List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                    foreach (long ids in issuerChannels)
+                    {
+                        if (!f_IssuerChannel.Contains(ids))
+                        {
+                            // all issuerChannel filters need to be met to return coupon ?
+                            couponRemove = true;
+                        }
+                    }
+                }
+
+                // Filter based on coupon status
+                if (f_CurrentStatus.Count() > 0 && !couponRemove)
+                {
+                    if (!f_CurrentStatus.Contains(coup.Status))
+                    {
+                        // current coupon status needs to be in filter status list ?
+                        couponRemove = true;
+                    }
+                }
+
+                // Remove coupon from initial list if filter not passed
+                if (couponRemove)
+                {
+                    var r_Coupon = f_ListOfCoupons.Find(x => x.Id == coup.Id);
+                    f_ListOfCoupons.Remove(r_Coupon);
+                }
+            }
+
+
+            return f_ListOfCoupons;
+        }
+
+        /*
+         * Returns coupons for promotion.
+         */
+        public List<Coupon> GetPromotionCoupons(Coupon coupon)
+        {
+            return Context.Coupon.Where(p => p.PromotionId == coupon.PromotionId).ToList();
+        }
+
+        public List<Coupon> GetCouponsForPromotions(List<Promotion> promotions)
+        {
+            List<Coupon> promotionCoupons = new List<Coupon>();
+            foreach(Promotion p in promotions)
+            {
+                List<Coupon> tmpCoupons = GetPromotionCoupons(p);
+                promotionCoupons.AddRange(tmpCoupons);
+            }
+            return promotionCoupons;
+        }
+
         public Promotion GetPromotionWithId(long id)
         {
             Promotion promotion = new Promotion();
@@ -59,6 +233,8 @@ namespace WebApp.Services
                 //}
                 return promotion;
         }
+        #endregion
+
         public List<Property> GetAllProperties()
         {
             return Context.Property.ToList<Property>();
