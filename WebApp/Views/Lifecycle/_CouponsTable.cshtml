@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CouponDatabase.Models.Coupon>;
+@using CouponDatabase.Lifecycle; 
 @{
     ViewData["Title"] = "LifecycleTable";
 }
@@ -39,7 +40,7 @@
     <tbody>
         @foreach (var c in Model)
         {
-            string statusText = ((CouponDatabase.Lifecycle.CouponStatus)c.Status).ToString();
+            string statusText = ((CouponStatus)c.Status).ToString();
             <tr>
                 <td>
                     <label>
