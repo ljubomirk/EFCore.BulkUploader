@@ -29,6 +29,7 @@ namespace WebApp.ViewModels
 
         // Coupon update fields
         public string Customer { get; set; }
+        [Display(Name = "Valid To")]
         public string ValidTo { get; set; }
         public string Status { get; set; }
         public string Enabled { get; set; }

@@ -29,8 +29,8 @@
             @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
         </div>
         <div class="input-field col s2">
-            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon" })
             @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
+            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon" })
         </div>
         <div class="input-field col s2">
             @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
