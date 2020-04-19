@@ -449,4 +449,12 @@
     <value>Create Coupon Series</value>
     <comment>Title for coupon series page.</comment>
   </data>
+  <data name="ErrorCouponNotFound_Message" xml:space="preserve">
+    <value>Coupon not found in Database.</value>
+    <comment>When coupons are not found.</comment>
+  </data>
+  <data name="Valid_Message" xml:space="preserve">
+    <value>OK</value>
+    <comment>All OK.</comment>
+  </data>
 </root>

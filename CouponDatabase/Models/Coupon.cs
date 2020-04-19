@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponDatabase.Lifecycle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,7 +48,27 @@ namespace CouponDatabase.Models
         public Promotion Promotion { get; set; }
         public int CouponSeries { get; set; }
 
-        /* Active is virtua value, read from other values */
+        public Command Assign(string Holder, string User)
+        {
+            Command response = new Command(CommandStatus.ErrorInvalidStatus);
+            return response;
+        }
+        public Command Redeem(string User)
+        {
+            Command response = new Command(CommandStatus.ErrorInvalidUser);
+            return response;
+        }
+        public Command Cancel()
+        {
+            Command response = new Command(CommandStatus.Valid);
+            return response;
+        }
+        public Command UndoRedeem()
+        {
+            Command response = new Command(CommandStatus.Valid);
+            return response;
+        }
+        /* Active is virtual value, read from other values */
         public Boolean Active
         {
             get => this.GetActive();

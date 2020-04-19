@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using CouponDatabase.Models;
-using System.Resources;
 using CouponDatabase.Lifecycle;
 
 namespace CouponDatabase.Services
 {
-    public abstract class ICoupon
+    public class ICoupon
     {
-        Coupon coupon { get; set; }
-        public ICoupon(Coupon coupon) { this.coupon = coupon;  }
+        Coupon Coupon { get; }
+        public ICoupon(Coupon coupon) { this.Coupon = coupon;  }
 
         /// <summary>
         /// Fetch Coupon for API call
@@ -18,10 +17,11 @@ namespace CouponDatabase.Services
         /// <returns>Coupon</returns>
         public API.Coupon Get() {
             DateTime now = DateTime.Now;
-            API.Coupon result = new API.Coupon
+            API.Coupon result = new API.Coupon();
+            if(Coupon!=null)
             {
-                Code = this.coupon.Code,
-                Status = (CouponStatus)this.coupon.Status
+                result.Code = this.Coupon.Code;
+                result.Status = (CouponStatus)this.Coupon.Status;
             };
             return result;
         }
@@ -33,13 +33,17 @@ namespace CouponDatabase.Services
         ///
         public Lifecycle.Command Validate(Coupon coupon, string user)
         {
-            Lifecycle.Command result = new Lifecycle.Command();
-            if (coupon.Status != (int)CouponStatus.Issued)
-                result.Status = CommandStatus.ErrorInvalidStatus;
-            if (result.Status != CommandStatus.Valid)
+            Lifecycle.Command result;
+            if (Coupon != null)
             {
-                var builder = new ResourceManager(this.GetType());
-                result.Message = builder.GetString(result.Status.ToString() + "Message");
+                if (coupon.Status != (int)CouponStatus.Issued)
+                    result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                else
+                    result = new Lifecycle.Command(CommandStatus.Valid);
+            }
+            else
+            {
+                result = new Lifecycle.Command(CommandStatus.ErrorCouponNotFound);
             }
             return result;
         }

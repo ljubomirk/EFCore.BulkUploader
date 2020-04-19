@@ -9,6 +9,7 @@ using static CouponDatabase.Models.Coupon;
 using System;
 using CouponDatabase.Lifecycle;
 using WebApp.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Services
 {
@@ -20,11 +21,67 @@ namespace WebApp.Services
         {
             Context = context;
         }
-        public void Add(string code)
+        public Command Add(Coupon coupon)
         {
-            Coupon coupon = new Coupon(code, null, null, CouponDatabase.Lifecycle.CouponStatus.Created, null);
-            Context.Coupon.Add(coupon);
-            Context.SaveChanges();
+            Command result = new Command(CommandStatus.Valid);
+            try {
+                Context.Database.BeginTransaction();
+                Context.Coupon.Add(coupon);
+                int saved = Context.SaveChanges();
+                if (saved == 1)
+                    result.Status = CommandStatus.Valid;
+                else
+                    result.Status = CommandStatus.ErrorSystem;
+                Context.Database.CommitTransaction();
+            }
+            catch(DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = update.Message;
+            }
+            catch(Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = exc.Message;
+            }
+            return result;
+        }
+
+        public Coupon GetCoupon(string PromotionCode, string CouponCode)
+        {
+            Coupon coupon = Context.Coupon.Where(c => c.Code == CouponCode /*TODO && c.PromotionId == */).FirstOrDefault();
+            return coupon;
+        }
+
+        public Command UpdateCoupon(Coupon coupon)
+        {
+            Command result = new Command(CommandStatus.Valid);
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.Coupon.Update(coupon);
+                int saved = Context.SaveChanges();
+                if (saved == 1)
+                    result.Status = CommandStatus.Valid;
+                else
+                    result.Status = CommandStatus.ErrorSystem;
+                Context.Database.CommitTransaction();
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = update.Message;
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = exc.Message;
+            }
+            return result;
         }
 
         #region PromotionCommands

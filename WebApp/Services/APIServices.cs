@@ -8,6 +8,11 @@ using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
 using System.Runtime.Serialization;
+using CouponDatabase.Properties;
+using WebApp.ViewModels;
+using System.Resources;
+using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Web.Services.Impl
 {
@@ -52,17 +57,27 @@ namespace Web.Services.Impl
         }
         public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)
         {
-            throw new NotImplementedException();
+            //CouponDatabase.Models.Promotion promo = _repo.GetAllPromotions().Find(p => p.Code == PromotionCode);
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            Command response = coupon.Assign(Holder, User);
+            if (response.Status == CommandStatus.Valid)
+                _repo.UpdateCoupon(coupon);
+            return response;
         }
 
         public Command Cancel(string PromotionCode, string CouponCode)
         {
-            throw new NotImplementedException();
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            Command response = coupon.Cancel();
+            if (response.Status == CommandStatus.Valid)
+                _repo.UpdateCoupon(coupon);
+            return response;
         }
 
         public Coupon Get(string PromotionCode, string CouponCode)
         {
-            throw new NotImplementedException();
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            return (new ICoupon(coupon)).Get();
         }
 
         public List<Coupon> GetUserCoupons(string User)
@@ -72,17 +87,29 @@ namespace Web.Services.Impl
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)
         {
-            throw new NotImplementedException();
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            Command response = (new ICoupon(coupon)).Redeem(coupon, User);
+            if (response.Status == CommandStatus.Valid)
+                _repo.UpdateCoupon(coupon);
+            return response;
         }
 
         public Command UndoRedeem(string PromotionCode, string CouponCode)
         {
-            throw new NotImplementedException();
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            Command response = coupon.UndoRedeem();
+            if (response.Status == CommandStatus.Valid)
+                _repo.UpdateCoupon(coupon);
+            return response;
         }
 
         public Command Validate(string PromotionCode, string CouponCode)
         {
-            throw new NotImplementedException();
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            Command response = (new ICoupon(coupon)).Validate(coupon, "");
+            if (response.Status == CommandStatus.Valid)
+                _repo.UpdateCoupon(coupon);
+            return response;
         }
     }
 }

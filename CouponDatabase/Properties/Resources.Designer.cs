@@ -394,6 +394,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coupon not found in Database..
+        /// </summary>
+        public static string ErrorCouponNotFound_Message {
+            get {
+                return ResourceManager.GetString("ErrorCouponNotFound_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action is not allowed for the channel:.
         /// </summary>
         public static string ErrorInvalidChannel_Message {
@@ -804,6 +813,15 @@ namespace CouponDatabase.Properties {
         public static string Promotions_Title {
             get {
                 return ResourceManager.GetString("Promotions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Valid_Message {
+            get {
+                return ResourceManager.GetString("Valid_Message", resourceCulture);
             }
         }
     }
