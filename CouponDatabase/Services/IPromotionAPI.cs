@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace CouponDatabase.Services
 {
-    
+
     public class CouponList
     {
         [XmlElement("Items")]
@@ -24,7 +24,7 @@ namespace CouponDatabase.Services
         Command Create(string Code, string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
 
         [OperationContract]
-        Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, Nullable<DateTime> ExpireDate);
+        Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, Nullable<DateTime> ExpireDate, CouponStatus Status);
 
         [OperationContract]
         Command AddCoupons(string PromotionCode, IList<Coupon> Coupons);

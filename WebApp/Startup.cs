@@ -70,7 +70,8 @@ namespace WebApp
             string user = Configuration.GetValue<string>("SOAPWS:Username");
             string pwd = Configuration.GetValue<string>("SOAPWS:Password");
             //_logger.LogInformation("Setup security for " + user);
-            services.AddSoapWsSecurityFilter("test", "321");
+            // working only for one authentication password
+            // services.AddSoapWsSecurityFilter("test", "321");
             services.AddSoapWsSecurityFilter("test", "123");
 
             services.AddTransient<CouponService.CouponAPI>();
@@ -111,8 +112,20 @@ namespace WebApp
                     }
                 }
             };
-            app.UseSoapEndpoint<CouponService.CouponAPI>("/CouponAPI", binding);
-            app.UseSoapEndpoint<CouponService.PromotionAPI>("/PromotionAPI", binding);
+            binding.Name = "CouponAPI";
+            app.UseSoapEndpoint<CouponService.CouponAPI>(
+                options =>  {
+                        options.Path = "/CouponAPI";
+                        options.Binding = binding;
+                        options.CaseInsensitivePath = false;
+                });
+            binding.Name = "PromotionAPI";
+            app.UseSoapEndpoint<CouponService.PromotionAPI>(
+                options => {
+                    options.Path = "/PromotionAPI";
+                    options.Binding = binding;
+                    options.CaseInsensitivePath = false;
+                });
         }
     }
 }

@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" 
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+    xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="PromotionAPI" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsp:Policy wsu:Id="BasicHttpBinding_Promotion_policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <http:BasicAuthentication />
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:import namespace="http://www.triple-innovations.com/WS/COMMANDO/" />
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" />
+            <xs:import namespace="http://www.triple-innovations.com/WS/COMMANDO/Types/" />
+            <xs:element name="Get">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+                        <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime" />
+                        <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="GetResult" nillable="true" type="tns:ArrayOfPromotion" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Create">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+                        <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime" />
+                        <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime" />
+                        <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
+                        <xs:element minOccurs="0" name="Properties" nillable="true" type="tns:ArrayOfPromotionProperty" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="CreateResult" nillable="true" type="q1:Command" 
+                            xmlns:q1="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddCoupon">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="CouponCode" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="User" nillable="true" type="xs:string" />
+                        <xs:element nillable="true" minOccurs="0" name="ExpireDate" type="xs:dateTime" />
+                        <xs:element type="q2:CouponStatus" 
+                            xmlns:q2="http://www.triple-innovations.com/WS/COMMANDO/Types/" name="Status" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddCouponResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="AddCouponResult" nillable="true" type="q3:Command" 
+                            xmlns:q3="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddCoupons">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="Coupons" nillable="true" type="tns:ArrayOfCoupon" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddCouponsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="AddCouponsResult" nillable="true" type="q4:Command" 
+                            xmlns:q4="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType" />
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+            <xs:element name="boolean" nillable="true" type="xs:boolean" />
+            <xs:element name="byte" nillable="true" type="xs:byte" />
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+            <xs:element name="decimal" nillable="true" type="xs:decimal" />
+            <xs:element name="double" nillable="true" type="xs:double" />
+            <xs:element name="float" nillable="true" type="xs:float" />
+            <xs:element name="int" nillable="true" type="xs:int" />
+            <xs:element name="long" nillable="true" type="xs:long" />
+            <xs:element name="QName" nillable="true" type="xs:QName" />
+            <xs:element name="short" nillable="true" type="xs:short" />
+            <xs:element name="string" nillable="true" type="xs:string" />
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+            <xs:element name="char" nillable="true" type="tns:char" />
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int" />
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration" />
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid" />
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName" />
+            <xs:attribute name="Id" type="xs:ID" />
+            <xs:attribute name="Ref" type="xs:IDREF" />
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+            <xs:complexType name="Promotion" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+                    <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+                    <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime" />
+                    <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Promotion" nillable="true" type="tns:Promotion" />
+            <xs:complexType name="PromotionProperty" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Checked" type="xs:boolean" />
+                    <xs:element type="tns:PromotionPropertyEnum" name="Name" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="PromotionProperty" nillable="true" type="tns:PromotionProperty" />
+            <xs:simpleType name="PromotionPropertyEnum">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="UniqueCoupons" />
+                    <xs:enumeration value="RequestNamedConsumers" />
+                    <xs:enumeration value="RequestNamedHolders" />
+                    <xs:enumeration value="HolderOnlyConsumer" />
+                    <xs:enumeration value="AllowMultipleRedeem" />
+                    <xs:enumeration value="AllowCouponSeries" />
+                </xs:restriction >
+            </xs:simpleType>
+            <xs:element name="PromotionPropertyEnum" type="tns:PromotionPropertyEnum" />
+            <xs:complexType name="Coupon" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+                    <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
+                    <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string" />
+                    <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string" />
+                    <xs:element type="q1:CouponStatus" 
+                        xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/" name="Status" />
+                    <xs:element minOccurs="0" name="User" nillable="true" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Coupon" nillable="true" type="tns:Coupon" />
+            <xs:complexType name="ArrayOfPromotion" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Promotion" nillable="true" type="tns:Promotion" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfPromotion" nillable="true" type="tns:ArrayOfPromotion" />
+            <xs:complexType name="ArrayOfPromotionProperty" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="PromotionProperty" nillable="true" type="tns:PromotionProperty" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfPromotionProperty" nillable="true" type="tns:ArrayOfPromotionProperty" />
+            <xs:complexType name="ArrayOfCoupon" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Coupon" nillable="true" type="tns:Coupon" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfCoupon" nillable="true" type="tns:ArrayOfCoupon" />
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+            <xs:complexType name="Command" 
+                xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+                    <xs:element type="q1:CommandStatus" 
+                        xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/" name="Status" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Command" nillable="true" type="tns:Command" />
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/Types/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/Types/" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+            <xs:simpleType name="CommandStatus">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Valid" />
+                    <xs:enumeration value="ErrorInvalidStatus" />
+                    <xs:enumeration value="ErrorPromotionNotFound" />
+                    <xs:enumeration value="ErrorCouponNotFound" />
+                    <xs:enumeration value="ErrorInvalidUser" />
+                    <xs:enumeration value="ErrorSystem" />
+                </xs:restriction >
+            </xs:simpleType>
+            <xs:element name="CommandStatus" type="tns:CommandStatus" />
+            <xs:simpleType name="CouponStatus">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Created" />
+                    <xs:enumeration value="Issued" />
+                    <xs:enumeration value="Redeemed" />
+                    <xs:enumeration value="Canceled" />
+                </xs:restriction >
+            </xs:simpleType>
+            <xs:element name="CouponStatus" type="tns:CouponStatus" />
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="Promotion_Get_InputMessage">
+        <wsdl:part name="parameters" element="tns:Get" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_Get_OutputMessage">
+        <wsdl:part name="parameters" element="tns:GetResponse" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_Create_InputMessage">
+        <wsdl:part name="parameters" element="tns:Create" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_Create_OutputMessage">
+        <wsdl:part name="parameters" element="tns:CreateResponse" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_AddCoupon_InputMessage">
+        <wsdl:part name="parameters" element="tns:AddCoupon" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_AddCoupon_OutputMessage">
+        <wsdl:part name="parameters" element="tns:AddCouponResponse" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_AddCoupons_InputMessage">
+        <wsdl:part name="parameters" element="tns:AddCoupons" />
+    </wsdl:message>
+    <wsdl:message name="Promotion_AddCoupons_OutputMessage">
+        <wsdl:part name="parameters" element="tns:AddCouponsResponse" />
+    </wsdl:message>
+    <wsdl:portType name="Promotion">
+        <wsdl:operation name="Get">
+            <wsdl:input wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get" message="tns:Promotion_Get_InputMessage" />
+            <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/GetResponse" message="tns:Promotion_Get_OutputMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="Create">
+            <wsdl:input wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create" message="tns:Promotion_Create_InputMessage" />
+            <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/CreateResponse" message="tns:Promotion_Create_OutputMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="AddCoupon">
+            <wsdl:input wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" message="tns:Promotion_AddCoupon_InputMessage" />
+            <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCouponResponse" message="tns:Promotion_AddCoupon_OutputMessage" />
+        </wsdl:operation>
+        <wsdl:operation name="AddCoupons">
+            <wsdl:input wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons" message="tns:Promotion_AddCoupons_InputMessage" />
+            <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCouponsResponse" message="tns:Promotion_AddCoupons_OutputMessage" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding" type="tns:Promotion">
+        <wsp:PolicyReference URI="#BasicHttpBinding_Promotion_policy" />
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="Get">
+            <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Create">
+            <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddCoupon">
+            <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddCoupons">
+            <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PromotionAPI">
+        <wsdl:port name="BasicHttpBinding" binding="tns:BasicHttpBinding">
+            <soap:address location="https://localhost:44389/PromotionAPI" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

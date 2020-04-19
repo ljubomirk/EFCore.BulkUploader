@@ -8,19 +8,29 @@ namespace CouponDatabase.Lifecycle
     [DataContract(Name = "CouponStatus", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public enum CouponStatus
     {
+        [EnumMemberAttribute]
         Created = 1,
+        [EnumMemberAttribute]
         Issued = 2,
+        [EnumMemberAttribute]
         Redeemed = 3,
+        [EnumMemberAttribute]
         Canceled = 4
     }
     [DataContract(Name = "CommandStatus", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public enum CommandStatus
     {
+        [EnumMemberAttribute]
         Valid = 0,
+        [EnumMemberAttribute]
         ErrorInvalidStatus = 1,
+        [EnumMemberAttribute]
         ErrorPromotionNotFound = 2,
+        [EnumMemberAttribute]
         ErrorCouponNotFound = 3,
+        [EnumMemberAttribute]
         ErrorInvalidUser = 4,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

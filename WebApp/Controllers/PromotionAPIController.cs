@@ -41,9 +41,9 @@ namespace WebApp.Controllers
             return _service.Create(Code, Name, ValidFrom, ValidTo, Enabled, PromotionProperties);
         }
 
-        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)
+        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
         {
-            return _service.AddCoupon(PromotionCode, CouponCode, Holder, User, ExpireDate);
+            return _service.AddCoupon(PromotionCode, CouponCode, Holder, User, ExpireDate, Status);
         }
 
         public Command AddCoupons(string PromotionCode, IList<Coupon> Coupons)

@@ -12,29 +12,20 @@ namespace Web.Services.Soap
 {
     public class CouponService
     {
-        readonly RepositoryServices _repo;
-        readonly ICouponAPI _couponAPI;
-        readonly IPromotionAPI _promotionAPI;
-
-        public CouponService(ApplicationDbContext context)
-        {
-            _repo = new RepositoryServices(context);
-            _couponAPI = new CouponAPI(new Impl.CouponAPI(_repo));
-            _promotionAPI = new PromotionAPI(new Impl.PromotionAPI(_repo));
-
-        }
         public class PromotionAPI : IPromotionAPI
         {
             readonly Impl.PromotionAPI _service;
+            readonly RepositoryServices _repo;
 
-            public PromotionAPI(Impl.PromotionAPI service)
+            public PromotionAPI(ApplicationDbContext context)
             {
-                _service = service;
+                _repo = new RepositoryServices(context);
+                _service = new Impl.PromotionAPI(_repo);
             }
 
-            public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)
+            public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
             {
-                return _service.AddCoupon(PromotionCode, CouponCode, Holder, User, ExpireDate);
+                return _service.AddCoupon(PromotionCode, CouponCode, Holder, User, ExpireDate, Status);
             }
 
             public Command AddCoupons(string PromotionCode, IList<Coupon> Coupons)
@@ -47,7 +38,7 @@ namespace Web.Services.Soap
                 return _service.Get(Code, ValidFrom, ValidTo);
             }
 
-            Command IPromotionAPI.Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
+            public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
             {
                 return _service.Create(Code, Name, ValidFrom, ValidTo, Enabled, PromotionProperties);
             }
@@ -56,11 +47,14 @@ namespace Web.Services.Soap
         public class CouponAPI : ICouponAPI{
 
             readonly Impl.CouponAPI _service;
+            readonly RepositoryServices _repo;
 
-            public CouponAPI(Impl.CouponAPI service)
+            public CouponAPI(ApplicationDbContext context)
             {
-                _service = service;
+                _repo = new RepositoryServices(context);
+                _service = new Impl.CouponAPI(_repo);
             }
+
             public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)
             {
                 return _service.Assign(PromotionCode, CouponCode, Holder, User);

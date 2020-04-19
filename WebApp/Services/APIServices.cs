@@ -25,20 +25,54 @@ namespace Web.Services.Impl
             _repo = repo;
         }
 
-        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate)
+        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
         {
-            throw new NotImplementedException();
+            Command response = new Command(CommandStatus.Valid);
+            List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
+            CouponDatabase.Models.Promotion promo = promos.Find(i => i.Code == PromotionCode);
+            if (promo == null)
+                response.Status = CommandStatus.ErrorPromotionNotFound;
+            if (response.Status == CommandStatus.Valid)
+            {
+                List<CouponDatabase.Models.Coupon> coupons = new List<CouponDatabase.Models.Coupon>();
+                coupons.Add(new CouponDatabase.Models.Coupon() { Code = CouponCode, Holder = Holder, User = User, AquireFrom = promo.ValidFrom, AquireTo = ExpireDate.Value, PromotionId = promo.Id, Status = (int)Status, CouponSeries = 0, AwardFrom = promo.ValidFrom, AwardTo = promo.ValidTo });
+                if (!_repo.insertCoupons(coupons))
+                {
+                    response.Status = CommandStatus.ErrorInvalidStatus;
+                    response.Message = Resources.ResourceManager.GetString(response.Status.ToString() + "_Message", CultureInfo.InvariantCulture);
+                }
+            }
+            return response;
         }
 
         //[CollectionDataContract(Name ="ArrayOfCoupons", ItemName = "Coupon")]
         public Command AddCoupons(string PromotionCode, IList<Coupon> coupons)
         {
-            throw new NotImplementedException();
+            Command response = new Command(CommandStatus.ErrorInvalidStatus);
+            foreach (Coupon coupon in coupons)
+            {
+                response = AddCoupon(coupon.PromotionCode, coupon.Code, coupon.Holder, coupon.User, coupon.ExpireDate, coupon.Status);
+                if (response.Status != CommandStatus.Valid)
+                    break;
+            }
+            return response;
         }
 
         public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
         {
-            throw new NotImplementedException();
+            List<Promotion> result = new List<Promotion>();
+            List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
+            if (Code.Length > 0)
+                promos = promos.FindAll(i => i.Code.Contains(Code));
+            if (ValidFrom.HasValue)
+                promos = promos.FindAll(i => i.ValidFrom > ValidFrom.Value);
+            if (ValidTo.HasValue)
+                promos = promos.FindAll(i => i.ValidTo > ValidTo.Value);
+            foreach (CouponDatabase.Models.Promotion promo in promos)
+            {
+                result.Add(new Promotion() { Code = promo.Code, Active = promo.Active, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo });
+            }
+            return result;
         }
 
         public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)

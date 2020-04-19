@@ -4,7 +4,7 @@ using CouponDatabase.Lifecycle;
 
 namespace CouponDatabase.API
 {
-    [DataContract(Name = "Coupon", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
+    [DataContract(Name = "Coupon", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
     public class Coupon
     {
         /* Model properties */

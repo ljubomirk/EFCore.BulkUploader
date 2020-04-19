@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+  <soapenv:Header>
+    <com:Channel>Salesforce</com:Channel>
+  </soapenv:Header>
+ <soapenv:Body>
+      <com:AddCoupon>
+         <!--Optional:-->
+         <com:PromotionCode>?</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>?</com:CouponCode>
+         <!--Optional:-->
+         <com:Holder>?</com:Holder>
+         <!--Optional:-->
+         <com:User>?</com:User>
+         <!--Optional:-->
+         <com:ExpireDate>?</com:ExpireDate>
+         <com:Status>?</com:Status>
+      </com:AddCoupon>
+   </soapenv:Body>
+</soapenv:Envelope>
