@@ -79,10 +79,13 @@ namespace CouponDatabase.Models
         /// <returns>Boolean value</returns>
         private Boolean GetActive()
         {
-            if (Promotion != null)
-                return Promotion.Active;
-            else
-                return false;
+            var pValid = (Promotion != null) ? Promotion.Active : false;
+            var cr1 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
+            var cr2 = (DateTime.Now.CompareTo(AquireTo) < 0) ? true : false;
+            var cr3 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
+            var cr4 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
+
+            return cr1 && cr2 && cr3 && cr4 && pValid;
         }
         #region Relations
         public IList<CouponHistory> CouponHistories { get; set; }
