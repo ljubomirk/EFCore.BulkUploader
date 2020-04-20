@@ -358,6 +358,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set {0} to.
+        /// </summary>
+        public static string CouponsModal_SetTo {
+            get {
+                return ResourceManager.GetString("CouponsModal_SetTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Canceled.
         /// </summary>
         public static string CouponStatus_Canceled {
@@ -813,6 +822,24 @@ namespace CouponDatabase.Properties {
         public static string Promotions_Title {
             get {
                 return ResourceManager.GetString("Promotions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use letters.
+        /// </summary>
+        public static string SeriesGenerate_UseLetters {
+            get {
+                return ResourceManager.GetString("SeriesGenerate_UseLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use numbers.
+        /// </summary>
+        public static string SeriesGenerate_UseNumbers {
+            get {
+                return ResourceManager.GetString("SeriesGenerate_UseNumbers", resourceCulture);
             }
         }
         

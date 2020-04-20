@@ -19,22 +19,22 @@
 <!-- form controls -->
     <div class="row">
         <div class="input-field col s2">
-            @Html.EditorFor(p => p.Customer, new { htmlAttributes = new { @type = "text", placeholder = "-not selected-", @class = "white input-coupon" , @autocomplete = "off" } })
+            @Html.EditorFor(p => p.Customer, new { htmlAttributes = new { @type = "text", placeholder = "-not selected-", @class = "white input-coupon" , @autocomplete = "off", @data_modal="customer" } })
             @Html.LabelFor(p => p.Customer)
             @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
         </div>
         <div class="input-field date col s2">
-            @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "-not selected-", @autocomplete = "off" } })
+            @Html.EditorFor(p => p.ValidTo, "", new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "-not selected-", @autocomplete = "off", @data_modal="validto" } })
             @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "" } })
             @*<i class="material-icons validation-error suffix" data-position="bottom" data-tooltip="yo, škagre!">warning</i>*@
         </div>
         <div class="input-field col s2">
-            @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
-            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon" })
+            @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus"})
+            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon",  @data_modal="status", @data_type = "select", @data_id = "Select"  })
         </div>
         <div class="input-field col s2">
             @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
-            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon" })
+            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal="enabled", @data_type = "select", @data_id = "Enabled" })
         </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s4 u-p-r-remove">

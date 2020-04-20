@@ -7,16 +7,12 @@
 <!-- Modal -->
 <div id="modal-confirmation" class="modal">
     <div class="modal-content">
-        <h4>Change <span id="coupon-number-modal"></span> coupons?</h4>
-        <p>
-            <span id="modal-customer"></span>
-            <span id="modal-validuntil"></span>
-            <span id="modal-status"></span>
-            <span id="modal-enabled"></span>
-        </p>
+        <h4>Change (<span id="coupon-number-modal"></span>) coupons?</h4>
+        <dl class="inline">
+        </dl>
     </div>
     <div class="modal-footer">
-        <a id="modal-close" class="waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+        <a id="modal-close" class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
             @CouponDatabase.Properties.Resources.Btn_Cancel
         </a>
         <a id="modal-action" href="#!" class="modal-close waves-effect waves-green btn-flat btn-primary">
@@ -28,19 +24,38 @@
 
 <script>
     $(document).ready(function () {
+        // get localized msg for modal command str
+        var strTemplate = '@CouponDatabase.Properties.Resources.CouponsModal_SetTo';
 
         // update modal text
         $(".input-coupon").change(function (e) {
             var val = e.target.value;
-            var fieldName = this.id.split("-")[1];
-            var modalFieldName = $("#modal-" + fieldName);
+            var property = this.getAttribute("data-modal");
+            var fieldName = (property == "validto") ? "valid to" : property;
+            var info = $(".info-" + property);
+            var type = this.getAttribute("data-type");
 
-            if (val) {
-                modalFieldName.html("Set " + fieldName + " to: <strong>" + val + "</strong>;")
-
-            } else {
-                modalFieldName.html("")
+            //check if it was select and get value from html
+            if (type == "select") {
+                var selectId = this.getAttribute("data-id");
+                val = $('[data-id="' + selectId + '"] > option[value=' + val + ']').html();
             }
+
+            if (val && info.length > 0) {
+                //update
+                $("dt.info-" + property).html(strTemplate.replace("{0}", fieldName));
+                $("dd.info-" + fieldName).html(val);
+            } else if (!val && info.length > 0) {
+                //remove
+                $("dt.info-" + property).remove();
+                $("dd.info-" + property).remove();
+            } else if (val && info.length == 0) {
+                // insert
+                var html =
+                    '<dt class="info-' + property + '">' + strTemplate.replace("{0}", fieldName) + '</dt>' +
+                    '<dd class="info-' + property + '">' + val + '</dd>';
+                $(".inline").append(html)
+            } 
         })
 
         // display number of checked items inside modal header

@@ -103,6 +103,15 @@
                     }
                 })
             }
+
+            var num = $("input:checked.checkbox-coupon").length;
+            if (num > 0) {
+                $("#coupon-number").text('(' + num + ')');
+                $("#coupon-number-modal").text(num);
+            } else {
+                $("#coupon-number").text('');
+                $("#coupon-number-modal").text('');
+            }
             enableModalTrigger();
         })
 

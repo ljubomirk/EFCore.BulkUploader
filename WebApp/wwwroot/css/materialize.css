@@ -2620,6 +2620,23 @@ input[type=range] + .thumb {
 .relative {
   position: relative; }
 
+dl {
+  text-align: left; }
+
+dl.inline dd {
+  display: inline;
+  margin: 0;
+  padding-left: 16px;
+  font-weight: bold; }
+
+dl.inline dd:after {
+  display: block;
+  content: ''; }
+
+dl.inline dt {
+  display: inline-block;
+  min-width: 130px; }
+
 span.badge {
   min-width: 3rem;
   padding: 0 6px;

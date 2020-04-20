@@ -457,4 +457,16 @@
     <value>OK</value>
     <comment>All OK.</comment>
   </data>
+  <data name="CouponsModal_SetTo" xml:space="preserve">
+    <value>Set {0} to</value>
+    <comment>CouponsModal text.</comment>
+  </data>
+  <data name="SeriesGenerate_UseLetters" xml:space="preserve">
+    <value>Use letters</value>
+    <comment>SeriesGenerate form text.</comment>
+  </data>
+  <data name="SeriesGenerate_UseNumbers" xml:space="preserve">
+    <value>Use numbers</value>
+    <comment>SeriesGenerate form text.</comment>
+  </data>
 </root>

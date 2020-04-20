@@ -839,3 +839,24 @@ td, th{
 .relative {
     position:relative;
 }
+
+// description list
+dl {
+    text-align: left;
+}
+dl.inline dd {
+    display: inline;
+    margin: 0;
+    padding-left:16px;
+    font-weight: bold;
+}
+
+dl.inline dd:after {
+    display: block;
+    content: '';
+}
+
+dl.inline dt {
+    display: inline-block;
+    min-width: 130px;
+}
