@@ -11,23 +11,23 @@
             <h5 class="section u-m-t-remove">Coupon Format</h5>
         </div>
         <div class="input-field col s3">
-            @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
+            @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_prefix", onchange = "updateExampleCoupon()" } })
             @Html.LabelFor(p => p.Prefix, new { htmlAttributes = new { @class = "active" } })
             @ValidationHelper(ViewData, "Prefix", false)
             <p class="checkbox-hover">
                 <label>
-                    @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in" })
+                    @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in", id = "chb_CouponWithLetters", onclick = "updateExampleCoupon()" })
                     <span>Use letters</span>
                 </label>
             </p>
         </div>
         <div class="input-field col s3">
-            @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
+            @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_suffix", onchange = "updateExampleCoupon()" } })
             @Html.LabelFor(p => p.Suffix, new { htmlAttributes = new { @class = "active" } })
             @ValidationHelper(ViewData, "Suffix", false)
             <p class="checkbox-hover">
                 <label>
-                    @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in" })
+                    @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in", id = "chb_CouponWithNumbers", onclick= "updateExampleCoupon()" })
                     <span>Use numbers</span>
                 </label>
             </p>
@@ -44,7 +44,7 @@
     </div>
     <div class="row u-m-t-md">
         <div class="input-field col s6">
-            <input placeholder="" class="example-coupon" type="text" disabled>
+            <input placeholder="" class="example-coupon" type="text" id="exampleCoupon" disabled>
             <label class="active" for="example">Example Coupon</label>
         </div>
         <div class="col s6">
@@ -97,3 +97,23 @@
         return null;
     }
 }
+
+<script>
+    function updateExampleCoupon() {
+        var exampleCoupon = '';
+        var exampleCode = '';
+
+        if ($('#chb_CouponWithLetters').is(':checked')) {
+            exampleCode += 'AAA'
+        }
+        if ($('#chb_CouponWithNumbers').is(':checked')) {
+            exampleCode += '123'
+        }
+
+        exampleCoupon = $('#input_prefix').val() + exampleCode + $('#input_suffix').val();
+
+        $("#exampleCoupon").val(exampleCoupon);
+    }
+
+
+</script>
