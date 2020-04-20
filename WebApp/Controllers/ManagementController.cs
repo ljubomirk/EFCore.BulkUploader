@@ -106,13 +106,15 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult EditPromotion(long Id)
         {
-           // if (promo == null) RedirectToAction("Error");
+            // if (promo == null) RedirectToAction("Error");
+            var promotion = _repo.GetPromotionWithId(Id);
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
-                Promotion = _repo.GetPromotionWithId(Id),
-                Properties = setModelProperties(_repo.GetAllProperties() , _repo.GetPromotionProperties(Id)),
-                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels() ,_repo.GetPromotionAwardChannels(Id)),
-                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels() , _repo.GetPromotionIssuerChannels(Id))
+                Promotion = promotion,
+                Properties = setModelProperties(_repo.GetAllProperties(), _repo.GetPromotionProperties(Id)),
+                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), _repo.GetPromotionAwardChannels(Id)),
+                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), _repo.GetPromotionIssuerChannels(Id)),
+                hasEndDate = promotion.ValidTo != null ? true : false
             };
             return View("PromotionDetails", model);
         }
