@@ -65,6 +65,12 @@ namespace WebApp.Controllers
 
             LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
 
+            //var employee = new LifecycleManagementModel();
+            //employee.lifecycleManagement.Pro = "1";
+            //employee.DesignationId = "2";
+
+            //HttpContext.Session.SetObjectAsJson("EmployeeDetails", employee);
+
             List<Promotion> f_ListOfPromotions = _repo.GetFilteredPromotionList(promotionFilter, true);
 
             //List<Coupon> f_ListOfCoupons = new List<Coupon>();
@@ -75,12 +81,19 @@ namespace WebApp.Controllers
             model.DropCouponSeries = getSelectListSeries(f_ListOfCoupons); 
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
+            
+            // Create CheckedItem elements from filtered Coupons
+            // CouponList is used to bind data change on view
+            // CouponList is populated from submit form with CheckedItem elements and passed into CouponUpdate
+            model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
+            model.CouponList.Coupon = new Coupon();
 
             /*
              * TODO:
              * Store PromotionCodes, CouponSeries and filtered coupons into session and view model
              */
-            model.Coupons = f_ListOfCoupons;
+            model.CouponList.Coupons = f_ListOfCoupons;
+            model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
             model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
 
             /*
@@ -227,6 +240,9 @@ namespace WebApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        /*
+         * Generate properties checkboxes for issuer channels coupon filter.
+         */
         private List<CheckedItem> setModelIssuerChannels(List<IssuerChannel> allIssuerChannels, List<IssuerChannel> promotionIssuerChannels)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
@@ -244,6 +260,9 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
+        /*
+         * Generate properties checkboxes for award channels coupon filter.
+         */
         private List<CheckedItem> setModelAwardChannels(List<AwardChannel> allAwardChannels, List<AwardChannel> promotionAwardChannels)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
@@ -261,6 +280,9 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
+        /*
+         * Generate property checkboxes for coupon filter.
+         */
         private List<CheckedItem> setModelProperties(List<Property> allProperties, List<Property> promotionProperties)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
@@ -278,6 +300,9 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
+        /*
+         * Generate coupon status checkboxes for issuer channels coupon filter.
+         */
         private List<CheckedItem> setModelCurrentStatus(List<CurrentStatus> allProperties, List<CurrentStatus> couponStatuses)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
@@ -291,6 +316,28 @@ namespace WebApp.Controllers
                 {
                     checkedItems.Add(new CheckedItem { Checked = false, Label = property.Name, Id = property.Id });
                 }
+            }
+            return checkedItems;
+        }
+
+        /*
+         * Generate coupon checkboxes for coupon list view.
+         */
+        private List<CheckedCouponItem> setModelCouponList(List<Coupon> coupons)
+        {
+            List<CheckedCouponItem> checkedItems = new List<CheckedCouponItem>();
+            foreach (Coupon coupon in coupons)
+            {
+                checkedItems.Add(new CheckedCouponItem { 
+                    Checked = false, 
+                    Label = coupon.Code, 
+                    Id = coupon.Id, 
+                    Code = coupon.Code, 
+                    Holder = coupon.Holder, 
+                    User = coupon.User,
+                    Status = coupon.Status, 
+                    Active = coupon.Active 
+                });
             }
             return checkedItems;
         }

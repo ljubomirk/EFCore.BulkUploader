@@ -1,5 +1,5 @@
-﻿@model IEnumerable<CouponDatabase.Models.Coupon>;
-@using CouponDatabase.Lifecycle; 
+﻿@model WebApp.ViewModels.CouponList;
+@using CouponDatabase.Lifecycle;
 @{
     ViewData["Title"] = "LifecycleTable";
 }
@@ -15,30 +15,60 @@
                 </label>
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Code)
+                @Html.DisplayNameFor(m => m.Coupon.Code)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Holder)
+                @Html.DisplayNameFor(m => m.Coupon.Holder)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.User)
+                @Html.DisplayNameFor(m => m.Coupon.User)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Status)
+                @Html.DisplayNameFor(m => m.Coupon.Status)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Active)
+                @Html.DisplayNameFor(m => m.Coupon.Active)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach (var c in Model)
+        <button type="submit">TEST FORM SUBMIT</button>
+        <p>@Html.DisplayNameFor(m => m.CouponItems)</p>
+        @for (int i = 0; i < Model.CouponItems.Count; i++)
+        {
+            string statusText = ((CouponStatus)Model.CouponItems[i].Status).ToString();
+            <tr>
+                <td>
+                    @*<label>
+
+            <input id="@Model.CouponItems[i].Id" type="checkbox" class="filled-in checkbox-coupon" />
+            <span></span>
+        </label>*@
+                    <label>
+                        @Html.CheckBoxFor(c => Model.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
+                        <span>@Html.DisplayFor(c => Model.CouponItems[i].Id)</span>
+                    </label>
+                </td>
+                <td>@Html.DisplayFor(item => item.CouponItems[i].Code)</td>
+                <td>@Html.DisplayFor(item => item.CouponItems[i].Code)</td>
+                <td>@Html.DisplayFor(item => item.CouponItems[i].Code)</td>
+                <td>@Html.DisplayFor(item => statusText)</td>
+                <td>
+                    @if (Model.CouponItems[i].Active)
+                    {
+                        <i class="material-icons">check</i>
+                    }
+                </td>
+            </tr>
+        }
+
+        @*@foreach (var c in Model.CouponItems)
         {
             string statusText = ((CouponStatus)c.Status).ToString();
             <tr>
@@ -59,7 +89,7 @@
                     }
                 </td>
             </tr>
-        }
+        }*@
     </tbody>
 </table>
 <!-- /coupon table -->

@@ -34,21 +34,28 @@ namespace WebApp.ViewModels
         public string Status { get; set; }
         public string Enabled { get; set; }
 
-        public List<Promotion> Promotions { get; set; }
-        public List<Coupon> Coupons { get; set; }
+        // Coupons to update and update status
+        public CouponList CouponList { get; set; }
+        public bool CouponUpdateError { get; set; }
+
+        // Coupons and commands
         public List<CouponCommand> CouponsSelected { get; set; }
         public List<LifecycleCommand> LifecycleCommands { get; set; }
-    public LifecycleUpdateViewModel()
-        {
-            Coupons = new List<Coupon>();
+
+        public LifecycleUpdateViewModel()
+            {
+                CouponList = new CouponList();
+                CouponList.Coupons = new List<Coupon>();
+            }
+            public void Add(Coupon coupon)
+            {
+                CouponList = new CouponList();
+                CouponList.Coupons.Add(coupon);
+            }
+            public void AddRange(IList<Coupon> coupons)
+            {
+                CouponList = new CouponList();
+                CouponList.Coupons.AddRange(coupons);
+            }
         }
-        public void Add(Coupon coupon)
-        {
-            Coupons.Add(coupon);
-        }
-        public void AddRange(IList<Coupon> coupons)
-        {
-            Coupons.AddRange(coupons);
-        }
-    }
 }
