@@ -13,10 +13,10 @@ namespace WebApp.ViewModels
         public bool ShowInactive { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime ValidFrom { get; set; }
+        public Nullable<DateTime> ValidFrom { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime ValidTo { get; set; }
+        public Nullable<DateTime> ValidTo { get; set; }
         public List<CheckedItem> Properties { get; set; }
 
         public Filters()

@@ -763,6 +763,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:dd.MM.yyyy}.
+        /// </summary>
+        public static string Promotion_Date_Format {
+            get {
+                return ResourceManager.GetString("Promotion_Date_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         public static string Promotion_Properties {

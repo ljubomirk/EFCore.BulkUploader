@@ -19,20 +19,21 @@ namespace WebApp.ViewModels
         //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
         public long PromotionId { get; set; }
         public int NumberOfCoupons { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_AssignableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
-        //[DataType(DataType.Date)]
-        public DateTime AssignableFrom { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        //[DataType(DataType.Date)]
-        public DateTime AssignableUntil { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AssignableFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> AssignableUntil { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = Resources.Promotion_Date_Format, ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_RedeemableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
-        //[DataType(DataType.Date)]
-        public DateTime RedeemableFrom { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        //[DataType(DataType.Date)]
-        public DateTime RedeemableUntil { get; set; }
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> RedeemableFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public Nullable<DateTime> RedeemableUntil { get; set; }
         public int Status { get; set; }
         //public string CouponFormat { get; set; }
         public string Prefix { get; set; }
@@ -92,7 +93,7 @@ namespace WebApp.ViewModels
                     }
                 }
             }
-            else
+            else if ((CouponWithLetters || CouponWithNumbers) && NumberOfCoupons != 0)
             {
 
                 for (int i = 0; i < NumberOfCoupons; i++)
