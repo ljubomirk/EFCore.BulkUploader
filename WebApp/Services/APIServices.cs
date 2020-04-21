@@ -70,14 +70,25 @@ namespace Web.Services.Impl
                 promos = promos.FindAll(i => i.ValidTo > ValidTo.Value);
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Code = promo.Code, Active = promo.Active, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo });
+                result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo });
             }
             return result;
         }
 
-        public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
+        public Command Create(string PromotionCode, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
-            throw new NotImplementedException();
+            Command response = new Command(CommandStatus.Valid);
+            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo };
+            List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
+            foreach (PromotionProperty prop in Properties)
+            {
+                CouponDatabase.Models.PromotionProperty pp = new CouponDatabase.Models.PromotionProperty();
+                //pp.PromotionId = promoId;
+                pp.PropertyId = props.Find(i => i.Name.Equals(prop.Name)).Id;
+                promo.PromotionProperties.Add(pp);
+            }
+            long promoId = _repo.CreatePromotion(promo);
+            return response;
         }
     }
 
@@ -116,7 +127,13 @@ namespace Web.Services.Impl
 
         public List<Coupon> GetUserCoupons(string User)
         {
-            return (List<Coupon>)_repo.GetUserCoupons(User);
+            List<Coupon> result = new List<Coupon>();
+            List<CouponDatabase.Models.Coupon> found = _repo.GetUserCoupons(User).ToList();
+            foreach(var coupon in found)
+            {
+                result.Add(new Coupon() { Code = coupon.Code, Holder = coupon.Holder, User = coupon.User, Status = (CouponStatus)coupon.Status });
+            }
+            return result;
         }
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)

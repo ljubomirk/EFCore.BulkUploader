@@ -407,7 +407,12 @@ namespace WebApp.Services
 
         public IList<Coupon> GetUserCoupons(string user)
         {
-            return null;
+            List<Coupon> coupons = Context.Coupon
+                .Include(c => c.Promotion)
+                    .Where(p => p.Promotion.Active == true)
+                .Where(item => item.User == user)
+                .ToList();
+            return coupons;
         }
 
         public List<Coupon> GetPromotionCoupons(Promotion promotion)

@@ -38,9 +38,9 @@ namespace Web.Services.Soap
                 return _service.Get(Code, ValidFrom, ValidTo);
             }
 
-            public Command Create(string Code, string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
+            public Command Create(string Code, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
             {
-                return _service.Create(Code, Name, ValidFrom, ValidTo, Enabled, PromotionProperties);
+                return _service.Create(Code, ValidFrom, ValidTo, Enabled, PromotionProperties);
             }
         }
 
