@@ -11,11 +11,11 @@ namespace CouponDatabase.API
         [EnumMember]
         UniqueCoupons = 1,
         [EnumMember]
-        RequestNamedConsumers = 2,
+        NamedConsumers = 2,
         [EnumMember]
-        RequestNamedHolders = 3,
+        NamedHolders = 3,
         [EnumMember]
-        HolderOnlyConsumer = 4,
+        HolderIsOnlyConsumer = 4,
         [EnumMember]
         AllowMultipleRedeem = 5,
         [EnumMember]
@@ -26,6 +26,7 @@ namespace CouponDatabase.API
     {
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public PromotionPropertyEnum Name { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public Boolean Checked { get; set; } 
     }
 }

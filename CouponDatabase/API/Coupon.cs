@@ -8,11 +8,17 @@ namespace CouponDatabase.API
     public class Coupon
     {
         /* Model properties */
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public string Code { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public String Holder { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public String User { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public CouponStatus Status { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public DateTime ExpireDate { get; set; }
+        [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public string PromotionCode { get; set; }
     }
 }

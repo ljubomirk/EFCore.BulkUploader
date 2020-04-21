@@ -56,7 +56,7 @@ namespace CouponDatabase.Lifecycle
         NamedHolders = 2,
         NamedConsumers = 3,
         HolderIsOnlyConsumer = 4,
-        AlloweMultipleRedeems = 5,
+        AllowMultipleRedeems = 5,
         AllowCouponSeries = 6
     }
 }
