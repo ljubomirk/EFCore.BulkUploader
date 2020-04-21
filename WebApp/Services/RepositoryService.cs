@@ -90,6 +90,17 @@ namespace WebApp.Services
             return Context.Promotion.ToList<Promotion>();
         }
 
+        public List<Promotion> GetAllPromotionsWithRelations()
+        {
+            List<Promotion> allPromotions = Context.Promotion.ToList<Promotion>();
+            foreach (var promotion in allPromotions)
+            {
+                GetPromotionData(promotion);
+            }
+
+            return allPromotions;
+        }
+
         /*
          * Returns promotions with HasCoupons property true.
          */
@@ -266,6 +277,13 @@ namespace WebApp.Services
         {
             Promotion promotion = new Promotion();
                 promotion = Context.Promotion.First(x => x.Id == id);
+            promotion = GetPromotionData(promotion);
+            
+            return promotion;
+        }
+
+        public Promotion GetPromotionData(Promotion promotion)
+        {
             Promotion promotionRef = promotion;
             List<Property> promotionProperties = GetPromotionProperties(promotion.Id);
             foreach (var property in promotionProperties)
