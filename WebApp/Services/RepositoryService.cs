@@ -266,22 +266,23 @@ namespace WebApp.Services
         {
             Promotion promotion = new Promotion();
                 promotion = Context.Promotion.First(x => x.Id == id);
-                //List<Property> promotionProperties = GetPromotionProperties(promotion.Id);
-                //foreach (var property in promotionProperties)
-                //{
-                //    promotion.PromotionProperties.Add(new PromotionProperty() { Promotion = promotion, PromotionId = promotion.Id, Property = property, PropertyId = property.Id });
-                //}
-                //List<AwardChannel> promotionAwardChannels = GetPromotionAwardChannels(promotion.Id);
-                //foreach (var awardChannel in promotionAwardChannels)
-                //{
-                //    promotion.PromotionAwardChannels.Add(new PromotionAwardChannel() { Promotion = promotion, PromotionId = promotion.Id, AwardChannel = awardChannel, AwardChannelId = awardChannel.Id });
-                //}
-                //List<IssuerChannel> promotionIssuerChannels = GetPromotionIssuerChannels(promotion.Id);
-                //foreach (var issuerChannel in promotionIssuerChannels)
-                //{
-                //    promotion.PromotionIssuerChannels.Add(new PromotionIssuerChannel() { Promotion = promotion, PromotionId = promotion.Id, IssuerChannel = issuerChannel, IssuerChannelId = issuerChannel.Id });
-                //}
-                return promotion;
+            Promotion promotionRef = promotion;
+            List<Property> promotionProperties = GetPromotionProperties(promotion.Id);
+            foreach (var property in promotionProperties)
+            {
+                promotion.PromotionProperties.Add(new PromotionProperty() { Promotion = promotionRef, PromotionId = promotion.Id, Property = property, PropertyId = property.Id });
+            }
+            List<AwardChannel> promotionAwardChannels = GetPromotionAwardChannels(promotion.Id);
+            foreach (var awardChannel in promotionAwardChannels)
+            {
+                promotion.PromotionAwardChannels.Add(new PromotionAwardChannel() { Promotion = promotionRef, PromotionId = promotion.Id, AwardChannel = awardChannel, AwardChannelId = awardChannel.Id });
+            }
+            List<IssuerChannel> promotionIssuerChannels = GetPromotionIssuerChannels(promotion.Id);
+            foreach (var issuerChannel in promotionIssuerChannels)
+            {
+                promotion.PromotionIssuerChannels.Add(new PromotionIssuerChannel() { Promotion = promotionRef, PromotionId = promotion.Id, IssuerChannel = issuerChannel, IssuerChannelId = issuerChannel.Id });
+            }
+            return promotion;
         }
         #endregion
 
@@ -321,7 +322,6 @@ namespace WebApp.Services
         public List<Property> GetPromotionProperties(long idPromotion)
         {
             List<Property> properties = GetAllProperties();
-            Promotion promo = GetPromotionWithId(idPromotion);
             List<PromotionProperty> promotionPropertiesMap = Context.PromotionProperty.Where(x => x.PromotionId == idPromotion).ToList<PromotionProperty>();
             List<Property> promotionProperties = new List<Property>();
             if (promotionPropertiesMap != null && promotionPropertiesMap.Count > 0)
@@ -340,7 +340,6 @@ namespace WebApp.Services
         public List<AwardChannel> GetPromotionAwardChannels(long idPromotion)
         {
             List<AwardChannel> awardChannels = GetAllAwardChannels();
-            Promotion promo = GetPromotionWithId(idPromotion);
             List<PromotionAwardChannel> awardChannelsMap = Context.PromotionAwardChannel.Where(x => x.PromotionId == idPromotion).ToList<PromotionAwardChannel>();
 
             List<AwardChannel> promotionAwardChannels = new List<AwardChannel>();
@@ -361,7 +360,6 @@ namespace WebApp.Services
         public List<IssuerChannel> GetPromotionIssuerChannels(long idPromotion)
         {
             List<IssuerChannel> issuerChannels = GetAllIssuerChannels();
-            Promotion promo = GetPromotionWithId(idPromotion);
             List<PromotionIssuerChannel> issuerChannelsMap = Context.PromotionIssuerChannel.Where(x => x.PromotionId == idPromotion).ToList<PromotionIssuerChannel>();
 
             List<IssuerChannel> promotionIssuerChannels = new List<IssuerChannel>();
