@@ -94,7 +94,7 @@ namespace WebApp.Controllers
              */
             model.CouponList.Coupons = f_ListOfCoupons;
             model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
-            model.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
+            model.CouponList.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
 
             /*
              * TODO:
@@ -119,6 +119,9 @@ namespace WebApp.Controllers
             {
                 command.Status = CommandStatus.Valid;
             }
+
+
+
             return View("LifecycleCoupons", model);
         }
 
