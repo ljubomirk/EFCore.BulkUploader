@@ -3,10 +3,10 @@
 *@
 
 @using Microsoft.AspNetCore.Html;
-@model WebApp.ViewModels.Filters;
+@model WebApp.ViewModels.PromotionFilter;
 
 <div id="form-filter">
-    @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
+    @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Post, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
     {
         <div class="container">
             <div class="row u-m-t-md">
@@ -54,12 +54,12 @@
                 </div>
             </div>
             <div class="row u-m-t-xl u-m-l-sm-negative">
-                <div class="input-field date col s12 m4">
+                <div class="input-field col s12 m4">
                     @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                     @ValidationHelper(ViewData, "ValidFrom", true)
                 </div>
-                <div class="input-field date col s12 m4">
+                <div class="input-field col s12 m4">
                     @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
                     @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
                     @ValidationHelper(ViewData, "ValidTo", true)

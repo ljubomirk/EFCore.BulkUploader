@@ -10,5 +10,10 @@ namespace WebApp.ViewModels
         public long PromotionCode { get; set; }
 
         public int CouponSeries { get; set; }
+
+        public PromotionFilter() : base()
+        {
+
+        }
     }
 }

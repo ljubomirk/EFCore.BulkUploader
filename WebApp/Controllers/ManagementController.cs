@@ -38,7 +38,7 @@ namespace WebApp.Controllers
         {
             PromotionListViewModel model = new PromotionListViewModel();
             model.Promotions.AddRange(_repo.GetAllPromotions());
-            model.Filter = new Filters();
+            model.Filter = new PromotionFilter();
             model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
             return View("PromotionList",model);
         }
@@ -47,7 +47,7 @@ namespace WebApp.Controllers
         /// View List of promotions
         /// </summary>
         /// <returns>Opens list of filtered promotions</returns>
-        [HttpGet]
+        [HttpPost]
         public IActionResult FilteredListPromotions(PromotionFilter filter)
         {
             PromotionListViewModel model = new PromotionListViewModel();

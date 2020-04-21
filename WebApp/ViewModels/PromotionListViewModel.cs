@@ -9,7 +9,7 @@ namespace WebApp.ViewModels
     public class PromotionListViewModel : ContextData
     {
         public List<Promotion> Promotions { get; set; }
-        public Filters Filter;
+        public PromotionFilter Filter;
         public PromotionListViewModel()
         {
             Promotions = new List<Promotion>();

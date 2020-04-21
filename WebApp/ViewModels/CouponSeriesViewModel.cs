@@ -35,7 +35,6 @@ namespace WebApp.ViewModels
         [DataType(DataType.Date)]
         public Nullable<DateTime> RedeemableUntil { get; set; }
         public int Status { get; set; }
-        //public string CouponFormat { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public int CouponMaxLength { get; set; }
@@ -101,7 +100,6 @@ namespace WebApp.ViewModels
 
                     listOfCoupons.Add(new Coupon()
                     {
-                        //Code = Prefix != null ? Suffix != null ? Prefix + String.Format("{0:D5}", i) + Suffix : Prefix + String.Format("{0:D5}", i) : Suffix != null ? String.Format("{0:D5}", i) + Suffix : String.Format("{0:D5}", i),
                         Code = getCouponCode(),
                         PromotionId = PromotionId,
                         AquireFrom = AssignableFrom,
