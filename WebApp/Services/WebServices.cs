@@ -85,9 +85,9 @@ namespace Web.Services.Soap
                 return _service.UndoRedeem(PromotionCode, CouponCode);
             }
 
-            public Command Validate(string PromotionCode, string CouponCode)
+            public Command Validate(string PromotionCode, string CouponCode, string User)
             {
-                return _service.Validate(PromotionCode, CouponCode);
+                return _service.Validate(PromotionCode, CouponCode, User);
             }
         }
     }

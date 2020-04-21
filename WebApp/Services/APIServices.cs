@@ -138,10 +138,14 @@ namespace Web.Services.Impl
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)
         {
-            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            Command response = (new ICoupon(coupon)).Redeem(coupon, User);
-            if (response.Status == CommandStatus.Valid)
-                _repo.UpdateCoupon(coupon);
+            Command response = Validate(PromotionCode, CouponCode, User);
+            if(response.Status == CommandStatus.Valid)
+            {
+                CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+                response = (new ICoupon(coupon)).Redeem(coupon, User);
+                if (response.Status == CommandStatus.Valid)
+                    response = _repo.UpdateCoupon(coupon);
+            }
             return response;
         }
 
@@ -150,16 +154,22 @@ namespace Web.Services.Impl
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             Command response = coupon.UndoRedeem();
             if (response.Status == CommandStatus.Valid)
-                _repo.UpdateCoupon(coupon);
+                response = _repo.UpdateCoupon(coupon);
             return response;
         }
 
-        public Command Validate(string PromotionCode, string CouponCode)
+        public Command Validate(string PromotionCode, string CouponCode, string User)
         {
+            Command response;
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            Command response = (new ICoupon(coupon)).Validate(coupon, "");
-            if (response.Status == CommandStatus.Valid)
-                _repo.UpdateCoupon(coupon);
+            if (coupon == null)
+            {
+                response = new Command(CommandStatus.ErrorCouponNotFound);
+            }
+            else
+            {
+                response = (new ICoupon(coupon)).Validate(coupon, User);
+            }
             return response;
         }
     }

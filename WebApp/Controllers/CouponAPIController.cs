@@ -43,9 +43,9 @@ namespace WebApp.Controllers
 
         // PUT api/Coupon/5
         [HttpPut("{PromotionCode}")]
-        public Command Validate(string PromotionCode, [FromBody]string CouponCode)
+        public Command Validate(string PromotionCode, [FromBody]string CouponCode, string User)
         {
-            return _service.Validate(PromotionCode, CouponCode);
+            return _service.Validate(PromotionCode, CouponCode, User);
         }
 
         // PUT api/<controller>/5
