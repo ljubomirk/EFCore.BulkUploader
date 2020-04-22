@@ -51,35 +51,42 @@ namespace WebApp.Services
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
-            Coupon coupon = Context.Coupon.Where(c => c.Code == CouponCode /*TODO && c.PromotionId == */).FirstOrDefault();
-            return coupon;
+            List<Promotion> promList = new List<Promotion>();
+            if (PromotionCode.Length > 0)
+                promList.Add(Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault());
+            else
+                promList.AddRange(Context.Promotion.Where(p => p.Active==true).ToList());
+            List<Coupon> coupons = Context.Coupon.Where(c => promList.Contains(c.Promotion)).ToList<Coupon>();
+            return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
         }
 
         public Command UpdateCoupon(Coupon coupon)
         {
-            Command result = new Command(CommandStatus.Valid);
+            Command result = null;
             try
             {
                 Context.Database.BeginTransaction();
                 Context.Coupon.Update(coupon);
+                foreach(CouponHistory ch in coupon.CouponHistories)
+                {
+                    if (Context.CouponHistory.Find(ch.Id) == null)
+                        Context.CouponHistory.Add(ch);
+                }
                 int saved = Context.SaveChanges();
-                if (saved == 1)
-                    result.Status = CommandStatus.Valid;
-                else
-                    result.Status = CommandStatus.ErrorSystem;
                 Context.Database.CommitTransaction();
+                result = new Command(CommandStatus.Valid);
             }
             catch (DbUpdateException update)
             {
                 Context.Database.RollbackTransaction();
-                result.Status = CommandStatus.ErrorSystem;
-                result.Message = update.Message;
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
             }
             catch (Exception exc)
             {
                 Context.Database.RollbackTransaction();
-                result.Status = CommandStatus.ErrorSystem;
-                result.Message = exc.Message;
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
             }
             return result;
         }
@@ -462,6 +469,7 @@ namespace WebApp.Services
             {
                 Context.Coupon.Add(coupon);
             }
+            /*TODO add handling dupl */
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }

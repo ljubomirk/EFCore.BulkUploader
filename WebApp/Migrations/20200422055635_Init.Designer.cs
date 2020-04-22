@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200417134504_Init")]
+    [Migration("20200422055635_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,23 +135,53 @@ namespace WebApp.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CouponDatabase.Models.CouponAwardChannel", b =>
+                {
+                    b.Property<long>("CouponId");
+
+                    b.Property<long>("AwardChannelId");
+
+                    b.HasKey("CouponId", "AwardChannelId");
+
+                    b.HasIndex("AwardChannelId");
+
+                    b.ToTable("CouponAwardChannel");
+                });
+
             modelBuilder.Entity("CouponDatabase.Models.CouponHistory", b =>
                 {
-                    b.Property<long>("CouponHistoryId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Action");
+
                     b.Property<long>("CouponId");
+
+                    b.Property<DateTime>("Date");
 
                     b.Property<int>("Status");
 
-                    b.Property<DateTime>("UpdateDate");
+                    b.Property<string>("User");
 
-                    b.HasKey("CouponHistoryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CouponId");
 
                     b.ToTable("CouponHistory");
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.CouponIssuerChannel", b =>
+                {
+                    b.Property<long>("CouponId");
+
+                    b.Property<long>("IssuerChannelId");
+
+                    b.HasKey("CouponId", "IssuerChannelId");
+
+                    b.HasIndex("IssuerChannelId");
+
+                    b.ToTable("CouponIssuerChannel");
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.IssuerChannel", b =>
@@ -549,6 +579,8 @@ namespace WebApp.Migrations
 
                     b.HasKey("PromotionId", "PropertyId");
 
+                    b.HasIndex("PropertyId");
+
                     b.ToTable("PromotionProperty");
 
                     b.HasData(
@@ -630,7 +662,7 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 5L,
-                            Name = "AlloweMultipleRedeems"
+                            Name = "AllowMultipleRedeems"
                         },
                         new
                         {
@@ -647,11 +679,37 @@ namespace WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("CouponDatabase.Models.CouponAwardChannel", b =>
+                {
+                    b.HasOne("CouponDatabase.Models.AwardChannel", "AwardChannel")
+                        .WithMany()
+                        .HasForeignKey("AwardChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("CouponDatabase.Models.CouponHistory", b =>
                 {
                     b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
                         .WithMany("CouponHistories")
                         .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.CouponIssuerChannel", b =>
+                {
+                    b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
+                        .WithMany()
+                        .HasForeignKey("IssuerChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -683,9 +741,14 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
                 {
-                    b.HasOne("CouponDatabase.Models.Promotion")
+                    b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionProperties")
                         .HasForeignKey("PromotionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

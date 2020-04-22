@@ -48,26 +48,6 @@ namespace CouponDatabase.Models
         public Promotion Promotion { get; set; }
         public int CouponSeries { get; set; }
 
-        public Command Assign(string Holder, string User)
-        {
-            Command response = new Command(CommandStatus.ErrorInvalidStatus);
-            return response;
-        }
-        public Command Redeem(string User)
-        {
-            Command response = new Command(CommandStatus.ErrorInvalidUser);
-            return response;
-        }
-        public Command Cancel()
-        {
-            Command response = new Command(CommandStatus.Valid);
-            return response;
-        }
-        public Command UndoRedeem()
-        {
-            Command response = new Command(CommandStatus.Valid);
-            return response;
-        }
         /* Active is virtual value, read from other values */
         public Boolean Active
         {
@@ -82,8 +62,8 @@ namespace CouponDatabase.Models
             var pValid = (Promotion != null) ? Promotion.Active : false;
             var cr1 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
             var cr2 = (DateTime.Now.CompareTo(AquireTo) < 0) ? true : false;
-            var cr3 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
-            var cr4 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
+            var cr3 = (DateTime.Now.CompareTo(AwardFrom) >= 0) ? true : false;
+            var cr4 = (DateTime.Now.CompareTo(AquireTo) < 0) ? true : false;
 
             return cr1 && cr2 && cr3 && cr4 && pValid;
         }

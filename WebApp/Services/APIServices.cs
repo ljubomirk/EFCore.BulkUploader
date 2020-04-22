@@ -104,7 +104,8 @@ namespace Web.Services.Impl
         {
             //CouponDatabase.Models.Promotion promo = _repo.GetAllPromotions().Find(p => p.Code == PromotionCode);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            Command response = coupon.Assign(Holder, User);
+            ICoupon cmd = new ICoupon(coupon);
+            Command response = cmd.Assign(Holder, User);
             if (response.Status == CommandStatus.Valid)
                 _repo.UpdateCoupon(coupon);
             return response;
@@ -113,7 +114,8 @@ namespace Web.Services.Impl
         public Command Cancel(string PromotionCode, string CouponCode)
         {
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            Command response = coupon.Cancel();
+            ICoupon cmd = new ICoupon(coupon);
+            Command response = cmd.Cancel();
             if (response.Status == CommandStatus.Valid)
                 _repo.UpdateCoupon(coupon);
             return response;
@@ -131,20 +133,19 @@ namespace Web.Services.Impl
             List<CouponDatabase.Models.Coupon> found = _repo.GetUserCoupons(User).ToList();
             foreach(var coupon in found)
             {
-                result.Add(new Coupon() { Code = coupon.Code, Holder = coupon.Holder, User = coupon.User, Status = (CouponStatus)coupon.Status });
+                result.Add((new ICoupon(coupon)).Get());
             }
             return result;
         }
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)
         {
-            Command response = Validate(PromotionCode, CouponCode, User);
+            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            ICoupon cmd = new ICoupon(coupon);
+            Command response = cmd.Redeem(User);
             if(response.Status == CommandStatus.Valid)
             {
-                CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-                response = (new ICoupon(coupon)).Redeem(coupon, User);
-                if (response.Status == CommandStatus.Valid)
-                    response = _repo.UpdateCoupon(coupon);
+                response = _repo.UpdateCoupon(coupon);
             }
             return response;
         }
@@ -152,7 +153,8 @@ namespace Web.Services.Impl
         public Command UndoRedeem(string PromotionCode, string CouponCode)
         {
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            Command response = coupon.UndoRedeem();
+            ICoupon cmd = new ICoupon(coupon);
+            Command response = cmd.UndoRedeem();
             if (response.Status == CommandStatus.Valid)
                 response = _repo.UpdateCoupon(coupon);
             return response;
@@ -168,7 +170,7 @@ namespace Web.Services.Impl
             }
             else
             {
-                response = (new ICoupon(coupon)).Validate(coupon, User);
+                response = (new ICoupon(coupon)).Validate(User);
             }
             return response;
         }
