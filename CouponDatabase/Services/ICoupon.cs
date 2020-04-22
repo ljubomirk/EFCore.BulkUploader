@@ -8,8 +8,13 @@ namespace CouponDatabase.Services
 {
     public class ICoupon
     {
+        int _loadStatus = 0; //used to check isf coupon is there >0
         Coupon Coupon { get; }
-        public ICoupon(Coupon coupon) { this.Coupon = coupon;  }
+        public ICoupon(Coupon coupon) { 
+            Coupon = coupon;
+            if (Coupon != null)
+                _loadStatus = Coupon.Status;
+        }
 
         /// <summary>
         /// Fetch Coupon for API call
@@ -17,7 +22,7 @@ namespace CouponDatabase.Services
         /// <returns>Coupon</returns>
         public API.Coupon Get() {
             API.Coupon result = null;
-            if(Coupon!=null)
+            if(_loadStatus>0)
             {
                 result = new API.Coupon
                 {
@@ -32,6 +37,41 @@ namespace CouponDatabase.Services
             return result;
         }
 
+        private Command StateChange(CouponStatus status)
+        {
+            Lifecycle.Command result;
+            if (_loadStatus > 0) {
+                switch (Coupon.Status)
+                {
+                    case (int)CouponStatus.Created:
+                        if(status == CouponStatus.Issued || status == CouponStatus.Canceled)
+                            result = new Lifecycle.Command(CommandStatus.Valid);
+                        else
+                            result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                        break;
+                    case (int)CouponStatus.Issued:
+                        if (status == CouponStatus.Redeemed || status == CouponStatus.Canceled)
+                            result = new Lifecycle.Command(CommandStatus.Valid);
+                        else
+                            result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                        break;
+                    case (int)CouponStatus.Redeemed:
+                        if (status == CouponStatus.Issued || status == CouponStatus.Canceled)
+                            result = new Lifecycle.Command(CommandStatus.Valid);
+                        else
+                            result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                        break;
+                    default://Canceled is not allowed to change
+                        result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                        break;
+                }
+            }
+            else
+            {
+                result = new Lifecycle.Command(CommandStatus.ErrorCouponNotFound);
+            }
+            return result;
+        }
         private void AddHistory(string action, string user)
         {
             if (Coupon.CouponHistories == null)
@@ -47,7 +87,7 @@ namespace CouponDatabase.Services
         public Lifecycle.Command Validate(string user)
         {
             Lifecycle.Command result = new Lifecycle.Command(CommandStatus.Valid);
-            if (Coupon != null)
+            if (_loadStatus > 0)
             {
                 if (Coupon.Status != (int)CouponStatus.Issued)
                     result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
@@ -69,49 +109,64 @@ namespace CouponDatabase.Services
 
         public Lifecycle.Command Redeem(string user)
         {
-            Lifecycle.Command result = Validate(user);
+            Lifecycle.Command result = StateChange(CouponStatus.Redeemed);
             if (result.Status == CommandStatus.Valid)
             {
-                Coupon.Status = (int)CouponStatus.Redeemed;
-                AddHistory("Redeem", user);
+                result = Validate(user);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    Coupon.Status = (int)CouponStatus.Redeemed;
+                    AddHistory("Redeem", user);
+                }
             }
             return result;
         }
 
         public Lifecycle.Command UndoRedeem()
         {
-            CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
-            Lifecycle.Command result = new Command(status);
-            if(result.Status == CommandStatus.Valid) {
-                Coupon.Status = (int)CouponStatus.Issued;
-                AddHistory("UndoRedeem", "");
+            Lifecycle.Command result = StateChange(CouponStatus.Issued);
+            if (result.Status == CommandStatus.Valid)
+            {
+                CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
+                result = new Command(status);
+                if(result.Status == CommandStatus.Valid) {
+                    Coupon.Status = (int)CouponStatus.Issued;
+                    AddHistory("UndoRedeem", "");
+                }
             }
             return result;
         }
         public Lifecycle.Command Assign(string Holder, string User)
         {
-            CommandStatus status = (Coupon.Holder != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
-            Lifecycle.Command result = new Command(status);
-            if (result.Status == CommandStatus.Valid)
+            Lifecycle.Command result = StateChange(CouponStatus.Issued);
+            if(result.Status == CommandStatus.Valid)
             {
-                Coupon.Holder = Holder;
-                Coupon.User = User;
-                Coupon.Status = (int)CouponStatus.Issued;
-                AddHistory("Assign", User);
+                CommandStatus status = (Coupon.Holder != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
+                result = new Command(status);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    Coupon.Holder = Holder;
+                    Coupon.User = User;
+                    Coupon.Status = (int)CouponStatus.Issued;
+                    AddHistory("Assign", User);
+                }
             }
             return result;
         }
         public Lifecycle.Command Cancel()
         {
-            CommandStatus status =  CommandStatus.Valid;
-            Lifecycle.Command result = new Command(status);
+            Lifecycle.Command result = StateChange(CouponStatus.Canceled);
             if (result.Status == CommandStatus.Valid)
             {
-                Coupon.Status = (int)CouponStatus.Canceled;
-                AddHistory("Cancel", "");
+                CommandStatus status = (Coupon.Status != (int)CouponStatus.Canceled) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
+                result = new Command(status);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    Coupon.Status = (int)CouponStatus.Canceled;
+                    AddHistory("Cancel", "");
+                }
             }
             return result;
         }
-
     }
 }
