@@ -35,6 +35,7 @@ namespace CouponDatabase.Models
         {
             get => this.GetHasCoupons();
         }
+        public int CouponSeries { get; set; }
         #endregion
         #region Construction
         public Promotion()

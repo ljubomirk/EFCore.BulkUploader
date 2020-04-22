@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200422055635_Init")]
+    [Migration("20200422141534_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -233,6 +233,8 @@ namespace WebApp.Migrations
                     b.Property<string>("Code")
                         .IsRequired();
 
+                    b.Property<int>("CouponSeries");
+
                     b.Property<bool>("Enabled");
 
                     b.Property<DateTime?>("ValidFrom");
@@ -251,6 +253,7 @@ namespace WebApp.Migrations
                         {
                             Id = 1L,
                             Code = "Spring",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -259,6 +262,7 @@ namespace WebApp.Migrations
                         {
                             Id = 2L,
                             Code = "Easter",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -267,6 +271,7 @@ namespace WebApp.Migrations
                         {
                             Id = 3L,
                             Code = "Summer",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -275,6 +280,7 @@ namespace WebApp.Migrations
                         {
                             Id = 4L,
                             Code = "Spring2",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -283,6 +289,7 @@ namespace WebApp.Migrations
                         {
                             Id = 5L,
                             Code = "Easter2",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -291,6 +298,7 @@ namespace WebApp.Migrations
                         {
                             Id = 6L,
                             Code = "Summer2",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -299,6 +307,7 @@ namespace WebApp.Migrations
                         {
                             Id = 7L,
                             Code = "Spring3",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -307,6 +316,7 @@ namespace WebApp.Migrations
                         {
                             Id = 8L,
                             Code = "Easter3",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -315,6 +325,7 @@ namespace WebApp.Migrations
                         {
                             Id = 9L,
                             Code = "Summer3",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -323,6 +334,7 @@ namespace WebApp.Migrations
                         {
                             Id = 10L,
                             Code = "Spring4",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -331,6 +343,7 @@ namespace WebApp.Migrations
                         {
                             Id = 11L,
                             Code = "Easter4",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -339,6 +352,7 @@ namespace WebApp.Migrations
                         {
                             Id = 12L,
                             Code = "Summer4",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -347,6 +361,7 @@ namespace WebApp.Migrations
                         {
                             Id = 13L,
                             Code = "Spring5",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -355,6 +370,7 @@ namespace WebApp.Migrations
                         {
                             Id = 14L,
                             Code = "Easter5",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -363,6 +379,7 @@ namespace WebApp.Migrations
                         {
                             Id = 15L,
                             Code = "Summer5",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -371,6 +388,7 @@ namespace WebApp.Migrations
                         {
                             Id = 16L,
                             Code = "Spring6",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -379,6 +397,7 @@ namespace WebApp.Migrations
                         {
                             Id = 17L,
                             Code = "Easter6",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -387,6 +406,7 @@ namespace WebApp.Migrations
                         {
                             Id = 18L,
                             Code = "Summer6",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -395,6 +415,7 @@ namespace WebApp.Migrations
                         {
                             Id = 19L,
                             Code = "Spring7",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -403,6 +424,7 @@ namespace WebApp.Migrations
                         {
                             Id = 20L,
                             Code = "Easter7",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -411,6 +433,7 @@ namespace WebApp.Migrations
                         {
                             Id = 21L,
                             Code = "Summer7",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -419,6 +442,7 @@ namespace WebApp.Migrations
                         {
                             Id = 22L,
                             Code = "Spring8",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -427,6 +451,7 @@ namespace WebApp.Migrations
                         {
                             Id = 23L,
                             Code = "Easter8",
+                            CouponSeries = 0,
                             Enabled = false,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -435,6 +460,7 @@ namespace WebApp.Migrations
                         {
                             Id = 24L,
                             Code = "Summer8",
+                            CouponSeries = 0,
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
