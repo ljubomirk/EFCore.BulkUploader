@@ -1,8 +1,13 @@
 /* Text Inputs + Textarea
    ========================================================================== */
-
+/* error span element */
+.field-validation-error {
+    display: block;
+    height: 0;
+    width: 0;
+    opacity: 0;
+}
 /* Style Placeholders */
-
 ::placeholder {
     color: $placeholder-text-color;
     font-size: 16px;

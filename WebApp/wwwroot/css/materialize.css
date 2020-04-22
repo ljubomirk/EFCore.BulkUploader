@@ -2688,6 +2688,8 @@ table span.badge {
   .material-icons__hover:hover {
     background-color: rgba(1, 0, 94, 0.08);
     border-radius: 4px; }
+  .material-icons.validation-error {
+    display: none; }
 
 .container {
   margin: 0 auto;
@@ -4882,6 +4884,13 @@ label {
 
 /* Text Inputs + Textarea
    ========================================================================== */
+/* error span element */
+.field-validation-error {
+  display: block;
+  height: 0;
+  width: 0;
+  opacity: 0; }
+
 /* Style Placeholders */
 ::placeholder {
   color: #d1d1d1;
@@ -5774,7 +5783,8 @@ textarea {
 .switch * {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  margin-top: -60px; }
+  margin: auto;
+  height: 3rem; }
 
 .switch label {
   display: block;
@@ -5799,13 +5809,13 @@ textarea {
   display: inline-block;
   position: relative;
   width: 40px;
-  height: 24px;
+  height: 1.6rem;
   background-color: rgba(0, 0, 0, 0.38);
   border-radius: 15px;
   margin-right: 10px;
   transition: background 0.3s ease;
   vertical-align: middle;
-  margin: 72px 16px 0 16px; }
+  margin: .7rem 0; }
   .switch label .lever:before, .switch label .lever:after {
     content: "";
     position: absolute;
@@ -5841,6 +5851,9 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
 .switch label input[type=checkbox][disabled] + .lever:after,
 .switch label input[type=checkbox][disabled]:checked + .lever:after {
   background-color: #949494; }
+
+#switch-status {
+  margin-left: 1rem; }
 
 /* Select Field
    ========================================================================== */

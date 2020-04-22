@@ -2,7 +2,6 @@
     ROLE: displays form for coupon series and handles form data for posting to controller
 *@
 
-@using Microsoft.AspNetCore.Html;
 @model WebApp.ViewModels.CouponSeriesViewModel;
 
 <div class="container">
@@ -36,24 +35,28 @@
                     </div>
                 </div>
                 <div class="input-field date col s6">
-                    @Html.EditorFor(p => p.AssignableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.AssignableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  } })
                     @Html.LabelFor(p => p.AssignableFrom, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "AssignableFrom", true)
+                    @Html.ValidationMessageFor(p => p.AssignableFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
                 </div>
                 <div class="input-field date col s6">
-                    @Html.EditorFor(p => p.AssignableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.AssignableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  } })
                     @Html.LabelFor(p => p.AssignableUntil, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "AssignableUntil", true)
+                    @Html.ValidationMessageFor(p => p.AssignableUntil)
+                    <i class='material-icons suffix validation-error'>warning</i>
                 </div>
                 <div class="input-field date col s6 u-m-b-remove">
-                    @Html.EditorFor(p => p.RedeemableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.RedeemableFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  } })
                     @Html.LabelFor(p => p.RedeemableFrom, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "RedeemableFrom", true)
+                    @Html.ValidationMessageFor(p => p.RedeemableFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
                 </div>
                 <div class="input-field date col s6 u-m-b-remove">
-                    @Html.EditorFor(p => p.RedeemableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @required = "required", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.RedeemableUntil, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  } })
                     @Html.LabelFor(p => p.RedeemableUntil, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "RedeemableUntil", true)
+                    @Html.ValidationMessageFor(p => p.RedeemableUntil)
+                    <i class='material-icons suffix validation-error'>warning</i>
                 </div>
             </div>
             <div class="row">
@@ -121,37 +124,6 @@
                 input.val(parseInt(inputVal) + 1);
             }
         });
-        // TODO: coupon sample generator
     });
 
 </script>
-
-@functions{
-    /// <summary>
-    /// Validation messages helper
-    /// </summary>
-    /// <param name="viewData">Context</param>
-    /// <param name="property">Model property</param>
-    /// <param name="date">Bool for date input validation</param>
-    /// <returns>Icon displaying validation messages inside tooltip</returns>
-    /// <remarks>If date input, it returns an icon</remarks>
-    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
-    {
-        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
-        {
-            string msg = "";
-            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
-            {
-                msg += context.ModelState[property].Errors[i].ErrorMessage;
-            }
-            msg.Trim();
-
-            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
-        }
-        else if (date)
-        {
-            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
-        }
-        return null;
-    }
-}

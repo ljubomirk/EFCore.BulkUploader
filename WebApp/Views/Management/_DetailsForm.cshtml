@@ -2,7 +2,6 @@
     ROLE: displays promotion create/edit form and handles data for posting to controller
 *@
 
-@using Microsoft.AspNetCore.Html;
 @model WebApp.ViewModels.PromotionDetailsViewModel;
 
 
@@ -18,33 +17,37 @@
             <div class="row">
                 <div class="row">
                     <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, } })
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
-                        @ValidationHelper(ViewData, "Promotion.Code", false)
+                        @Html.ValidationMessageFor(p => p.Promotion.Code)
+                        <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12 m6">
-                        <div class="switch right u-m-t-sm">
+                        <div class="switch u-m-t-sm">
                             <label>
-                                Disabled
                                 @Html.CheckBoxFor(p => p.Promotion.Enabled)
                                 <span class="lever"></span>
-                                Enabled
+                                <span id="switch-status">Disabled</span>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                     @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "Promotion.ValidFrom", true)
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                     @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
-                    @ValidationHelper(ViewData, "Promotion.ValidTo", true)
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="col s12">
-                    <p class="u-m-t-remove">
+                    <p class="u-m-t-remove u-m-l-xs">
                         <label id="chk-endDate">
                             @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo"})
                             <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
@@ -145,6 +148,22 @@
 
 <script>
     $(document).ready(function () {
+        // change label of switch
+        var switchStatus = $("#switch-status");
+        // set init state
+        setSwitchStatus($("#Promotion_Enabled").is(":checked"))
+        // set state on change
+        $("#Promotion_Enabled").change(function () {
+            setSwitchStatus($(this).is(":checked"))
+        })
+
+        function setSwitchStatus(enabled) {
+            if (enabled) {
+                switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusEnabled');
+            } else {
+                switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusDisabled');
+            }
+        }
 
         // enable end date input field
         // - on first render, check state and set input style
@@ -172,32 +191,3 @@
         }
     });
 </script>
-@functions{
-    /// <summary>
-    /// Validation messages helper
-    /// </summary>
-    /// <param name="viewData">Context</param>
-    /// <param name="property">Model property</param>
-    /// <param name="date">Bool for date input validation</param>
-    /// <returns>Icon displaying validation messages inside tooltip</returns>
-    /// <remarks>If date input, it returns an icon</remarks>
-    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
-    {
-        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
-        {
-            string msg = "";
-            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
-            {
-                msg += context.ModelState[property].Errors[i].ErrorMessage;
-            }
-            msg.Trim();
-
-            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
-        }
-        else if (date)
-        {
-            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
-        }
-        return null;
-    }
-}

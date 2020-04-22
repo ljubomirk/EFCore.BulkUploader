@@ -32,7 +32,8 @@
                 $("body").click();
             }
         },
-        tabs: { swipeable: true }
+        tabs: { swipeable: true },
+        tooltips: { position: 'bottom' }
     },
     helpers: {
         calendar: {

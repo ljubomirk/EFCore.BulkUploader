@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Html;
-@model WebApp.ViewModels.PromotionFilter;
+﻿@model WebApp.ViewModels.PromotionFilter;
 
 <div class="row">
     <div class="col s12">
@@ -10,21 +9,26 @@
 <!-- promotion details -->
 <div class="row">
     <div class="input-field date col s6">
-        @Html.EditorFor(p => p.Code, new { htmlAttributes = new { @class = "validate", @type = "text", placeholder = "", @autocomplete = "off" } })
-        @Html.LabelFor(p => p.Code, new { htmlAttributes = new { @class = "active" } })
-        @ValidationHelper(ViewData, "Code", false)
+        @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.Code, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.Code)
+        <i class='material-icons suffix validation-error'>warning</i>
     </div>
 </div>
 <div class="row">
     <div class="input-field date col s6">
-        @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-        @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-        @ValidationHelper(ViewData, "ValidFrom", true)
+        @Html.EditorFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.ValidFrom)
+        <i class='material-icons suffix validation-error'>warning</i>
+        <i class='material-icons suffix date-icon'>event</i>
     </div>
     <div class="input-field date col s6">
-        @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off" } })
-        @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
-        @ValidationHelper(ViewData, "ValidTo", true)
+        @Html.EditorFor(f => f.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.ValidTo, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.ValidTo)
+        <i class='material-icons suffix validation-error'>warning</i>
+        <i class='material-icons suffix date-icon'>event</i>
     </div>
 </div>
 <!-- /promotion details -->
@@ -49,34 +53,3 @@
     </div>
 </div>
 <!-- /properties -->
-
-
-@functions{
-    /// <summary>
-    /// Validation messages helper
-    /// </summary>
-    /// <param name="viewData">Context</param>
-    /// <param name="property">Model property</param>
-    /// <param name="date">Bool for date input validation</param>
-    /// <returns>Icon displaying validation messages inside tooltip</returns>
-    /// <remarks>If date input, it returns an icon</remarks>
-    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
-    {
-        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
-        {
-            string msg = "";
-            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
-            {
-                msg += context.ModelState[property].Errors[i].ErrorMessage;
-            }
-            msg.Trim();
-
-            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
-        }
-        else if (date)
-        {
-            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
-        }
-        return null;
-    }
-}

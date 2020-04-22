@@ -2,7 +2,6 @@
     ROLE: displays part of form that handles importing coupon series
 *@
 
-@using Microsoft.AspNetCore.Html;
 @model WebApp.ViewModels.CouponSeriesViewModel;
 
 <section id="coupon-import">
@@ -56,34 +55,3 @@
     });
 
 </script>
-
-
-@functions{
-    /// <summary>
-    /// Validation messages helper
-    /// </summary>
-    /// <param name="viewData">Context</param>
-    /// <param name="property">Model property</param>
-    /// <param name="date">Bool for date input validation</param>
-    /// <returns>Icon displaying validation messages inside tooltip</returns>
-    /// <remarks>If date input, it returns an icon</remarks>
-    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
-    {
-        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
-        {
-            string msg = "";
-            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
-            {
-                msg += context.ModelState[property].Errors[i].ErrorMessage;
-            }
-            msg.Trim();
-
-            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
-        }
-        else if (date)
-        {
-            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
-        }
-        return null;
-    }
-}

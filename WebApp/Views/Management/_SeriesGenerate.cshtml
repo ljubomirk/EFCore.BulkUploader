@@ -2,7 +2,6 @@
     ROLE: displays part of form that handles generating coupon series
 *@
 
-@using Microsoft.AspNetCore.Html;
 @model WebApp.ViewModels.CouponSeriesViewModel;
 
 <section id="coupon-generate">
@@ -11,33 +10,36 @@
             <h5 class="section u-m-t-remove">Coupon Format</h5>
         </div>
         <div class="input-field col s3">
-            @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_prefix", onchange = "updateExampleCoupon()" } })
+            @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_prefix", onchange = "updateExampleCoupon()", dataVal = true } })
             @Html.LabelFor(p => p.Prefix, new { htmlAttributes = new { @class = "active" } })
-            @ValidationHelper(ViewData, "Prefix", false)
+            @Html.ValidationMessageFor(p => p.Prefix)
+            <i class='material-icons suffix validation-error'>warning</i>
             <p class="checkbox-hover">
                 <label>
-                    @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in", id = "chb_CouponWithLetters", onclick = "updateExampleCoupon()" })
-                    <span>Use letters</span>
+                    @Html.CheckBoxFor(p => p.CouponWithLetters, new { @class = "filled-in", id = "chb_CouponWithLetters", onclick = "updateExampleCoupon()", @checked = true })
+                    <span>@CouponDatabase.Properties.Resources.SeriesGenerate_UseLetters</span>
                 </label>
             </p>
         </div>
         <div class="input-field col s3">
-            @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_suffix", onchange = "updateExampleCoupon()" } })
+            @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_suffix", onchange = "updateExampleCoupon()", dataVal = true } })
             @Html.LabelFor(p => p.Suffix, new { htmlAttributes = new { @class = "active" } })
-            @ValidationHelper(ViewData, "Suffix", false)
+            @Html.ValidationMessageFor(p => p.Suffix)
+            <i class='material-icons suffix validation-error'>warning</i>
             <p class="checkbox-hover">
                 <label>
-                    @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in", id = "chb_CouponWithNumbers", onclick= "updateExampleCoupon()" })
-                    <span>Use numbers</span>
+                    @Html.CheckBoxFor(p => p.CouponWithNumbers, new { @class = "filled-in", id = "chb_CouponWithNumbers", onclick = "updateExampleCoupon()", @checked = true })
+                    <span>@CouponDatabase.Properties.Resources.SeriesGenerate_UseNumbers</span>
                 </label>
             </p>
         </div>
         <div class="col s6">
             <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
             <div class="input-field col s4">
-                @Html.EditorFor(p => p.CouponMaxLength, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
+                @Html.EditorFor(p => p.CouponMaxLength, new { htmlAttributes = new { @type = "number", placeholder = "", @autocomplete = "off", id = "input_length", onchange = "updateExampleCoupon(this.val)", dataVal = true } })
                 @Html.LabelFor(p => p.CouponMaxLength, new { htmlAttributes = new { @class = "active" } })
-                @ValidationHelper(ViewData, "CouponMaxLength", false)
+                @Html.ValidationMessageFor(p => p.CouponMaxLength)
+                <i class='material-icons suffix validation-error'>warning</i>
             </div>
             <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
         </div>
@@ -50,9 +52,10 @@
         <div class="col s6">
             <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
             <div class="input-field col s4">
-                @Html.EditorFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off" } })
+                @Html.EditorFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @type = "number", placeholder = "", @autocomplete = "off", dataVal = true  } })
                 @Html.LabelFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @class = "active" } })
-                @ValidationHelper(ViewData, "NumberOfCoupons", false)
+                @Html.ValidationMessageFor(p => p.NumberOfCoupons)
+                <i class='material-icons suffix validation-error'>warning</i>
             </div>
             <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
         </div>
@@ -67,53 +70,38 @@
     </div>
 </section>
 
-
-@functions{
-    /// <summary>
-    /// Validation messages helper
-    /// </summary>
-    /// <param name="viewData">Context</param>
-    /// <param name="property">Model property</param>
-    /// <param name="date">Bool for date input validation</param>
-    /// <returns>Icon displaying validation messages inside tooltip</returns>
-    /// <remarks>If date input, it returns an icon</remarks>
-    public static HtmlString ValidationHelper(ViewDataDictionary context, string property, bool date)
-    {
-        if (context.ModelState[property] != null && context.ModelState[property].Errors.Any())
-        {
-            string msg = "";
-            for (int i = 0; i < context.ModelState[property].Errors.Count; i++)
-            {
-                msg += context.ModelState[property].Errors[i].ErrorMessage;
-            }
-            msg.Trim();
-
-            return new HtmlString(@"<i class='material-icons suffix validation-error' data-position='bottom' data-tooltip='" + msg + "'>warning</i>");
-        }
-        else if (date)
-        {
-            return new HtmlString(@"<i class='material-icons suffix date-icon'>event</i>");
-        }
-        return null;
-    }
-}
-
 <script>
-    function updateExampleCoupon() {
-        var exampleCoupon = '';
-        var exampleCode = '';
+    function updateExampleCoupon(len) {
+        var pref = $('#input_prefix').val() || "PREF-";
+        var suf = $('#input_suffix').val() || "-SUF";
+        var len = $('#input_length').val() || 5;
+        var type = "";
 
-        if ($('#chb_CouponWithLetters').is(':checked')) {
-            exampleCode += 'AAA'
+        if ($('#chb_CouponWithLetters').is(':checked')
+            && !$('#chb_CouponWithNumbers').is(':checked')) {
+            type = "str";
         }
-        if ($('#chb_CouponWithNumbers').is(':checked')) {
-            exampleCode += '123'
+        else if (!$('#chb_CouponWithLetters').is(':checked')
+            && $('#chb_CouponWithNumbers').is(':checked')) {
+            type = "num";
+        } else {
+            type = "all";
         }
-
-        exampleCoupon = $('#input_prefix').val() + exampleCode + $('#input_suffix').val();
-
-        $("#exampleCoupon").val(exampleCoupon);
+        
+        $("#exampleCoupon").val(pref + generateString(type, len) + suf);
     }
 
+    function generateString(type, len) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
+        if (type == "str") characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        else if (type == "num") characters = '0123456789';
+        var charactersLength = characters.length;
+
+        for ( var i = 0; i < len; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 </script>

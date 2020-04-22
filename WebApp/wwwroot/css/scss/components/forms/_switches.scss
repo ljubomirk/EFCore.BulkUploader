@@ -3,9 +3,10 @@
 
 .switch,
 .switch * {
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  margin-top: -60px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    margin: auto;
+    height: 3rem;
 }
 
 .switch label {
@@ -38,13 +39,13 @@
     display: inline-block;
     position: relative;
     width: 40px;
-    height: 24px;
+    height: 1.6rem;
     background-color: $switch-unchecked-lever-bg;
     border-radius: $switch-radius;
     margin-right: 10px;
     transition: background 0.3s ease;
     vertical-align: middle;
-    margin: 72px 16px 0 16px;
+    margin: .7rem 0;
 
     &:before, &:after {
         content: "";
@@ -92,4 +93,9 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
 .switch label input[type=checkbox][disabled] + .lever:after,
 .switch label input[type=checkbox][disabled]:checked + .lever:after {
   background-color: $input-disabled-solid-color;
+}
+
+//status
+#switch-status {
+    margin-left: 1rem;
 }

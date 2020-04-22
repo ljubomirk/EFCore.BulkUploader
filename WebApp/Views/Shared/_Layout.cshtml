@@ -9,9 +9,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/customServerValidation.js" asp-append-version="true"></script>
-    @*<script src="~/js/jquery.validate.min.js"></script>
-    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>*@
+    @*<script src="~/js/customServerValidation.js" asp-append-version="true"></script>*@
+    <script src="~/js/jquery.validate.min.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/customValidation.js"></script>
 </head>
 <body>
     <header>
@@ -29,74 +30,7 @@
     <script src="~/js/datatables.js" asp-append-version="true"></script>
     <script src="~/js/calendar.js" asp-append-version="true"></script>
     <script src="~/js/config.js" asp-append-version="true"></script>
-    <script>
-        $(document).ready(function () {
-            // init tooltip model validations
-            if ($(".validation-error").length > 0) $(".validation-error").tooltip();
-
-            // init calendars in forms
-            if ($(".calendar").length > 0) {
-                $(".calendar").calendar();
-                // open calendar on icon click
-                $(".date-icon").on('click', function () {
-                    $(this).parent().children('.calendar').calendar("show");
-                    //var dateField = $(this).parent().children('.calendar');
-                    //dateField[0].click(function () { console.log("click")});
-                    //console.log(dateField[0])
-                })
-            }
-
-            // init tabs
-            if ($(".tabs-section").length > 0) $(".tabs-section").tabs(config.options.tabs);
-
-            // init table
-            if ($("table").length > 0) {
-                var column = $("table")[0].getAttribute("data-nosort-target");
-
-                // set colum that is not sortable
-                if (column) {
-                    var target = parseInt(column)
-                    config.options.table.columnDefs[0].targets = target;
-                } else {
-                    config.options.table.columnDefs = [];
-                }
-                $('table').DataTable(config.options.table);
-
-                // handle sorting icon
-                $("th").click(function () {
-                    var className = $(this).attr("class");
-                    var icon = $(this).children(".sorting-icon");
-                    var allIcons = $(".sorting-icon");
-                    
-                    var oldSrc = "/images/sorting_hidden.png";
-                    var newSrc = "/images/" + className + ".png";
-                    // reset all icons
-                    allIcons.each(function () {
-                        if (this.getAttribute("src") != oldSrc) {
-                            console.log("nasao")
-                            this.setAttribute("src", oldSrc);
-                        }
-                    })
-                    icon.attr("src", newSrc);
-                })
-            }
-
-            // init dropdowns
-            if ($('.dropdown-trigger').length > 0) $('.dropdown-trigger').dropdown(config.options.table);
-
-            // init modals
-            if ($(".modal").length > 0) {
-                $(".modal").modal();
-                // close modal with button inside
-                $(".modal-close").click(function () {
-                    $('.modal').modal('close');
-                });
-            }
-
-            // init select fields
-            if ($('select').length >0) $('select').formSelect();
-        })
-    </script>
+    <script src="~/js/init.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
 </body>
