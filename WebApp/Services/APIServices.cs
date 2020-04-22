@@ -62,12 +62,12 @@ namespace Web.Services.Impl
         {
             List<Promotion> result = new List<Promotion>();
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
-            if (Code.Length > 0)
+            if (Code!=null && Code.Length > 0)
                 promos = promos.FindAll(i => i.Code.Contains(Code));
             if (ValidFrom.HasValue)
-                promos = promos.FindAll(i => i.ValidFrom > ValidFrom.Value);
+                promos = promos.FindAll(i => (i.ValidTo.HasValue)? i.ValidTo.Value > ValidFrom.Value:true);
             if (ValidTo.HasValue)
-                promos = promos.FindAll(i => i.ValidTo > ValidTo.Value);
+                promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value < ValidTo.Value : true);
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
                 result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo });
@@ -78,16 +78,23 @@ namespace Web.Services.Impl
         public Command Create(string PromotionCode, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
             Command response = new Command(CommandStatus.Valid);
-            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo };
+            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
             List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
+            long promoId = _repo.CreatePromotion(promo);
+            List<CouponDatabase.Models.PromotionProperty> promProps = new List<CouponDatabase.Models.PromotionProperty>();
             foreach (PromotionProperty prop in Properties)
             {
                 CouponDatabase.Models.PromotionProperty pp = new CouponDatabase.Models.PromotionProperty();
-                //pp.PromotionId = promoId;
-                pp.PropertyId = props.Find(i => i.Name.Equals(prop.Name)).Id;
-                promo.PromotionProperties.Add(pp);
+                CouponDatabase.Models.Property p = props.Find(i => i.Name.Equals(prop.Name));
+                if (p != null)
+                {
+                    pp.PropertyId = p.Id;
+                    promProps.Add(pp);
+                }
             }
-            long promoId = _repo.CreatePromotion(promo);
+            List<CouponDatabase.Models.PromotionAwardChannel> promAward = new List<CouponDatabase.Models.PromotionAwardChannel>();
+            List<CouponDatabase.Models.PromotionIssuerChannel> promIssuer = new List<CouponDatabase.Models.PromotionIssuerChannel>();
+            _repo.updatePromotionFields(promoId, promProps, promAward, promIssuer);
             return response;
         }
     }

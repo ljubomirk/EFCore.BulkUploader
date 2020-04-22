@@ -26,7 +26,5 @@ namespace CouponDatabase.API
     {
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public PromotionPropertyEnum Name { get; set; }
-        [DataMember(IsRequired = true, EmitDefaultValue = true)]
-        public Boolean Checked { get; set; } 
     }
 }
