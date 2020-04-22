@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="3d482024-0975-4e4a-85d4-4c1e1192d5c2" activeEnvironment="Default" name="COMMANDO" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="87cfc46a-1373-4185-a973-800e9c14bcf1" wsaVersion="NONE" name="BasicHttpBinding-CouponAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}BasicHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl"><con:part><con:url>file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="CouponAPI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="BasicHttpBinding_Coupon_policy">
+<con:soapui-project id="3d482024-0975-4e4a-85d4-4c1e1192d5c2" activeEnvironment="Default" name="COMMANDO" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="87cfc46a-1373-4185-a973-800e9c14bcf1" wsaVersion="NONE" name="PromotionAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}PromotionAPI" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl"><con:part><con:url>file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="CouponAPI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="PromotionAPI_Coupon_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <http:BasicAuthentication/>
@@ -9,6 +9,7 @@
   </wsp:Policy>
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:import namespace="http://www.triple-innovations.com/WS/COMMANDO/"/>
       <xs:import namespace="http://www.triple-innovations.com/WS/COMMANDO/Types/"/>
       <xs:import namespace="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
       <xs:element name="Get">
@@ -22,7 +23,7 @@
       <xs:element name="GetResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="GetResult" nillable="true" type="q1:Coupon" xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/"/>
+            <xs:element minOccurs="0" name="GetResult" nillable="true" type="tns:Coupon"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -36,7 +37,7 @@
       <xs:element name="GetUserCouponsResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="GetUserCouponsResult" nillable="true" type="q2:ArrayOfCoupon" xmlns:q2="http://www.triple-innovations.com/WS/COMMANDO/Types/"/>
+            <xs:element minOccurs="0" name="GetUserCouponsResult" nillable="true" type="tns:ArrayOfCoupon"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -53,7 +54,7 @@
       <xs:element name="AssignResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="AssignResult" nillable="true" type="q3:Command" xmlns:q3="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
+            <xs:element minOccurs="0" name="AssignResult" nillable="true" type="q1:Command" xmlns:q1="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -62,13 +63,14 @@
           <xs:sequence>
             <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string"/>
             <xs:element minOccurs="0" name="CouponCode" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="User" nillable="true" type="xs:string"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
       <xs:element name="ValidateResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="ValidateResult" nillable="true" type="q4:Command" xmlns:q4="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
+            <xs:element minOccurs="0" name="ValidateResult" nillable="true" type="q2:Command" xmlns:q2="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -84,7 +86,7 @@
       <xs:element name="RedeemResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="RedeemResult" nillable="true" type="q5:Command" xmlns:q5="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
+            <xs:element minOccurs="0" name="RedeemResult" nillable="true" type="q3:Command" xmlns:q3="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -99,7 +101,7 @@
       <xs:element name="UndoRedeemResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="UndoRedeemResult" nillable="true" type="q6:Command" xmlns:q6="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
+            <xs:element minOccurs="0" name="UndoRedeemResult" nillable="true" type="q4:Command" xmlns:q4="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -114,7 +116,7 @@
       <xs:element name="CancelResponse">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="CancelResult" nillable="true" type="q7:Command" xmlns:q7="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
+            <xs:element minOccurs="0" name="CancelResult" nillable="true" type="q5:Command" xmlns:q5="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -160,7 +162,7 @@
       <xs:attribute name="Id" type="xs:ID"/>
       <xs:attribute name="Ref" type="xs:IDREF"/>
     </xs:schema>
-    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/Types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/Types/" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
       <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
       <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
       <xs:complexType name="Coupon">
@@ -169,11 +171,21 @@
           <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime"/>
           <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string"/>
           <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string"/>
-          <xs:element type="tns:CouponStatus" name="Status"/>
+          <xs:element type="q1:CouponStatus" name="Status" xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/"/>
           <xs:element minOccurs="0" name="User" nillable="true" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="Coupon" nillable="true" type="tns:Coupon"/>
+      <xs:complexType name="ArrayOfCoupon">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Coupon" nillable="true" type="tns:Coupon"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCoupon" nillable="true" type="tns:ArrayOfCoupon"/>
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/Types/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/Types/" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
       <xs:simpleType name="CouponStatus">
         <xs:restriction base="xs:string">
           <xs:enumeration value="Created"/>
@@ -194,12 +206,6 @@
         </xs:restriction>
       </xs:simpleType>
       <xs:element name="CommandStatus" type="tns:CommandStatus"/>
-      <xs:complexType name="ArrayOfCoupon">
-        <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="Coupon" nillable="true" type="tns:Coupon"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:element name="ArrayOfCoupon" nillable="true" type="tns:ArrayOfCoupon"/>
     </xs:schema>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/CouponDatabase.Lifecycle" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
       <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
@@ -288,8 +294,8 @@
       <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/CancelResponse" message="tns:Coupon_Cancel_OutputMessage"/>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding" type="tns:Coupon">
-    <wsp:PolicyReference URI="#BasicHttpBinding_Coupon_policy"/>
+  <wsdl:binding name="PromotionAPI" type="tns:Coupon">
+    <wsp:PolicyReference URI="#PromotionAPI_Coupon_policy"/>
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="Get">
       <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get" style="document"/>
@@ -356,103 +362,128 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CouponAPI">
-    <wsdl:port name="BasicHttpBinding" binding="tns:BasicHttpBinding">
+    <wsdl:port name="PromotionAPI" binding="tns:PromotionAPI">
       <soap:address location="https://localhost:44389/CouponAPI"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint></con:endpoints><con:operation id="4cc4aad5-4dc6-48b7-9aac-928d5580a7c1" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign" name="Assign" bindingOperationName="Assign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6658966d-6edb-404c-b413-58bca12317e9" name="AssignValidStatus" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint></con:endpoints><con:operation id="4cc4aad5-4dc6-48b7-9aac-928d5580a7c1" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign" name="Assign" bindingOperationName="Assign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4d906561-e52a-4491-a769-0b4dfa5964ac" name="AssignInvalidStatus"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <com:Assign>\r
-          <com:PromotionCode>Easter</com:PromotionCode>\r
-         <com:CouponCode>EASTER1234567891</com:CouponCode>\r
-         <com:Holder>38640440442</com:Holder>\r
-         <com:User>38640440442</com:User>\r
-      </com:Assign>\r
+        <com:PromotionCode>Spring</com:PromotionCode>
+        <com:CouponCode>EASTER1234567891</com:CouponCode>
+        <com:Holder>38640440442</com:Holder>
+         <com:User>38640440442</com:User>
+       </com:Assign>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign"/><con:wsrmConfig version="1.2"/></con:call><con:call id="40cdfd84-c665-49f3-8b38-633abeccf207" name="AssignInvalidStatus" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign"/><con:wsrmConfig version="1.2"/></con:call><con:call id="a84ec256-45df-4dc2-8337-cf3948020fa5" name="AssignValidStatus"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <com:Assign>\r
-          <com:PromotionCode>Easter</com:PromotionCode>\r
-         <com:CouponCode>EASTER1234567891</com:CouponCode>\r
-         <com:Holder>38640440442</com:Holder>\r
-         <com:User>38640440442</com:User>\r
-      </com:Assign>\r
+        <com:PromotionCode>Easter2</com:PromotionCode>
+        <com:CouponCode>Easter0123456789X</com:CouponCode>
+        <com:Holder>38640440442</com:Holder>
+         <com:User>38640440442</com:User>
+       </com:Assign>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="cd180228-4e8e-42d8-92b5-652895857338" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Cancel" name="Cancel" bindingOperationName="Cancel" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1f83501a-659d-4699-9f7c-d9707d33b4cc" name="CancelCoupon_EASTER1234567893" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Channel" value="POS" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-     <com:Cancel>\r
-          <com:PromotionCode>Easter</com:PromotionCode>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Assign"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="cd180228-4e8e-42d8-92b5-652895857338" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Cancel" name="Cancel" bindingOperationName="Cancel" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="76e691d4-f64d-4826-b12a-5bf443950e3d" name="CancelCoupon"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header>
+   	<com:Channel>POS</com:Channel></soapenv:Header>
+   <soapenv:Body>
+      <com:Cancel>
+         <com:PromotionCode>Spring</com:PromotionCode>
+        <com:CouponCode>EASTER1234567893</com:CouponCode>
+      </com:Cancel>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Cancel"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="3f862f79-121f-4597-9855-4d5050c244dd" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get" name="Get" bindingOperationName="Get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="47e9c8a1-6240-419d-be36-0e3feea720c6" name="NotFoundCoupon"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header>
+   	<com:Channel>POS</com:Channel></soapenv:Header>
+   <soapenv:Body>
+      <com:Get>
+          <!--Optional:-->
+         <com:PromotionCode>Easter2</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>BABAWEAJXH0K</com:CouponCode>
+      </com:Get>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get"/><con:wsrmConfig version="1.2"/></con:call><con:call id="91b10ad9-86e1-41d1-a6c4-1ae2846d8f6b" name="Found@Spring"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header>
+   	<com:Channel>POS</com:Channel></soapenv:Header>
+   <soapenv:Body>
+      <com:Get>
+        <com:PromotionCode>Spring</com:PromotionCode>
          <com:CouponCode>EASTER1234567893</com:CouponCode>
-      </com:Cancel>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Cancel"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="3f862f79-121f-4597-9855-4d5050c244dd" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get" name="Get" bindingOperationName="Get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="074d9098-c0bd-4bcc-9f84-589cba882cf4" name="GetCoupon_EASTER1234567892" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Get>\r
-          <com:PromotionCode>Easter</com:PromotionCode>\r
-         <com:CouponCode>EASTER1234567892</com:CouponCode>\r
-      </com:Get>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4a7a1615-2ef6-4cd4-afdf-8204a9d31fb0" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/GetUserCoupons" name="GetUserCoupons" bindingOperationName="GetUserCoupons" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0697d375-8441-49fe-9c15-c7f56b3d042e" name="GetUserCoupons_38640440482" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:GetUserCoupons>\r
-        <com:User>38640440482</com:User>\r
-      </com:GetUserCoupons>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>123</con:password><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/GetUserCoupons"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5e20727d-7745-486a-a14d-cd71495215f6" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Redeem" name="Redeem" bindingOperationName="Redeem" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7d9d72c7-6c88-4a79-a105-36388266109d" name="RedeemInvalidUser" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Redeem>\r
-         <com:PromotionCode>Easter</com:PromotionCode>
-         <com:CouponCode>EASTER1234567892</com:CouponCode>
-         <com:User>38640440482</com:User>\r
-      </com:Redeem>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Redeem"/><con:wsrmConfig version="1.2"/></con:call><con:call id="7e4ab244-c810-48a0-94b7-96434a72e518" name="RedeemValidUser" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Redeem>\r
-         <com:PromotionCode>Easter</com:PromotionCode>
-         <com:CouponCode>EASTER1234567892</com:CouponCode>
-         <com:User>38640440483</com:User>\r
-      </com:Redeem>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Redeem"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="12247fbe-5f4a-4a76-872f-f34707de765f" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/UndoRedeem" name="UndoRedeem" bindingOperationName="UndoRedeem" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d62b800a-a424-4dd1-b66a-085a5c00da4f" name="UndoRedeem" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:UndoRedeem>\r
-         <!--Optional:-->\r
-         <com:PromotionCode>?</com:PromotionCode>\r
-         <!--Optional:-->\r
-         <com:CouponCode>?</com:CouponCode>\r
-      </com:UndoRedeem>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/UndoRedeem"/></con:call></con:operation><con:operation id="649c3c1a-919e-4e3f-b38e-e3f0fdeacc1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate" name="Validate" bindingOperationName="Validate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c54b62ad-e2f8-4380-95d9-fcf1f7ed233a" name="ValidateInvalidUser" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Validate>\r
-         <!--Optional:-->\r
-         <com:PromotionCode>?</com:PromotionCode>\r
-         <!--Optional:-->\r
-         <com:CouponCode>?</com:CouponCode>\r
-      </com:Validate>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate"/></con:call><con:call id="5642c75d-3240-4604-9a50-a4e9d38abed3" name="ValidateInvalidStatus" outgoingWss="" incomingWss="" wssPasswordType="PasswordText"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Validate>\r
-         <!--Optional:-->\r
-         <com:PromotionCode>?</com:PromotionCode>\r
-         <!--Optional:-->\r
-         <com:CouponCode>?</com:CouponCode>\r
-      </com:Validate>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>ttest.321</con:password><con:domain/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="144771be-f6ce-4832-a2f8-f940fad2f781" wsaVersion="NONE" name="BasicHttpBinding-PromotionAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}BasicHttpBinding" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl"><con:part><con:url>file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="PromotionAPI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="BasicHttpBinding_Promotion_policy">
+      </com:Get>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Get"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4a7a1615-2ef6-4cd4-afdf-8204a9d31fb0" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/GetUserCoupons" name="GetUserCoupons" bindingOperationName="GetUserCoupons" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0697d375-8441-49fe-9c15-c7f56b3d042e" name="GetUserCoupons_38640440482" outgoingWss="" incomingWss=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint xsi:nil="true"/><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header>
+   	<com:Channel>POS</com:Channel></soapenv:Header>
+   <soapenv:Body>
+      <com:GetUserCoupons>
+        <!--Optional:-->
+         <com:User>38640440482</com:User>
+      </com:GetUserCoupons>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>123</con:password><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/GetUserCoupons"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5e20727d-7745-486a-a14d-cd71495215f6" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Redeem" name="Redeem" bindingOperationName="Redeem" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="27e1d7b5-74e8-4c38-b43d-e09301b7ec27" name="Redeem_Valid_38640440482"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:Redeem>
+         <!--Optional:-->
+         <com:PromotionCode>Spring</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>EASTER1234567893</com:CouponCode>
+         <!--Optional:-->
+         <com:User>38640440482</com:User>
+      </com:Redeem>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Redeem"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="12247fbe-5f4a-4a76-872f-f34707de765f" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/UndoRedeem" name="UndoRedeem" bindingOperationName="UndoRedeem" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aded9b54-b020-4d55-8f22-44100374ef49" name="UndoRedeem_38640440482"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:UndoRedeem>
+          <!--Optional:-->
+         <com:PromotionCode>Spring</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>EASTER1234567893</com:CouponCode>
+      </com:UndoRedeem>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/UndoRedeem"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="649c3c1a-919e-4e3f-b38e-e3f0fdeacc1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate" name="Validate" bindingOperationName="Validate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="17e4754a-850b-4712-9163-e3b0faafc1d2" name="Validate_38640440483"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:Validate>
+          <!--Optional:-->
+         <com:PromotionCode>Spring</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>EASTER1234567894</com:CouponCode>
+         <!--Optional:-->
+         <com:User>38640440483</com:User>
+      </com:Validate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate"/><con:wsrmConfig version="1.2"/></con:call><con:call id="aaad2f27-5ac3-4a2c-b1b4-e7f9a2ff07cd" name="Validate_38640440482"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:Validate>
+         <!--Optional:-->
+         <com:PromotionCode/>
+         <!--Optional:-->
+         <com:CouponCode>EASTER1234567893</com:CouponCode>
+         <!--Optional:-->
+         <com:User>38640440482</com:User>
+      </com:Validate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate"/><con:wsrmConfig version="1.2"/></con:call><con:call id="f280764e-f624-4c83-be04-056fbef9c8b2" name="Validate_38640440444"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/CouponAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:Validate>
+          <!--Optional:-->
+         <com:PromotionCode>Easter2</com:PromotionCode>
+         <!--Optional:-->
+         <com:CouponCode>Easter0123456789X</com:CouponCode>
+         <!--Optional:-->
+         <com:User>38640440444</com:User>
+      </com:Validate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Coupon/Validate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="144771be-f6ce-4832-a2f8-f940fad2f781" wsaVersion="NONE" name="PromotionAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}PromotionAPI" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl"><con:part><con:url>file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/PromotionAPI.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="PromotionAPI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="PromotionAPI_Promotion_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <http:BasicAuthentication/>
@@ -484,7 +515,6 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string"/>
-            <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
             <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime"/>
             <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime"/>
             <xs:element minOccurs="0" name="Enabled" type="xs:boolean"/>
@@ -597,9 +627,9 @@
       <xs:simpleType name="PromotionPropertyEnum">
         <xs:restriction base="xs:string">
           <xs:enumeration value="UniqueCoupons"/>
-          <xs:enumeration value="RequestNamedConsumers"/>
-          <xs:enumeration value="RequestNamedHolders"/>
-          <xs:enumeration value="HolderOnlyConsumer"/>
+          <xs:enumeration value="NamedConsumers"/>
+          <xs:enumeration value="NamedHolders"/>
+          <xs:enumeration value="HolderIsOnlyConsumer"/>
           <xs:enumeration value="AllowMultipleRedeem"/>
           <xs:enumeration value="AllowCouponSeries"/>
         </xs:restriction>
@@ -716,8 +746,8 @@
       <wsdl:output wsam:Action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCouponsResponse" message="tns:Promotion_AddCoupons_OutputMessage"/>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="BasicHttpBinding" type="tns:Promotion">
-    <wsp:PolicyReference URI="#BasicHttpBinding_Promotion_policy"/>
+  <wsdl:binding name="PromotionAPI" type="tns:Promotion">
+    <wsp:PolicyReference URI="#PromotionAPI_Promotion_policy"/>
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="Get">
       <soap:operation soapAction="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get" style="document"/>
@@ -757,63 +787,78 @@
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="PromotionAPI">
-    <wsdl:port name="BasicHttpBinding" binding="tns:BasicHttpBinding">
+    <wsdl:port name="PromotionAPI" binding="tns:PromotionAPI">
       <soap:address location="https://localhost:44389/PromotionAPI"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint></con:endpoints><con:operation id="b0981fe1-fc75-4bf0-8f20-037834c06d1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" name="AddCoupon" bindingOperationName="AddCoupon" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fe90168d-5433-42f1-b0b9-00e9e278c88f" name="AddCouponExample1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:AddCoupon>\r
-          <com:PromotionCode>Easter</com:PromotionCode>
-          <com:CouponCode>Easter0123456789</com:CouponCode>
-          <com:Holder>38640440444</com:Holder>
-          <com:User>38640440444</com:User>
-          <com:ExpireDate>2020-05-01</com:ExpireDate>
-          <com:Status>Issued</com:Status>
-     </com:AddCoupon>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="aa0a58c6-728d-4878-8d40-0e19835018c6" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons" name="AddCoupons" bindingOperationName="AddCoupons" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="df64646f-1617-4a81-ad51-e64287766ed3" name="AddCouponsExamples234"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:AddCoupons>\r
-         <com:PromotionCode>Easter2</com:PromotionCode>\r
-         <com:Coupons>\r
-            <com:Coupon>\r
-               <com:Code>Easter0123456789</com:Code>\r
-               <com:ExpireDate>2020-05-01</com:ExpireDate>\r
-               <com:Holder>38640440444</com:Holder>\r
-               <com:User>38640440444</com:User>\r
-               <com:Status>Created</com:Status>
-            </com:Coupon>\r
-         </com:Coupons>\r
-      </com:AddCoupons>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ad1e7d98-187a-4aa1-8f2b-222b1fc2fa9a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bf2e8db0-1296-4957-acd4-e632a6cd25ec" name="CreatePromotion"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header>\r
-   	<com:Channel>Backend</com:Channel>
-   </soapenv:Header>
-   <soapenv:Body>\r
-      <com:Create>\r
-         <com:Code>Vacation</com:Code>\r
-         <com:ValidFrom>2020-04-01</com:ValidFrom>\r
-         <com:ValidTo>2020-05-01</com:ValidTo>\r
-         <com:Enabled>true</com:Enabled>\r
-         <com:Properties>\r
-           <com:PromotionProperty>\r
-              <com:Checked>true</com:Checked>\r
-               <com:Name>RequestNamedCoupons</com:Name>\r
-            </com:PromotionProperty>\r
-         </com:Properties>\r
-      </com:Create>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="7ddcdd32-d63a-40d3-b0b6-81997f8b38cf" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get" name="Get" bindingOperationName="Get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bc1e8f4f-d772-432a-9d5d-d21794d903ea" name="GetPromotions"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">\r
-   <soapenv:Header/>\r
-   <soapenv:Body>\r
-      <com:Get>\r
-         <com:Code></com:Code>\r
-         <com:ValidFrom>2020-01-04</com:ValidFrom>\r
-        <com:ValidTo>2020-01-05</com:ValidTo>\r
-      </com:Get>\r
-   </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:endpointStrategy xsi:type="con:DefaultEndpointStrategy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="ljubo-pc" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" outgoingWss="" wssTimeToLive="">http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" wssType="PasswordText">http://wscoupont.simobil.tst/PromotionAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="" wssType="PasswordText">http://wscoupont.simobil.tst/CouponAPI</con:endpoint></con:endpointStrategy><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint></con:endpoints><con:operation id="b0981fe1-fc75-4bf0-8f20-037834c06d1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" name="AddCoupon" bindingOperationName="AddCoupon" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fe90168d-5433-42f1-b0b9-00e9e278c88f" name="AddCouponExample1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:AddCoupon>
+        <com:PromotionCode>Easter</com:PromotionCode>
+         <com:CouponCode>Easter0123456789</com:CouponCode>
+         <com:Holder></com:Holder>
+         <com:User></com:User>
+        <com:ExpireDate>2020-05-01</com:ExpireDate>
+         <com:Status>Created</com:Status>
+      </com:AddCoupon>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="aa0a58c6-728d-4878-8d40-0e19835018c6" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons" name="AddCoupons" bindingOperationName="AddCoupons" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="427edb98-228e-4282-b40d-811a5ccb9ef1" name="AddCoupon1234"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:AddCoupons>
+         <!--Optional:-->
+         <com:PromotionCode>Easter2</com:PromotionCode>
+         <!--Optional:-->
+         <com:Coupons>
+            <!--Zero or more repetitions:-->
+            <com:Coupon>
+               <!--Optional:-->
+               <com:Code>Easter0123456789X</com:Code>
+               <!--Optional:-->
+               <com:ExpireDate>2020-05-01</com:ExpireDate>
+               <!--Optional:-->
+               <com:Holder>38640440444</com:Holder>
+               <!--Optional:-->
+               <com:PromotionCode>Easter2</com:PromotionCode>
+               <com:Status>Issued</com:Status>
+               <!--Optional:-->
+               <com:User>38640440444</com:User>
+            </com:Coupon>
+         </com:Coupons>
+      </com:AddCoupons>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupons"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ad1e7d98-187a-4aa1-8f2b-222b1fc2fa9a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bf2e8db0-1296-4957-acd4-e632a6cd25ec" name="CreatePromotion"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header>
+   	<com:Channel>POS</com:Channel></soapenv:Header>
+   <soapenv:Body>
+      <com:Create>
+         <!--Optional:-->
+         <com:Code>Vacation</com:Code>
+         <!--Optional:-->
+         <com:ValidFrom>2020-04-01</com:ValidFrom>
+         <!--Optional:-->
+         <com:ValidTo>2020-05-01</com:ValidTo>
+         <!--Optional:-->
+         <com:Enabled>true</com:Enabled>
+         <!--Optional:-->
+         <com:Properties>
+           <!--Zero or more repetitions:-->
+            <com:PromotionProperty>
+              <!--Optional:-->
+               <com:Checked>true</com:Checked>
+               <com:Name>NamedConsumers</com:Name>
+            </com:PromotionProperty>
+         </com:Properties>
+      </com:Create>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Create"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="7ddcdd32-d63a-40d3-b0b6-81997f8b38cf" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get" name="Get" bindingOperationName="Get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bc1e8f4f-d772-432a-9d5d-d21794d903ea" name="GetPromotions"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <com:Get>
+        <com:Code/>
+         <com:ValidFrom>2020-01-04</com:ValidFrom>
+          <com:ValidTo>2020-01-05</com:ValidTo>
+      </com:Get>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/Get"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:endpointStrategy xsi:type="con:DefaultEndpointStrategy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:endpoint mode="COMPLEMENT" username="" password="123" domain="" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" outgoingWss="" wssTimeToLive="">http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" wssType="PasswordText">http://wscoupont.simobil.tst/PromotionAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="" wssType="PasswordText">http://wscoupont.simobil.tst/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint><con:endpoint mode="COMPLEMENT" username="test" password="123" domain="ljubo-pc" wssType="PasswordText">https://localhost:44389/PromotionAPI</con:endpoint></con:endpointStrategy><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
