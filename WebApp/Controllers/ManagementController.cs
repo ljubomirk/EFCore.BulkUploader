@@ -39,7 +39,7 @@ namespace WebApp.Controllers
             PromotionListViewModel model = new PromotionListViewModel();
             model.Promotions.AddRange(_repo.GetAllPromotions());
             model.Filter = new PromotionFilter();
-            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
             return View("PromotionList",model);
         }
 
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
 
             model.Promotions.AddRange(_repo.GetAllPromotions());
             model.Filter = new PromotionFilter();
-            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
 
             return View("PromotionList", model);
         }
@@ -95,9 +95,9 @@ namespace WebApp.Controllers
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
                 Promotion = new Promotion(),
-                Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>()),
-                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>()),
-                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>())
+                Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>()),
+                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<PromotionAwardChannel>()),
+                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<PromotionIssuerChannel>())
             };
             return View("PromotionDetails", model);
         }
@@ -112,9 +112,9 @@ namespace WebApp.Controllers
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
                 Promotion = promotion,
-                Properties = setModelProperties(_repo.GetAllProperties(), _repo.GetPromotionProperties(Id)),
-                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), _repo.GetPromotionAwardChannels(Id)),
-                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), _repo.GetPromotionIssuerChannels(Id)),
+                Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
+                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), promotion.PromotionAwardChannels as List<PromotionAwardChannel>),
+                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), promotion.PromotionIssuerChannels as List<PromotionIssuerChannel>),
                 hasEndDate = promotion.ValidTo != null ? true : false
             };
             return View("PromotionDetails", model);
@@ -192,12 +192,12 @@ namespace WebApp.Controllers
         }
 
         #region Helpers
-        private List<CheckedItem> setModelIssuerChannels(List<IssuerChannel> allIssuerChannels, List<IssuerChannel> promotionIssuerChannels)
+        private List<CheckedItem> setModelIssuerChannels(List<IssuerChannel> allIssuerChannels, List<PromotionIssuerChannel> promotionIssuerChannels)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
             foreach (IssuerChannel issuerChannel in allIssuerChannels)
             {
-                if (promotionIssuerChannels.Contains(issuerChannel))
+                if (promotionIssuerChannels.Where(p=>p.IssuerChannelId == issuerChannel.Id ).Count()>0 )
                 {
                     checkedItems.Add(new CheckedItem { Checked = true, Label = issuerChannel.Name, Id = issuerChannel.Id });
                 }
@@ -209,12 +209,12 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
-        private List<CheckedItem> setModelAwardChannels(List<AwardChannel> allAwardChannels, List<AwardChannel> promotionAwardChannels)
+        private List<CheckedItem> setModelAwardChannels(List<AwardChannel> allAwardChannels, List<PromotionAwardChannel> promotionAwardChannels)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
             foreach (AwardChannel awardChannels in allAwardChannels)
             {
-                if (promotionAwardChannels.Contains(awardChannels))
+                if (promotionAwardChannels.Where(p => p.AwardChannelId == awardChannels.Id).Count() > 0)
                 {
                     checkedItems.Add(new CheckedItem { Checked = true, Label = awardChannels.Name, Id = awardChannels.Id });
                 }
@@ -226,12 +226,12 @@ namespace WebApp.Controllers
             return checkedItems;
         }
 
-        private List<CheckedItem> setModelProperties(List<Property> allProperties, List<Property> promotionProperties)
+        private List<CheckedItem> setModelProperties(List<Property> allProperties, List<PromotionProperty> promotionProperties)
         {
             List<CheckedItem> checkedItems = new List<CheckedItem>();
             foreach (Property property in allProperties)
             {
-                if (promotionProperties.Contains(property))
+                if (promotionProperties.Where(p => p.PropertyId == property.Id).Count() > 0)
                 {
                     checkedItems.Add(new CheckedItem { Checked = true, Label = property.Name, Id = property.Id });
                 }
