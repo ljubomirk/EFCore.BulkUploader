@@ -412,12 +412,17 @@ namespace WebApp.Services
             return returnValue > 0 ? true : false;
         }
 
+        /// <summary>
+        /// Returns found User coupons that Promotion is Active
+        /// </summary>
+        /// <param name="user">User assigned for Promotion</param>
+        /// <returns></returns>
         public IList<Coupon> GetUserCoupons(string user)
         {
             List<Coupon> coupons = Context.Coupon
                 .Include(c => c.Promotion)
                     .Where(p => p.Promotion.Active == true)
-                .Where(item => item.User == user)
+                .Where(item => item.User == user || item.Holder == user)
                 .ToList();
             return coupons;
         }

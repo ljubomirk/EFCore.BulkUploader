@@ -64,13 +64,16 @@ namespace Web.Services.Impl
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
             if (Code!=null && Code.Length > 0)
                 promos = promos.FindAll(i => i.Code.Contains(Code));
-            if (ValidFrom.HasValue)
-                promos = promos.FindAll(i => (i.ValidTo.HasValue)? i.ValidTo.Value > ValidFrom.Value:true);
-            if (ValidTo.HasValue)
-                promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value < ValidTo.Value : true);
+            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom < ValidTo)
+            {
+                if (ValidFrom.HasValue)
+                    promos = promos.FindAll(i => (i.ValidTo.HasValue) ? i.ValidTo.Value > ValidFrom.Value : true);
+                if (ValidTo.HasValue)
+                    promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value < ValidTo.Value : true);
+            }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo });
+                result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
             }
             return result;
         }

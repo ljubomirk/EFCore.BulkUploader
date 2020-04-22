@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data;
 using CouponDatabase.Models;
 using CouponDatabase.Lifecycle;
 
@@ -13,7 +11,10 @@ namespace WebApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options)
         {
+            if (Database.ProviderName == "Oracle.EntityFrameworkCore")
+                Database.ExecuteSqlCommand("ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT");
         }
+
         // Base entities
         public DbSet<Property> Property { get; set; }
         public DbSet<IssuerChannel> IssuerChannel { get; set; }
