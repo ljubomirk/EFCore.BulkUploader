@@ -283,30 +283,30 @@ namespace WebApp.Services
         public Promotion GetPromotionWithId(long id)
         {
             Promotion promotion = new Promotion();
-                promotion = Context.Promotion.First(x => x.Id == id);
-            promotion = GetPromotionData(promotion);
+            promotion = Context.Promotion.Find(id);
             
             return promotion;
         }
 
         public Promotion GetPromotionData(Promotion promotion)
         {
-            Promotion promotionRef = promotion;
-            List<Property> promotionProperties = GetPromotionProperties(promotion.Id);
-            foreach (var property in promotionProperties)
+            Context.Entry(promotion).Collection(p => p.PromotionProperties).Load();
+            Context.Entry(promotion).Collection(p => p.PromotionAwardChannels).Load();
+            Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();
+
+            foreach (var promProp in promotion.PromotionProperties)
             {
-                promotion.PromotionProperties.Add(new PromotionProperty() { Promotion = promotionRef, PromotionId = promotion.Id, Property = property, PropertyId = property.Id });
+                promProp.Property = Context.Property.Find(promProp.PropertyId);
             }
-            List<AwardChannel> promotionAwardChannels = GetPromotionAwardChannels(promotion.Id);
-            foreach (var awardChannel in promotionAwardChannels)
+            foreach (var awardChannel in promotion.PromotionAwardChannels)
             {
-                promotion.PromotionAwardChannels.Add(new PromotionAwardChannel() { Promotion = promotionRef, PromotionId = promotion.Id, AwardChannel = awardChannel, AwardChannelId = awardChannel.Id });
+                awardChannel.AwardChannel = Context.AwardChannel.Find(awardChannel.AwardChannelId);
             }
-            List<IssuerChannel> promotionIssuerChannels = GetPromotionIssuerChannels(promotion.Id);
-            foreach (var issuerChannel in promotionIssuerChannels)
+            foreach (var channel in promotion.PromotionIssuerChannels)
             {
-                promotion.PromotionIssuerChannels.Add(new PromotionIssuerChannel() { Promotion = promotionRef, PromotionId = promotion.Id, IssuerChannel = issuerChannel, IssuerChannelId = issuerChannel.Id });
+                channel.IssuerChannel = Context.IssuerChannel.Find(channel.IssuerChannelId);
             }
+
             return promotion;
         }
         #endregion

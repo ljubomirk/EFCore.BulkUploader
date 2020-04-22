@@ -108,6 +108,7 @@ namespace WebApp.Controllers
         {
             // if (promo == null) RedirectToAction("Error");
             var promotion = _repo.GetPromotionWithId(Id);
+            _repo.GetPromotionData(promotion);
             PromotionDetailsViewModel model = new PromotionDetailsViewModel
             {
                 Promotion = promotion,
