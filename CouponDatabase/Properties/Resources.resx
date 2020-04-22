@@ -469,4 +469,28 @@
     <value>Use numbers</value>
     <comment>SeriesGenerate form text.</comment>
   </data>
+  <data name="Date_AssignableFrom" xml:space="preserve">
+    <value>Assignable from</value>
+    <comment>Assignable from date</comment>
+  </data>
+  <data name="Date_AssignableTo" xml:space="preserve">
+    <value>Assignable until</value>
+    <comment>Assignable until date</comment>
+  </data>
+  <data name="Date_RedeemableFrom" xml:space="preserve">
+    <value>Redeemable from</value>
+    <comment>Redeemable from date</comment>
+  </data>
+  <data name="Date_RedeemableTo" xml:space="preserve">
+    <value>Redeemable until</value>
+    <comment>Redeemable to date</comment>
+  </data>
+  <data name="Date_ValidFrom" xml:space="preserve">
+    <value>Valid from</value>
+    <comment>Valid from date</comment>
+  </data>
+  <data name="Date_ValidTo" xml:space="preserve">
+    <value>Valid until</value>
+    <comment>Valid until date</comment>
+  </data>
 </root>

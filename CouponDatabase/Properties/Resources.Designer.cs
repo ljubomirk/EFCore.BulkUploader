@@ -403,6 +403,60 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assignable from.
+        /// </summary>
+        public static string Date_AssignableFrom {
+            get {
+                return ResourceManager.GetString("Date_AssignableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assignable until.
+        /// </summary>
+        public static string Date_AssignableTo {
+            get {
+                return ResourceManager.GetString("Date_AssignableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redeemable from.
+        /// </summary>
+        public static string Date_RedeemableFrom {
+            get {
+                return ResourceManager.GetString("Date_RedeemableFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redeemable until.
+        /// </summary>
+        public static string Date_RedeemableTo {
+            get {
+                return ResourceManager.GetString("Date_RedeemableTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid from.
+        /// </summary>
+        public static string Date_ValidFrom {
+            get {
+                return ResourceManager.GetString("Date_ValidFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid until.
+        /// </summary>
+        public static string Date_ValidTo {
+            get {
+                return ResourceManager.GetString("Date_ValidTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon not found in Database..
         /// </summary>
         public static string ErrorCouponNotFound_Message {
@@ -759,15 +813,6 @@ namespace CouponDatabase.Properties {
         public static string Promotion_Code_Required {
             get {
                 return ResourceManager.GetString("Promotion_Code_Required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0:dd.MM.yyyy}.
-        /// </summary>
-        public static string Promotion_Date_Format {
-            get {
-                return ResourceManager.GetString("Promotion_Date_Format", resourceCulture);
             }
         }
         

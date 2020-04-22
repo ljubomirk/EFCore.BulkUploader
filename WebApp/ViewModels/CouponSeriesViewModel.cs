@@ -22,17 +22,21 @@ namespace WebApp.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_AssignableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
         [DataType(DataType.Date)]
+        [Display(Name = "Date_AssignableFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> AssignableFrom { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [Display(Name = "Date_AssignableTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> AssignableUntil { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //[DisplayFormat(DataFormatString = Resources.Promotion_Date_Format, ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_RedeemableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
         [DataType(DataType.Date)]
+        [Display(Name = "Date_RedeemableFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableFrom { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableUntil { get; set; }
         public int Status { get; set; }
         public string Prefix { get; set; }
