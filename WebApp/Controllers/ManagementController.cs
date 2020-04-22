@@ -74,20 +74,20 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Enable(long Id, bool enable)
         {
+            PromotionListViewModel model = new PromotionListViewModel();
             Promotion promotion = _repo.GetPromotionWithId(Id);
+            
             promotion.Enabled = enable;
-            PromotionDetailsViewModel model = new PromotionDetailsViewModel
-            {
-                Promotion = promotion,
-                Properties = setModelProperties(_repo.GetAllProperties(), _repo.GetPromotionProperties(Id)),
-                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), _repo.GetPromotionAwardChannels(Id)),
-                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), _repo.GetPromotionIssuerChannels(Id))
-            };
             _repo.UpdatePromotion(promotion);
+
             ViewBag.CommandStatus = "[OK]";
             ViewBag.CommandMessage = "Promotion saved.";
 
-            return View("PromotionDetails", model);
+            model.Promotions.AddRange(_repo.GetAllPromotions());
+            model.Filter = new PromotionFilter();
+            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+
+            return View("PromotionList", model);
         }
         [HttpGet]
         public IActionResult CreatePromotion()
