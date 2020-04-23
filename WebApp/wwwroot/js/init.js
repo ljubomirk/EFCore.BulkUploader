@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     // init tooltip model validations
     if ($(".validation-error").length > 0) $("input[data-tooltip]").tooltip(config.options.tooltips);
 
@@ -31,8 +32,11 @@
         } else {
             config.options.table.columnDefs = [];
         }
-        $('table').DataTable(config.options.table);
-
+        var tables = $('table').DataTable(config.options.table);
+        // place actions to different container
+        if ($('#table-export').length > 0) {
+            tables.buttons().container().appendTo('#table-export');
+        }
         // handle sorting icon
         $("th").click(function () {
             var className = $(this).attr("class");

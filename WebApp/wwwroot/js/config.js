@@ -21,7 +21,13 @@
             ],
             drawCallback: function () {
                 $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
-            }
+            },
+            dom: 'frtipB',
+            buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class= "material-icons left" >file_download</i>Export',
+                titleAttr: 'Export'
+            }]
         },
         dropdown: {
             constrainWidth: false,

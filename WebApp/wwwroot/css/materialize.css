@@ -3673,7 +3673,7 @@ small {
 
 p.section-headline {
   color: #9494a2;
-  font-weight: 600; }
+  font-weight: bold; }
 
 @media only screen and (min-width: 360px) {
   .flow-text {
@@ -4099,8 +4099,8 @@ p.section-headline {
   border: none;
   border-radius: 4px;
   display: inline-block;
-  height: 50px;
-  line-height: 50px;
+  height: 3.2rem;
+  line-height: 3.2rem;
   padding: 0 25px;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent; }
@@ -4239,12 +4239,12 @@ p.section-headline {
     .btn-floating.btn-large i {
       line-height: 56px; }
   .btn-floating.btn-small {
-    width: 45px;
-    height: 45px; }
+    width: 2.88rem;
+    height: 2.88rem; }
     .btn-floating.btn-small.halfway-fab {
-      bottom: -22.5px; }
+      bottom: -1.44rem; }
     .btn-floating.btn-small i {
-      line-height: 45px; }
+      line-height: 2.88rem; }
   .btn-floating.halfway-fab {
     position: absolute;
     right: 24px;
@@ -4372,16 +4372,16 @@ button.btn-floating {
     cursor: default; }
 
 .btn-large {
-  height: 75px;
-  line-height: 75px;
+  height: 4.8rem;
+  line-height: 4.8rem;
   font-size: 15px;
   padding: 0 28px; }
   .btn-large i {
     font-size: 1.6rem; }
 
 .btn-small {
-  height: 45px;
-  line-height: 45px;
+  height: 2.88rem;
+  line-height: 2.88rem;
   font-size: 13px; }
   .btn-small i {
     font-size: 1.2rem; }
@@ -4395,8 +4395,8 @@ button.btn-floating {
   border-radius: 4px; }
   .btn-group > div {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 3.2rem;
+    line-height: 3.2rem;
     padding: 0 25px;
     vertical-align: middle;
     background-color: transparent;
@@ -4777,7 +4777,7 @@ body.keyboard-focused .dropdown-content li:focus {
     color: rgba(0, 0, 0, 0.6);
     display: inline-block;
     font-size: 16px;
-    height: 3rem;
+    height: 3.2rem;
     line-height: 32px;
     outline: 0;
     margin: 0;
@@ -4914,7 +4914,7 @@ textarea.materialize-textarea {
   border: solid 1px #d5d5df;
   border-radius: 4px;
   outline: none;
-  height: 3rem;
+  height: 3.2rem;
   width: 100%;
   font-size: 16px;
   margin: 0 0 8px 0;
@@ -5298,10 +5298,10 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
       left: 0; }
   .input-field .prefix {
     position: absolute;
-    width: 3rem;
+    width: 3.2rem;
     font-size: 2rem;
     transition: color .2s;
-    top: 0.5rem; }
+    top: 0.6rem; }
     .input-field .prefix.active {
       color: #26a69a; }
   .input-field .prefix ~ input,
@@ -5325,10 +5325,10 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
       width: calc(100% - 3rem); } }
   .input-field .suffix {
     position: absolute;
-    width: 3rem;
+    width: 3.2rem;
     font-size: 2rem;
     transition: color .2s;
-    top: 0.5rem;
+    top: 0.6rem;
     right: 0;
     color: rgba(0, 0, 0, 0.42); }
     .input-field .suffix.active {
@@ -5391,7 +5391,7 @@ textarea.materialize-textarea + label:after, .select-wrapper + label:after {
 /* Textarea */
 textarea {
   width: 100%;
-  height: 3rem;
+  height: 3.2rem;
   background-color: transparent; }
   textarea.materialize-textarea {
     line-height: normal;
@@ -5400,7 +5400,7 @@ textarea {
     padding: .8rem 0 .8rem 0;
     /* prevents text jump on Enter keypress */
     resize: none;
-    min-height: 3rem;
+    min-height: 3.2rem;
     box-sizing: border-box; }
 
 .hiddendiv {
@@ -5552,8 +5552,8 @@ textarea {
     color: #2d2d37;
     border: none;
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 3.2rem;
+    line-height: 3.2rem;
     padding: 0 35px;
     vertical-align: middle; }
     .radio-button-group + label:first-of-type {
@@ -5868,7 +5868,7 @@ select {
   border: solid 1px #d5d5df;
   border-radius: 4px;
   outline: none;
-  height: 3rem;
+  height: 3.2rem;
   width: 100%;
   font-size: 16px;
   margin: 0 0 8px 0;
@@ -5878,7 +5878,7 @@ select {
   transition: box-shadow .3s, border .3s; }
 
 .select-wrapper-action .select-wrapper input.select-dropdown {
-  height: 50px; }
+  height: 3.2rem; }
 
 .select-label {
   position: absolute; }
@@ -5894,7 +5894,7 @@ select {
     border: solid 1px #d5d5df;
     border-radius: 4px;
     outline: none;
-    height: 3rem;
+    height: 3.2rem;
     width: 100%;
     font-size: 16px;
     margin: 0 0 8px 0;
@@ -5904,7 +5904,7 @@ select {
     transition: box-shadow .3s, border .3s;
     position: relative;
     cursor: pointer;
-    line-height: 3rem;
+    line-height: 3.2rem;
     display: block;
     user-select: none;
     z-index: 1; }
@@ -5927,7 +5927,7 @@ select {
     font-weight: 600;
     color: #9494a2; }
   .select-wrapper ul {
-    top: 3rem !important;
+    top: 3.2rem !important;
     border-radius: 0 0 4px 4px; }
     .select-wrapper ul > li > span {
       font-weight: 600; }
@@ -6000,8 +6000,8 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
     width: 100%; }
   .file-field-input .btn, .file-field-input .btn-large, .file-field-input .btn-small {
     float: left;
-    height: 3rem;
-    line-height: 3rem; }
+    height: 3.2rem;
+    line-height: 3.2rem; }
   .file-field-input span {
     cursor: pointer; }
   .file-field-input input[type=file] {
@@ -8326,145 +8326,38 @@ button.dt-button,
 div.dt-button,
 a.dt-button {
   position: relative;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
   display: inline-block;
-  box-sizing: border-box;
-  margin-right: 0.333em;
-  margin-bottom: 0.333em;
-  padding: 0.5em 1em;
-  border: 1px solid #999;
-  border-radius: 2px;
-  cursor: pointer;
-  font-size: 0.88em;
-  line-height: 1.6em;
-  color: black;
-  white-space: nowrap;
-  overflow: hidden;
-  background-color: #e9e9e9;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, white 0%, #e9e9e9 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, white 0%, #e9e9e9 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, white 0%, #e9e9e9 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, white 0%, #e9e9e9 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, white 0%, #e9e9e9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-decoration: none;
-  outline: none;
-  text-overflow: ellipsis; }
-
-button.dt-button.disabled,
-div.dt-button.disabled,
-a.dt-button.disabled {
-  color: #999;
-  border: 1px solid #d0d0d0;
-  cursor: default;
-  background-color: #f9f9f9;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, #ffffff 0%, #f9f9f9 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ffffff', EndColorStr='#f9f9f9'); }
-
-button.dt-button:active:not(.disabled), button.dt-button.active:not(.disabled),
-div.dt-button:active:not(.disabled),
-div.dt-button.active:not(.disabled),
-a.dt-button:active:not(.disabled),
-a.dt-button.active:not(.disabled) {
-  background-color: #e2e2e2;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, #f3f3f3 0%, #e2e2e2 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, #f3f3f3 0%, #e2e2e2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f3f3f3', EndColorStr='#e2e2e2');
-  box-shadow: inset 1px 1px 3px #999999; }
-
-button.dt-button:active:not(.disabled):hover:not(.disabled), button.dt-button.active:not(.disabled):hover:not(.disabled),
-div.dt-button:active:not(.disabled):hover:not(.disabled),
-div.dt-button.active:not(.disabled):hover:not(.disabled),
-a.dt-button:active:not(.disabled):hover:not(.disabled),
-a.dt-button.active:not(.disabled):hover:not(.disabled) {
-  box-shadow: inset 1px 1px 3px #999999;
-  background-color: #cccccc;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, #eaeaea 0%, #cccccc 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, #eaeaea 0%, #cccccc 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, #eaeaea 0%, #cccccc 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, #eaeaea 0%, #cccccc 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, #eaeaea 0%, #cccccc 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#eaeaea', EndColorStr='#cccccc'); }
-
-button.dt-button:hover,
-div.dt-button:hover,
-a.dt-button:hover {
-  text-decoration: none; }
-
-button.dt-button:hover:not(.disabled),
-div.dt-button:hover:not(.disabled),
-a.dt-button:hover:not(.disabled) {
-  border: 1px solid #666;
-  background-color: #e0e0e0;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, #f9f9f9 0%, #e0e0e0 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f9f9f9', EndColorStr='#e0e0e0'); }
-
-button.dt-button:focus:not(.disabled),
-div.dt-button:focus:not(.disabled),
-a.dt-button:focus:not(.disabled) {
-  border: 1px solid #426c9e;
-  text-shadow: 0 1px 0 #c4def1;
-  outline: none;
-  background-color: #79ace9;
-  /* Fallback */
-  background-image: -webkit-linear-gradient(top, #bddef4 0%, #79ace9 100%);
-  /* Chrome 10+, Saf5.1+, iOS 5+ */
-  background-image: -moz-linear-gradient(top, #bddef4 0%, #79ace9 100%);
-  /* FF3.6 */
-  background-image: -ms-linear-gradient(top, #bddef4 0%, #79ace9 100%);
-  /* IE10 */
-  background-image: -o-linear-gradient(top, #bddef4 0%, #79ace9 100%);
-  /* Opera 11.10+ */
-  background-image: linear-gradient(to bottom, #bddef4 0%, #79ace9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#bddef4', EndColorStr='#79ace9'); }
+  height: 3.2rem;
+  line-height: 3.2rem;
+  padding: 0 25px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  color: #fff !important;
+  background-color: #4d4cac !important;
+  outline: 0; }
+  button.dt-button i,
+  div.dt-button i,
+  a.dt-button i {
+    font-size: 1.3rem;
+    line-height: inherit; }
+  button.dt-button-text,
+  div.dt-button-text,
+  a.dt-button-text {
+    color: #4d4cac; }
+  button.dt-button:hover,
+  div.dt-button:hover,
+  a.dt-button:hover {
+    background-color: #302f6a !important; }
 
 .dt-button embed {
   outline: none; }
 
 div.dt-buttons {
   position: relative;
-  float: left; }
-
-div.dt-buttons.buttons-right {
   float: right; }
 
 div.dt-button-collection {

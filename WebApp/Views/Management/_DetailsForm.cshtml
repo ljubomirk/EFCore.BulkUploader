@@ -11,7 +11,7 @@
     <div class="form-box">
         <div class="container">
             <!-- top form return msg -->
-            <div class="@(ViewBag.CommandStatus == "[ERROR]" ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.CommandStatus == null ? "hiddendiv" : "")">@ViewBag.CommandStatus  @ViewBag.CommandMessage</div>
+            @*<div class="@(ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.Command.Status == null ? "hiddendiv" : "")">@ViewBag.Command.Message</div>*@
 
             <!-- input fields -->
             <div class="row">

@@ -20,7 +20,6 @@
     // single field validation
     function checkField(el) {
         if (el.hasClass('invalid')) {
-            console.log("INVALID")
             var errMsg = el.siblings('.field-validation-error').find('span').html();
             // check if date and remove icon
             if (el.hasClass("calendar")) el.siblings("i.date-icon").hide();
@@ -35,7 +34,6 @@
             })
 
         } else {
-            console.log("valid")
             // remove error icon
             el.siblings('.validation-error').hide();
             // check if date and add icon
