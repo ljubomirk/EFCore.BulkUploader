@@ -9,6 +9,22 @@
     <div class="modal-content">
         <h4>Change (<span id="coupon-number-modal"></span>) coupons?</h4>
         <dl class="inline">
+            <dt class="info-customer hiddendiv">
+                @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.Customer))
+            </dt>
+            <dd class="info-customer hiddendiv"></dd>
+            <dt class="info-validto hiddendiv">
+                @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.ValidTo))
+            </dt>
+            <dd class="info-validto hiddendiv"></dd>
+            <dt class="info-enabled hiddendiv">    
+                @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.Enabled))
+            </dt>
+            <dd class="info-enabled hiddendiv"></dd>
+            <dt class="info-status hiddendiv">
+                @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.Status))
+            </dt>
+            <dd class="info-status hiddendiv"></dd>
         </dl>
     </div>
     <div class="modal-footer">
@@ -24,8 +40,6 @@
 
 <script>
     $(document).ready(function () {
-        // get localized msg for modal command str
-        var strTemplate = '@CouponDatabase.Properties.Resources.CouponsModal_SetTo';
 
         // update modal text
         $(".input-coupon").change(function (e) {
@@ -33,6 +47,7 @@
             var property = this.getAttribute("data-modal");
             var fieldName = (property == "validto") ? "valid to" : property;
             var info = $(".info-" + property);
+            var infoVal = $("dd.info-" + property);
             var type = this.getAttribute("data-type");
 
             //check if it was select and get value from html
@@ -41,20 +56,11 @@
                 val = $('[data-id="' + selectId + '"] > option[value=' + val + ']').html();
             }
 
-            if (val && info.length > 0) {
-                //update
-                $("dt.info-" + property).html(strTemplate.replace("{0}", fieldName));
-                $("dd.info-" + fieldName).html(val);
-            } else if (!val && info.length > 0) {
-                //remove
-                $("dt.info-" + property).remove();
-                $("dd.info-" + property).remove();
-            } else if (val && info.length == 0) {
-                // insert
-                var html =
-                    '<dt class="info-' + property + '">' + strTemplate.replace("{0}", fieldName) + '</dt>' +
-                    '<dd class="info-' + property + '">' + val + '</dd>';
-                $(".inline").append(html)
+            if (!val && info.length > 0) {
+                info.addClass("hiddendiv");
+            } else  {
+                info.removeClass("hiddendiv");
+                infoVal.html(val);
             } 
         })
 

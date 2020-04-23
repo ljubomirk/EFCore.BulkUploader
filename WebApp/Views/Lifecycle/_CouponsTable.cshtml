@@ -5,6 +5,7 @@
 }
 
 <!-- coupon table -->
+<p class="section-headline">@Html.DisplayNameFor(m => m.CouponList.CouponItems)</p>
 <table data-nosort-target="0" id="coupon-list" class="striped highlight">
     <thead>
         <tr>
@@ -38,7 +39,6 @@
     </thead>
 
     <tbody>
-        <p class="section-headline">@Html.DisplayNameFor(m => m.CouponList.CouponItems)</p>
         @for (int i = 0; i < Model.CouponList.CouponItems.Count; i++)
         {
             string statusText = ((CouponStatus)Model.CouponList.CouponItems[i].Status).ToString();
@@ -86,6 +86,9 @@
 <!-- /coupon table -->
 
 <script src="~/js/datatables.js" asp-append-version="true"></script>
+<script src="~/js/dataTables.buttons.min.js" asp-append-version="true"></script>
+<script src="~/js/jszip.min.js" asp-append-version="true"></script>
+<script src="~/js/buttons.html5.min.js" asp-append-version="true"></script>
 <script>
     $(document).ready(function () {
 
@@ -125,14 +128,6 @@
                 })
             }
 
-            var num = $("input:checked.checkbox-coupon").length;
-            if (num > 0) {
-                $("#coupon-number").text('(' + num + ')');
-                $("#coupon-number-modal").text(num);
-            } else {
-                $("#coupon-number").text('');
-                $("#coupon-number-modal").text('');
-            }
             enableModalTrigger();
         })
 

@@ -38,12 +38,16 @@
             @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal = "status", @data_type = "select", @data_id = "Select" })
         </div>
         <!-- action to call confirmation modal -->
-        <div class="input-field col s4 u-p-r-remove">
+        <div class="input-field col s2">
             <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary right modal-trigger" href="#modal-confirmation" data-position="bottom" data-tooltip="@ViewBag.CommandMessage" disabled>
                 <i class="material-icons left">update</i>
                 @CouponDatabase.Properties.Resources.Btn_UpdateSelected
                 <span id="coupon-number"></span>
             </button>
+        </div>
+        <!-- /action to call confirmation modal -->
+        <!-- action to call confirmation modal -->
+        <div id="table-export" class="input-field col s2">
         </div>
         <!-- action to call confirmation modal -->
     </div>
