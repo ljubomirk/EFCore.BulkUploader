@@ -30,12 +30,12 @@
             <i class='material-icons suffix validation-error'>warning</i>
         </div>
         <div class="input-field col s2">
-            @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus"})
-            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon",  @data_modal="status", @data_type = "select", @data_id = "Select"  })
+            @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
+            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal = "enabled", @data_type = "select", @data_id = "Enabled" })
         </div>
         <div class="input-field col s2">
-            @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
-            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal="enabled", @data_type = "select", @data_id = "Enabled" })
+            @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
+            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal = "status", @data_type = "select", @data_id = "Select" })
         </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s4 u-p-r-remove">
