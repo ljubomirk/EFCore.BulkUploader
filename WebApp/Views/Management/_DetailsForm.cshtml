@@ -121,14 +121,14 @@
                             <i class="material-icons left">check</i>
                             @CouponDatabase.Properties.Resources.Btn_Create
                         </button>
-                        <a href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary">
+                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary">
                             <i class="material-icons left">arrow_forward</i>
                             @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
                         </a>
                     }
                     else
                     {
-                        <a href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
                             <i class="material-icons left">add</i>
                             @CouponDatabase.Properties.Resources.Btn_AddSeries
                         </a>
@@ -158,6 +158,7 @@
         $("#Promotion_Enabled").change(function () {
             setSwitchStatus($(this).is(":checked"))
         })
+        
 
         function setSwitchStatus(enabled) {
             if (enabled) {
@@ -189,6 +190,18 @@
                 $("#toggle-validTo").prop("checked", false);
                 $("#Promotion_ValidTo").parent()
                     .children(".date-icon").addClass("disabled");
+            }
+        }
+
+        //handle series
+        handleAddSeries();
+        $("#Properties_5__Checked").change(handleAddSeries);
+
+        function handleAddSeries() {
+            if ($("#Properties_5__Checked").is(":checked")) {
+                $("#add-series").removeClass("disabled");
+            } else {
+                $("#add-series").addClass("disabled");
             }
         }
     });
