@@ -20,6 +20,7 @@ namespace WebApp.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Date_AssignableFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> AssignableFrom { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         [Display(Name = "Date_AssignableTo", ResourceType = typeof(Resources))]
@@ -32,6 +33,7 @@ namespace WebApp.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Date_RedeemableFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableFrom { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]

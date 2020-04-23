@@ -125,6 +125,32 @@ namespace WebApp.ViewModels
                 f_ListOfCoupons.AddRange(coupons.Where(x => x.Active == false).ToList<Coupon>());
             }
 
+            // Apply Aquire From & To filters
+            if (couponFilter.AssignableFrom != null && couponFilter.AssignableUntil != null)
+            {
+                f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom && x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
+            }
+            else if (couponFilter.AssignableFrom != null || couponFilter.AssignableUntil != null)
+            {
+                if (couponFilter.AssignableFrom != null)
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom).ToList<Coupon>();
+                if (couponFilter.AssignableUntil != null)
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
+            }
+
+            // Apply Redeem From & To filters
+            if (couponFilter.RedeemableFrom != null && couponFilter.RedeemableUntil != null)
+            {
+                f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom && x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
+            }
+            else if (couponFilter.RedeemableFrom != null || couponFilter.RedeemableUntil != null)
+            {
+                if (couponFilter.RedeemableFrom != null)
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom).ToList<Coupon>();
+                if (couponFilter.RedeemableUntil != null)
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
+            }
+
 
             // Filter using checkbox filters
             foreach (Coupon coup in coupons)
