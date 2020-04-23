@@ -1,4 +1,4 @@
-﻿@model WebApp.ViewModels.CouponList;
+﻿@model WebApp.ViewModels.LifecycleUpdateViewModel;
 @using CouponDatabase.Lifecycle;
 @{
     ViewData["Title"] = "LifecycleTable";
@@ -15,50 +15,68 @@
                 </label>
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Coupon.Code)
+                @Html.DisplayNameFor(m => m.CouponList.Coupon.Code)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Coupon.Holder)
+                @Html.DisplayNameFor(m => m.CouponList.Coupon.Holder)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Coupon.User)
+                @Html.DisplayNameFor(m => m.CouponList.Coupon.User)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Coupon.Status)
+                @Html.DisplayNameFor(m => m.CouponList.Coupon.Status)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Coupon.Active)
+                @Html.DisplayNameFor(m => m.CouponList.Coupon.Active)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
         </tr>
     </thead>
 
     <tbody>
-        <p class="section-headline">@Html.DisplayNameFor(m => m.CouponItems)</p>
-        @for (int i = 0; i < Model.CouponItems.Count; i++)
+        <p class="section-headline">@Html.DisplayNameFor(m => m.CouponList.CouponItems)</p>
+        @for (int i = 0; i < Model.CouponList.CouponItems.Count; i++)
         {
-            string statusText = ((CouponStatus)Model.CouponItems[i].Status).ToString();
+            string statusText = ((CouponStatus)Model.CouponList.CouponItems[i].Status).ToString();
             <tr>
                 <td>
                     <label>
-                        @Html.CheckBoxFor(c => Model.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
-                        <span></span>
-                        @Html.HiddenFor(c => c.CouponItems[i].Id)
-                        @Html.HiddenFor(c => c.CouponItems[i].Code)
+                        @Html.CheckBoxFor(c => Model.CouponList.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
+                        <span>@Html.DisplayFor(c => c.CouponList.CouponItems[i].Label)</span>
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].Id)
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                     </label>
                 </td>
-                <td>@Html.DisplayFor(item => item.CouponItems[i].Code)</td>
-                <td>@Html.DisplayFor(item => item.CouponItems[i].Holder)</td>
-                <td>@Html.DisplayFor(item => item.CouponItems[i].User)</td>
-                <td>@Html.DisplayFor(item => statusText)</td>
                 <td>
-                    @if (Model.CouponItems[i].Active)
+                    @Html.DisplayFor(item => item.CouponList.CouponItems[i].Code)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Code)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => item.CouponList.CouponItems[i].Holder)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Holder)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => item.CouponList.CouponItems[i].User)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].User)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(item => statusText)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Status)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                </td>
+                <td>
+                    @if (Model.CouponList.CouponItems[i].Active)
                     {
                         <i class="material-icons">check</i>
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].Active)
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                     }
                 </td>
             </tr>
