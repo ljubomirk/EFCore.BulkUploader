@@ -46,7 +46,7 @@
                 <td>
                     <label>
                         @Html.CheckBoxFor(c => Model.CouponList.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
-                        <span>@Html.DisplayFor(c => c.CouponList.CouponItems[i].Label)</span>
+                        <span></span>
                         @Html.HiddenFor(c => c.CouponList.CouponItems[i].Id)
                         @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                     </label>
