@@ -349,6 +349,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coupons didn&apos;t inserted..
+        /// </summary>
+        public static string CouponInsertFailed_Message {
+            get {
+                return ResourceManager.GetString("CouponInsertFailed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Coupon Series.
         /// </summary>
         public static string CouponSeries_TitleCreate {
@@ -871,11 +880,29 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promotion didn&apos;t inserted..
+        /// </summary>
+        public static string PromotionInsertFailed_Message {
+            get {
+                return ResourceManager.GetString("PromotionInsertFailed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Promotions.
         /// </summary>
         public static string Promotions_Title {
             get {
                 return ResourceManager.GetString("Promotions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion didn&apos;t saved..
+        /// </summary>
+        public static string PromotionUpdateFailed_Message {
+            get {
+                return ResourceManager.GetString("PromotionUpdateFailed_Message", resourceCulture);
             }
         }
         

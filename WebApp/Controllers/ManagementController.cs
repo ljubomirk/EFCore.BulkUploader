@@ -14,6 +14,7 @@ using WebApp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using ExcelDataReader;
+using CouponDatabase.Lifecycle;
 
 namespace WebApp.Controllers
 {
@@ -81,8 +82,10 @@ namespace WebApp.Controllers
             promotion.Enabled = enable;
             _repo.UpdatePromotion(promotion);
 
-            ViewBag.CommandStatus = "[OK]";
-            ViewBag.CommandMessage = "Promotion saved.";
+            //ViewBag.CommandStatus = "[OK]";
+            //ViewBag.CommandMessage = "Promotion saved.";
+
+            ViewBag.Command = new Command(CommandStatus.Valid);
 
             model.Promotions.AddRange(_repo.GetAllPromotions());
             model.Filter = new PromotionFilter();
@@ -137,8 +140,10 @@ namespace WebApp.Controllers
                 bool fieldsUpdated = updatePromotionFields(viewModel, Id);
                 if (Id>0 || fieldsUpdated)
                 {
-                    ViewBag.CommandStatus = "[OK]";
-                    ViewBag.CommandMessage = "Promotion created.";
+                    //ViewBag.CommandStatus = "[OK]";
+                    //ViewBag.CommandMessage = "Promotion created.";
+
+                    ViewBag.Command = new Command(CommandStatus.Valid);
                 }
             }
             else
@@ -148,12 +153,16 @@ namespace WebApp.Controllers
 
                 if (promotionUpdated ||fieldsUpdated)
                 {
-                    ViewBag.CommandStatus = "[OK]";
-                    ViewBag.CommandMessage = "Promotion saved.";
+                    //ViewBag.CommandStatus = "[OK]";
+                    //ViewBag.CommandMessage = "Promotion saved.";
+
+                    ViewBag.Command = new Command(CommandStatus.Valid);
                 }
                 else{
-                    ViewBag.CommandStatus = "[NOT OK]";
-                    ViewBag.CommandMessage = "Promotion didn't saved.";
+                    //ViewBag.CommandStatus = "[NOT OK]";
+                    //ViewBag.CommandMessage = "Promotion didn't saved.";
+
+                    ViewBag.Command = new Command(CommandStatus.PromotionUpdateFailed);
                 }
             }
             return View("PromotionDetails", viewModel);
@@ -165,13 +174,17 @@ namespace WebApp.Controllers
             bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
             if (returnValue)
             {
-                ViewBag.CommandStatus = "[OK]";
-                ViewBag.CommandMessage = "Coupons inserted.";
+                //ViewBag.CommandStatus = "[OK]";
+                //ViewBag.CommandMessage = "Coupons inserted.";
+
+                ViewBag.Command = new Command(CommandStatus.Valid);
             }
             else
             {
-                ViewBag.CommandStatus = "[NOT OK]";
-                ViewBag.CommandMessage = "Coupons didn't inserted.";
+                //ViewBag.CommandStatus = "[NOT OK]";
+                //ViewBag.CommandMessage = "Coupons didn't inserted.";
+
+                ViewBag.Command = new Command(CommandStatus.CouponInsertFailed);
             }
             return View("PromotionCouponSeries", model);
         }

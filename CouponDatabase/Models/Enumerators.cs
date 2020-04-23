@@ -31,6 +31,12 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         ErrorInvalidUser = 4,
         [EnumMemberAttribute]
+        CouponInsertFailed = 5,
+        [EnumMemberAttribute]
+        PromotionInsertFailed = 6,
+        [EnumMemberAttribute]
+        PromotionUpdateFailed = 7,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

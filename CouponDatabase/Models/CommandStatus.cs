@@ -18,7 +18,7 @@ namespace CouponDatabase.Lifecycle
             var builder = new ResourceManager(this.GetType());
             try
             {
-                Message = builder.GetString(Status.ToString() + "Message");
+                Message = builder.GetString(Status.ToString() + "_Message");
             }
             catch(Exception ex)
             {
