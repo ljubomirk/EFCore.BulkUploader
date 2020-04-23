@@ -22,10 +22,12 @@ namespace WebApp.Controllers
     public class LifecycleController : Controller
     {
         private readonly RepositoryServices _repo;
+        private readonly ApplicationDbContext _context;
+
         public LifecycleController(ApplicationDbContext context)
         {      
              _repo = new RepositoryServices(context);
-           
+            _context = context;
         }
 
         /// <summary>
@@ -71,10 +73,13 @@ namespace WebApp.Controllers
 
             //HttpContext.Session.SetObjectAsJson("EmployeeDetails", employee);
 
-            List<Promotion> f_ListOfPromotions = _repo.GetFilteredPromotionList(promotionFilter, true);
+            Filters filters = new Filters(_context);
+            
+
+            List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
 
             //List<Coupon> f_ListOfCoupons = new List<Coupon>();
-            List<Coupon> f_ListOfCoupons = _repo.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
+            List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
 
             // Dropdown data
             model.DropPromoCodes = getSelectListPromotions(f_ListOfPromotions);
@@ -234,6 +239,9 @@ namespace WebApp.Controllers
             }
             return p_Coupons;
         }
+
+
+        
 
 
 

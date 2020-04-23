@@ -24,9 +24,11 @@ namespace WebApp.Controllers
     public class ManagementController : Controller
     {
         private readonly RepositoryServices _repo;
+        private readonly ApplicationDbContext _context;
         public ManagementController(ApplicationDbContext context)
         {      
              _repo = new RepositoryServices(context);
+            _context = context;
            
         }
 
@@ -52,7 +54,9 @@ namespace WebApp.Controllers
         public IActionResult FilteredListPromotions(PromotionFilter filter)
         {
             PromotionListViewModel model = new PromotionListViewModel();
-            List<Promotion> filteredListOfPromotions = _repo.GetFilteredPromotionList(filter);
+            Filters filters = new Filters(_context);
+
+            List<Promotion> filteredListOfPromotions = filters.GetFilteredPromotionList(filter);
 
             model.Promotions.AddRange(filteredListOfPromotions);
             model.Filter = filter;
