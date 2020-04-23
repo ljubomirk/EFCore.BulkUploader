@@ -31,11 +31,11 @@ namespace CouponDatabase.Models
         [DataType(DataType.Date)]
         [Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidTo { get; set; }
+        public int CouponSeries { get; set; }
         public Boolean HasCoupons
         {
             get => this.GetHasCoupons();
         }
-        public int CouponSeries { get; set; }
         #endregion
         #region Construction
         public Promotion()

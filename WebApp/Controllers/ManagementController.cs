@@ -68,6 +68,7 @@ namespace WebApp.Controllers
         {
             CouponSeriesViewModel model = new CouponSeriesViewModel();
             model.PromotionId = id;
+            model.CouponSeries = _repo.GetCouponSeriesVal(id) + 1;
             return View("PromotionCouponSeries", model);
         }
 

@@ -91,6 +91,11 @@ namespace WebApp.Services
             return result;
         }
 
+        internal int GetCouponSeriesVal(long id)
+        {
+            return GetPromotionWithId(id).CouponSeries;
+        }
+
         #region PromotionCommands
         public List<Promotion> GetAllPromotions()
         {
@@ -169,6 +174,16 @@ namespace WebApp.Services
             }
             
             return f_ListOfPromotions;
+        }
+
+        internal bool UpdateCouponSeriesNum(long promotionId)
+        {
+            Promotion promotion = GetPromotionWithId(promotionId);
+            promotion.CouponSeries += 1;
+            return UpdatePromotion(promotion);
+
+
+
         }
 
 

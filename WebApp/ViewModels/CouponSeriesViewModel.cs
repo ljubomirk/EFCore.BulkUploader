@@ -17,6 +17,7 @@ namespace WebApp.ViewModels
     {
         public long Id { get; set; }
         //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
+        public int CouponSeries { get; set; }
         public long PromotionId { get; set; }
         public int NumberOfCoupons { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
@@ -80,19 +81,22 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
-
-                    foreach (DataRow row in resultFromFile.Tables[0].Rows)
+                    if(resultFromFile.Tables[0]!= null)
                     {
-                        listOfCoupons.Add(new Coupon()
+                        foreach (DataRow row in resultFromFile.Tables[0].Rows)
                         {
-                            Code = row.ItemArray[0].ToString(),
-                            PromotionId = PromotionId,
-                            AquireFrom = AssignableFrom,
-                            AquireTo = AssignableUntil,
-                            AwardFrom = RedeemableFrom,
-                            AwardTo = RedeemableUntil,
-                            Status = Status
-                        });
+                            listOfCoupons.Add(new Coupon()
+                            {
+                                Code = row.ItemArray[0].ToString(),
+                                PromotionId = PromotionId,
+                                AquireFrom = AssignableFrom,
+                                AquireTo = AssignableUntil,
+                                AwardFrom = RedeemableFrom,
+                                AwardTo = RedeemableUntil,
+                                Status = Status,
+                                CouponSeries = CouponSeries
+                            });
+                        }
                     }
                 }
             }
@@ -110,7 +114,8 @@ namespace WebApp.ViewModels
                         AquireTo = AssignableUntil,
                         AwardFrom = RedeemableFrom,
                         AwardTo = RedeemableUntil,
-                        Status = Status
+                        Status = Status,
+                        CouponSeries = CouponSeries
                     });
                 }
             }
