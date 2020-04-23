@@ -70,7 +70,7 @@ namespace CouponDatabase.Models
                 return true 
              */
 
-            return true;
+            return false;
         }
 
         #endregion
