@@ -4104,6 +4104,20 @@ p.section-headline {
   padding: 0 25px;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent; }
+  .btn.error, .error.btn-large, .error.btn-small,
+  .btn-flat.error {
+    background-color: #F44336 !important; }
+    .btn.error:hover, .error.btn-large:hover, .error.btn-small:hover,
+    .btn-flat.error:hover {
+      cursor: initial;
+      background-color: rgba(244, 67, 54, 0.8) !important; }
+  .btn.success, .success.btn-large, .success.btn-small,
+  .btn-flat.success {
+    background-color: #4CAF50 !important; }
+    .btn.success:hover, .success.btn-large:hover, .success.btn-small:hover,
+    .btn-flat.success:hover {
+      cursor: initial;
+      background-color: rgba(76, 175, 80, 0.8) !important; }
 
 .btn-primary {
   color: #fff !important;
@@ -4130,6 +4144,9 @@ p.section-headline {
   background-color: transparent !important; }
   .btn-transparent:hover {
     background-color: rgba(1, 0, 94, 0.08) !important; }
+
+.btn-wide {
+  width: 100%; }
 
 .btn-danger {
   color: #F44336 !important;

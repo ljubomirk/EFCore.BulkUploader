@@ -10,6 +10,23 @@
     padding: $button-padding;
     vertical-align: middle;
     -webkit-tap-highlight-color: transparent; // Gets rid of tap active state
+    &.error {
+        background-color: color("red", "base") !important;
+
+        &:hover {
+            cursor: initial;
+            background-color: rgba(color("red", "base"), .8) !important;
+        }
+    }
+
+    &.success {
+        background-color: color("green", "base") !important;
+
+        &:hover {
+            cursor: initial;
+            background-color: rgba(color("green", "base"), .8) !important;
+        }
+    }
 }
 
 .btn-primary {
@@ -51,6 +68,10 @@
     &:hover {
         background-color: $grey-light-1 !important;
     }
+}
+
+.btn-wide {
+    width: 100%;
 }
 
 .btn-danger {

@@ -39,11 +39,20 @@
         </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s2">
-            <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary right modal-trigger" href="#modal-confirmation" data-position="bottom" data-tooltip="@ViewBag.CommandMessage" disabled>
-                <i class="material-icons left">update</i>
-                @CouponDatabase.Properties.Resources.Btn_UpdateSelected
-                <span id="coupon-number"></span>
-            </button>
+            @if (ViewBag.Command != null)
+            {
+                <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary btn-wide @(ViewBag.Command.Status == 0 ? "success" : "error")" href="#modal-confirmation" data-position="bottom" data-tooltip="@ViewBag.Command.Message">
+                    <i class="material-icons">@(ViewBag.Command.Status == 0 ? "check" : "warning")</i>
+                </button>
+            }
+            else
+            {
+
+                <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary modal-trigger" href="#modal-confirmation" disabled>
+                    <i class="material-icons left">update</i>
+                    @CouponDatabase.Properties.Resources.Btn_UpdateSelected
+                </button>
+            }
         </div>
         <!-- /action to call confirmation modal -->
         <!-- action to call confirmation modal -->
@@ -60,30 +69,17 @@
     $(document).ready(function () {
         // update button logic for state style
         var btn = $("#modal-trigger");
+        var strUpdate = '@CouponDatabase.Properties.Resources.Btn_UpdateSelected';
         var trigger = $("#modal-action");
-        var status = '@ViewBag.CommandStatus';
 
         var initContent = btn.html();
         var loadingContent = '<i class="material-icons loading u-m-l-lg u-m-r-lg">autorenew</i>';
-        var successContent = '<i class="material-icons u-m-l-lg u-m-r-lg">check</i>';
-        var errorContent = '<i class="material-icons u-m-l-lg u-m-r-lg">warning</i>';
 
         // change style when form submitted from modal
         trigger.click(function () {
             btn.html(loadingContent)
         });
-        console.log("["+status+"]")
 
-        // check status and change style
-        if (typeof status == 'number' && status == 0) {
-            btn.html(errorContent);
-            btn.addClass("error");
-            btn.tooltip();
-        } else if (status == 1) {
-            btn.html(successContent);
-            btn.addClass("success");
-            btn.tooltip();
-        }
 
         // reverse style - will reverse if filter is used as well
         $("input").click(reverseBtn)
@@ -92,9 +88,26 @@
             if (typeof status == 'number') {
                 status = null;
                 btn.tooltip("destroy");
-                btn.html(initContent);
-                btn.removeClass("btn-success btn-error");
+                btn.removeClass("btn-success btn-error")
+                    .html(initContent);
             }
+        }
+
+        // change button style on second selection
+        if (btn.hasClass("error") || btn.hasClass("success")) {
+            var input = $("input");
+            var btnContent = '<i class="material-icons left">update</i>' + strUpdate;
+
+            btn.tooltip(config.options.tooltips);
+
+            input.on('change', function () {
+                btn.removeClass("error success")
+                    .addClass("modal-trigger")
+                    .removeAttr("data-tooltip")
+                    .removeAttr("data-position")
+                    .html(btnContent);
+            })
+
         }
     })
 

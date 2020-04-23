@@ -11,8 +11,10 @@
     <div class="form-box">
         <div class="container">
             <!-- top form return msg -->
-            @*<div class="@(ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success") @(ViewBag.Command.Status == null ? "hiddendiv" : "")">@ViewBag.Command.Message</div>*@
-
+            @if (ViewBag.Command != null)
+            {
+                <div class="@(ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
+            }
             <!-- input fields -->
             <div class="row">
                 <div class="row">
@@ -49,7 +51,7 @@
                 <div class="col s12">
                     <p class="u-m-t-remove u-m-l-xs">
                         <label id="chk-endDate">
-                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo"})
+                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo" })
                             <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
                         </label>
                     </p>
