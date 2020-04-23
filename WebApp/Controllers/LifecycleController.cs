@@ -66,24 +66,27 @@ namespace WebApp.Controllers
              */
 
             LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
+            Filters filters = new Filters(_context); // Filter model instance with filter methods
 
-            //var employee = new LifecycleManagementModel();
-            //employee.lifecycleManagement.Pro = "1";
-            //employee.DesignationId = "2";
-
-            //HttpContext.Session.SetObjectAsJson("EmployeeDetails", employee);
-
-            Filters filters = new Filters(_context);
-            
-
+            // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
-
-            //List<Coupon> f_ListOfCoupons = new List<Coupon>();
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
 
+            // Filter promotions by retrieved coupons
+            IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
+            List<Promotion> couponPromotions = new List<Promotion>();
+            foreach(long id in couponPromotionIds)
+            {
+                Promotion promotion = _repo.GetPromotionWithId(id);
+                if(couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0)
+                {
+                    couponPromotions.Add(promotion);
+                }
+            }
+
             // Dropdown data
-            model.DropPromoCodes = getSelectListPromotions(f_ListOfPromotions);
-            model.DropCouponSeries = getSelectListSeries(f_ListOfCoupons); 
+            model.DropPromoCodes = getSelectListPromotions(couponPromotions);
+            model.DropCouponSeries = new List<SelectListItem>(); //getSelectListSeries(f_ListOfCoupons); 
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
             
@@ -111,6 +114,31 @@ namespace WebApp.Controllers
         }
 
         /*
+         * Updates filter results with selection from DropDown element.
+         * Called on submit (DropDown change) from LifecycleCoupons view.
+         */
+        [HttpPost]
+        public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
+        {
+            /*
+             * TODO:
+             * - get from session everything required for the update (selected promotion code and selected coupon series, coupons ...)
+             * - apply model filters of SelectedPromoCode and SelectedCouponSeries if possible
+             * - return new coupon list
+             * - return list of promotion codes from session and new coupon series (after filtering)
+             * - store new list into session
+             */
+
+            /* 
+             * PLACEHOLDER CODE FOR WHEN, SOME DAY, WE IMPLEMENT SOME KIND OF DATA STORAGE             
+             * 
+             */
+
+
+            return View("LifecycleCoupons", model);
+        }
+
+        /*
          * Updates coupons.
          * Used on LifecycleCoupons view for UpdateSelected action.
          */
@@ -130,23 +158,7 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", model);
         }
 
-        /*
-         * Updates filter results with selection from DropDown element.
-         * Called on submit (DropDown change) from LifecycleCoupons view.
-         */
-        [HttpPost]
-        public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
-        {
-            /*
-             * TODO:
-             * - get from session everything required for the update (selected promotion code and selected coupon series, coupons ...)
-             * - apply model filters of SelectedPromoCode and SelectedCouponSeries if possible
-             * - return new coupon list
-             * - return list of promotion codes from session and new coupon series (after filtering)
-             * - store new list into session
-             */
-            return View("LifecycleCoupons", model);
-        }
+        
 
         /*
          * Returns list of SelectListItems for promotions.
