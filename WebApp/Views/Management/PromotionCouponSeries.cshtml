@@ -30,7 +30,7 @@
             <div class="row u-m-b-remove">
                 <div class="row">
                     <div class="input-field col s6">
-                        @Html.EditorFor(p => p.CouponSeries, new { htmlAttributes = new { @disabled = "disabled", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        <input placeholder="" id="serialNumber" type="text" value="#@Model.CouponSeries" disabled >
                         @Html.LabelFor(p => p.CouponSeries, new { htmlAttributes = new { @class = "active" } })
                         @Html.HiddenFor(p => p.CouponSeries)
                     </div>
