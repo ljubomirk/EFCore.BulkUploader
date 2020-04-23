@@ -43,7 +43,8 @@ namespace WebApp.ViewModels
         {
             /*
              * TODO:
-             *  - optimize promotion filtering
+             *  - implement promotion filter via promotion properties
+             *  - test method with properties set on promotion objects
              *  
              */
 
@@ -101,10 +102,7 @@ namespace WebApp.ViewModels
         {
             /*
              * TODO:
-             * - Implement received coupon filtering based on filtered coupon filters
-             * - Implement method getFilteredPromotions() : filteredListOfPromotions, promotionFilters
-             * - Implement getFilteredCoupons(): filteredListOfPromotions, filteredListOfCoupons, couponFilters
-             * - TEST METHOD!
+             * - Test method with award, issuer, and status data to apply related filters.
              */
 
             List<Coupon> f_ListOfCoupons = new List<Coupon>();
