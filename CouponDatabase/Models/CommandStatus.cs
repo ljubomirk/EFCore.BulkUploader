@@ -15,7 +15,7 @@ namespace CouponDatabase.Lifecycle
         public Command(CommandStatus status)
         {
             Status = status;
-            var builder = new ResourceManager(this.GetType());
+            var builder = new ResourceManager(typeof(CouponDatabase.Properties.Resources));
             try
             {
                 Message = builder.GetString(Status.ToString() + "_Message");

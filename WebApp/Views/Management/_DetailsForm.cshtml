@@ -13,7 +13,7 @@
             <!-- top form return msg -->
             @if (ViewBag.Command != null)
             {
-                <div class="@(ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
+                <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
             }
             <!-- input fields -->
             <div class="row">

@@ -925,7 +925,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK.
+        ///   Looks up a localized string similar to Operation was successfull..
         /// </summary>
         public static string Valid_Message {
             get {

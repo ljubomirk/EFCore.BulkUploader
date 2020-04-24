@@ -454,7 +454,7 @@
     <comment>When coupons are not found.</comment>
   </data>
   <data name="Valid_Message" xml:space="preserve">
-    <value>OK</value>
+    <value>Operation was successfull.</value>
     <comment>All OK.</comment>
   </data>
   <data name="CouponsModal_SetTo" xml:space="preserve">
