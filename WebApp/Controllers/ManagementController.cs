@@ -190,6 +190,7 @@ namespace WebApp.Controllers
 
                 ViewBag.Command = new Command(CommandStatus.CouponInsertFailed);
             }
+            model.CouponSeries++;
             return View("PromotionCouponSeries", model);
         }
 
