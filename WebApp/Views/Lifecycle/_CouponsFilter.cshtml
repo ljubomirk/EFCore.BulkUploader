@@ -13,6 +13,8 @@
     {
         couponSeries = Model.DropCouponSeries;
     }
+
+    bool disableCouponSeries = Model.SelectedPromoCode == null ? true : false;
 }
 
 <!-- Form submit on dropdown filter change -->
@@ -23,6 +25,14 @@
     </div>
 
     <div class="col s2">
-        @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+        @if (disableCouponSeries)
+        {
+            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();", @disabled = "disabled" })
+        }
+        else
+        {
+            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+        }
+
     </div>
 }

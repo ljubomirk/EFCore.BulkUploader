@@ -130,8 +130,11 @@ namespace WebApp.Controllers
              */
 
             /* 
-             * PLACEHOLDER CODE FOR WHEN, SOME DAY, WE IMPLEMENT SOME KIND OF DATA STORAGE             
-             * 
+             * PLACEHOLDER CODE FOR WHEN, SOME DAY, WE IMPLEMENT SOME KIND OF DATA STORAGE
+             * - if promotion code filter selected in dropdown, 
+             *      filter coupons by promo id, get all coupon series IDs for that set and populate coupon series dropdown filter
+             * - if coupon series selected, filter remaining coupons by series
+             * - if no promotion code selected, coupon series should contain empty List<SelectListItem>
              */
 
 
