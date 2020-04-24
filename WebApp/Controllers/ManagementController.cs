@@ -115,17 +115,31 @@ namespace WebApp.Controllers
         public IActionResult EditPromotion(long Id)
         {
             // if (promo == null) RedirectToAction("Error");
+            string view = "PromotionDetails";
             var promotion = _repo.GetPromotionWithId(Id);
-            _repo.GetPromotionData(promotion);
-            PromotionDetailsViewModel model = new PromotionDetailsViewModel
+            if (promotion.HasCoupons)
             {
-                Promotion = promotion,
-                Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
-                AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), promotion.PromotionAwardChannels as List<PromotionAwardChannel>),
-                IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), promotion.PromotionIssuerChannels as List<PromotionIssuerChannel>),
-                hasEndDate = promotion.ValidTo != null ? true : false
-            };
-            return View("PromotionDetails", model);
+                view = "PromotionList";
+                PromotionListViewModel model = new PromotionListViewModel();
+                model.Promotions.AddRange(_repo.GetAllPromotions());
+                model.Filter = new PromotionFilter();
+                model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
+                return View(view, model);
+            }
+            else
+            {
+                _repo.GetPromotionData(promotion);
+                PromotionDetailsViewModel model = new PromotionDetailsViewModel
+                {
+                    Promotion = promotion,
+                    Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
+                    AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), promotion.PromotionAwardChannels as List<PromotionAwardChannel>),
+                    IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), promotion.PromotionIssuerChannels as List<PromotionIssuerChannel>),
+                    hasEndDate = promotion.ValidTo != null ? true : false
+                };
+                return View(view, model);
+            }
+            
         }
 
         [HttpPost]
