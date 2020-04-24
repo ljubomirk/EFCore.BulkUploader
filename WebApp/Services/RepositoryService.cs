@@ -136,6 +136,9 @@ namespace WebApp.Services
             return Context.Coupon.Where(p => p.PromotionId == coupon.PromotionId).ToList();
         }
 
+        /*
+         * Get coupons for target promotions.
+         */
         public List<Coupon> GetCouponsForPromotions(List<Promotion> promotions)
         {
             List<Coupon> promotionCoupons = new List<Coupon>();
@@ -147,11 +150,24 @@ namespace WebApp.Services
             return promotionCoupons;
         }
 
+        /*
+         * Get promotion by promotion id.
+         */
         public Promotion GetPromotionWithId(long id)
         {
             Promotion promotion = new Promotion();
             promotion = Context.Promotion.Find(id);
             
+            return promotion;
+        }
+
+        /*
+         * Get promotion by promotion code.
+         */
+        public Promotion GetPromotionByCode(String code)
+        {
+            Promotion promotion = new Promotion();
+            promotion = Context.Promotion.Find(code);
             return promotion;
         }
 

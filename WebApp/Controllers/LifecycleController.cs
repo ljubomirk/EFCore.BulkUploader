@@ -93,21 +93,14 @@ namespace WebApp.Controllers
             // Create CheckedItem elements from filtered Coupons
             // CouponList is used to bind data change on view
             // CouponList is populated from submit form with CheckedItem elements and passed into CouponUpdate
-            model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
             model.CouponList.Coupon = new Coupon();
-
-            /*
-             * TODO:
-             * Store PromotionCodes, CouponSeries and filtered coupons into session and view model
-             */
             model.CouponList.Coupons = f_ListOfCoupons;
+            model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
             model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
-            model.CouponList.Coupons.Add(new Coupon() { Code = "EASTER12343566", Id = 1, AquireFrom = DateTime.Today, AquireTo = DateTime.Today.AddMonths(1), CouponSeries = 1, PromotionId = 1, User = "38640440480", Status = (int)CouponStatus.Created });
 
             /*
              * TODO:
-             * If no coupons found, return error / no results view
-             * If coupons found, return LifecycleCoupons view
+             * - Store CouponList to local state to be retrieved in next action if needed
              */
 
             return View("LifecycleCoupons", model);
@@ -122,21 +115,104 @@ namespace WebApp.Controllers
         {
             /*
              * TODO:
-             * - get from session everything required for the update (selected promotion code and selected coupon series, coupons ...)
-             * - apply model filters of SelectedPromoCode and SelectedCouponSeries if possible
-             * - return new coupon list
-             * - return list of promotion codes from session and new coupon series (after filtering)
-             * - store new list into session
+             * - get from session everything required for the update 
+             *      - selected promotion code value
+             *      - selected coupon series
+             *      - coupon list
+             *      - checkedcouponitem list
+             *      - dropenable
+             *      - dropstatus
+             *      - droppromo
+             *      - dropseries
+             * - !!! update object references below accordingly !!!
+             * - store new lists into session
              */
 
-            /* 
-             * PLACEHOLDER CODE FOR WHEN, SOME DAY, WE IMPLEMENT SOME KIND OF DATA STORAGE
-             * - if promotion code filter selected in dropdown, 
-             *      filter coupons by promo id, get all coupon series IDs for that set and populate coupon series dropdown filter
-             * - if coupon series selected, filter remaining coupons by series
-             * - if no promotion code selected, coupon series should contain empty List<SelectListItem>
-             */
+            Filters filters = new Filters(_context);
+            CouponFilters couponFilter = new CouponFilters();
+            PromotionFilter promotionFilter = new PromotionFilter();
+            promotionFilter.ValidFrom = new DateTime(2020, 4, 1);
+            promotionFilter.ValidTo = new DateTime(2020, 6, 1);
 
+            // Filter promotions and coupons
+            List<Promotion> f_ListOfPromotions = new List<Promotion>();
+            if(model.SelectedPromoCode == null)
+            {
+                f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
+            } else
+            {
+                // Get promo with ID and add into list
+                f_ListOfPromotions.Add(_repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode)));
+            }
+
+            
+            List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
+            
+
+            // Filter promotions by retrieved coupons
+            IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
+            List<Promotion> couponPromotions = new List<Promotion>();
+            foreach (long id in couponPromotionIds)
+            {
+                Promotion promotion = _repo.GetPromotionWithId(id);
+                if (couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0)
+                {
+                    couponPromotions.Add(promotion);
+                }
+            }
+
+            // Dropdown data
+            model.DropPromoCodes = getSelectListPromotions(couponPromotions);
+            model.DropCouponSeries = getSelectListSeries(f_ListOfCoupons); 
+            model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
+            model.DropEnabled = getSelectListEnabled();
+            model.CouponList.Coupon = new Coupon();
+            model.CouponList.Coupons = f_ListOfCoupons;
+            model.ValidTo = "";
+
+
+            /* WIP CODE . requires local storage for completion */
+            CouponList couponList = new CouponList();
+            // Set coupons to work with
+            if (model.CouponList != null)
+            {
+                couponList = model.CouponList; // contains previously filtered coupon list
+            }
+            // Filter coupons by promo code value
+            if(couponList.Coupons.Count > 0 && model.SelectedPromoCode != null)
+            {
+                couponList.Coupons = couponList.Coupons.Where(c => c.PromotionId == Int32.Parse(model.SelectedPromoCode)).ToList();
+                
+                // Filter coupon series and create a dropdown list
+                model.DropCouponSeries = getSelectListSeries(couponList.Coupons);
+            }
+
+            if(couponList.Coupons.Count > 0 && model.SelectedCouponSeries != null)
+            {
+                couponList.Coupons = couponList.Coupons.Where(c => c.CouponSeries == Int32.Parse(model.SelectedCouponSeries)).ToList();
+            }
+
+
+            model.SelectedPromoCode = model.SelectedPromoCode;
+            model.SelectedCouponSeries = model.SelectedCouponSeries;
+            couponList.CouponItems = setModelCouponList(couponList.Coupons);
+            model.CouponList = couponList;
+
+            List<SelectListItem> slit = new List<SelectListItem>();
+            foreach (SelectListItem s in model.DropPromoCodes)
+            {
+                if (s.Value == model.SelectedPromoCode)
+                {
+                    s.Selected = true;
+                }
+                else
+                {
+                    s.Selected = false;
+                }
+                slit.Add(s);
+            }
+
+            model.DropPromoCodes = slit;
 
             return View("LifecycleCoupons", model);
         }
@@ -174,7 +250,7 @@ namespace WebApp.Controllers
             {
                 selectList.Add(new SelectListItem { 
                     Text = p.Code,
-                    Value = p.Code
+                    Value = p.Id.ToString()
                 });
             }
             return selectList;

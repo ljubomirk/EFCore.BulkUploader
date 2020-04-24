@@ -45,7 +45,6 @@ namespace WebApp.ViewModels
              * TODO:
              *  - implement promotion filter via promotion properties
              *  - test method with properties set on promotion objects
-             *  
              */
 
             List<Promotion> allPromotions = _repo.GetAllPromotions();
@@ -84,7 +83,10 @@ namespace WebApp.ViewModels
                 }
             }
 
-            //f_ListOfPromotions = f_ListOfPromotions.Union(promotionsByCode).ToList();
+            /* 
+             * e.g.
+             * f_ListOfPromotions = f_ListOfPromotions.Union(promotionsByCode).Union(promotionsByValidDate).Union(PromotionsByStatus).ToList();
+             */
 
             // Return filtered list of promotions with existing coupons
             if (promotionsWithCoupons)
@@ -105,104 +107,108 @@ namespace WebApp.ViewModels
              * - Test method with award, issuer, and status data to apply related filters.
              */
 
-            List<Coupon> f_ListOfCoupons = new List<Coupon>();
-            bool couponRemove = false;
-            List<long> f_AwardChannel = couponFilter.AwardChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
-            List<long> f_IssuerChannel = couponFilter.IssuerChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
-            List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
+            if(couponFilter != null)
+            {
+                List<Coupon> f_ListOfCoupons = new List<Coupon>();
+                bool couponRemove = false;
+                List<long> f_AwardChannel = couponFilter.AwardChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
+                List<long> f_IssuerChannel = couponFilter.IssuerChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
+                List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
 
-            // Create method get filterActiveProducts(list, filter)
-            if (couponFilter.ShowActive)
-            {
-                List<Coupon> tempCoupon = coupons.Where(x => x.Active == true).ToList();
-                f_ListOfCoupons.AddRange(tempCoupon);
-            }
-            if (couponFilter.ShowInactive)
-            {
-                // Initial populating of list with inactive coupons
-                f_ListOfCoupons.AddRange(coupons.Where(x => x.Active == false).ToList<Coupon>());
-            }
-
-            // Apply Aquire From & To filters
-            if (couponFilter.AssignableFrom != null && couponFilter.AssignableUntil != null)
-            {
-                f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom && x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
-            }
-            else if (couponFilter.AssignableFrom != null || couponFilter.AssignableUntil != null)
-            {
-                if (couponFilter.AssignableFrom != null)
-                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom).ToList<Coupon>();
-                if (couponFilter.AssignableUntil != null)
-                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
-            }
-
-            // Apply Redeem From & To filters
-            if (couponFilter.RedeemableFrom != null && couponFilter.RedeemableUntil != null)
-            {
-                f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom && x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
-            }
-            else if (couponFilter.RedeemableFrom != null || couponFilter.RedeemableUntil != null)
-            {
-                if (couponFilter.RedeemableFrom != null)
-                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom).ToList<Coupon>();
-                if (couponFilter.RedeemableUntil != null)
-                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
-            }
-
-
-            // Filter using checkbox filters
-            foreach (Coupon coup in coupons)
-            {
-                couponRemove = false;
-
-                // Filter based on award channel
-                if (f_AwardChannel.Count() > 0 && !couponRemove)
+                // Create method get filterActiveProducts(list, filter)
+                if (couponFilter.ShowActive)
                 {
-                    List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
-                    foreach (long id in awardChannels)
+                    List<Coupon> tempCoupon = coupons.Where(x => x.Active == true).ToList();
+                    f_ListOfCoupons.AddRange(tempCoupon);
+                }
+                if (couponFilter.ShowInactive)
+                {
+                    // Initial populating of list with inactive coupons
+                    f_ListOfCoupons.AddRange(coupons.Where(x => x.Active == false).ToList<Coupon>());
+                }
+
+                // Apply Aquire From & To filters
+                if (couponFilter.AssignableFrom != null && couponFilter.AssignableUntil != null)
+                {
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom && x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
+                }
+                else if (couponFilter.AssignableFrom != null || couponFilter.AssignableUntil != null)
+                {
+                    if (couponFilter.AssignableFrom != null)
+                        f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireFrom >= couponFilter.AssignableFrom).ToList<Coupon>();
+                    if (couponFilter.AssignableUntil != null)
+                        f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AquireTo <= couponFilter.AssignableUntil).ToList<Coupon>();
+                }
+
+                // Apply Redeem From & To filters
+                if (couponFilter.RedeemableFrom != null && couponFilter.RedeemableUntil != null)
+                {
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom && x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
+                }
+                else if (couponFilter.RedeemableFrom != null || couponFilter.RedeemableUntil != null)
+                {
+                    if (couponFilter.RedeemableFrom != null)
+                        f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardFrom >= couponFilter.RedeemableFrom).ToList<Coupon>();
+                    if (couponFilter.RedeemableUntil != null)
+                        f_ListOfCoupons = f_ListOfCoupons.Where(x => x.AwardTo <= couponFilter.RedeemableUntil).ToList<Coupon>();
+                }
+
+
+                // Filter using checkbox filters
+                foreach (Coupon coup in coupons)
+                {
+                    couponRemove = false;
+
+                    // Filter based on award channel
+                    if (f_AwardChannel.Count() > 0 && !couponRemove)
                     {
-                        if (!f_AwardChannel.Contains(id))
+                        List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                        foreach (long id in awardChannels)
                         {
-                            // all awardChannel filters need to be met to return coupon ?
-                            // if even single coupon 
+                            if (!f_AwardChannel.Contains(id))
+                            {
+                                // all awardChannel filters need to be met to return coupon ?
+                                // if even single coupon 
+                                couponRemove = true;
+                            }
+                        }
+                    }
+
+                    // Filter based on issuer channel
+                    if (f_IssuerChannel.Count() > 0 && !couponRemove)
+                    {
+                        List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                        foreach (long ids in issuerChannels)
+                        {
+                            if (!f_IssuerChannel.Contains(ids))
+                            {
+                                // all issuerChannel filters need to be met to return coupon ?
+                                couponRemove = true;
+                            }
+                        }
+                    }
+
+                    // Filter based on coupon status
+                    if (f_CurrentStatus.Count() > 0 && !couponRemove)
+                    {
+                        if (!f_CurrentStatus.Contains(coup.Status))
+                        {
+                            // current coupon status needs to be in filter status list ?
                             couponRemove = true;
                         }
                     }
-                }
 
-                // Filter based on issuer channel
-                if (f_IssuerChannel.Count() > 0 && !couponRemove)
-                {
-                    List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
-                    foreach (long ids in issuerChannels)
+                    // Remove coupon from initial list if filter not passed
+                    if (couponRemove)
                     {
-                        if (!f_IssuerChannel.Contains(ids))
-                        {
-                            // all issuerChannel filters need to be met to return coupon ?
-                            couponRemove = true;
-                        }
+                        var r_Coupon = f_ListOfCoupons.Find(x => x.Id == coup.Id);
+                        f_ListOfCoupons.Remove(r_Coupon);
                     }
                 }
 
-                // Filter based on coupon status
-                if (f_CurrentStatus.Count() > 0 && !couponRemove)
-                {
-                    if (!f_CurrentStatus.Contains(coup.Status))
-                    {
-                        // current coupon status needs to be in filter status list ?
-                        couponRemove = true;
-                    }
-                }
-
-                // Remove coupon from initial list if filter not passed
-                if (couponRemove)
-                {
-                    var r_Coupon = f_ListOfCoupons.Find(x => x.Id == coup.Id);
-                    f_ListOfCoupons.Remove(r_Coupon);
-                }
+                return f_ListOfCoupons;
             }
-
-            return f_ListOfCoupons;
+            return coupons;
         }
 
     }
