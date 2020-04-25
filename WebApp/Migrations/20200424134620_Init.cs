@@ -276,7 +276,7 @@ namespace WebApp.Migrations
                     { 20L, "Easter7", 0, false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 13L, "Spring5", 0, true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 11L, "Easter4", 0, false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3L, "Summer", 0, true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, "Summer", 0, true, new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 10L, "Spring4", 0, true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 9L, "Summer3", 0, true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 8L, "Easter3", 0, false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
@@ -285,7 +285,7 @@ namespace WebApp.Migrations
                     { 5L, "Easter2", 0, false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 4L, "Spring2", 0, true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 12L, "Summer4", 0, true, new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2L, "Easter", 0, false, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, "Easter", 0, true, new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1L, "Spring", 0, true, new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
@@ -307,10 +307,11 @@ namespace WebApp.Migrations
                 columns: new[] { "Id", "AquireFrom", "AquireTo", "AwardFrom", "AwardTo", "Code", "CouponSeries", "Holder", "PromotionId", "Status", "User" },
                 values: new object[,]
                 {
-                    { 2L, null, null, null, null, "EASTER1234567892", 0, "38640440481", 1L, 4, "38640440481" },
-                    { 3L, null, null, null, null, "EASTER1234567893", 0, "38640440482", 1L, 2, "38640440482" },
-                    { 4L, null, null, null, null, "EASTER1234567894", 0, "38640440483", 1L, 3, "38640440483" },
-                    { 1L, null, null, null, null, "EASTER1234567891", 0, "", 1L, 1, "" }
+                    { 2L, null, null, null, null, "EASTER1234567892", 1, "38640440481", 1L, 4, "38640440481" },
+                    { 5L, null, null, null, null, "EASTER1234567895", 1, "", 2L, 2, "" },
+                    { 1L, null, null, null, null, "EASTER1234567891", 1, "", 2L, 1, "" },
+                    { 3L, null, null, null, null, "EASTER1234567893", 2, "38640440482", 1L, 2, "38640440482" },
+                    { 4L, null, null, null, null, "EASTER1234567894", 3, "38640440483", 1L, 3, "38640440483" }
                 });
 
             migrationBuilder.InsertData(
@@ -318,15 +319,15 @@ namespace WebApp.Migrations
                 columns: new[] { "PromotionId", "AwardChannelId" },
                 values: new object[,]
                 {
-                    { 3L, 3L },
-                    { 2L, 5L },
-                    { 2L, 4L },
-                    { 2L, 3L },
-                    { 11L, 1L },
-                    { 1L, 5L },
-                    { 1L, 3L },
                     { 1L, 1L },
+                    { 1L, 3L },
+                    { 1L, 5L },
+                    { 11L, 1L },
                     { 3L, 1L },
+                    { 2L, 3L },
+                    { 2L, 4L },
+                    { 2L, 5L },
+                    { 3L, 3L },
                     { 3L, 4L }
                 });
 
@@ -335,8 +336,8 @@ namespace WebApp.Migrations
                 columns: new[] { "PromotionId", "IssuerChannelId" },
                 values: new object[,]
                 {
-                    { 3L, 5L },
                     { 11L, 2L },
+                    { 3L, 5L },
                     { 3L, 4L },
                     { 3L, 1L },
                     { 2L, 5L },

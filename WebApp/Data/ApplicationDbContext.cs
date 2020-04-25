@@ -82,16 +82,16 @@ namespace WebApp.Data
                 {
                     Id = 2,
                     Code = "Easter",
-                    Enabled = false,
+                    Enabled = true,
                     ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidTo = DateTime.Parse("01.06.2020")
                 },
                 new Promotion()
                 {
                     Id = 3,
                     Code = "Summer",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
+                    ValidFrom = DateTime.Parse("01.05.2020"),
                     ValidTo = DateTime.Parse("01.09.2020")
                 },
                 new Promotion()
@@ -305,7 +305,8 @@ namespace WebApp.Data
                     Holder = "38640440481",
                     User = "38640440481",
                     Status = (int)CouponStatus.Canceled,
-                    PromotionId = 1
+                    PromotionId = 1,
+                    CouponSeries = 1
                 },
                 new Coupon()
                 {
@@ -314,7 +315,8 @@ namespace WebApp.Data
                     Holder = "38640440482",
                     User = "38640440482",
                     Status = (int)CouponStatus.Issued,
-                    PromotionId = 1
+                    PromotionId = 1,
+                    CouponSeries = 2
                 },
                 new Coupon()
                 {
@@ -323,7 +325,8 @@ namespace WebApp.Data
                     Holder = "38640440483",
                     User = "38640440483",
                     Status = (int)CouponStatus.Redeemed,
-                    PromotionId = 1
+                    PromotionId = 1,
+                    CouponSeries = 3
                 },
                 new Coupon()
                 {
@@ -332,7 +335,18 @@ namespace WebApp.Data
                     Holder = "",
                     User = "",
                     Status = (int)CouponStatus.Created,
-                    PromotionId = 1
+                    PromotionId = 2,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 5,
+                    Code = "EASTER1234567895",
+                    Holder = "",
+                    User = "",
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 2,
+                    CouponSeries = 1
                 }
             );
 

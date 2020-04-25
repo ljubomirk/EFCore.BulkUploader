@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200422141534_Init")]
+    [Migration("20200424134620_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,7 +97,7 @@ namespace WebApp.Migrations
                         {
                             Id = 2L,
                             Code = "EASTER1234567892",
-                            CouponSeries = 0,
+                            CouponSeries = 1,
                             Holder = "38640440481",
                             PromotionId = 1L,
                             Status = 4,
@@ -107,7 +107,7 @@ namespace WebApp.Migrations
                         {
                             Id = 3L,
                             Code = "EASTER1234567893",
-                            CouponSeries = 0,
+                            CouponSeries = 2,
                             Holder = "38640440482",
                             PromotionId = 1L,
                             Status = 2,
@@ -117,7 +117,7 @@ namespace WebApp.Migrations
                         {
                             Id = 4L,
                             Code = "EASTER1234567894",
-                            CouponSeries = 0,
+                            CouponSeries = 3,
                             Holder = "38640440483",
                             PromotionId = 1L,
                             Status = 3,
@@ -127,10 +127,20 @@ namespace WebApp.Migrations
                         {
                             Id = 1L,
                             Code = "EASTER1234567891",
-                            CouponSeries = 0,
+                            CouponSeries = 1,
                             Holder = "",
-                            PromotionId = 1L,
+                            PromotionId = 2L,
                             Status = 1,
+                            User = ""
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Code = "EASTER1234567895",
+                            CouponSeries = 1,
+                            Holder = "",
+                            PromotionId = 2L,
+                            Status = 2,
                             User = ""
                         });
                 });
@@ -263,9 +273,9 @@ namespace WebApp.Migrations
                             Id = 2L,
                             Code = "Easter",
                             CouponSeries = 0,
-                            Enabled = false,
+                            Enabled = true,
                             ValidFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ValidTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -273,7 +283,7 @@ namespace WebApp.Migrations
                             Code = "Summer",
                             CouponSeries = 0,
                             Enabled = true,
-                            ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
