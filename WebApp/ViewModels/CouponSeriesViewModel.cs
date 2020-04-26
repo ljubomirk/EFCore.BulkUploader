@@ -10,6 +10,8 @@ using CouponDatabase.Models;
 using System.IO;
 using ExcelDataReader;
 using System.Data;
+using CouponDatabase.Lifecycle;
+using CouponDatabase.Services;
 
 namespace WebApp.ViewModels
 {
@@ -39,7 +41,7 @@ namespace WebApp.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableUntil { get; set; }
-        public int Status { get; set; }
+        public CouponStatus Status { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
         public int CouponMaxLength { get; set; }
@@ -85,7 +87,9 @@ namespace WebApp.ViewModels
                     {
                         foreach (DataRow row in resultFromFile.Tables[0].Rows)
                         {
-                            listOfCoupons.Add(new Coupon()
+                            string CouponUser = row.ItemArray[1].ToString();
+
+                            Coupon coupon = new Coupon()
                             {
                                 Code = row.ItemArray[0].ToString(),
                                 PromotionId = PromotionId,
@@ -93,9 +97,34 @@ namespace WebApp.ViewModels
                                 AquireTo = AssignableUntil,
                                 AwardFrom = RedeemableFrom,
                                 AwardTo = RedeemableUntil,
-                                Status = Status,
-                                CouponSeries = CouponSeries
-                            });
+                                Status = (int)CouponStatus.Created,
+                                CouponSeries = CouponSeries,
+                                User = CouponUser
+                            };
+
+                            ICoupon cpn = new ICoupon(coupon);
+
+                            switch (Status)
+                            {
+                                case CouponStatus.Created:
+                                    break;
+                                case CouponStatus.Issued:
+                                    cpn.Assign("", CouponUser); 
+                                    break;
+                                case CouponStatus.Redeemed:
+                                    cpn.Assign("", CouponUser);
+                                    cpn.Redeem(CouponUser);
+                                    break;
+                                case CouponStatus.Canceled:
+                                    cpn.Assign("", CouponUser);
+                                    cpn.Cancel();
+                                    break;
+                                default:
+                                    break;
+
+                            }
+
+                            listOfCoupons.Add(cpn.Coupon);
                         }
                     }
                 }
@@ -105,8 +134,7 @@ namespace WebApp.ViewModels
 
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
-
-                    listOfCoupons.Add(new Coupon()
+                    Coupon coupon = new Coupon()
                     {
                         Code = getCouponCode(),
                         PromotionId = PromotionId,
@@ -114,9 +142,13 @@ namespace WebApp.ViewModels
                         AquireTo = AssignableUntil,
                         AwardFrom = RedeemableFrom,
                         AwardTo = RedeemableUntil,
-                        Status = Status,
+                        Status = (int)CouponStatus.Created,
                         CouponSeries = CouponSeries
-                    });
+                    };
+
+                    ICoupon cpn = new ICoupon(coupon);
+
+                listOfCoupons.Add(coupon);
                 }
             }
 

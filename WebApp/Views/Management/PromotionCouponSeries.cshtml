@@ -77,7 +77,7 @@
                         <input type="radio" class="radio-button-group" name="currentStatus" value="4" id="button4" onclick="updateExampleCoupon(this.value)" />
                         <label for="button4">Canceled</label>
                     </div>
-                    @Html.HiddenFor(i=>i.Status)
+                    @Html.HiddenFor(i=>i.Status, new {@Value = (int)Model.Status })
                 </div>
             </div>
 

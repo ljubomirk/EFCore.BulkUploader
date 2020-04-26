@@ -9,7 +9,7 @@ namespace CouponDatabase.Services
     public class ICoupon
     {
         int _loadStatus = 0; //used to check isf coupon is there >0
-        Coupon Coupon { get; }
+        public Coupon Coupon { get; }
         public ICoupon(Coupon coupon) { 
             Coupon = coupon;
             if (Coupon != null)
