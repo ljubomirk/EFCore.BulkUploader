@@ -10,8 +10,10 @@
         <tr>
             <th>
                 <label>
-                    <input id="checkbox-master" type="checkbox" class="filled-in" />
+                    @Html.CheckBoxFor(c => Model.CouponList.SelectAllCoupons, new { @class = "filled-in checkbox-master", id = "checkbox-master" })
                     <span></span>
+                    @Html.HiddenFor(c => c.CouponList.SelectAllCoupons)
+                    @Html.HiddenFor(c => c.CouponList.SelectAllCoupons)
                 </label>
             </th>
             <th>

@@ -11,5 +11,6 @@ namespace WebApp.ViewModels
         public Coupon Coupon {get; set;}
         public List<Coupon> Coupons { get; set; }
         public List<CheckedCouponItem> CouponItems { get; set; }
+        public bool SelectAllCoupons { get; set; }
     }
 }

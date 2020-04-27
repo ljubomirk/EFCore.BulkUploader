@@ -245,10 +245,18 @@ namespace WebApp.Controllers
             /*
              * TODO: 
              */
-            foreach(CouponCommand command in model.CouponsSelected)
+
+            if(model.CouponList.SelectAllCoupons)
             {
-                command.Status = CommandStatus.Valid;
+
+            } else
+            {
+                //foreach (CouponCommand command in model.CouponsSelected)
+                //{
+                //    command.Status = CommandStatus.Valid;
+                //}
             }
+            
 
 
 
