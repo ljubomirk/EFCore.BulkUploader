@@ -97,42 +97,42 @@ namespace WebApp.Data
                 new Promotion()
                 {
                     Id = 4,
-                    Code = "Spring2",
-                    Enabled = true,
+                    Code = "SpringDown",
+                    Enabled = false,
                     ValidFrom = DateTime.Parse("01.03.2020"),
                     ValidTo = DateTime.Parse("01.05.2020")
                 },
                 new Promotion()
                 {
                     Id = 5,
-                    Code = "Easter2",
-                    Enabled = false,
+                    Code = "EasterDown",
+                    Enabled = true,
                     ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidTo = DateTime.Parse("01.06.2020")
                 },
                 new Promotion()
                 {
                     Id = 6,
-                    Code = "Summer2",
-                    Enabled = true,
+                    Code = "SummerDown",
+                    Enabled = false,
                     ValidFrom = DateTime.Parse("01.06.2020"),
                     ValidTo = DateTime.Parse("01.09.2020")
                 },
                 new Promotion()
                 {
                     Id = 7,
-                    Code = "Spring3",
+                    Code = "FUNZIES!",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = DateTime.Parse("01.04.2020"),
+                    ValidTo = DateTime.Parse("01.06.2020")
                 },
                 new Promotion()
                 {
                     Id = 8,
-                    Code = "Easter3",
+                    Code = "NOTfunzies",
                     Enabled = false,
                     ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidTo = DateTime.Parse("01.06.2020")
                 },
                 new Promotion()
                 {
@@ -304,8 +304,12 @@ namespace WebApp.Data
                     Code = "EASTER1234567892",
                     Holder = "38640440481",
                     User = "38640440481",
-                    Status = (int)CouponStatus.Canceled,
-                    PromotionId = 1,
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 2,
                     CouponSeries = 1
                 },
                 new Coupon()
@@ -314,9 +318,13 @@ namespace WebApp.Data
                     Code = "EASTER1234567893",
                     Holder = "38640440482",
                     User = "38640440482",
+                    AquireFrom = new DateTime(2020,4,1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
                     Status = (int)CouponStatus.Issued,
-                    PromotionId = 1,
-                    CouponSeries = 2
+                    PromotionId = 2,
+                    CouponSeries = 1
                 },
                 new Coupon()
                 {
@@ -324,16 +332,10 @@ namespace WebApp.Data
                     Code = "EASTER1234567894",
                     Holder = "38640440483",
                     User = "38640440483",
-                    Status = (int)CouponStatus.Redeemed,
-                    PromotionId = 1,
-                    CouponSeries = 3
-                },
-                new Coupon()
-                {
-                    Id = 1,
-                    Code = "EASTER1234567891",
-                    Holder = "",
-                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
                     Status = (int)CouponStatus.Created,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -341,12 +343,170 @@ namespace WebApp.Data
                 new Coupon()
                 {
                     Id = 5,
+                    Code = "EASTER1234567891",
+                    Holder = "",
+                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Canceled,
+                    PromotionId = 2,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 6,
                     Code = "EASTER1234567895",
                     Holder = "",
                     User = "",
-                    Status = (int)CouponStatus.Issued,
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Redeemed,
                     PromotionId = 2,
                     CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 7,
+                    Code = "EASTER1234567113",
+                    Holder = "",
+                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 2,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 8,
+                    Code = "EDOWN1234567892",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 5,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 9,
+                    Code = "EDOWN1234567893",
+                    Holder = "38640440482",
+                    User = "38640440482",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 5,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 10,
+                    Code = "EDOWN1234567894",
+                    Holder = "38640440483",
+                    User = "38640440483",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 5,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 11,
+                    Code = "EDOWN1234567891",
+                    Holder = "",
+                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 5,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 12,
+                    Code = "EDOWN1234567911",
+                    Holder = "",
+                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 5,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 13,
+                    Code = "EDOWN1234567912",
+                    Holder = "",
+                    User = "",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 5,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 14,
+                    Code = "EASTER1234567289",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 1,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 15,
+                    Code = "EASTER1234567290",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 1,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 16,
+                    Code = "EASTER1234567291",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Status = (int)CouponStatus.Canceled,
+                    PromotionId = 1,
+                    CouponSeries = 2
                 }
             );
 
