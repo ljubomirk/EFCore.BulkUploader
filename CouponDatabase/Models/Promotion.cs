@@ -40,7 +40,7 @@ namespace CouponDatabase.Models
         #region Construction
         public Promotion()
         {
-
+            
         }
         #endregion
         #region Behaviour
@@ -69,8 +69,7 @@ namespace CouponDatabase.Models
             if(Coupons.Count()>1)
                 return true 
              */
-
-            return false;
+            return CouponSeries > 0 ? true : false;
         }
 
         #endregion

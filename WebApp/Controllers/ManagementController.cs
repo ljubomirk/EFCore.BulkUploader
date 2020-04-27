@@ -41,6 +41,7 @@ namespace WebApp.Controllers
         {
             PromotionListViewModel model = new PromotionListViewModel();
             model.Promotions.AddRange(_repo.GetAllPromotions());
+            model.Promotions = populatePromotionData(model.Promotions);
             model.Filter = new PromotionFilter();
             model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
             return View("PromotionList",model);
@@ -182,7 +183,7 @@ namespace WebApp.Controllers
                     //ViewBag.CommandStatus = "[NOT OK]";
                     //ViewBag.CommandMessage = "Promotion didn't saved.";
 
-                    ViewBag.Command = new Command(CommandStatus.PromotionUpdateFailed);
+                    ViewBag.Command = new Command(CommandStatus.DataError_PromotionUpdateFailed);
                 }
             }
             return View("PromotionDetails", viewModel);
@@ -204,7 +205,7 @@ namespace WebApp.Controllers
                 //ViewBag.CommandStatus = "[NOT OK]";
                 //ViewBag.CommandMessage = "Coupons didn't inserted.";
 
-                ViewBag.Command = new Command(CommandStatus.CouponInsertFailed);
+                ViewBag.Command = new Command(CommandStatus.DataError_CouponInsertFailed);
             }
             model.CouponSeries++;
             return View("PromotionCouponSeries", model);
@@ -299,6 +300,16 @@ namespace WebApp.Controllers
             }
 
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
+        }
+
+        private List<Promotion> populatePromotionData(List<Promotion> promotions)
+        {
+            foreach (Promotion item in promotions)
+            {
+                item.CouponSeries = _repo.GetCouponSeriesVal(item.Id);
+            }
+
+            return promotions;
         }
 
         #endregion
