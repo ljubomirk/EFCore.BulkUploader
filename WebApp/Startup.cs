@@ -59,6 +59,15 @@ namespace WebApp
                 );
             }
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddMvc().AddMvcOptions(o=> o.EnableEndpointRouting=false);
 
 #if DEBUG
@@ -97,7 +106,8 @@ namespace WebApp
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            //app.UseHttpContextItemsMiddleware();
+            app.UseSession();
             app.UseMvcWithDefaultRoute();
 
             var binding = new BasicHttpBinding
