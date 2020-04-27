@@ -65,6 +65,18 @@ namespace WebApp.Controllers
              *  - figure out session storage (WIP)
              */
 
+            //HttpContext.Session.SetObject("PromotionFilter", promotionFilter);
+
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+
+            if (lmm == null || lmm != null)
+            {
+                lmm = new LifecycleManagementModel();
+                HttpContext.Session.SetObject("LMM", lmm);
+            }
+
+            // PromotionFilter pf = HttpContext.Session.GetObject<PromotionFilter>("PF");
+
             LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
             Filters filters = new Filters(_context); // Filter model instance with filter methods
 
@@ -103,6 +115,14 @@ namespace WebApp.Controllers
              * - Store CouponList to local state to be retrieved in next action if needed
              */
 
+            lmm.PromotionFilter = promotionFilter;
+            lmm.CouponFilter = couponFilter;
+            lmm.CouponItems = model.CouponList.CouponItems;
+
+            HttpContext.Session.SetObject("LMM", lmm);
+
+            LifecycleManagementModel objComplex = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+
             return View("LifecycleCoupons", model);
         }
 
@@ -128,11 +148,28 @@ namespace WebApp.Controllers
              * - store new lists into session
              */
 
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+
+            if (lmm == null)
+            {
+                lmm = new LifecycleManagementModel();
+            }
+
             Filters filters = new Filters(_context);
-            CouponFilters couponFilter = new CouponFilters();
             PromotionFilter promotionFilter = new PromotionFilter();
-            promotionFilter.ValidFrom = new DateTime(2020, 4, 1);
-            promotionFilter.ValidTo = new DateTime(2020, 6, 1);
+            CouponFilters couponFilter = new CouponFilters();
+            
+            if (lmm.PromotionFilter != null)
+            {
+                promotionFilter = lmm.PromotionFilter;
+            }
+            if (lmm.CouponFilter != null)
+            {
+                couponFilter = lmm.CouponFilter;
+            }
+
+            //promotionFilter.ValidFrom = new DateTime(2020, 4, 1);
+            //promotionFilter.ValidTo = new DateTime(2020, 6, 1);
 
             // Filter promotions and coupons
             List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // store promos from initial filter to display in dropdown list
@@ -167,6 +204,7 @@ namespace WebApp.Controllers
             } else
             {
                 model.DropPromoCodes = getSelectListPromotions(init_ListOfPromotions);
+                lmm.SelectedPromoCode = model.SelectedPromoCode;
 
                 List<SelectListItem> slit = new List<SelectListItem>();
                 foreach (SelectListItem s in model.DropPromoCodes)
@@ -189,6 +227,7 @@ namespace WebApp.Controllers
             if (model.SelectedCouponSeries != null)
             {
                 filter_ListOfCoupons = filter_ListOfCoupons.Where(c => c.CouponSeries == Int32.Parse(model.SelectedCouponSeries)).ToList();
+                lmm.SelectedCouponSeries = model.SelectedCouponSeries;
             }
 
             model.DropCouponSeries = getSelectListSeries(drop_ListOfCoupons);
@@ -232,6 +271,10 @@ namespace WebApp.Controllers
             couponList.CouponItems = setModelCouponList(couponList.Coupons);
             model.CouponList = couponList;
 
+            // Session management
+            lmm.CouponItems = couponList.CouponItems;
+            HttpContext.Session.SetObject("LMM", lmm);
+
             return View("LifecycleCoupons", model);
         }
 
@@ -245,8 +288,12 @@ namespace WebApp.Controllers
             /*
              * TODO: 
              */
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+            lmm.CouponItems = model.CouponList.CouponItems;
 
-            if(model.CouponList.SelectAllCoupons)
+            //LifecycleUpdateViewModel objComplex = HttpContext.Session.GetObject<LifecycleUpdateViewModel>("LUVM");
+
+            if (model.CouponList.SelectAllCoupons)
             {
 
             } else
@@ -256,9 +303,9 @@ namespace WebApp.Controllers
                 //    command.Status = CommandStatus.Valid;
                 //}
             }
-            
 
 
+            HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
         }
