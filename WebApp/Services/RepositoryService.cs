@@ -107,7 +107,6 @@ namespace WebApp.Services
 
             return allPromotions;
         }
-
         /*
          * Returns promotions with HasCoupons property true.
          */
@@ -164,6 +163,7 @@ namespace WebApp.Services
             Context.Entry(promotion).Collection(p => p.PromotionProperties).Load();
             Context.Entry(promotion).Collection(p => p.PromotionAwardChannels).Load();
             Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();
+            Context.Entry(promotion).Collection(p => p.Coupons).Load();
 
             foreach (var promProp in promotion.PromotionProperties)
             {
@@ -177,8 +177,17 @@ namespace WebApp.Services
             {
                 channel.IssuerChannel = Context.IssuerChannel.Find(channel.IssuerChannelId);
             }
+            foreach (var coupon in promotion.Coupons)
+            {
+                coupon.Code = Context.Coupon.Find(coupon.Id).Code;
+            }
 
             return promotion;
+        }
+
+        public bool getHasCouponsForPromotion(long id)
+        {
+            return Context.Coupon.Any(c => c.PromotionId == id);
         }
         #endregion
 
