@@ -99,13 +99,8 @@ namespace WebApp.Services
         #region PromotionCommands
         public List<Promotion> GetAllPromotions()
         {
-            return Context.Promotion.ToList<Promotion>();
-        }
-
-        public List<Promotion> GetAllPromotionsWithRelations()
-        {
             List<Promotion> allPromotions = Context.Promotion.ToList<Promotion>();
-            foreach (var promotion in allPromotions)
+            foreach (Promotion promotion in allPromotions)
             {
                 GetPromotionData(promotion);
             }
