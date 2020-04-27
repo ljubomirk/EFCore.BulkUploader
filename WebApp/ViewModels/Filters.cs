@@ -91,7 +91,17 @@ namespace WebApp.ViewModels
             // Return filtered list of promotions with existing coupons
             if (promotionsWithCoupons)
             {
-                f_ListOfPromotions.Where(p => p.HasCoupons).ToList();
+                List<Promotion> new_filterList = new List<Promotion>();
+                foreach (Promotion promo in f_ListOfPromotions)
+                {
+                    List<Coupon> coupons = _repo.GetPromotionCoupons(promo);
+                    if (coupons.Count() > 0)
+                    {
+                        new_filterList.Add(promo);
+                    }
+                }
+                f_ListOfPromotions = new_filterList;
+                //f_ListOfPromotions.Where(p => p.HasCoupons).ToList();
             }
 
             return f_ListOfPromotions;

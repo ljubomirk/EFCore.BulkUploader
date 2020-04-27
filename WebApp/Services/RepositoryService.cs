@@ -128,13 +128,6 @@ namespace WebApp.Services
             return UpdatePromotion(promotion);
         }
 
-        /*
-         * Returns coupons for promotion.
-         */
-        public List<Coupon> GetPromotionCoupons(Coupon coupon)
-        {
-            return Context.Coupon.Where(p => p.PromotionId == coupon.PromotionId).ToList();
-        }
 
         /*
          * Get coupons for target promotions.
@@ -313,6 +306,14 @@ namespace WebApp.Services
         public List<Coupon> GetPromotionCoupons(Promotion promotion)
         {
             return Context.Coupon.Where(c => c.PromotionId == promotion.Id).ToList();
+        }
+
+        /*
+         * Returns coupons for promotion.
+         */
+        public List<Coupon> GetPromotionCoupons(Coupon coupon)
+        {
+            return Context.Coupon.Where(p => p.PromotionId == coupon.PromotionId).ToList();
         }
 
         public bool updatePromotionFields(long id, List<PromotionProperty> promotionProperties, List<PromotionAwardChannel> awardChannels, List<PromotionIssuerChannel> issuerChannels)
