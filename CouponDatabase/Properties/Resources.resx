@@ -493,16 +493,16 @@
     <value>Valid until</value>
     <comment>Valid until date</comment>
   </data>
-  <data name="CouponInsertFailed_Message" xml:space="preserve">
-    <value>Coupons didn't inserted.</value>
+  <data name="DataError_CouponInsertFailed_Message" xml:space="preserve">
+    <value>Coupons didn't insert.</value>
     <comment>Coupon insert msg, failed</comment>
   </data>
-  <data name="PromotionInsertFailed_Message" xml:space="preserve">
-    <value>Promotion didn't inserted.</value>
+  <data name="DataError_PromotionInsertFailed_Message" xml:space="preserve">
+    <value>Promotion didn't insert.</value>
     <comment>Promotion insert msg, failed</comment>
   </data>
-  <data name="PromotionUpdateFailed_Message" xml:space="preserve">
-    <value>Promotion didn't saved.</value>
+  <data name="DataError_PromotionUpdateFailed_Message" xml:space="preserve">
+    <value>Promotion didn't save.</value>
     <comment>Promotion update msg, failed</comment>
   </data>
 </root>
