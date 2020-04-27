@@ -1,59 +1,119 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebApp.Data;
 using WebApp.Services;
 using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
-using System.Runtime.Serialization;
-using CouponDatabase.Properties;
-using WebApp.ViewModels;
-using System.Resources;
-using System.Globalization;
-using Microsoft.AspNetCore.Http;
 
 namespace Web.Services.Impl
 {
     public class PromotionAPI : IPromotionAPI
     {
         readonly RepositoryServices _repo;
+        CouponDatabase.Models.Promotion _promo;
 
         public PromotionAPI(RepositoryServices repo)
         {
             _repo = repo;
         }
 
-        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
+        Command CheckPromotion(string PromotionCode)
+        {
+            Command response;
+            List <CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
+            _promo = promos.Find(i => i.Code == PromotionCode);
+            if (_promo == null)
+                response = new Command(CommandStatus.ErrorPromotionNotFound);
+            else
+                response = new Command(CommandStatus.Valid);
+            return response;
+        }
+
+        Command StoreCoupons(List<CouponDatabase.Models.Coupon> coupons)
+        {
+            Command response;
+            if (!_repo.insertCoupons(coupons))
+                response = new Command(CommandStatus.ErrorInvalidStatus);
+            else
+                response = new Command(CommandStatus.Valid);
+            return response;
+        }
+
+        Command UpdateCouponStatus(CouponDatabase.Models.Coupon coupon, CouponStatus status)
         {
             Command response = new Command(CommandStatus.Valid);
-            List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
-            CouponDatabase.Models.Promotion promo = promos.Find(i => i.Code == PromotionCode);
-            if (promo == null)
-                response.Status = CommandStatus.ErrorPromotionNotFound;
+            if (status != CouponStatus.Created)
+            {
+                ICoupon lifecycle = new ICoupon(coupon);
+                if (response.Status == CommandStatus.Valid && status == CouponStatus.Issued)
+                    response = lifecycle.Assign(coupon.Holder, coupon.User);
+                if (response.Status == CommandStatus.Valid && status == CouponStatus.Canceled)
+                {
+                    response = lifecycle.Cancel();
+                }
+                if (response.Status == CommandStatus.Valid && status == CouponStatus.Redeemed)
+                {
+                    response = lifecycle.Assign(coupon.Holder, coupon.User);
+                    if (response.Status == CommandStatus.Valid)
+                        response = lifecycle.Redeem(coupon.User);
+                }
+            }
+            return response;
+        }
+        /// <summary>
+        /// PromotionAPI.AddCoupon - adds one coupons to promotion with PromotionCode
+        /// </summary>
+        /// <param name="PromotionCode"></param>
+        /// <param name="CouponCode"></param>
+        /// <param name="Holder"></param>
+        /// <param name="User"></param>
+        /// <param name="ExpireDate"></param>
+        /// <param name="Status"></param>
+        /// <returns></returns>
+        public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
+        {
+            Command response = CheckPromotion(PromotionCode);
             if (response.Status == CommandStatus.Valid)
             {
                 List<CouponDatabase.Models.Coupon> coupons = new List<CouponDatabase.Models.Coupon>();
-                coupons.Add(new CouponDatabase.Models.Coupon() { Code = CouponCode, Holder = Holder, User = User, AquireFrom = promo.ValidFrom, AquireTo = ExpireDate.Value, PromotionId = promo.Id, Status = (int)Status, CouponSeries = 0, AwardFrom = promo.ValidFrom, AwardTo = promo.ValidTo });
-                if (!_repo.insertCoupons(coupons))
-                {
-                    response.Status = CommandStatus.ErrorInvalidStatus;
-                    response.Message = Resources.ResourceManager.GetString(response.Status.ToString() + "_Message", CultureInfo.InvariantCulture);
+                CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(CouponCode, Holder, User, CouponStatus.Created, _promo);
+                if(ExpireDate.HasValue)
+                    coupon.AwardTo = ExpireDate;
+                response = UpdateCouponStatus(coupon, Status);
+                if (response.Status == CommandStatus.Valid) { 
+                    coupons.Add(coupon);
+                    response = StoreCoupons(coupons);
                 }
             }
             return response;
         }
 
-        //[CollectionDataContract(Name ="ArrayOfCoupons", ItemName = "Coupon")]
+        /// <summary>
+        /// PromotionAPI.AddCoupons - adds multiple Coupons to Promotion with PromotionCode
+        /// </summary>
+        /// <param name="PromotionCode">unique Promotion Code</param>
+        /// <param name="coupons">list of coupons to add</param>
+        /// <returns></returns>
         public Command AddCoupons(string PromotionCode, IList<Coupon> coupons)
         {
-            Command response = new Command(CommandStatus.ErrorInvalidStatus);
-            foreach (Coupon coupon in coupons)
+            Command response = CheckPromotion(PromotionCode);
+            if (response.Status == CommandStatus.Valid)
             {
-                response = AddCoupon(coupon.PromotionCode, coupon.Code, coupon.Holder, coupon.User, coupon.ExpireDate, coupon.Status);
-                if (response.Status != CommandStatus.Valid)
-                    break;
+                List<CouponDatabase.Models.Coupon> storeCoupons = new List<CouponDatabase.Models.Coupon>();
+                foreach (Coupon c in coupons)
+                {
+                    CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(c.Code, c.Holder, c.User, CouponStatus.Created, _promo);
+                    if (c.ExpireDate.HasValue)
+                        coupon.AwardTo = c.ExpireDate;
+                    response = UpdateCouponStatus(coupon, c.Status);
+                    if (response.Status == CommandStatus.Valid)
+                        storeCoupons.Add(coupon);
+                    else
+                        break;
+                }
+                if (response.Status == CommandStatus.Valid)
+                    response = StoreCoupons(storeCoupons);
             }
             return response;
         }

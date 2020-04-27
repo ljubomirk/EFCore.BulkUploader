@@ -17,7 +17,7 @@ namespace CouponDatabase.API
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public CouponStatus Status { get; set; }
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
-        public DateTime ExpireDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
         [DataMember(IsRequired = true, EmitDefaultValue = true)]
         public string PromotionCode { get; set; }
     }
