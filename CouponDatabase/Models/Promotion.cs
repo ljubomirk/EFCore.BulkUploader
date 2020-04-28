@@ -69,7 +69,8 @@ namespace CouponDatabase.Models
             if(Coupons.Count()>1)
                 return true 
              */
-            return CouponSeries > 0 ? true : false;
+
+            return Coupons.Count() > 0 ? true : false;
         }
 
         #endregion
