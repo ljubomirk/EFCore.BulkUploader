@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.Services;
 using WebApp.Data;
 using Web.Services.Impl;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,11 +21,13 @@ namespace WebApp.Controllers
 
         private readonly RepositoryServices _repo;
         private readonly PromotionAPI _service;
+        private ILogger _logger;
 
-        public PromotionAPIController(ApplicationDbContext context)
+        public PromotionAPIController(ApplicationDbContext context, ILogger<PromotionAPIController> logger)
         {
-            _repo = new RepositoryServices(context);
+            _repo = new RepositoryServices(context, logger);
             _service = new PromotionAPI(_repo);
+            _logger = logger;
         }
 
         // GET api/Coupon/x

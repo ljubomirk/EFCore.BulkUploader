@@ -7,6 +7,7 @@ using WebApp.Services;
 using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Services.Soap
 {
@@ -16,11 +17,13 @@ namespace Web.Services.Soap
         {
             readonly Impl.PromotionAPI _service;
             readonly RepositoryServices _repo;
+            readonly ILogger _logger;
 
-            public PromotionAPI(ApplicationDbContext context)
+            public PromotionAPI(ApplicationDbContext context, ILogger<PromotionAPI> logger)
             {
-                _repo = new RepositoryServices(context);
+                _repo = new RepositoryServices(context, logger);
                 _service = new Impl.PromotionAPI(_repo);
+                _logger = logger;
             }
 
             public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
@@ -48,11 +51,13 @@ namespace Web.Services.Soap
 
             readonly Impl.CouponAPI _service;
             readonly RepositoryServices _repo;
+            private readonly ILogger<CouponAPI> _logger;
 
-            public CouponAPI(ApplicationDbContext context)
+            public CouponAPI(ApplicationDbContext context, ILogger<CouponAPI> logger)
             {
-                _repo = new RepositoryServices(context);
+                _repo = new RepositoryServices(context, logger);
                 _service = new Impl.CouponAPI(_repo);
+                _logger = logger;
             }
 
             public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)

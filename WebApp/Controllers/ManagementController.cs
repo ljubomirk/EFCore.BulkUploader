@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using ExcelDataReader;
 using CouponDatabase.Lifecycle;
+using Microsoft.Extensions.Logging;
 
 namespace WebApp.Controllers
 {
@@ -25,11 +26,15 @@ namespace WebApp.Controllers
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
-        public ManagementController(ApplicationDbContext context)
+        private readonly ILogger<ManagementController> _logger;
+
+        public ManagementController(ApplicationDbContext context, ILogger<ManagementController> logger)
         {      
-             _repo = new RepositoryServices(context);
+             _repo = new RepositoryServices(context, logger);
             _context = context;
-           
+            _logger = logger;
+
+
         }
 
         /// <summary>
@@ -188,6 +193,7 @@ namespace WebApp.Controllers
             }
             return View("PromotionDetails", viewModel);
         }
+
 
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)

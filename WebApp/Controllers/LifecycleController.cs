@@ -8,6 +8,7 @@ using CouponDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
@@ -23,11 +24,13 @@ namespace WebApp.Controllers
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
+        private ILogger _logger;
 
-        public LifecycleController(ApplicationDbContext context)
+        public LifecycleController(ApplicationDbContext context, ILogger<LifecycleController> logger)
         {      
-             _repo = new RepositoryServices(context);
+             _repo = new RepositoryServices(context, logger);
             _context = context;
+            _logger = logger;
         }
 
         /// <summary>
@@ -98,6 +101,8 @@ namespace WebApp.Controllers
             model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
             model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
 
+            // Set session and log
+            //HttpContext.Session.Set("Lifecycle.CouponList", model.CouponList.Coupons);
             /*
              * TODO:
              * - Store CouponList to local state to be retrieved in next action if needed
