@@ -68,13 +68,13 @@
                 <div class="col s12">
                     <p class="section-headline u-m-t-remove">Current Status</p>
                     <div class="radio-buttons-wrapper">
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="1" id="button1" onclick="updateExampleCoupon(this.value)" checked />
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="1" id="button1" onclick="updateCouponStatus(this.value)" checked />
                         <label for="button1">Created</label>
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateExampleCoupon(this.value)"/>
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateCouponStatus(this.value)"/>
                         <label for="button2">Issued</label>
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="3" id="button3" onclick="updateExampleCoupon(this.value)" disabled />
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="3" id="button3" onclick="updateCouponStatus(this.value)" disabled />
                         <label for="button3">Redeemed</label>
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="4" id="button4" onclick="updateExampleCoupon(this.value)" />
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="4" id="button4" onclick="updateCouponStatus(this.value)" />
                         <label for="button4">Canceled</label>
                     </div>
                     @Html.HiddenFor(i=>i.Status, new {@Value = (int)Model.Status })
@@ -137,6 +137,8 @@
             $("#Status").val(hiddenVal);
         })
 
-      
+    function updateCouponStatus(val) {
+        $("#Status").val(val);
+    } 
   
 </script>

@@ -201,19 +201,14 @@ namespace WebApp.Controllers
             bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
             if (returnValue)
             {
-                //ViewBag.CommandStatus = "[OK]";
-                //ViewBag.CommandMessage = "Coupons inserted.";
-
                 ViewBag.Command = new Command(CommandStatus.Valid);
+                _repo.UpdateCouponSeriesNum(model.PromotionId);
+                model.CouponSeries++;
             }
             else
             {
-                //ViewBag.CommandStatus = "[NOT OK]";
-                //ViewBag.CommandMessage = "Coupons didn't inserted.";
-
                 ViewBag.Command = new Command(CommandStatus.DataError_CouponInsertFailed);
             }
-            model.CouponSeries++;
             return View("PromotionCouponSeries", model);
         }
 

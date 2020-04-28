@@ -148,7 +148,26 @@ namespace WebApp.ViewModels
 
                     ICoupon cpn = new ICoupon(coupon);
 
-                listOfCoupons.Add(coupon);
+                    switch (Status)
+                    {
+                        case CouponStatus.Created:
+                            break;
+                        case CouponStatus.Issued:
+                            cpn.Assign("","");
+                            break;
+                        case CouponStatus.Redeemed:
+                            cpn.Assign("","");
+                            cpn.Redeem("");
+                            break;
+                        case CouponStatus.Canceled:
+                            cpn.Assign("","");
+                            cpn.Cancel();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    listOfCoupons.Add(coupon);
                 }
             }
 
