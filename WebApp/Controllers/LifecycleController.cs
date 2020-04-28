@@ -37,6 +37,15 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            // Check if LMM object exists in session
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+            if (lmm == null || lmm != null)
+            {
+                // Set object to new instance of the model before commiting to a (new) search action
+                lmm = new LifecycleManagementModel();
+                HttpContext.Session.SetObject("LMM", lmm);
+            }
+
             LifecycleSearchViewModel initModel = new LifecycleSearchViewModel();
             initModel.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
             initModel.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
@@ -57,29 +66,18 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Search(PromotionFilter promotionFilter, CouponFilters couponFilter)
         {
-            /*
-             * TO DO: 
-             *  - add coupon filtering
-             *  - store filtered coupons into model
-             *  - store filtered promotions and coupons into session before returning view
-             *  - figure out session storage (WIP)
-             */
+            Filters filters = new Filters(_context); // Filter model instance with filter methods
+            LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
 
-            //HttpContext.Session.SetObject("PromotionFilter", promotionFilter);
-
+            // Check if LMM object exists in session
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
-
             if (lmm == null || lmm != null)
             {
+                // Set object to new instance of the model before commiting to a (new) search action in case user pressed "Back" button.
                 lmm = new LifecycleManagementModel();
                 HttpContext.Session.SetObject("LMM", lmm);
             }
-
-            // PromotionFilter pf = HttpContext.Session.GetObject<PromotionFilter>("PF");
-
-            LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
-            Filters filters = new Filters(_context); // Filter model instance with filter methods
-
+            
             // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
@@ -97,8 +95,8 @@ namespace WebApp.Controllers
             }
 
             // Dropdown data
+            model.DropCouponSeries = new List<SelectListItem>(); // initially empty as no series can be chosen without promotion code 
             model.DropPromoCodes = getSelectListPromotions(couponPromotions);
-            model.DropCouponSeries = new List<SelectListItem>(); //getSelectListSeries(f_ListOfCoupons); 
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
             
@@ -110,18 +108,11 @@ namespace WebApp.Controllers
             model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
             model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
 
-            /*
-             * TODO:
-             * - Store CouponList to local state to be retrieved in next action if needed
-             */
-
+            // Store filters and chechbox list into session
             lmm.PromotionFilter = promotionFilter;
             lmm.CouponFilter = couponFilter;
             lmm.CouponItems = model.CouponList.CouponItems;
-
             HttpContext.Session.SetObject("LMM", lmm);
-
-            LifecycleManagementModel objComplex = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
 
             return View("LifecycleCoupons", model);
         }
@@ -133,32 +124,25 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult UpdateSearchFilter(LifecycleUpdateViewModel model)
         {
-            /*
-             * TODO:
-             * - get from session everything required for the update 
-             *      - selected promotion code value
-             *      - selected coupon series
-             *      - coupon list
-             *      - checkedcouponitem list
-             *      - dropenable
-             *      - dropstatus
-             *      - droppromo
-             *      - dropseries
-             * - !!! update object references below accordingly !!!
-             * - store new lists into session
+            /* 
+             * Improvement:
+             *  - store SelectedPromoCode and SelectedCouponSeries into session
+             *  - if any of the values present, use to filter session.CouponItems instead of reapplying filters from the previous view
              */
 
-            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+            Filters filters = new Filters(_context);
 
+            // Get session stored object
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
             if (lmm == null)
             {
                 lmm = new LifecycleManagementModel();
             }
 
-            Filters filters = new Filters(_context);
+            // Instance objects to be collected from session
+            // We're reusing filters applied to previous results view
             PromotionFilter promotionFilter = new PromotionFilter();
             CouponFilters couponFilter = new CouponFilters();
-            
             if (lmm.PromotionFilter != null)
             {
                 promotionFilter = lmm.PromotionFilter;
@@ -168,15 +152,12 @@ namespace WebApp.Controllers
                 couponFilter = lmm.CouponFilter;
             }
 
-            //promotionFilter.ValidFrom = new DateTime(2020, 4, 1);
-            //promotionFilter.ValidTo = new DateTime(2020, 6, 1);
-
             // Filter promotions and coupons
-            List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // store promos from initial filter to display in dropdown list
-            List<Promotion> filter_ListOfPromotions = new List<Promotion>();
-            Promotion promotion = new Promotion();
+            List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // Store promos for initial filter to display in dropdown list (after new filters are applied)
+            List<Promotion> filter_ListOfPromotions = new List<Promotion>(); // Reference list for getting coupons
+            Promotion promotion = new Promotion(); // Promotion selected via promo code dropdown
 
-            // 
+            // Get single promotion or all filtered promotions
             if (model.SelectedPromoCode == null)
             {
                 filter_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
@@ -185,41 +166,37 @@ namespace WebApp.Controllers
                 // Get promo with ID and add into list
                 promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode));
                 filter_ListOfPromotions.Add(promotion);
-                //filter_ListOfPromotions = filter_ListOfPromotions.Where(p => p.Code == model.SelectedPromoCode).ToList();
             }
 
+            // Filtered coupons to be displayed in table view
             List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(filter_ListOfPromotions), couponFilter);
-            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; // store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
-
-
-
-            // -- THRESHOLD BORDER -- // 
-
+            // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
+            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
 
             // Manage promotion code dropdown
             if (model.SelectedPromoCode == null)
             {
-                // populate with all matching promotion codes from initially filtered result
+                // Populate with all matching promotion codes from initially filtered result
                 model.DropPromoCodes = getSelectListPromotions(filter_ListOfPromotions);
             } else
             {
                 model.DropPromoCodes = getSelectListPromotions(init_ListOfPromotions);
-                lmm.SelectedPromoCode = model.SelectedPromoCode;
-
-                List<SelectListItem> slit = new List<SelectListItem>();
-                foreach (SelectListItem s in model.DropPromoCodes)
+                
+                // Set selected dropdown item
+                List<SelectListItem> promoSelectList = new List<SelectListItem>();
+                foreach (SelectListItem item in model.DropPromoCodes)
                 {
-                    if (s.Value == model.SelectedPromoCode)
+                    if (item.Value == model.SelectedPromoCode)
                     {
-                        s.Selected = true;
+                        item.Selected = true;
                     }
                     else
                     {
-                        s.Selected = false;
+                        item.Selected = false;
                     }
-                    slit.Add(s);
+                    promoSelectList.Add(item);
                 }
-                model.DropPromoCodes = slit;
+                model.DropPromoCodes = promoSelectList;
             }
 
 
@@ -227,37 +204,35 @@ namespace WebApp.Controllers
             if (model.SelectedCouponSeries != null)
             {
                 filter_ListOfCoupons = filter_ListOfCoupons.Where(c => c.CouponSeries == Int32.Parse(model.SelectedCouponSeries)).ToList();
-                lmm.SelectedCouponSeries = model.SelectedCouponSeries;
             }
 
             model.DropCouponSeries = getSelectListSeries(drop_ListOfCoupons);
 
-            List<SelectListItem> cslit = new List<SelectListItem>();
-            foreach (SelectListItem s in model.DropCouponSeries)
+            // Set selected dropdown item
+            List<SelectListItem> couponSelectList = new List<SelectListItem>();
+            foreach (SelectListItem item in model.DropCouponSeries)
             {
-                if (s.Value == model.SelectedCouponSeries)
+                if (item.Value == model.SelectedCouponSeries)
                 {
-                    s.Selected = true;
+                    item.Selected = true;
                 }
                 else
                 {
-                    s.Selected = false;
+                    item.Selected = false;
                 }
-                cslit.Add(s);
+                couponSelectList.Add(item);
             }
 
-
-            model.DropCouponSeries = cslit;
+            model.DropCouponSeries = couponSelectList;
 
 
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
-            model.CouponList.Coupon = new Coupon();
-            model.CouponList.Coupons = filter_ListOfCoupons;
             model.ValidTo = "";
 
+            model.CouponList.Coupon = new Coupon();
+            model.CouponList.Coupons = filter_ListOfCoupons;
 
-            /* WIP CODE . requires local storage for completion */
             CouponList couponList = new CouponList();
             // Set coupons to work with
             if (model.CouponList != null)
@@ -266,10 +241,11 @@ namespace WebApp.Controllers
             }
             
             couponList.Coupons = filter_ListOfCoupons;
-            model.SelectedPromoCode = model.SelectedPromoCode;
-            model.SelectedCouponSeries = model.SelectedCouponSeries;
             couponList.CouponItems = setModelCouponList(couponList.Coupons);
             model.CouponList = couponList;
+
+            model.SelectedPromoCode = model.SelectedPromoCode;
+            model.SelectedCouponSeries = model.SelectedCouponSeries;
 
             // Session management
             lmm.CouponItems = couponList.CouponItems;
@@ -289,7 +265,7 @@ namespace WebApp.Controllers
              * TODO: 
              */
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
-            lmm.CouponItems = model.CouponList.CouponItems;
+            //lmm.CouponItems = model.CouponList.CouponItems;
 
             //LifecycleUpdateViewModel objComplex = HttpContext.Session.GetObject<LifecycleUpdateViewModel>("LUVM");
 
