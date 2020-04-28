@@ -106,7 +106,7 @@ namespace WebApp.Controllers
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = f_ListOfCoupons;
             model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
-            model.ValidTo = ""; // prevents default activation of Update Selection button on LifecycleCoupons view
+            model.RedeemTo = null; // prevents default activation of Update Selection button on LifecycleCoupons view
 
             // Store filters and chechbox list into session
             lmm.PromotionFilter = promotionFilter;
@@ -228,7 +228,7 @@ namespace WebApp.Controllers
 
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
-            model.ValidTo = "";
+            model.RedeemTo = null;
 
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = filter_ListOfCoupons;

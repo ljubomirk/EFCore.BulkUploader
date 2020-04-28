@@ -24,9 +24,9 @@
             <i class='material-icons suffix validation-error'>warning</i>
         </div>
         <div class="input-field date col s2">
-            @Html.EditorFor(p => p.ValidTo, "", new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "-not selected-", @autocomplete = "off", @data_modal = "validto", dataVal = true } })
-            @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(p => p.ValidTo)
+            @Html.EditorFor(f => f.RedeemTo, new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+            @Html.LabelFor(f => f.RedeemTo, new { htmlAttributes = new { @class = "active", @for = "RedeemTo" } })
+            @Html.ValidationMessageFor(p => p.RedeemTo)
             <i class='material-icons suffix validation-error'>warning</i>
         </div>
         <div class="input-field col s2">
