@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Models;
 using WebApp.Services;
@@ -16,10 +17,12 @@ namespace WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly RepositoryServices _repo;
+        private ILogger _logger;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, ILogger<HomeController> logger)
         {
-            _repo = new RepositoryServices(context);
+            _repo = new RepositoryServices(context, logger);
+            _logger = logger;
         }
 
         public IActionResult Index()

@@ -10,16 +10,24 @@ using System;
 using CouponDatabase.Lifecycle;
 using WebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace WebApp.Services
 {
     public class RepositoryServices
     {
         readonly ApplicationDbContext Context;
+        private readonly ILogger _logger;
 
         public RepositoryServices(ApplicationDbContext context)
         {
             Context = context;
+            _logger = new LoggerFactory().CreateLogger("RepositoryService");
+        }
+        public RepositoryServices(ApplicationDbContext context, ILogger logger)
+        {
+            Context = context;
+            _logger = logger;
         }
         public Command Add(Coupon coupon)
         {
@@ -81,12 +89,15 @@ namespace WebApp.Services
                 Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+               
             }
             catch (Exception exc)
             {
                 Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
             }
             return result;
         }
