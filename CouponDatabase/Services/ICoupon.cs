@@ -153,6 +153,7 @@ namespace CouponDatabase.Services
             }
             return result;
         }
+
         public Lifecycle.Command Cancel()
         {
             Lifecycle.Command result = StateChange(CouponStatus.Canceled);
@@ -165,6 +166,89 @@ namespace CouponDatabase.Services
                     Coupon.Status = (int)CouponStatus.Canceled;
                     AddHistory("Cancel", "");
                 }
+            }
+            return result;
+        }
+
+        /*
+         * Set new user on coupon as defined in Customer update field.
+         */
+        public Lifecycle.Command AssignUser(string user)
+        {
+            Lifecycle.Command result;
+            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            {
+                CommandStatus status = (user != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
+                result = new Command(status);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    Coupon.User = user;
+                    AddHistory("AssignUser", user);
+                }
+            }
+            else
+            {
+                result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+            }
+            return result;
+        }
+
+        /*
+         * Set new AwardTo date on coupon, as defined in ReedemableUntil update field.
+         */
+        public Lifecycle.Command Prolong(Nullable<DateTime> RedeemUntil)
+        {
+            Lifecycle.Command result;
+            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            {
+                CommandStatus status = RedeemUntil > DateTime.Now? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
+                result = new Command(status);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    Coupon.AwardTo = RedeemUntil;
+                    AddHistory("Prolong", RedeemUntil.ToString());
+                }
+            } else
+            {
+                result = new Command(CommandStatus.ErrorInvalidStatus);
+                AddHistory("Prolong", "");
+            }
+            return result;
+        }
+
+        /*
+         * Set new AwardTo date on coupon, as defined in ReedemableUntil update field.
+         */
+        public Lifecycle.Command Enable()
+        {
+            Lifecycle.Command result;
+            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            {
+                result = new Command(CommandStatus.Valid);
+                if (result.Status == CommandStatus.Valid)
+                {
+                    //Coupon.Active = true;
+                    AddHistory("Prolong", "true");
+                }
+            }
+            else
+            {
+                result = new Command(CommandStatus.ErrorInvalidStatus);
+                AddHistory("Prolong", "");
+            }
+            return result;
+        }
+
+        /*
+         * Set coupon status, as defined in dropdown list.
+         */
+        public Lifecycle.Command UpdateStatus(CouponStatus status)
+        {
+            Lifecycle.Command result = StateChange(status);
+            if(result.Status == CommandStatus.Valid)
+            {
+                Coupon.Status = (int)status;
+                AddHistory("UpdateStatus", status.ToString());
             }
             return result;
         }
