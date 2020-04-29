@@ -4490,7 +4490,7 @@ li.disable > a {
       padding: 14px 16px; }
       .dropdown-content li > a.disabled, .dropdown-content li > span.disabled {
         pointer-events: none !important;
-        color: #e0e0e0; }
+        color: #bdbdbd; }
     .dropdown-content li > span > label {
       top: 1px;
       left: 0;

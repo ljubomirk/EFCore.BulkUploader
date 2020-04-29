@@ -38,6 +38,16 @@
     <tbody>
         @foreach (var p in Model)
         {
+            bool allowCoupons = false;
+
+            @foreach (var props in p.PromotionProperties)
+            {
+                if (props.Property.Name == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString())
+                {
+                    allowCoupons = true;
+                    break;
+                } 
+            }
             <tr>
                 <td>@Html.DisplayFor(item => p.Code)</td>
                 <td>@Html.DisplayFor(item => p.ValidFrom)</td>
@@ -61,11 +71,63 @@
                     }
                 </td>
                 <td>
-                    <a class='dropdown-trigger' href='!#' data-id="@p.Id" data-value="@p.Enabled" data-coupons="@p.HasCoupons" data-coupons-allow="@*@p.AllowCouponSeries*@True" data-target='promotion-actions'>
+                    <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@p.Id'>
                         <i class="material-icons material-icons__hover">more_horiz</i>
                     </a>
+                    <ul id='promotion-actions-@p.Id' class='dropdown-content'>
+                        <li>
+                            <a class="action-promo @(p.HasCoupons ? "disabled": "")" data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = p.Id })">
+                                <i class="material-icons">create</i>
+                                @CouponDatabase.Properties.Resources.Btn_Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a class="action-promo @(!allowCoupons ? "disabled":"")" data-action="AddSeries" href="@Url.Action("AddCouponSeries", "Management", new { id = p.Id })">
+                                <i class="material-icons">add</i>
+                                @CouponDatabase.Properties.Resources.Btn_AddSeries
+                            </a>
+                        </li>
+                        <li class="@(p.Enabled ? "disable": "enable")">
+                            <a class="action-promo modal-trigger" data-url="@Url.Action("Enable", "Management", new { id = p.Id, enable = !p.Enabled })" data-enabled="@p.Enabled" href="#modal-confirmation">
+                                <i class='material-icons left'>check</i>
+                                @(p.Enabled ? CouponDatabase.Properties.Resources.Btn_SetDisabled : CouponDatabase.Properties.Resources.Btn_SetEnabled)
+                            </a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function () {
+        // update modal when setting enable/disable
+        $(".modal-trigger").click(function () {
+            var url = this.getAttribute("data-url");
+            var enabled = this.getAttribute("data-enabled");
+            var modalHeader = $(".modal-content h4");
+            var modalContent = $(".modal-content p");
+            var modalAction = $("#modal-action");
+
+            if (enabled == "True") {
+                modalHeader.html('@CouponDatabase.Properties.Resources.Modal_TitleSetDisabled');
+                modalContent.html('@CouponDatabase.Properties.Resources.Modal_ContentDisable');
+                modalAction.html(
+                    "<i class='material-icons left'>check</i>" +
+                    "@CouponDatabase.Properties.Resources.Btn_SetDisabled"
+                );
+
+            } else {
+                modalHeader.html('@CouponDatabase.Properties.Resources.Modal_TitleSetEnabled');
+                modalContent.html('@CouponDatabase.Properties.Resources.Modal_ContentEnable');
+                modalAction.html(
+                    "<i class='material-icons left'>check</i>" +
+                    "@CouponDatabase.Properties.Resources.Btn_SetEnabled"
+                );
+            }
+
+            modalAction.attr("href", url);
+        });
+    });
+</script>

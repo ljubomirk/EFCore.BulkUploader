@@ -21,6 +21,7 @@
             ],
             drawCallback: function () {
                 $('.dataTables_paginate > a.paginate_button').addClass('waves-effect');
+                $("a.dropdown-trigger__table").dropdown(config.options.dropdown);
             },
             dom: 'frtipB',
             buttons: [{
@@ -35,7 +36,8 @@
             outDuration: 100,
             onCloseEnd: function () {
                 // this fixes the "3 click bug" when dropbox opens and next click is another dropdown
-                $("body").click();
+                //$("body").click();
+                console.log("closed")
             }
         },
         tabs: { swipeable: true },
