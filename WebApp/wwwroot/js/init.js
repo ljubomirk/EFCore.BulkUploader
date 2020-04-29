@@ -48,7 +48,6 @@
             // reset all icons
             allIcons.each(function () {
                 if (this.getAttribute("src") != oldSrc) {
-                    console.log("nasao")
                     this.setAttribute("src", oldSrc);
                 }
             })
@@ -57,7 +56,7 @@
     }
 
     // init dropdowns
-    if ($('.dropdown-trigger').length > 0) $('.dropdown-trigger').dropdown(config.options.table);
+    if ($('.dropdown-trigger').length > 0) $('.dropdown-trigger').dropdown(config.options.dropdown);
 
     // init modals
     if ($(".modal").length > 0) {
