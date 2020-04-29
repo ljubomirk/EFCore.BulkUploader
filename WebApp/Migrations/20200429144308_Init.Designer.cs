@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200429142327_Init")]
+    [Migration("20200429144308_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,8 @@ namespace WebApp.Migrations
 
                     b.Property<string>("Holder");
 
+                    b.Property<int>("MaxRedeemNo");
+
                     b.Property<long>("PromotionId");
 
                     b.Property<int>("Status");
@@ -127,6 +129,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "38640440481",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 2,
                             User = "38640440481"
@@ -142,6 +145,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "38640440482",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 2,
                             User = "38640440482"
@@ -157,6 +161,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "38640440483",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 1,
                             User = "38640440483"
@@ -172,6 +177,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 4,
                             User = ""
@@ -187,6 +193,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 3,
                             User = ""
@@ -202,6 +209,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 2L,
                             Status = 3,
                             User = ""
@@ -217,6 +225,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "38640440481",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 2,
                             User = "38640440481"
@@ -232,6 +241,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "38640440482",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 2,
                             User = "38640440482"
@@ -247,6 +257,7 @@ namespace WebApp.Migrations
                             CouponSeries = 2,
                             Enabled = false,
                             Holder = "38640440483",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 2,
                             User = "38640440483"
@@ -262,6 +273,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 1,
                             User = ""
@@ -277,6 +289,7 @@ namespace WebApp.Migrations
                             CouponSeries = 1,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 1,
                             User = ""
@@ -292,6 +305,7 @@ namespace WebApp.Migrations
                             CouponSeries = 2,
                             Enabled = false,
                             Holder = "",
+                            MaxRedeemNo = 1,
                             PromotionId = 5L,
                             Status = 3,
                             User = ""
@@ -307,6 +321,7 @@ namespace WebApp.Migrations
                             CouponSeries = 2,
                             Enabled = false,
                             Holder = "38640440481",
+                            MaxRedeemNo = 1,
                             PromotionId = 1L,
                             Status = 2,
                             User = "38640440481"
@@ -322,6 +337,7 @@ namespace WebApp.Migrations
                             CouponSeries = 2,
                             Enabled = false,
                             Holder = "38640440481",
+                            MaxRedeemNo = 1,
                             PromotionId = 1L,
                             Status = 3,
                             User = "38640440481"
@@ -337,6 +353,7 @@ namespace WebApp.Migrations
                             CouponSeries = 2,
                             Enabled = false,
                             Holder = "38640440481",
+                            MaxRedeemNo = 1,
                             PromotionId = 1L,
                             Status = 4,
                             User = "38640440481"
