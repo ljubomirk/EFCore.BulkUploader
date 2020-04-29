@@ -410,6 +410,9 @@ namespace WebApp.Controllers
             {
                 // Having stored response from each update we can later use this information to report to the user which checks were invalid for the coupon
                 ViewBag.Command = failedCouponCommands[0];
+            } else
+            {
+                ViewBag.Command = new Command(CommandStatus.Valid);
             }
 
             // For coupons where command.Status == CommandStatus.Valid, deselect CheckedCouponItem
