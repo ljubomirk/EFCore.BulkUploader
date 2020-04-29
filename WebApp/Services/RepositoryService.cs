@@ -176,6 +176,7 @@ namespace WebApp.Services
 
         public Promotion GetPromotionData(Promotion promotion)
         {
+            _logger.LogDebug(Utils.GetLogFormat()+"Loading promotion {1}:{2}", promotion.Id,promotion.Code);
             Context.Entry(promotion).Collection(p => p.PromotionProperties).Load();
             Context.Entry(promotion).Collection(p => p.PromotionAwardChannels).Load();
             Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();

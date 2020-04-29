@@ -62,6 +62,10 @@
     <Compile Remove="Migrations\20200427084453_Init.Designer.cs" />
     <Compile Remove="Migrations\20200427092517_Init.cs" />
     <Compile Remove="Migrations\20200427092517_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200427092645_Init.cs" />
+    <Compile Remove="Migrations\20200427092645_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200429141035_Init.cs" />
+    <Compile Remove="Migrations\20200429141035_Init.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
