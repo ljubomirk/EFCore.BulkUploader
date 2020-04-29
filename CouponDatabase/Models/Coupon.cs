@@ -8,14 +8,17 @@ namespace CouponDatabase.Models
 {
     public class Coupon
     {
-        public Coupon() { }
-        public Coupon(string code, string holder, string user, CouponDatabase.Lifecycle.CouponStatus status, Promotion promo)
+        public Coupon() {
+            MaxRedeemNo = 1;
+        }
+        public Coupon(string code, string holder, string user, CouponDatabase.Lifecycle.CouponStatus status, Promotion promo, int  maxRedeemNo=1)
         {
             Code = code;
             Holder = holder;
             User = user;
             Status = (int)status;
             Promotion = promo;
+            MaxRedeemNo = maxRedeemNo;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -45,6 +48,8 @@ namespace CouponDatabase.Models
         public long PromotionId { get; set; }
         public Promotion Promotion { get; set; }
         public int CouponSeries { get; set; }
+        public int MaxRedeemNo { get; set; }
+        public Boolean Enabled { get; set; }
 
         /* Active is virtual value, read from other values */
         public Boolean Active

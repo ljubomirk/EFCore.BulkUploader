@@ -23,7 +23,7 @@ namespace WebApp
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
+                    logging.AddConsole(options => { options.Format = Microsoft.Extensions.Logging.Console.ConsoleLoggerFormat.Systemd; });
                     logging.AddDebug();
                     logging.AddEventSourceLogger();
                     logging.AddEventLog();
