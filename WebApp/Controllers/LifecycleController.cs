@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.Models;
+using CouponDatabase.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -236,7 +237,7 @@ namespace WebApp.Controllers
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = filter_ListOfCoupons;
 
-            CouponList couponList = new CouponList();
+            ViewModels.CouponList couponList = new ViewModels.CouponList();
             // Set coupons to work with
             if (model.CouponList != null)
             {
@@ -264,24 +265,156 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult UpdateCoupons(LifecycleUpdateViewModel model)
         {
-            /*
-             * TODO: 
-             */
+            bool updateCustomer = false;
+            if(model.Customer != null)
+            {
+                updateCustomer = true;
+            }
+            bool updateRedeemTo = false;
+            if(model.RedeemTo != null)
+            {
+                updateRedeemTo = true;
+            }
+            bool updateEnabled = false;
+            if (model.SelectedEnabled != null)
+            {
+                updateEnabled = true;
+            }
+            bool updateStatus = false;
+            if (model.SelectedCouponStatus != null)
+            {
+                updateStatus = true;
+            }
+            
+
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
-            //lmm.CouponItems = model.CouponList.CouponItems;
+            if(lmm == null)
+            {
+                lmm = new LifecycleManagementModel();
+            }
+            lmm.CouponItems = model.CouponList.CouponItems;
 
-            //LifecycleUpdateViewModel objComplex = HttpContext.Session.GetObject<LifecycleUpdateViewModel>("LUVM");
-
+            List<long> couponIds = new List<long>();
             if (model.CouponList.SelectAllCoupons)
             {
-
+                couponIds = model.CouponList.CouponItems.Select( c => c.Id ).Distinct().ToList();
             } else
             {
-                //foreach (CouponCommand command in model.CouponsSelected)
-                //{
-                //    command.Status = CommandStatus.Valid;
-                //}
+                couponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
             }
+
+            // Find Coupon objects for checked coupons
+            List<Coupon> coupons = new List<Coupon>();
+            foreach (long id in couponIds)
+            {
+                Coupon coupon = _repo.GetCouponById(id);
+                if (coupon != null)
+                {
+                    coupons.Add(coupon);
+                }                
+            }
+
+            // Execute coupon user update
+            List<Command> failedCouponCommands = new List<Command>();
+            // Update customer (user) for coupons
+
+            foreach(Coupon coupon in coupons)
+            {
+                int passedChecks = 0;
+                if (updateCustomer)
+                {
+                    ICoupon cmd = new ICoupon(coupon);
+                    Command response = cmd.AssignUser(model.Customer);
+                    if (response.Status == CommandStatus.Valid)
+                    {
+                        passedChecks++;
+                    }
+                    else
+                    {
+                        // Store coupons and action types to report errors on action finish
+                        response.Coupon = coupon;
+                        failedCouponCommands.Add(response);
+                    }
+                } else
+                {
+                    passedChecks++;
+                }
+
+                // Execute coupon redeem until update
+                if (updateRedeemTo)
+                {
+                    ICoupon cmd = new ICoupon(coupon);
+                    Command response = cmd.Prolong(model.RedeemTo);
+                    if (response.Status == CommandStatus.Valid)
+                    {
+                        passedChecks++;
+                    }
+                    else
+                    {
+                        // Store coupons and action types to report errors on action finish
+                        response.Coupon = coupon;
+                        failedCouponCommands.Add(response);
+                    }
+                } else
+                {
+                    passedChecks++;
+                }
+
+                // Execute coupon enable update
+                if (updateEnabled)
+                {
+                    ICoupon cmd = new ICoupon(coupon);
+                    Command response = cmd.Enable();
+                    if (response.Status == CommandStatus.Valid)
+                    {
+                        passedChecks++;
+                    }
+                    else
+                    {
+                        // Store coupons and action types to report errors on action finish
+                        response.Coupon = coupon;
+                        failedCouponCommands.Add(response);
+                    }
+                } else
+                {
+                    passedChecks++;
+                }
+
+                // Execute coupon status update
+                if (updateStatus)
+                {
+                    ICoupon cmd = new ICoupon(coupon);
+                    Command response = cmd.UpdateStatus((CouponStatus)Int32.Parse(model.SelectedCouponStatus));
+                    if (response.Status == CommandStatus.Valid)
+                    {
+                        passedChecks++;
+                    }
+                    else
+                    {
+                        // Store coupons and action types to report errors on action finish
+                        response.Coupon = coupon;
+                        failedCouponCommands.Add(response);
+                    }
+                } else
+                {
+                    passedChecks++;
+                }
+
+                if(passedChecks == 4)
+                {
+                    _repo.UpdateCoupon(coupon);
+                }
+            }
+
+            if (failedCouponCommands.Count() > 0)
+            {
+                // Having stored response from each update we can later use this information to report to the user which checks were invalid for the coupon
+                ViewBag.Command = failedCouponCommands[0];
+            }
+
+            // For coupons where command.Status == CommandStatus.Valid, deselect CheckedCouponItem
+            // For failed coupon commands, return CheckedCouponItem as checked
+            // Pass changes through model into view
 
 
             HttpContext.Session.SetObject("LMM", lmm);
