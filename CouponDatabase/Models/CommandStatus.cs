@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponDatabase.Models;
+using System;
 using System.Resources;
 using System.Runtime.Serialization;
 
@@ -11,7 +12,7 @@ namespace CouponDatabase.Lifecycle
         public CommandStatus Status { get; set; }
         [DataMember]
         public string Message { get; set; }
-
+        public Coupon Coupon { get; set; }
         public Command(CommandStatus status)
         {
             Status = status;

@@ -1,5 +1,6 @@
 ﻿using CouponDatabase.Lifecycle;
 using CouponDatabase.Models;
+using CouponDatabase.Properties;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,10 @@ namespace WebApp.ViewModels
 
         // Coupon update fields
         public string Customer { get; set; }
-        [Display(Name = "Valid To")]
-        public string ValidTo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]
+        public Nullable<DateTime> RedeemTo { get; set; }
         public string Status { get; set; }
         public string Enabled { get; set; }
 

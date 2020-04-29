@@ -505,4 +505,8 @@
     <value>Promotion didn't save.</value>
     <comment>Promotion update msg, failed</comment>
   </data>
+  <data name="ErrorInvalidRedeemDate" xml:space="preserve">
+    <value>Coupon Redeem Until date is not valid.</value>
+    <comment>When Redeem until date is not valid.</comment>
+  </data>
 </root>

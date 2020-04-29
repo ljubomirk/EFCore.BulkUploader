@@ -68,6 +68,11 @@ namespace WebApp.Services
             return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
         }
 
+        public Coupon GetCouponById(long id)
+        {
+            return Context.Coupon.Where(c => c.Id == id).First();
+        }
+
         public Command UpdateCoupon(Coupon coupon)
         {
             Command result = null;
