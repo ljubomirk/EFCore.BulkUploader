@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using CouponDatabase.Models;
+using CouponSystem = CouponDatabase.Models.System;
 using CouponDatabase.Lifecycle;
 
 namespace WebApp.Data
@@ -11,10 +12,12 @@ namespace WebApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options)
         {
+            //Special setup for Oracle 
             if (Database.ProviderName == "Oracle.EntityFrameworkCore")
                 Database.ExecuteSqlCommand("ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT");
         }
 
+        #region Entities
         // Base entities
         public DbSet<Property> Property { get; set; }
         public DbSet<IssuerChannel> IssuerChannel { get; set; }
@@ -30,9 +33,17 @@ namespace WebApp.Data
         public DbSet<PromotionAwardChannel> PromotionAwardChannel { get; set; }
         public DbSet<PromotionIssuerChannel> PromotionIssuerChannel { get; set; }
         public DbSet<PromotionProperty> PromotionProperty { get; set; }
+
+        //Administration
+        public DbSet<User> User { get; set; }
+        public DbSet<AccessLog> AccessLog { get; set; }
+        public DbSet<CouponSystem> System { get; set; }
+        public DbSet<NotifyList> NotifyList { get; set; }
+        #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            #region Keys
             /* Unique keys */
             modelBuilder.Entity<Promotion>()
                         .HasIndex(b => b.Code)
@@ -41,6 +52,10 @@ namespace WebApp.Data
             modelBuilder.Entity<Coupon>()
                         .HasIndex(b => b.Code)
                         .IsUnique();
+            /* Primary key */
+            modelBuilder.Entity<User>().HasKey(
+                u => new { u.Username }
+            );
             /* Composite key */
             modelBuilder.Entity<PromotionAwardChannel>().HasKey(
                 pac => new { pac.PromotionId, pac.AwardChannelId }
@@ -57,6 +72,9 @@ namespace WebApp.Data
             modelBuilder.Entity<CouponIssuerChannel>().HasKey(
                 pac => new { pac.CouponId, pac.IssuerChannelId }
             );
+            modelBuilder.Entity<NotifyList>().HasKey(
+                pac => new { pac.SystemId, pac.ChannelId }
+            );
 
             /* Test Data */
             modelBuilder.Entity<IssuerChannel>().HasData(
@@ -68,6 +86,8 @@ namespace WebApp.Data
             modelBuilder.Entity<Property>().HasData(
                 BaseDefs.ArrayFrom<Property, PropertyTypeEnum>()
             );
+            #endregion
+            #region Promotion seed
             //set Promotions
             modelBuilder.Entity<Promotion>().HasData(
                 new Promotion()
@@ -263,6 +283,8 @@ namespace WebApp.Data
                     ValidTo = DateTime.Parse("01.09.2020")
                 }
             );
+            #endregion
+            #region Additional Promotion seed
             modelBuilder.Entity<PromotionProperty>().HasData(
                            new PromotionProperty() { PromotionId = 1, PropertyId = 2},
                            new PromotionProperty() { PromotionId = 1, PropertyId = 4 },
@@ -297,6 +319,8 @@ namespace WebApp.Data
                            new PromotionAwardChannel() { PromotionId = 3, AwardChannelId = 4 },
                            new PromotionAwardChannel() { PromotionId = 3, AwardChannelId = 3 }
                         );
+            #endregion
+            #region Coupon seed
             modelBuilder.Entity<Coupon>().HasData(
                 new Coupon()
                 {
@@ -509,7 +533,17 @@ namespace WebApp.Data
                     CouponSeries = 2
                 }
             );
-
+            #endregion
+            #region Admin seed
+            modelBuilder.Entity<User>().HasData(
+                new User() { AccessType = AccessType.Admininistrator, Username = "ljubo", Fullname = "Ljubomir Kraljevic", Domain = "LJUBO-PC" },
+                new User() { AccessType = AccessType.Admininistrator, Username = "traktor", Fullname = "DJ Fresh Prince", Domain = "LJUBO-PC" }
+            );
+            modelBuilder.Entity<CouponSystem>().HasData(
+                new CouponSystem() { Id = 1, Name = "CRM", Username="max", Password="test" },
+                new CouponSystem() { Id = 2, Name = "SalesForce", Username = "sf", Password = "test" }
+            );
+            #endregion
         }
 
     }

@@ -45,6 +45,7 @@ namespace CouponDatabase.Models
         public long PromotionId { get; set; }
         public Promotion Promotion { get; set; }
         public int CouponSeries { get; set; }
+        public Boolean Enabled { get; set; }
 
         /* Active is virtual value, read from other values */
         public Boolean Active

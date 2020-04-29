@@ -19,6 +19,27 @@ namespace WebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CouponDatabase.Models.AccessLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Action");
+
+                    b.Property<int>("ApplicationType");
+
+                    b.Property<string>("Channel");
+
+                    b.Property<DateTime>("IssuedDate");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccessLog");
+                });
+
             modelBuilder.Entity("CouponDatabase.Models.AwardChannel", b =>
                 {
                     b.Property<long>("Id")
@@ -72,6 +93,8 @@ namespace WebApp.Migrations
 
                     b.Property<int>("CouponSeries");
 
+                    b.Property<bool>("Enabled");
+
                     b.Property<string>("Holder");
 
                     b.Property<long>("PromotionId");
@@ -100,6 +123,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567892",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "38640440481",
                             PromotionId = 2L,
                             Status = 2,
@@ -114,6 +138,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567893",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "38640440482",
                             PromotionId = 2L,
                             Status = 2,
@@ -128,6 +153,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567894",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "38640440483",
                             PromotionId = 2L,
                             Status = 1,
@@ -142,6 +168,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567891",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 2L,
                             Status = 4,
@@ -156,6 +183,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567895",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 2L,
                             Status = 3,
@@ -170,6 +198,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567113",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 2L,
                             Status = 3,
@@ -184,6 +213,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567892",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "38640440481",
                             PromotionId = 5L,
                             Status = 2,
@@ -198,6 +228,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567893",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "38640440482",
                             PromotionId = 5L,
                             Status = 2,
@@ -212,6 +243,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567894",
                             CouponSeries = 2,
+                            Enabled = false,
                             Holder = "38640440483",
                             PromotionId = 5L,
                             Status = 2,
@@ -226,6 +258,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567891",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 5L,
                             Status = 1,
@@ -240,6 +273,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567911",
                             CouponSeries = 1,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 5L,
                             Status = 1,
@@ -254,6 +288,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567912",
                             CouponSeries = 2,
+                            Enabled = false,
                             Holder = "",
                             PromotionId = 5L,
                             Status = 3,
@@ -268,6 +303,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567289",
                             CouponSeries = 2,
+                            Enabled = false,
                             Holder = "38640440481",
                             PromotionId = 1L,
                             Status = 2,
@@ -282,6 +318,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567290",
                             CouponSeries = 2,
+                            Enabled = false,
                             Holder = "38640440481",
                             PromotionId = 1L,
                             Status = 3,
@@ -296,6 +333,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567291",
                             CouponSeries = 2,
+                            Enabled = false,
                             Holder = "38640440481",
                             PromotionId = 1L,
                             Status = 4,
@@ -390,6 +428,21 @@ namespace WebApp.Migrations
                             Id = 5L,
                             Name = "Webshop"
                         });
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.NotifyList", b =>
+                {
+                    b.Property<long>("SystemId");
+
+                    b.Property<long>("ChannelId");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("SystemId", "ChannelId");
+
+                    b.HasIndex("ChannelId");
+
+                    b.ToTable("NotifyList");
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.Promotion", b =>
@@ -865,6 +918,71 @@ namespace WebApp.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CouponDatabase.Models.System", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("System");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "CRM",
+                            Password = "test",
+                            Username = "max"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "SalesForce",
+                            Password = "test",
+                            Username = "sf"
+                        });
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.User", b =>
+                {
+                    b.Property<string>("Username")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessType");
+
+                    b.Property<string>("Domain");
+
+                    b.Property<string>("Fullname");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Username = "ljubo",
+                            AccessType = 1,
+                            Domain = "LJUBO-PC",
+                            Fullname = "Ljubomir Kraljevic"
+                        },
+                        new
+                        {
+                            Username = "traktor",
+                            AccessType = 1,
+                            Domain = "LJUBO-PC",
+                            Fullname = "DJ Fresh Prince"
+                        });
+                });
+
             modelBuilder.Entity("CouponDatabase.Models.Coupon", b =>
                 {
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
@@ -904,6 +1022,19 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
                         .WithMany()
                         .HasForeignKey("IssuerChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CouponDatabase.Models.NotifyList", b =>
+                {
+                    b.HasOne("CouponDatabase.Models.IssuerChannel", "Channel")
+                        .WithMany()
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CouponDatabase.Models.System", "System")
+                        .WithMany()
+                        .HasForeignKey("SystemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
