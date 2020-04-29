@@ -180,8 +180,11 @@ namespace WebApp.Services
             Context.Entry(promotion).Collection(p => p.PromotionProperties).Load();
             Context.Entry(promotion).Collection(p => p.PromotionAwardChannels).Load();
             Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();
-            Context.Entry(promotion).Collection(p => p.Coupons).Load();
-
+            //Context.Entry(promotion).Collection(p => p.Coupons).Load();
+            if (getHasCouponsForPromotion(promotion.Id))
+            {
+                promotion.Coupons = new List<Coupon>();
+            }
             foreach (var promProp in promotion.PromotionProperties)
             {
                 promProp.Property = Context.Property.Find(promProp.PropertyId);
@@ -193,10 +196,6 @@ namespace WebApp.Services
             foreach (var channel in promotion.PromotionIssuerChannels)
             {
                 channel.IssuerChannel = Context.IssuerChannel.Find(channel.IssuerChannelId);
-            }
-            foreach (var coupon in promotion.Coupons)
-            {
-                coupon.Code = Context.Coupon.Find(coupon.Id).Code;
             }
 
             return promotion;
