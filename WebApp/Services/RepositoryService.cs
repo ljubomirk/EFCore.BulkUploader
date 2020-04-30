@@ -184,6 +184,7 @@ namespace WebApp.Services
             if (getHasCouponsForPromotion(promotion.Id))
             {
                 promotion.Coupons = new List<Coupon>();
+                promotion.Coupons = GetPromotionCoupons(promotion);
             }
             foreach (var promProp in promotion.PromotionProperties)
             {
