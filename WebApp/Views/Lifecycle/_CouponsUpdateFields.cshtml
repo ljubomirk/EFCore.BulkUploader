@@ -41,7 +41,7 @@
         <div class="input-field col s2">
             @if (ViewBag.Command != null)
             {
-                <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary btn-wide @(ViewBag.Command.Status == 0 ? "success" : "error")" href="#modal-confirmation" data-position="bottom" data-tooltip="@ViewBag.Command.Message">
+                <button id="modal-trigger" type="button" class="waves-effect waves-light btn-flat btn-primary btn-wide @((int)ViewBag.Command.Status == 0 ? "success" : "error")" href="#modal-confirmation" data-position="bottom" data-tooltip="@ViewBag.Command.Message">
                     <i class="material-icons">@(ViewBag.Command.Status == 0 ? "check" : "warning")</i>
                 </button>
             }
@@ -56,7 +56,7 @@
         </div>
         <!-- /action to call confirmation modal -->
         <!-- action to call confirmation modal -->
-        <div id="table-export" class="input-field col s2">
+        <div id="table-export" class="input-field col s2 u-p-r-remove">
         </div>
         <!-- action to call confirmation modal -->
     </div>
@@ -71,44 +71,35 @@
         var btn = $("#modal-trigger");
         var strUpdate = '@CouponDatabase.Properties.Resources.Btn_UpdateSelected';
         var trigger = $("#modal-action");
+        var status = '@ViewBag.Command';
 
-        var initContent = btn.html();
+        var initContent = '<i class="material-icons left">update</i>' + strUpdate;
         var loadingContent = '<i class="material-icons loading u-m-l-lg u-m-r-lg">autorenew</i>';
 
         // change style when form submitted from modal
         trigger.click(function () {
             btn.html(loadingContent)
+            btn.tooltip();
         });
 
-
-        // reverse style - will reverse if filter is used as well
-        $("input").click(reverseBtn)
-
-        function reverseBtn() {
-            if (typeof status == 'number') {
-                status = null;
-                btn.tooltip("destroy");
-                btn.removeClass("btn-success btn-error")
-                    .html(initContent);
-            }
+        // init tooltip if update finished
+        if (status != null && status.length > 0) {
+            btn.tooltip(config.options.tooltips);
         }
 
-        // change button style on second selection
-        if (btn.hasClass("error") || btn.hasClass("success")) {
-            var input = $("input");
-            var btnContent = '<i class="material-icons left">update</i>' + strUpdate;
+        // reverse style - will reverse if filter is used as well
+        $("input").change(function () {
+            if (status != null && status.length > 0) {
+                status = null;
 
-            btn.tooltip(config.options.tooltips);
-
-            input.on('change', function () {
-                btn.removeClass("error success")
+                btn.tooltip('destroy')
+                    .removeClass("success error")
                     .addClass("modal-trigger")
                     .removeAttr("data-tooltip")
                     .removeAttr("data-position")
-                    .html(btnContent);
-            })
-
-        }
+                    .html(initContent);
+            } 
+        })
     })
 
 </script>
