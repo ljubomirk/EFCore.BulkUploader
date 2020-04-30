@@ -27,6 +27,13 @@ Check out this repositry and open solution COMMANDO for start working on project
     Install database  
     `Update-Database`
 
+  - Oracle output script
+    Change environment to Staging
+    `$env:ASPNETCORE_ENVIRONMENT='Staging'`
+    Generate DDL SQL
+    `Script-Migration -o DB/OracleDDL.sql`
+    Fix partitions
+
 2.	Software dependencies 
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
