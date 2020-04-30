@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CouponDatabase.API
 {
-    [DataContract(Name = "PromotionPropertyEnum", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
+    [DataContract(Name = "PromotionPropertyEnum", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public enum PromotionPropertyEnum
     {
         [EnumMember]

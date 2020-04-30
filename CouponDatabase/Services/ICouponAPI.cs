@@ -5,7 +5,11 @@ using CouponDatabase.Lifecycle;
 
 namespace CouponDatabase.Services
 {
-    /* Interface for CouponAPI */
+    ///<summary>Interface for CouponAPI</summary>
+    ///<remarks>
+    ///  SoapCore WSDL generation will put arrays of objects to target namespace
+    ///  --> also set all entity objects to same target namespace.
+    ///</remarks>
     [ServiceContract(Name = "Coupon", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
     public interface ICouponAPI
     {

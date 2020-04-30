@@ -8,12 +8,11 @@ using System.Xml.Serialization;
 namespace CouponDatabase.Services
 {
 
-    public class CouponList
-    {
-        [XmlElement("Items")]
-        public List<Coupon> Items { get; set; }
-    }
-    /* Interface for API object with all DataGovernance data */
+    ///<summary>Interface for PromotionAPI</summary>
+    ///<remarks>
+    ///  SoapCore WSDL generation will put arrays of objects to target namespace
+    ///  --> also set all entity objects to same target namespace.
+    ///</remarks>
     [ServiceContract(Name = "Promotion", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
     public interface IPromotionAPI
     {

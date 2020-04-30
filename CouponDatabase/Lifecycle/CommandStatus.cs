@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace CouponDatabase.Lifecycle
 {
-    [DataContract]
+    [DataContract(Name="Command", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
     public class Command
     {
         [DataMember]

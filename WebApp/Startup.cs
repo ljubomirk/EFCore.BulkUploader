@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SoapCore;
+using SoapCore.Extensibility;
 using Web.Services.Soap;
 using WebApp.Data;
 
@@ -112,7 +114,7 @@ namespace WebApp
             app.UseSession();
             app.UseMvcWithDefaultRoute();
 
-            var binding = new BasicHttpBinding
+            var bindCouponAPI = new BasicHttpBinding
             {
                 Security = new BasicHttpSecurity
                 {
@@ -123,20 +125,35 @@ namespace WebApp
                         ProxyCredentialType = HttpProxyCredentialType.None,
                     }
                 },
-                TextEncoding = new UTF8Encoding(false)
+                TextEncoding = new UTF8Encoding(false),
+                Name = "CouponAPI"
             };
-            binding.Name = "CouponAPI";
             app.UseSoapEndpoint<CouponService.CouponAPI>(
                 options =>  {
-                        options.Path = "/CouponAPI";
-                        options.Binding = binding;
-                        options.CaseInsensitivePath = false;
+                    options.Path = "/CouponAPI";
+                    options.SoapSerializer = SoapSerializer.DataContractSerializer;
+                    options.Binding = bindCouponAPI;
+                    options.CaseInsensitivePath = false;
                 });
-            binding.Name = "PromotionAPI";
+            var bindPromotionAPI = new BasicHttpBinding
+            {
+                Security = new BasicHttpSecurity
+                {
+                    Mode = BasicHttpSecurityMode.Transport,
+                    Transport = new HttpTransportSecurity
+                    {
+                        ClientCredentialType = HttpClientCredentialType.Basic,
+                        ProxyCredentialType = HttpProxyCredentialType.None
+                    }
+                },
+                TextEncoding = new UTF8Encoding(false),
+                Name = "PromotionAPI"
+            };
             app.UseSoapEndpoint<CouponService.PromotionAPI>(
                 options => {
                     options.Path = "/PromotionAPI";
-                    options.Binding = binding;
+                    options.SoapSerializer = SoapSerializer.DataContractSerializer;
+                    options.Binding = bindPromotionAPI;
                     options.CaseInsensitivePath = false;
                 });
         }

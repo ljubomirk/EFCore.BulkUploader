@@ -203,6 +203,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
         {
+            return Error();
             bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
             if (returnValue)
             {
