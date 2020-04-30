@@ -59,12 +59,14 @@
                     @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
                     @Html.ValidationMessageFor(f => f.ValidFrom)
                     <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field col s12 m4">
                     @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                     @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
                     @Html.ValidationMessageFor(f => f.ValidTo)
                     <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
                 </div>
             </div>
             <div class="row">
