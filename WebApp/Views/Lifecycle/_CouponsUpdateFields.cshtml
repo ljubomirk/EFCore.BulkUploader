@@ -24,7 +24,7 @@
             <i class='material-icons suffix validation-error'>warning</i>
         </div>
         <div class="input-field date col s2">
-            @Html.EditorFor(f => f.RedeemTo, new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+            @Html.EditorFor(f => f.RedeemTo, new { htmlAttributes = new { @class = "white calendar input-coupon", @type = "text", placeholder = "", @autocomplete = "off", @data_modal = "redeemto", dataVal = true } })
             @Html.LabelFor(f => f.RedeemTo, new { htmlAttributes = new { @class = "active", @for = "RedeemTo" } })
             @Html.ValidationMessageFor(p => p.RedeemTo)
             <i class='material-icons suffix validation-error'>warning</i>
@@ -76,16 +76,43 @@
         var initContent = '<i class="material-icons left">update</i>' + strUpdate;
         var loadingContent = '<i class="material-icons loading u-m-l-lg u-m-r-lg">autorenew</i>';
 
-        // change style when form submitted from modal
-        trigger.click(function () {
-            btn.html(loadingContent)
-            btn.tooltip();
-        });
-
-        // init tooltip if update finished
+        // init tooltip if this is rendered after update action
         if (status != null && status.length > 0) {
             btn.tooltip(config.options.tooltips);
         }
+
+        // change style when form submitted from modal
+        trigger.click(function () {
+            btn.html(loadingContent);
+        });
+
+        // set up modal when called
+        btn.click(function () {
+            // set number of selected coupons in header
+            $("#coupon-number-modal").text($("input:checked.checkbox-coupon").length);
+            
+            // set change messages
+            $(".input-coupon").each(function () {
+                var val = $(this).val();
+                var property = this.getAttribute("data-modal");
+                var type = this.getAttribute("data-type");
+                var infoVal = $("dd.info-" + property);
+                var info = $(".info-" + property);
+
+                if (val) {
+                    if (type == "select") {
+                        var selectId = this.getAttribute("data-id");
+                        val = $('[data-id="' + selectId + '"] > option[value=' + val + ']').html();
+                    }
+
+                    info.removeClass("hiddendiv");
+                    infoVal.html(val);
+
+                } else {
+                    info.addClass("hiddendiv");
+                }
+            })
+        })
 
         // reverse style - will reverse if filter is used as well
         $("input").change(function () {
