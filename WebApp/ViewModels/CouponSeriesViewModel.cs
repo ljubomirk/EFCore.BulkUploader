@@ -48,6 +48,7 @@ namespace WebApp.ViewModels
         public bool CouponWithLetters { get; set; }
         public bool CouponWithNumbers { get; set; }
         public IFormFile file { get; set; }
+        public Nullable<Int32> MaximumRedeem { get; set; }
 
         public List<Coupon> GenerateCoupons()
         {

@@ -78,10 +78,15 @@ namespace WebApp.Controllers
         public IActionResult AddCouponSeries(long id)
         {
             CouponSeriesViewModel model = new CouponSeriesViewModel();
+            Promotion promotion = _repo.GetPromotionWithId(id);
             model.PromotionId = id;
             model.CouponWithLetters = true;
             model.CouponWithNumbers = true;
             model.CouponSeries = _repo.GetCouponSeriesVal(id) + 1;
+            if (isPropertyChecked("AllowMultipleRedeems", promotion.PromotionProperties as List<PromotionProperty>))
+            {
+                model.MaximumRedeem = 1;
+            }
             return View("PromotionCouponSeries", model);
         }
 
@@ -311,6 +316,20 @@ namespace WebApp.Controllers
             }
 
             return promotions;
+        }
+
+        private bool isPropertyChecked(string propName, List<PromotionProperty> properties)
+        {
+            bool chk = false;
+            foreach (var property in properties)
+            {
+                if (!chk)
+                {
+                    chk = property.Property.Name == propName ? true : false;
+                }
+                
+            }
+                return chk;
         }
 
         #endregion
