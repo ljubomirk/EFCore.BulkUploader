@@ -504,9 +504,9 @@ namespace CouponDatabase.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Coupon Redeem Until date is not valid..
         /// </summary>
-        public static string ErrorInvalidRedeemDate {
+        public static string ErrorInvalidRedeemDate_Message {
             get {
-                return ResourceManager.GetString("ErrorInvalidRedeemDate", resourceCulture);
+                return ResourceManager.GetString("ErrorInvalidRedeemDate_Message", resourceCulture);
             }
         }
         

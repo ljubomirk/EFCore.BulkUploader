@@ -176,7 +176,7 @@ namespace CouponDatabase.Services
         public Lifecycle.Command AssignUser(string user)
         {
             Lifecycle.Command result;
-            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            if ((CouponStatus)Coupon.Status == CouponStatus.Created || (CouponStatus)Coupon.Status == CouponStatus.Issued)
             {
                 CommandStatus status = (user != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
                 result = new Command(status);
@@ -199,7 +199,7 @@ namespace CouponDatabase.Services
         public Lifecycle.Command Prolong(Nullable<DateTime> RedeemUntil)
         {
             Lifecycle.Command result;
-            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            if ((CouponStatus)Coupon.Status == CouponStatus.Created || (CouponStatus)Coupon.Status == CouponStatus.Issued)
             {
                 CommandStatus status = RedeemUntil <= this.Coupon.Promotion.ValidTo? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
                 result = new Command(status);
@@ -208,6 +208,7 @@ namespace CouponDatabase.Services
                     Coupon.AwardTo = RedeemUntil;
                     AddHistory("Prolong", RedeemUntil.ToString());
                 }
+                return result;
             } else
             {
                 result = new Command(CommandStatus.ErrorInvalidStatus);
