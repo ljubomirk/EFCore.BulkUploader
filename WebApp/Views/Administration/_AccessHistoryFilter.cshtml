@@ -1,6 +1,7 @@
 ﻿@*
     ROLE: displays access history search filter and handles posting data to controller
 *@
+@model WebApp.ViewModels.AccessHistoryFilters;
 
 <div id="form-filter">
     @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
@@ -8,61 +9,46 @@
         <div class="container">
             <div class="row u-m-t-md">
                 <div class="col s12 m4">
-                    <p class="section-headline">Type</p>
+                    <p class="section-headline">@Html.DisplayNameFor(f => f.AccessTypes)</p>
                     <p>
-                        <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                            <input type="checkbox" class="filled-in" />
-                            <span>Application</span>
-                        </label>
-                        <label class="checkbox-hover checkbox-hover__inline">
-                            <input type="checkbox" class="filled-in" />
-                            <span>API</span>
-                        </label>
+                        @for (int i = 0; i < Model.AccessTypes.Count; i++)
+                        {
+                            <label class="u-m-r-md">
+                                @Html.CheckBoxFor(c => c.AccessTypes[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
+                                <span>@Html.DisplayFor(c => c.AccessTypes[i].Label, new { @class="checkbox-hover checkbox-hover__inline" })</span>
+                                @Html.HiddenFor(c => c.AccessTypes[i].Id)
+                                @Html.HiddenFor(c => c.AccessTypes[i].Label)
+                            </label>
+                        }
                     </p>
                 </div>
                 <div class="col s12 m4 u-p-l-remove">
-                    <p class="section-headline">Access Granted</p>
+                    <p class="section-headline">@Html.DisplayNameFor(f => f.AccessGrants)</p>
                     <p>
-                        <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                            <input type="checkbox" class="filled-in" />
-                            <span>Yes</span>
-                        </label>
-                        <label class="checkbox-hover checkbox-hover__inline">
-                            <input type="checkbox" class="filled-in" />
-                            <span>No</span>
-                        </label>
-                    </p>
-                </div>
-            </div>
-            <div class="row u-m-t-negativ">
-                <div class="col s12 u-p-l-remove">
-                    <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
-                </div>
-                <div class="col s12 three-cols">
-                    @{ 
-                        string[] cb = new string[] { "Create Promotion", "Add Coupon", "Redeem Coupon", "Create Series", "Issue Coupon", "Log in" };
-                    }
-                    @for (int i = 0; i < cb.Length; i++)
-                    {
-                        <p class="checkbox-hover">
-                            <label>
-                                <input type="checkbox" />
-                                <span>@cb[i]</span>
+                        @for (int i = 0; i < Model.AccessGrants.Count; i++)
+                        {
+                            <label class="u-m-r-md">
+                                @Html.CheckBoxFor(c => c.AccessGrants[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
+                                <span>@Html.DisplayFor(c => c.AccessGrants[i].Label, new { @class = "checkbox-hover checkbox-hover__inline" })</span>
+                                @Html.HiddenFor(c => c.AccessGrants[i].Id)
+                                @Html.HiddenFor(c => c.AccessGrants[i].Label)
                             </label>
-                        </p>
-                    }
-
+                        }
                 </div>
             </div>
             <div class="row u-m-t-xl u-m-l-sm-negative">
                 <div class="input-field date col s12 m4">
-                    <input placeholder="" type="text" id="start" class="datepicker validate">
-                    <label for="start">Start Date</label>
+                    @Html.EditorFor(p => p.AccessFrom, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.AccessFrom, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.AccessFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field date col s12 m4">
-                    <input placeholder="" type="text" id="end" class="datepicker validate">
-                    <label for="end">End Date</label>
+                    @Html.EditorFor(p => p.AccessTo, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.AccessTo, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.AccessTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
             </div>
@@ -83,7 +69,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         // toggle filter on master filter button
         $("#btn-filter").click(function () {
             $(".form-filter").slideToggle("slow");
@@ -106,5 +92,5 @@
             $("#btn-filter i").html('unfold_more');
         })
     })
-    
+
 </script>

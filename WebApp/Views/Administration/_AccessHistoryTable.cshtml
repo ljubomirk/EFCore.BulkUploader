@@ -2,173 +2,64 @@
     ROLE: displays a list of users as a table
 *@
 
+@model IEnumerable<CouponDatabase.Models.AccessLog>
 
-<table id="users-list" class="striped highlight all-left">
-    <thead>
-        <tr>
-            <th>
-                Date
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                Action
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                Username
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                Channel
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                Type
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                Access Granted
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-        </tr>
-    </thead>
+    <table id="users-list" class="striped highlight all-left">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(l => l.IssuedDate)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(l => l.Action)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(l => l.Username)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(l => l.Channel)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(l => l.ApplicationType)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(l => l.Granted)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+            </tr>
+        </thead>
 
-    <tbody>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-        <tr>
-            <td>01/01/2020</td>
-            <td>Create Promotion</td>
-            <td>JuzerAbjuzer</td>
-            <td>CRM</td>
-            <td>API</td>
-            <td><i class="material-icons">check</i></td>
-        </tr>
-    </tbody>
-</table>
+        <tbody>
+            @foreach (var log in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(l => log.IssuedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(l => log.Action)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(l => log.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(l => log.Channel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(l => log.ApplicationType)
+                    </td>
+                    <td>
+                        @if (log.Granted)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
