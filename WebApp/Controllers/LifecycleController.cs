@@ -323,7 +323,6 @@ namespace WebApp.Controllers
                 }
                 
             }
-            // lmm.CouponItems = model.CouponList.CouponItems; // no need to store CouponItems from form; use previously 
 
             List<long> couponIds = new List<long>();
             if (model.CouponList.SelectAllCoupons)
@@ -380,7 +379,12 @@ namespace WebApp.Controllers
                 // Execute coupon redeem until update
                 if (updateRedeemTo)
                 {
-                    ICoupon cmd = new ICoupon(coupon);
+                    if (coupon.Promotion == null)
+                    {
+                        coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
+                    }
+
+                    ICoupon cmd = new ICoupon(coupon);                    
                     Command response = cmd.Prolong(model.RedeemTo);
                     if (response.Status == CommandStatus.Valid)
                     {

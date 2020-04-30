@@ -201,7 +201,7 @@ namespace CouponDatabase.Services
             Lifecycle.Command result;
             if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
             {
-                CommandStatus status = RedeemUntil > DateTime.Now? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
+                CommandStatus status = RedeemUntil <= this.Coupon.Promotion.ValidTo? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
                 result = new Command(status);
                 if (result.Status == CommandStatus.Valid)
                 {
@@ -223,14 +223,14 @@ namespace CouponDatabase.Services
         {
             Lifecycle.Command result = new Command(CommandStatus.Valid);
             Coupon.Enabled = true;
-            AddHistory("Enable", "true");
+            AddHistory("Enable", "");
             return result;
         }
         public Lifecycle.Command Disable()
         {
             Lifecycle.Command result = new Command(CommandStatus.Valid);
             Coupon.Enabled = false;
-            AddHistory("Enable", "false");
+            AddHistory("Disable", "");
             return result;
         }
 
