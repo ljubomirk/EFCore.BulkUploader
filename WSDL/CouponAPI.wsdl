@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- COMMANDO CouponAPI WSDL  v1.2 -->
+<!-- COMMANDO CouponAPI WSDL  v1.3 -->
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="CouponAPI" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     <wsp:Policy wsu:Id="PromotionAPI_Coupon_policy">
         <wsp:ExactlyOne>
@@ -169,7 +169,7 @@
             <xs:complexType name="Coupon" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-                    <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
+                    <xs:element nillable="true" minOccurs="0" name="ExpireDate" type="xs:dateTime" />
                     <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string" />
                     <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string" />
                     <xs:element type="q1:CouponStatus" xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/" name="Status" />
@@ -203,6 +203,10 @@
                     <xs:enumeration  value="ErrorPromotionNotFound" />
                     <xs:enumeration  value="ErrorCouponNotFound" />
                     <xs:enumeration  value="ErrorInvalidUser" />
+                    <xs:enumeration  value="ErrorInvalidRedeemDate" />
+                    <xs:enumeration  value="DataError_CouponInsertFailed" />
+                    <xs:enumeration  value="DataError_PromotionInsertFailed" />
+                    <xs:enumeration  value="DataError_PromotionUpdateFailed" />
                     <xs:enumeration  value="ErrorSystem" />
                 </xs:restriction >
             </xs:simpleType>

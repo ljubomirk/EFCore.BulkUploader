@@ -365,7 +365,7 @@ namespace WebApp.Controllers
                         // Store coupons and action types to report errors on action finish
                         if (!failedCouponIds.Contains(coupon.Id))
                         {
-                            response.Coupon = coupon;
+                            //put in viewModel response.Coupon = coupon;
                             failedCouponIds.Add(coupon.Id);
                             failedCouponCommands.Add(response);
                         }
@@ -394,7 +394,7 @@ namespace WebApp.Controllers
                         // Store coupons and action types to report errors on action finish
                         if (!failedCouponIds.Contains(coupon.Id))
                         {
-                            response.Coupon = coupon;
+                            //put in viewModel response.Coupon = coupon;
                             failedCouponIds.Add(coupon.Id);
                             failedCouponCommands.Add(response);
                         }
@@ -426,7 +426,7 @@ namespace WebApp.Controllers
                         // Store coupons and action types to report errors on action finish
                         if (!failedCouponIds.Contains(coupon.Id))
                         {
-                            response.Coupon = coupon;
+                            //put in viewModel response.Coupon = coupon;
                             failedCouponIds.Add(coupon.Id);
                             failedCouponCommands.Add(response);
                         }
@@ -451,7 +451,7 @@ namespace WebApp.Controllers
                         // Store coupons and action types to report errors on action finish
                         if (!failedCouponIds.Contains(coupon.Id))
                         {
-                            response.Coupon = coupon;
+                            //put in viewModel response.Coupon = coupon;
                             failedCouponIds.Add(coupon.Id);
                             failedCouponCommands.Add(response);
                         }

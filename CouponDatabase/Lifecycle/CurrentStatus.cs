@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CouponDatabase.Models
+namespace CouponDatabase.Lifecycle
 {
     public class CurrentStatus : BaseDefs { }
 }
