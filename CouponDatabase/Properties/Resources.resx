@@ -509,4 +509,12 @@
     <value>Coupon Redeem Until date is not valid.</value>
     <comment>When Redeem until date is not valid.</comment>
   </data>
+  <data name="Date_AccessFrom" xml:space="preserve">
+    <value>Accessed from</value>
+    <comment>Date from.</comment>
+  </data>
+  <data name="Date_AccessTo" xml:space="preserve">
+    <value>Access until</value>
+    <comment>Date to.</comment>
+  </data>
 </root>

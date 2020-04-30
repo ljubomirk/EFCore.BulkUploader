@@ -38,6 +38,26 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AccessLog");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Action = "Create Promotion",
+                            ApplicationType = 0,
+                            Channel = "POS",
+                            IssuedDate = new DateTime(2020, 4, 30, 15, 18, 34, 12, DateTimeKind.Local).AddTicks(8373),
+                            Username = ""
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Action = "Update Coupon",
+                            ApplicationType = 1,
+                            Channel = "",
+                            IssuedDate = new DateTime(2020, 4, 30, 15, 18, 34, 17, DateTimeKind.Local).AddTicks(580),
+                            Username = "korisnik"
+                        });
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.AwardChannel", b =>

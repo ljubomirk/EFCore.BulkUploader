@@ -155,7 +155,7 @@
             <xs:complexType name="Coupon" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-                    <xs:element minOccurs="0" name="ExpireDate" type="xs:dateTime" />
+                    <xs:element nillable="true" minOccurs="0" name="ExpireDate" type="xs:dateTime" />
                     <xs:element minOccurs="0" name="Holder" nillable="true" type="xs:string" />
                     <xs:element minOccurs="0" name="PromotionCode" nillable="true" type="xs:string" />
                     <xs:element type="q1:CouponStatus" xmlns:q1="http://www.triple-innovations.com/WS/COMMANDO/Types/" name="Status" />
@@ -203,6 +203,10 @@
                     <xs:enumeration  value="ErrorPromotionNotFound" />
                     <xs:enumeration  value="ErrorCouponNotFound" />
                     <xs:enumeration  value="ErrorInvalidUser" />
+                    <xs:enumeration  value="ErrorInvalidRedeemDate" />
+                    <xs:enumeration  value="DataError_CouponInsertFailed" />
+                    <xs:enumeration  value="DataError_PromotionInsertFailed" />
+                    <xs:enumeration  value="DataError_PromotionUpdateFailed" />
                     <xs:enumeration  value="ErrorSystem" />
                 </xs:restriction >
             </xs:simpleType>

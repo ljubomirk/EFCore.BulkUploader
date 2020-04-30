@@ -2,27 +2,84 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CouponDatabase.Lifecycle;
+using CouponDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WebApp.Data;
+using WebApp.Services;
 using WebApp.ViewModels;
+using CouponSystem = CouponDatabase.Models.System;
 
 namespace WebApp.Controllers
 {
     public class AdministrationController : Controller
     {
-        public IActionResult Users()
+        private readonly RepositoryServices _repo;
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger<AdministrationController> _logger;
+
+        public AdministrationController(ApplicationDbContext context, ILogger<AdministrationController> logger)
         {
-            ContextData user = new ContextData();
-            return View("AdministrationUsers", user);
+            _repo = new RepositoryServices(context, logger);
+            _context = context;
+            _logger = logger;
         }
-        public IActionResult Channels()
+        public IActionResult Users(UsersViewModel model)
         {
-            ContextData user = new ContextData();
-            return View("AdministrationChannels", user);
+            if(model==null)
+                model = new UsersViewModel(_context.User.ToList<User>());
+            return View("AdministrationUsers", model);
         }
-        public IActionResult AccessHistory()
+
+        public IActionResult UpdateUsers()
         {
-            ContextData user = new ContextData();
-            return View("AdministrationAccessHistory", user);
+            ViewBag.Command = new Command(CommandStatus.Valid);
+            return Users(null);
+        }
+
+        public IActionResult ExternalSystemsView()
+        {
+            ExternalSystemsViewModel model = new ExternalSystemsViewModel();
+            model.AddSystems(_context.System.ToList<CouponSystem>());
+            model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
+            model.AddChannels(_context.IssuerChannel.ToList<IssuerChannel>());
+            return View("AdministrationChannels", model);
+        }
+        public IActionResult AddSystem(string name, string username, string password)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult UpdateSystem(long id, string name, string username, string password)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult DeleteSystem(long id)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult AddNotifyList(long channelId, long systemId, string url)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult UpdateNotifyList(long channelId, long systemId, string url)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult DeleteNotifyList(long channelId, long systemId)
+        {
+            return ExternalSystemsView();
+        }
+        public IActionResult AccessHistory(AccessHistoryViewModel model)
+        {
+            if (model == null) {
+                model = new AccessHistoryViewModel
+                {
+                    Filters = new AccessHistoryFilters()
+                };
+            }
+            model.AddLogs(_context.AccessLog.ToList<AccessLog>());
+            return View("AdministrationAccessHistory", model);
         }
     }
 }
