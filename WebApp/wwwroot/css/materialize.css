@@ -5559,8 +5559,7 @@ textarea {
 
 .radio-button-group {
   position: absolute;
-  left: -9999em;
-  top: -9999em; }
+  left: -9999em; }
   .radio-button-group[disabled] + label {
     cursor: default;
     color: #bdbdbd; }
