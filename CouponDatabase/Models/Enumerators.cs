@@ -67,4 +67,10 @@ namespace CouponDatabase.Lifecycle
         AllowMultipleRedeems = 5,
         AllowCouponSeries = 6
     }
+
+    public enum CouponEnableEnum
+    {
+        No = 0,
+        Yes = 1
+    }
 }

@@ -321,9 +321,7 @@ namespace WebApp.Controllers
                 {
                     model.SelectedEnabled = lmm.SelectedEnabled;
                 }
-                
             }
-            // lmm.CouponItems = model.CouponList.CouponItems; // no need to store CouponItems from form; use previously 
 
             List<long> couponIds = new List<long>();
             if (model.CouponList.SelectAllCoupons)
@@ -380,7 +378,12 @@ namespace WebApp.Controllers
                 // Execute coupon redeem until update
                 if (updateRedeemTo)
                 {
-                    ICoupon cmd = new ICoupon(coupon);
+                    if (coupon.Promotion == null)
+                    {
+                        coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
+                    }
+
+                    ICoupon cmd = new ICoupon(coupon);                    
                     Command response = cmd.Prolong(model.RedeemTo);
                     if (response.Status == CommandStatus.Valid)
                     {
@@ -406,7 +409,7 @@ namespace WebApp.Controllers
                 {
                     ICoupon cmd = new ICoupon(coupon);
                     Command response = new Command(CommandStatus.Valid);
-                    if(model.SelectedEnabled == "1")
+                    if((CouponEnableEnum)Int32.Parse(model.SelectedEnabled) == CouponEnableEnum.Yes)
                     {
                         response = cmd.Enable();
                     } else
@@ -467,24 +470,27 @@ namespace WebApp.Controllers
             }
 
             // Return failed coupon checkboxes as preselected
+            // TODO: method returns correct result butu the view doesn't deselect checkboxes of updated coupons
             model.CouponList.CouponItems = preselectModelCouponList(lmm.CouponItems, failedCouponIds);
+
             lmm.CouponItems = model.CouponList.CouponItems;
 
             if (failedCouponCommands.Count() > 0)
             {
                 // Having stored response from each update we can later use this information to report to the user which checks were invalid for the coupon
                 ViewBag.Command = failedCouponCommands[0];
+                String messages = "";
+                foreach (Command cmd in failedCouponCommands)
+                {
+                    messages += cmd.Message + "<br>";
+                }
+                ViewBag.Command.Message = messages;
             } else
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
+                HttpContext.Session.SetObject("LMM", lmm);
             }
 
-            // For coupons where command.Status == CommandStatus.Valid, deselect CheckedCouponItem
-            // For failed coupon commands, return CheckedCouponItem as checked
-            // Pass changes through model into view
-
-
-            HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
         }

@@ -176,7 +176,7 @@ namespace CouponDatabase.Services
         public Lifecycle.Command AssignUser(string user)
         {
             Lifecycle.Command result;
-            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            if ((CouponStatus)Coupon.Status == CouponStatus.Created || (CouponStatus)Coupon.Status == CouponStatus.Issued)
             {
                 CommandStatus status = (user != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
                 result = new Command(status);
@@ -199,15 +199,16 @@ namespace CouponDatabase.Services
         public Lifecycle.Command Prolong(Nullable<DateTime> RedeemUntil)
         {
             Lifecycle.Command result;
-            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
+            if ((CouponStatus)Coupon.Status == CouponStatus.Created || (CouponStatus)Coupon.Status == CouponStatus.Issued)
             {
-                CommandStatus status = RedeemUntil > DateTime.Now? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
+                CommandStatus status = RedeemUntil <= this.Coupon.Promotion.ValidTo? CommandStatus.Valid : CommandStatus.ErrorInvalidRedeemDate;
                 result = new Command(status);
                 if (result.Status == CommandStatus.Valid)
                 {
                     Coupon.AwardTo = RedeemUntil;
                     AddHistory("Prolong", RedeemUntil.ToString());
                 }
+                return result;
             } else
             {
                 result = new Command(CommandStatus.ErrorInvalidStatus);
@@ -223,14 +224,14 @@ namespace CouponDatabase.Services
         {
             Lifecycle.Command result = new Command(CommandStatus.Valid);
             Coupon.Enabled = true;
-            AddHistory("Enable", "true");
+            AddHistory("Enable", "");
             return result;
         }
         public Lifecycle.Command Disable()
         {
             Lifecycle.Command result = new Command(CommandStatus.Valid);
             Coupon.Enabled = false;
-            AddHistory("Enable", "false");
+            AddHistory("Disable", "");
             return result;
         }
 
