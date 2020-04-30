@@ -29,7 +29,7 @@
             <!-- top form return msg -->
             @if (ViewBag.Command != null)
             {
-                <div class="@(ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
+                <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
             }
             <div class="row u-m-b-remove">
                 <div class="row">
@@ -69,18 +69,17 @@
                     <p class="section-headline u-m-t-remove">Current Status</p>
                     <div class="radio-buttons-wrapper">
                         <input type="radio" class="radio-button-group" name="currentStatus" value="1" id="button1" onclick="updateCouponStatus(this.value)" checked />
-                        <label for="button1">Created</label>
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateCouponStatus(this.value)"/>
-                        <label for="button2">Issued</label>
-                        <input type="radio" class="radio-button-group" name="currentStatus" value="3" id="button3" onclick="updateCouponStatus(this.value)" disabled />
-                        <label for="button3">Redeemed</label>
+                        <label for="button1">@CouponDatabase.Lifecycle.CouponStatus.Created.ToString()</label>
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateCouponStatus(this.value)" />
+                        <label for="button2">@CouponDatabase.Lifecycle.CouponStatus.Issued.ToString()</label>
+                        <input type="radio" class="radio-button-group" name="currentStatus" value="3" id="button3" onclick="updateCouponStatus(this.value)" />
+                        <label for="button3">@CouponDatabase.Lifecycle.CouponStatus.Redeemed.ToString()</label>
                         <input type="radio" class="radio-button-group" name="currentStatus" value="4" id="button4" onclick="updateCouponStatus(this.value)" />
-                        <label for="button4">Canceled</label>
+                        <label for="button4">@CouponDatabase.Lifecycle.CouponStatus.Canceled.ToString()</label>
                     </div>
-                    @Html.HiddenFor(i=>i.Status, new {@Value = (int)Model.Status })
+                    @Html.HiddenFor(i => i.Status, new { @Value = (int)Model.Status })
                 </div>
             </div>
-
             <!-- options -->
             <div class="row">
                 <div class="col s12">
@@ -107,9 +106,6 @@
 
 <script>
     $(document).ready(function () {
-
-        $("button[data-position='bottom']").tooltip();
-
         $(".btn-subtract").click(function () {
             var input = $(this).next(".input-field").children("input");
             var inputVal = input.val();
@@ -130,12 +126,13 @@
                 input.val(parseInt(inputVal) + 1);
             }
         });
+
+        $("input[type='radio']:checked").each(function (i, e) {
+            $("#Status").val(e.value);
+        })
+
     });
 
-        $("input[type='radio']:checked").each(function (i, element) {
-            var hiddenVal = $(element).value()
-            $("#Status").val(hiddenVal);
-        })
 
     function updateCouponStatus(val) {
         $("#Status").val(val);

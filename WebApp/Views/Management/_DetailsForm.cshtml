@@ -2,6 +2,10 @@
     ROLE: displays promotion create/edit form and handles data for posting to controller
 *@
 
+@{ 
+    bool allowAddSeries = false;
+}
+
 @model WebApp.ViewModels.PromotionDetailsViewModel;
 
 
@@ -99,6 +103,7 @@
                 <div class="col s12 two-cols">
                     @for (int i = 0; i < Model.Properties.Count; i++)
                     {
+                        @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
                         <p class="checkbox-hover">
                             <label>
                                 @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
@@ -128,7 +133,7 @@
                     }
                     else
                     {
-                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md">
+                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md @(!allowAddSeries ? "disabled":"")">
                             <i class="material-icons left">add</i>
                             @CouponDatabase.Properties.Resources.Btn_AddSeries
                         </a>
@@ -193,16 +198,16 @@
             }
         }
 
-        //handle series
-        handleAddSeries();
-        $("#Properties_5__Checked").change(handleAddSeries);
+        ////handle series
+        //handleAddSeries();
+        //$("#Properties_5__Checked").change(handleAddSeries);
 
-        function handleAddSeries() {
-            if ($("#Properties_5__Checked").is(":checked")) {
-                $("#add-series").removeClass("disabled");
-            } else {
-                $("#add-series").addClass("disabled");
-            }
-        }
+        //function handleAddSeries() {
+        //    if ($("#Properties_5__Checked").is(":checked")) {
+        //        $("#add-series").removeClass("disabled");
+        //    } else {
+        //        $("#add-series").addClass("disabled");
+        //    }
+        //}
     });
 </script>

@@ -125,7 +125,6 @@
 .radio-button-group {
     position: absolute;
     left: -9999em;
-    top: -9999em;
 
     &[disabled] + label {
         cursor: default;
