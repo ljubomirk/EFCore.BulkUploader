@@ -13,10 +13,10 @@
                 @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.Customer))
             </dt>
             <dd class="info-customer hiddendiv"></dd>
-            <dt class="info-validto hiddendiv">
+            <dt class="info-redeemto hiddendiv">
                 @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.RedeemTo))
             </dt>
-            <dd class="info-validto hiddendiv"></dd>
+            <dd class="info-redeemto hiddendiv"></dd>
             <dt class="info-enabled hiddendiv">    
                 @string.Format(@CouponDatabase.Properties.Resources.CouponsModal_SetTo, Html.DisplayNameFor(m => m.Enabled))
             </dt>
@@ -37,41 +37,3 @@
     </div>
 </div>
 <!-- /Modal-->
-
-<script>
-    $(document).ready(function () {
-
-        // update modal text
-        $(".input-coupon").change(function (e) {
-            var val = e.target.value;
-            var property = this.getAttribute("data-modal");
-            var fieldName = (property == "validto") ? "valid to" : property;
-            var info = $(".info-" + property);
-            var infoVal = $("dd.info-" + property);
-            var type = this.getAttribute("data-type");
-
-            //check if it was select and get value from html
-            if (type == "select") {
-                var selectId = this.getAttribute("data-id");
-                val = $('[data-id="' + selectId + '"] > option[value=' + val + ']').html();
-            }
-
-            if (!val && info.length > 0) {
-                info.addClass("hiddendiv");
-            } else  {
-                info.removeClass("hiddendiv");
-                infoVal.html(val);
-            } 
-        })
-
-        // display number of checked items inside modal header
-        $(".checkbox-coupon, #checkbox-master").change(function () {
-            var num = $("input:checked.checkbox-coupon").length;
-            if (num > 0) {
-                $("#coupon-number-modal").text(num);
-            } else {
-                $("#coupon-number-modal").text('');
-            }
-        })
-    })
-</script>
