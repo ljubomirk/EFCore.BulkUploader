@@ -15,6 +15,7 @@ namespace WebApp.ViewModels
         public string Code { get; set; }
         public string Holder { get; set; }
         public string User { get; set; }
+        public bool Enabled { get; set; }
         public int Status { get; set; }
         public bool Active { get; set; }
     }

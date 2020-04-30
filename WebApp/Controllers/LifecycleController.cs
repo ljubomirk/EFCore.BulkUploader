@@ -683,6 +683,7 @@ namespace WebApp.Controllers
                     Code = coupon.Code, 
                     Holder = coupon.Holder, 
                     User = coupon.User,
+                    Enabled = coupon.Enabled,
                     Status = coupon.Status, 
                     Active = coupon.Active 
                 });
