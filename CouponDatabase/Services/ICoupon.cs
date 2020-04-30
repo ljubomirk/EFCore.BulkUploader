@@ -189,6 +189,7 @@ namespace CouponDatabase.Services
             else
             {
                 result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                result.Message = String.Format(result.Message + " Code: " + Coupon.Code);
             }
             return result;
         }
@@ -207,11 +208,15 @@ namespace CouponDatabase.Services
                 {
                     Coupon.AwardTo = RedeemUntil;
                     AddHistory("Prolong", RedeemUntil.ToString());
+                } else
+                {
+                    result.Message = String.Format(result.Message + " Code: " + Coupon.Code);
                 }
                 return result;
             } else
             {
                 result = new Command(CommandStatus.ErrorInvalidStatus);
+                result.Message = String.Format(result.Message + " Code: " + Coupon.Code);
                 AddHistory("Prolong", "");
             }
             return result;
@@ -245,6 +250,9 @@ namespace CouponDatabase.Services
             {
                 Coupon.Status = (int)status;
                 AddHistory("UpdateStatus", status.ToString());
+            } else
+            {
+                result.Message = String.Format(result.Message + " Code: " + Coupon.Code);
             }
             return result;
         }

@@ -43,24 +43,36 @@ namespace WebApp.Controllers
         {
             // Check if LMM object exists in session
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
-            if (lmm == null || lmm != null)
+            
+            // Set object to new instance of the model before commiting to a (new) search action
+            lmm = new LifecycleManagementModel();
+            HttpContext.Session.SetObject("LMM", lmm);
+            
+            LifecycleSearchViewModel initModel = initLifecycleFilters();
+
+            return View("LifecycleSearch", initModel);
+        }
+
+        [HttpGet]
+        public IActionResult Back()
+        {
+            // Check if LMM object exists in session
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+            LifecycleSearchViewModel model = initLifecycleFilters();
+            if (lmm == null)
             {
                 // Set object to new instance of the model before commiting to a (new) search action
                 lmm = new LifecycleManagementModel();
+                lmm.PromotionFilter = model.PromotionFilter;
+                lmm.CouponFilter = model.CouponFilter;
                 HttpContext.Session.SetObject("LMM", lmm);
+            } else
+            {
+                model.PromotionFilter = lmm.PromotionFilter;
+                model.CouponFilter = lmm.CouponFilter;
             }
 
-            LifecycleSearchViewModel initModel = new LifecycleSearchViewModel();
-            initModel.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
-            initModel.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
-            initModel.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
-
-            initModel.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
-            initModel.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
-            initModel.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
-            initModel.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
-
-            return View("LifecycleSearch", initModel);
+            return View("LifecycleSearch", model);
         }
 
         // <summary>
@@ -590,6 +602,21 @@ namespace WebApp.Controllers
         }
 
 
+        public LifecycleSearchViewModel initLifecycleFilters()
+        {
+            LifecycleSearchViewModel model = new LifecycleSearchViewModel();
+            
+            model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
+            model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+
+            model.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
+            model.CouponFilter.AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<AwardChannel>());
+            model.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
+            model.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
+            model.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
+            
+            return model;
+        }
         
 
 
