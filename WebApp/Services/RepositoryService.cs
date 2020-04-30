@@ -160,6 +160,7 @@ namespace WebApp.Services
         {
             Promotion promotion = new Promotion();
             promotion = Context.Promotion.Find(id);
+            GetPromotionData(promotion);
             
             return promotion;
         }
