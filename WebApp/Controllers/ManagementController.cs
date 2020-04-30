@@ -8,7 +8,6 @@ using CouponDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Data;
-using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -203,7 +202,6 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
         {
-            return Error();
             bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
             if (returnValue)
             {

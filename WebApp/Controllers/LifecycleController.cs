@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
-using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 using static CouponDatabase.Models.Coupon;

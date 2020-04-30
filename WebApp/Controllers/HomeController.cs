@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
-using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 
