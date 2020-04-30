@@ -166,20 +166,28 @@ namespace WebApp.Controllers
             List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // Store promos for initial filter to display in dropdown list (after new filters are applied)
             List<Promotion> filter_ListOfPromotions = new List<Promotion>(); // Reference list for getting coupons
             Promotion promotion = new Promotion(); // Promotion selected via promo code dropdown
-
+            List<Coupon> promotionCoupons = new List<Coupon>();
             // Get single promotion or all filtered promotions
             if (model.SelectedPromoCode == null)
             {
                 filter_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
+                foreach(Promotion p in filter_ListOfPromotions)
+                {
+                    if(p.Coupons.Count() > 0)
+                    {
+                        promotionCoupons.AddRange(p.Coupons);
+                    }
+                }
             } else
             {
                 // Get promo with ID and add into list
                 promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode));
+                promotionCoupons = promotion.Coupons.ToList();
                 filter_ListOfPromotions.Add(promotion);
             }
 
             // Filtered coupons to be displayed in table view
-            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(filter_ListOfPromotions), couponFilter);
+            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
             // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
             List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
 
@@ -231,7 +239,7 @@ namespace WebApp.Controllers
                 else
                 {
                     item.Selected = false;
-                }
+                }   
                 couponSelectList.Add(item);
             }
 
@@ -243,24 +251,14 @@ namespace WebApp.Controllers
             model.RedeemTo = null;
 
             model.CouponList.Coupon = new Coupon();
-            model.CouponList.Coupons = filter_ListOfCoupons;
-
-            ViewModels.CouponList couponList = new ViewModels.CouponList();
-            // Set coupons to work with
-            if (model.CouponList != null)
-            {
-                couponList = model.CouponList; // contains previously filtered coupon list
-            }
-            
-            couponList.Coupons = filter_ListOfCoupons;
-            couponList.CouponItems = setModelCouponList(couponList.Coupons);
-            model.CouponList = couponList;
+            model.CouponList.Coupons = filter_ListOfCoupons;            
+            model.CouponList.CouponItems = setModelCouponList(model.CouponList.Coupons);
 
             model.SelectedPromoCode = model.SelectedPromoCode;
             model.SelectedCouponSeries = model.SelectedCouponSeries;
 
             // Session management
-            lmm.CouponItems = couponList.CouponItems;
+            lmm.CouponItems = model.CouponList.CouponItems;
             HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
