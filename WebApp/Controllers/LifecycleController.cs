@@ -407,7 +407,15 @@ namespace WebApp.Controllers
                 if (updateEnabled)
                 {
                     ICoupon cmd = new ICoupon(coupon);
-                    Command response = cmd.Enable();
+                    Command response = new Command(CommandStatus.Valid);
+                    if(model.SelectedEnabled == "1")
+                    {
+                        response = cmd.Enable();
+                    } else
+                    {
+                        response = cmd.Disable();
+                    }
+                    
                     if (response.Status == CommandStatus.Valid)
                     {
                         passedChecks++;
