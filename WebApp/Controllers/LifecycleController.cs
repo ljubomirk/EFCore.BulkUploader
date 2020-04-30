@@ -410,7 +410,7 @@ namespace WebApp.Controllers
                 {
                     ICoupon cmd = new ICoupon(coupon);
                     Command response = new Command(CommandStatus.Valid);
-                    if(model.SelectedEnabled == "1")
+                    if((CouponEnableEnum)Int32.Parse(model.SelectedEnabled) == CouponEnableEnum.Yes)
                     {
                         response = cmd.Enable();
                     } else
