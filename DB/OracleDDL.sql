@@ -452,4 +452,13 @@ CREATE INDEX "IX_PromotionProperty_PropertyId" ON "PromotionProperty" ("Property
 
 /* VIEWS */
 
+/* GRANTS */
+BEGIN
+  FOR a IN (SELECT TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'APL_KUPON_MGMT')
+  LOOP
+    EXECUTE IMMEDIATE 'GRANT SELECT, INSERT, UPDATE ON "' || a.table_name || '" TO KUPON_MGMT_FULL';
+  END LOOP;
+END;
+/
+
 /* DONE */
