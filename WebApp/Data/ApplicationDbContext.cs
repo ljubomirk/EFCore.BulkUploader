@@ -332,6 +332,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -346,6 +347,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -360,6 +362,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = false,
                     Status = (int)CouponStatus.Created,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -374,6 +377,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Canceled,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -388,6 +392,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Redeemed,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -402,6 +407,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Redeemed,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -416,6 +422,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = false,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 5,
                     CouponSeries = 1
@@ -430,6 +437,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = false,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 5,
                     CouponSeries = 1
@@ -444,6 +452,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 5,
                     CouponSeries = 2
@@ -458,6 +467,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Created,
                     PromotionId = 5,
                     CouponSeries = 1
@@ -472,6 +482,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = false,
                     Status = (int)CouponStatus.Created,
                     PromotionId = 5,
                     CouponSeries = 1
@@ -486,6 +497,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Redeemed,
                     PromotionId = 5,
                     CouponSeries = 2
@@ -500,6 +512,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Issued,
                     PromotionId = 1,
                     CouponSeries = 2
@@ -514,6 +527,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Redeemed,
                     PromotionId = 1,
                     CouponSeries = 2
@@ -528,6 +542,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = true,
                     Status = (int)CouponStatus.Canceled,
                     PromotionId = 1,
                     CouponSeries = 2

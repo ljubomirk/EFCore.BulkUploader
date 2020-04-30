@@ -112,10 +112,16 @@ namespace WebApp.Controllers
             model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
             model.RedeemTo = null; // prevents default activation of Update Selection button on LifecycleCoupons view
 
-            // Store filters and chechbox list into session
+            // Store filters, dropdowns, and chechboxes into session
             lmm.PromotionFilter = promotionFilter;
             lmm.CouponFilter = couponFilter;
             lmm.CouponItems = model.CouponList.CouponItems;
+            
+            lmm.DropPromoCodes = model.DropPromoCodes;
+            lmm.DropCouponSeries = model.DropCouponSeries;
+            lmm.DropEnabled = model.DropEnabled;
+            lmm.DropCouponStatus = model.DropCouponStatus;
+            
             HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
@@ -160,20 +166,28 @@ namespace WebApp.Controllers
             List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // Store promos for initial filter to display in dropdown list (after new filters are applied)
             List<Promotion> filter_ListOfPromotions = new List<Promotion>(); // Reference list for getting coupons
             Promotion promotion = new Promotion(); // Promotion selected via promo code dropdown
-
+            List<Coupon> promotionCoupons = new List<Coupon>();
             // Get single promotion or all filtered promotions
             if (model.SelectedPromoCode == null)
             {
                 filter_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
+                foreach(Promotion p in filter_ListOfPromotions)
+                {
+                    if(p.Coupons.Count() > 0)
+                    {
+                        promotionCoupons.AddRange(p.Coupons);
+                    }
+                }
             } else
             {
                 // Get promo with ID and add into list
                 promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode));
+                promotionCoupons = promotion.Coupons.ToList();
                 filter_ListOfPromotions.Add(promotion);
             }
 
             // Filtered coupons to be displayed in table view
-            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(filter_ListOfPromotions), couponFilter);
+            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
             // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
             List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
 
@@ -182,6 +196,7 @@ namespace WebApp.Controllers
             {
                 // Populate with all matching promotion codes from initially filtered result
                 model.DropPromoCodes = getSelectListPromotions(filter_ListOfPromotions);
+                lmm.SelectedPromoCode = model.SelectedPromoCode;
             } else
             {
                 model.DropPromoCodes = getSelectListPromotions(init_ListOfPromotions);
@@ -208,6 +223,7 @@ namespace WebApp.Controllers
             if (model.SelectedCouponSeries != null)
             {
                 filter_ListOfCoupons = filter_ListOfCoupons.Where(c => c.CouponSeries == Int32.Parse(model.SelectedCouponSeries)).ToList();
+                lmm.SelectedCouponSeries = model.SelectedCouponSeries;
             }
 
             model.DropCouponSeries = getSelectListSeries(drop_ListOfCoupons);
@@ -223,7 +239,7 @@ namespace WebApp.Controllers
                 else
                 {
                     item.Selected = false;
-                }
+                }   
                 couponSelectList.Add(item);
             }
 
@@ -235,24 +251,14 @@ namespace WebApp.Controllers
             model.RedeemTo = null;
 
             model.CouponList.Coupon = new Coupon();
-            model.CouponList.Coupons = filter_ListOfCoupons;
-
-            ViewModels.CouponList couponList = new ViewModels.CouponList();
-            // Set coupons to work with
-            if (model.CouponList != null)
-            {
-                couponList = model.CouponList; // contains previously filtered coupon list
-            }
-            
-            couponList.Coupons = filter_ListOfCoupons;
-            couponList.CouponItems = setModelCouponList(couponList.Coupons);
-            model.CouponList = couponList;
+            model.CouponList.Coupons = filter_ListOfCoupons;            
+            model.CouponList.CouponItems = setModelCouponList(model.CouponList.Coupons);
 
             model.SelectedPromoCode = model.SelectedPromoCode;
             model.SelectedCouponSeries = model.SelectedCouponSeries;
 
             // Session management
-            lmm.CouponItems = couponList.CouponItems;
+            lmm.CouponItems = model.CouponList.CouponItems;
             HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
@@ -286,13 +292,38 @@ namespace WebApp.Controllers
                 updateStatus = true;
             }
             
-
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
             if(lmm == null)
             {
                 lmm = new LifecycleManagementModel();
+            } else
+            {
+                model.DropPromoCodes = lmm.DropPromoCodes;
+                model.DropCouponSeries = lmm.DropCouponSeries;
+                model.DropEnabled = lmm.DropEnabled;
+                model.DropCouponStatus = lmm.DropCouponStatus;
+                
+                model.SelectedPromoCode = lmm.SelectedPromoCode;
+                model.SelectedCouponSeries = lmm.SelectedCouponSeries;
+
+                if(model.SelectedCouponStatus != null)
+                {
+                    lmm.SelectedCouponStatus = model.SelectedCouponStatus;
+                } else
+                {
+                    model.SelectedCouponStatus = lmm.SelectedCouponStatus;
+                }
+                if (model.SelectedEnabled != null)
+                {
+                    lmm.SelectedEnabled = model.SelectedEnabled;
+                }
+                else
+                {
+                    model.SelectedEnabled = lmm.SelectedEnabled;
+                }
+                
             }
-            lmm.CouponItems = model.CouponList.CouponItems;
+            // lmm.CouponItems = model.CouponList.CouponItems; // no need to store CouponItems from form; use previously 
 
             List<long> couponIds = new List<long>();
             if (model.CouponList.SelectAllCoupons)
@@ -313,14 +344,16 @@ namespace WebApp.Controllers
                     coupons.Add(coupon);
                 }                
             }
+            
+            List<Command> failedCouponCommands = new List<Command>();
+            List<long> failedCouponIds = new List<long>();
+            List<Coupon> updatedCoupons = new List<Coupon>();
 
             // Execute coupon user update
-            List<Command> failedCouponCommands = new List<Command>();
-            // Update customer (user) for coupons
-
-            foreach(Coupon coupon in coupons)
+            foreach (Coupon coupon in coupons)
             {
                 int passedChecks = 0;
+                // Update customer (user) for coupons
                 if (updateCustomer)
                 {
                     ICoupon cmd = new ICoupon(coupon);
@@ -332,8 +365,12 @@ namespace WebApp.Controllers
                     else
                     {
                         // Store coupons and action types to report errors on action finish
-                        response.Coupon = coupon;
-                        failedCouponCommands.Add(response);
+                        if (!failedCouponIds.Contains(coupon.Id))
+                        {
+                            response.Coupon = coupon;
+                            failedCouponIds.Add(coupon.Id);
+                            failedCouponCommands.Add(response);
+                        }
                     }
                 } else
                 {
@@ -352,8 +389,12 @@ namespace WebApp.Controllers
                     else
                     {
                         // Store coupons and action types to report errors on action finish
-                        response.Coupon = coupon;
-                        failedCouponCommands.Add(response);
+                        if (!failedCouponIds.Contains(coupon.Id))
+                        {
+                            response.Coupon = coupon;
+                            failedCouponIds.Add(coupon.Id);
+                            failedCouponCommands.Add(response);
+                        }
                     }
                 } else
                 {
@@ -364,7 +405,15 @@ namespace WebApp.Controllers
                 if (updateEnabled)
                 {
                     ICoupon cmd = new ICoupon(coupon);
-                    Command response = cmd.Enable();
+                    Command response = new Command(CommandStatus.Valid);
+                    if(model.SelectedEnabled == "1")
+                    {
+                        response = cmd.Enable();
+                    } else
+                    {
+                        response = cmd.Disable();
+                    }
+                    
                     if (response.Status == CommandStatus.Valid)
                     {
                         passedChecks++;
@@ -372,8 +421,12 @@ namespace WebApp.Controllers
                     else
                     {
                         // Store coupons and action types to report errors on action finish
-                        response.Coupon = coupon;
-                        failedCouponCommands.Add(response);
+                        if (!failedCouponIds.Contains(coupon.Id))
+                        {
+                            response.Coupon = coupon;
+                            failedCouponIds.Add(coupon.Id);
+                            failedCouponCommands.Add(response);
+                        }
                     }
                 } else
                 {
@@ -388,12 +441,17 @@ namespace WebApp.Controllers
                     if (response.Status == CommandStatus.Valid)
                     {
                         passedChecks++;
+
                     }
                     else
                     {
                         // Store coupons and action types to report errors on action finish
-                        response.Coupon = coupon;
-                        failedCouponCommands.Add(response);
+                        if (!failedCouponIds.Contains(coupon.Id))
+                        {
+                            response.Coupon = coupon;
+                            failedCouponIds.Add(coupon.Id);
+                            failedCouponCommands.Add(response);
+                        }
                     }
                 } else
                 {
@@ -403,8 +461,14 @@ namespace WebApp.Controllers
                 if(passedChecks == 4)
                 {
                     _repo.UpdateCoupon(coupon);
+                    updatedCoupons.Add(coupon);
+                    // uncheck checked equivalent in CouponItems
                 }
             }
+
+            // Return failed coupon checkboxes as preselected
+            model.CouponList.CouponItems = preselectModelCouponList(lmm.CouponItems, failedCouponIds);
+            lmm.CouponItems = model.CouponList.CouponItems;
 
             if (failedCouponCommands.Count() > 0)
             {
@@ -625,9 +689,29 @@ namespace WebApp.Controllers
                     Code = coupon.Code, 
                     Holder = coupon.Holder, 
                     User = coupon.User,
+                    Enabled = coupon.Enabled,
                     Status = coupon.Status, 
                     Active = coupon.Active 
                 });
+            }
+            return checkedItems;
+        }
+
+        private List<CheckedCouponItem> preselectModelCouponList(List<CheckedCouponItem> items, List<long> preselected)
+        {
+            List<CheckedCouponItem> checkedItems = new List<CheckedCouponItem>();
+            foreach (CheckedCouponItem cci in items)
+            {
+                bool check = false;
+                if (preselected?.Count() > 0)
+                {
+                    if (preselected.Contains(cci.Id))
+                    {
+                        check = true;
+                    }
+                    cci.Checked = check;
+                }
+                checkedItems.Add(cci);
             }
             return checkedItems;
         }

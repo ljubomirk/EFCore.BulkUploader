@@ -217,25 +217,20 @@ namespace CouponDatabase.Services
         }
 
         /*
-         * Set new AwardTo date on coupon, as defined in ReedemableUntil update field.
+         * Set new enabled state on coupon, as defined in Enable update field.
          */
         public Lifecycle.Command Enable()
         {
-            Lifecycle.Command result;
-            if (this.Coupon.Status == (int)CouponStatus.Created || Coupon.Status == (int)CouponStatus.Issued)
-            {
-                result = new Command(CommandStatus.Valid);
-                if (result.Status == CommandStatus.Valid)
-                {
-                    //Coupon.Active = true;
-                    AddHistory("Prolong", "true");
-                }
-            }
-            else
-            {
-                result = new Command(CommandStatus.ErrorInvalidStatus);
-                AddHistory("Prolong", "");
-            }
+            Lifecycle.Command result = new Command(CommandStatus.Valid);
+            Coupon.Enabled = true;
+            AddHistory("Enable", "true");
+            return result;
+        }
+        public Lifecycle.Command Disable()
+        {
+            Lifecycle.Command result = new Command(CommandStatus.Valid);
+            Coupon.Enabled = false;
+            AddHistory("Enable", "false");
             return result;
         }
 
