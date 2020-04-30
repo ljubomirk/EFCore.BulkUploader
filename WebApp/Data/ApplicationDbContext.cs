@@ -551,12 +551,16 @@ namespace WebApp.Data
             #endregion
             #region Admin seed
             modelBuilder.Entity<User>().HasData(
-                new User() { AccessType = AccessType.Admininistrator, Username = "ljubo", Fullname = "Ljubomir Kraljevic", Domain = "LJUBO-PC" },
-                new User() { AccessType = AccessType.Admininistrator, Username = "traktor", Fullname = "DJ Fresh Prince", Domain = "LJUBO-PC" }
+                new User() { AccessType = AccessTypeEnum.Administrator, Username = "ljubo", Fullname = "Ljubomir Kraljevic", Domain = "LJUBO-PC" },
+                new User() { AccessType = AccessTypeEnum.Administrator, Username = "traktor", Fullname = "DJ Fresh Prince", Domain = "LJUBO-PC" }
             );
             modelBuilder.Entity<CouponSystem>().HasData(
                 new CouponSystem() { Id = 1, Name = "CRM", Username="max", Password="test" },
                 new CouponSystem() { Id = 2, Name = "SalesForce", Username = "sf", Password = "test" }
+            );
+            modelBuilder.Entity<AccessLog>().HasData(
+                new AccessLog() { Id = 1, Action = "Create Promotion", ApplicationType = ApplicationEnum.API, Channel = "POS", Username = "", IssuedDate = DateTime.Now },
+                new AccessLog() { Id = 2, Action = "Update Coupon", ApplicationType = ApplicationEnum.WebApp, Channel = "", Username = "korisnik", IssuedDate = DateTime.Now }
             );
             #endregion
         }

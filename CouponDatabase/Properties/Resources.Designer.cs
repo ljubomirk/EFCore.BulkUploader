@@ -430,6 +430,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accessed from.
+        /// </summary>
+        public static string Date_AccessFrom {
+            get {
+                return ResourceManager.GetString("Date_AccessFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access until.
+        /// </summary>
+        public static string Date_AccessTo {
+            get {
+                return ResourceManager.GetString("Date_AccessTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assignable from.
         /// </summary>
         public static string Date_AssignableFrom {
