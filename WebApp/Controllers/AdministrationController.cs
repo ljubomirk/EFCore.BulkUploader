@@ -32,10 +32,12 @@ namespace WebApp.Controllers
             return View("AdministrationUsers", model);
         }
 
-        public IActionResult UpdateUsers()
+        public IActionResult UpdateUsers(UsersViewModel model)
         {
+            model = new UsersViewModel(_context.User.ToList<User>());
+            model.Users.Add(new User() { AccessType = AccessTypeEnum.Manager, Username = "manga", Fullname = "Marko Menađerović", Domain = "MANGA-PC" });
             ViewBag.Command = new Command(CommandStatus.Valid);
-            return Users(null);
+            return Users(model);
         }
 
         public IActionResult ExternalSystemsView()
