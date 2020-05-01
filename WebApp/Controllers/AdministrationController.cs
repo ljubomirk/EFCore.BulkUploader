@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         }
         public IActionResult Users(UsersViewModel model)
         {
-            if(model==null)
+            if(model.Users==null)
                 model = new UsersViewModel(_context.User.ToList<User>());
             return View("AdministrationUsers", model);
         }
@@ -72,7 +72,7 @@ namespace WebApp.Controllers
         }
         public IActionResult AccessHistory(AccessHistoryViewModel model)
         {
-            if (model == null) {
+            if (model.Filters == null) {
                 model = new AccessHistoryViewModel
                 {
                     Filters = new AccessHistoryFilters()
