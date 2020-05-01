@@ -282,6 +282,12 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult UpdateCoupons(LifecycleUpdateViewModel model)
         {
+            /*
+             * TODO:
+             * - improve error reporting format and output
+             */
+
+
             // Checks for update commands
             bool updateCustomer = model.Customer != null? true : false;
             bool updateRedeemTo = model.RedeemTo != null? true : false;
@@ -484,8 +490,6 @@ namespace WebApp.Controllers
                     messages += cmd.Message + "<br>";
                 }
                 ViewBag.Command.Message = messages;
-
-                return View("LifecycleCoupons", model);
             } else
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
