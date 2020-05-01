@@ -108,6 +108,12 @@
     </div>
 }
 
+
+@*@if (ViewBag.Command != null)
+{
+    <partial name="_CommandMessage" for="CouponSeries" />
+}*@
+
 <script>
     $(document).ready(function () {
         $(".btn-subtract").click(function () {
@@ -135,11 +141,19 @@
             $("#Status").val(e.value);
         })
 
+        $("button[type='submit']").click(function (e) {
+            if ($(".update-icon").hasClass("loading")) {
+                e.preventDefault();
+                return;
+            }
+            $(".update-icon").addClass("loading").html("autorenew");
+        })
+
     });
 
 
     function updateCouponStatus(val) {
         $("#Status").val(val);
-    } 
-  
+    }
+
 </script>

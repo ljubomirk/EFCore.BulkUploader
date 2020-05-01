@@ -49,6 +49,10 @@
 <script>
     $(document).ready(function () {
         $("#update-users").click(function (e) {
+            if ($(".update-icon").hasClass("loading")) {
+                e.preventDefault();
+                return;
+            }
             $(".update-icon").addClass("loading").html("autorenew");
         })
     })
