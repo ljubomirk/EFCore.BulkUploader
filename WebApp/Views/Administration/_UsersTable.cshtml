@@ -1,86 +1,40 @@
 ﻿@*
     ROLE: displays a list of users as a table
 *@
-
+@model IEnumerable<CouponDatabase.Models.User>
 
 <table id="users-list" class="striped highlight all-left">
-    <thead>
+    @**@<thead>
         <tr>
             <th>
-                Username
+                @Html.DisplayNameFor(u => u.Username)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                Name
+                @Html.DisplayNameFor(u => u.Fullname)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                Type
+                @Html.DisplayNameFor(u => u.AccessType)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
         </tr>
     </thead>
 
     <tbody>
-        <tr>
-            <td>Proto</td>
-            <td>Proto Shriek</td>
-            <td>Administrator</td>
-        </tr>
-        <tr>
-            <td>Thunder</td>
-            <td>Magno Storm</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Flamboi</td>
-            <td>Flaming Monster</td>
-            <td>Administrator</td>
-        </tr>
-        <tr>
-            <td>Horror</td>
-            <td>Nightmare Atlas</td>
-            <td>Administrator</td>
-        </tr>
-        <tr>
-            <td>CoM</td>
-            <td>Commander of Madness</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Drm</td>
-            <td>Doctor Mantis</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Bully</td>
-            <td>Bullet Stryke</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Pluto</td>
-            <td>Commander Plutonium</td>
-            <td>Administrator</td>
-        </tr>
-        <tr>
-            <td>Neuron</td>
-            <td>Colonel Neuro</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Hexadecimal</td>
-            <td>Baroness Hex</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Fear</td>
-            <td>Thrun the Fearsome</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <td>Zeljka</td>
-            <td>Mistress of Terror</td>
-            <td>Administrator</td>
-        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @user.Username
+                </td>
+                <td>
+                    @user.Fullname
+                </td>
+                <td>
+                    @user.AccessType
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

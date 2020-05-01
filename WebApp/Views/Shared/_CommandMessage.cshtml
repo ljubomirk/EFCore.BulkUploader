@@ -1,0 +1,10 @@
+﻿<script>
+    $(document).ready(function () {
+        M.toast({
+            html: '<span>@ViewBag.Command.Message</span><button class="btn-flat toast-action">@CouponDatabase.Properties.Resources.Btn_Close</button>',
+            classes: '@ViewBag.Command.Status' != "Valid" ? "error" : "success"
+        });
+
+        $(".toast-action").click(M.Toast.dismissAll);
+    })
+</script>

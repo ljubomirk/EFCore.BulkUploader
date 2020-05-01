@@ -3933,7 +3933,7 @@ p.section-headline {
   height: auto;
   min-height: 48px;
   line-height: 1.5em;
-  background-color: #323232;
+  background-color: #4d4cac;
   padding: 10px 25px;
   font-size: 1.1rem;
   font-weight: 300;
@@ -3942,8 +3942,12 @@ p.section-headline {
   align-items: center;
   justify-content: space-between;
   cursor: default; }
+  .toast.error {
+    background-color: #F44336; }
+  .toast.success {
+    background-color: #4CAF50; }
   .toast .toast-action {
-    color: #eeff41;
+    color: #fff;
     font-weight: 500;
     margin-right: -25px;
     margin-left: 3rem; }
@@ -8550,3 +8554,12 @@ td.table-password {
 .sorting-icon {
   display: inline-block;
   margin: 0 0 -4px 0; }
+
+.loading {
+  animation: rotate 2s linear infinite; }
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }

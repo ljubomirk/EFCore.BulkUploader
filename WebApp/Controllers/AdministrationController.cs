@@ -27,15 +27,17 @@ namespace WebApp.Controllers
         }
         public IActionResult Users(UsersViewModel model)
         {
-            if(model==null)
+            if(model.Users==null)
                 model = new UsersViewModel(_context.User.ToList<User>());
             return View("AdministrationUsers", model);
         }
 
-        public IActionResult UpdateUsers()
+        public IActionResult UpdateUsers(UsersViewModel model)
         {
+            model = new UsersViewModel(_context.User.ToList<User>());
+            model.Users.Add(new User() { AccessType = AccessTypeEnum.Manager, Username = "manga", Fullname = "Marko Menađerović", Domain = "MANGA-PC" });
             ViewBag.Command = new Command(CommandStatus.Valid);
-            return Users(null);
+            return Users(model);
         }
 
         public IActionResult ExternalSystemsView()
@@ -72,7 +74,7 @@ namespace WebApp.Controllers
         }
         public IActionResult AccessHistory(AccessHistoryViewModel model)
         {
-            if (model == null) {
+            if (model.Filters == null) {
                 model = new AccessHistoryViewModel
                 {
                     Filters = new AccessHistoryFilters()

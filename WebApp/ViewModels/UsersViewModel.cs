@@ -14,6 +14,7 @@ namespace WebApp.ViewModels
         public UsersViewModel() { }
         public UsersViewModel(IList<User> users)
         {
+            AccessTypes = new List<CheckedItem>();
             foreach (var type in User.GetAccessTypes())
             {
                 AccessTypes.Add(new CheckedItem() { Id = type.Id, Checked = true, Label = type.Name });

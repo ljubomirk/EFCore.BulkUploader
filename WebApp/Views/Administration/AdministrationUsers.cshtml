@@ -31,26 +31,29 @@
         </select>
     </div>
     <div class="col s12 m2 u-p-r-remove">
-        <!-- update users form -->
-        @using (Html.BeginForm("UpdateUsers", "Administration", FormMethod.Post, new { role = "form", id = "UpdateUsers" }))
-        {
-            <button type="submit" class="waves-effect waves-light btn-flat btn-primary right">
-                <i class="material-icons left">update</i>
-                @CouponDatabase.Properties.Resources.Btn_Update
-            </button>
-        }
+        <a href="@Url.Action("UpdateUsers", "Administration")" class="waves-effect waves-light btn-flat btn-primary right" id="update-users">
+            <i class="material-icons update-icon left">update</i>
+            @CouponDatabase.Properties.Resources.Btn_Update
+        </a>
     </div>
 </div>
 <!-- /heading -->
-
 <!-- users table -->
-<partial name="_UsersTable" />
+<partial name="_UsersTable" model="Model.Users"/>
+
+@if (ViewBag.Command != null)
+{
+    <partial name="_CommandMessage" for="Users" />
+}
 
 <script>
     $(document).ready(function () {
-        $('form').submit(function (e) {
-            e.preventDefault();
-            alert("a je.")
+        $("#update-users").click(function (e) {
+            if ($(".update-icon").hasClass("loading")) {
+                e.preventDefault();
+                return;
+            }
+            $(".update-icon").addClass("loading").html("autorenew");
         })
     })
 </script>
