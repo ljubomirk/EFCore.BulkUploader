@@ -83,6 +83,31 @@ namespace WebApp.ViewModels
                 }
             }
 
+            if(promotionFilter.Properties?.Where(p => p.Checked).Count() > 0)
+            {
+                /*
+                 * TODO: 
+                 * check if it is enough for the promotion to have a single property assigned, among multiple selected for the filter, to be considered as valid for the applied filter
+                 */
+                List<Promotion> newFilterPromotions = new List<Promotion>();
+                foreach (Promotion promo in f_ListOfPromotions)
+                {
+                    List<long> propertyIds = promo.PromotionProperties.Select(p => p.PropertyId).Distinct().ToList();
+                    List<long> checkedProperties = promotionFilter.Properties.Where(p => p.Checked).Select(p => p.Id).Distinct().ToList();
+                    foreach (long id in checkedProperties)
+                    {
+                        if (propertyIds.Contains(id))
+                        {
+                            if (!newFilterPromotions.Contains(promo))
+                            {
+                                newFilterPromotions.Add(promo);
+                            }
+                        }
+                    }
+                }
+                f_ListOfPromotions = newFilterPromotions;
+            }
+
             /* 
              * e.g.
              * f_ListOfPromotions = f_ListOfPromotions.Union(promotionsByCode).Union(promotionsByValidDate).Union(PromotionsByStatus).ToList();
