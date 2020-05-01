@@ -517,4 +517,8 @@
     <value>Access until</value>
     <comment>Date to.</comment>
   </data>
+  <data name="ErrorInvalidCustomer_Message" xml:space="preserve">
+    <value>Invalid user change for coupon status.</value>
+    <comment>On invalid user change for coupon status Canceled and Redeemed.</comment>
+  </data>
 </root>

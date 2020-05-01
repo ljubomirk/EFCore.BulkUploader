@@ -178,7 +178,7 @@ namespace CouponDatabase.Services
             Lifecycle.Command result;
             if ((CouponStatus)Coupon.Status == CouponStatus.Created || (CouponStatus)Coupon.Status == CouponStatus.Issued)
             {
-                CommandStatus status = (user != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidUser;
+                CommandStatus status = (user != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidCustomer;
                 result = new Command(status);
                 if (result.Status == CommandStatus.Valid)
                 {
@@ -188,7 +188,7 @@ namespace CouponDatabase.Services
             }
             else
             {
-                result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                result = new Lifecycle.Command(CommandStatus.ErrorInvalidCustomer);
                 result.Message = String.Format(result.Message + " Code: " + Coupon.Code);
             }
             return result;
