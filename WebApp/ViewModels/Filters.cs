@@ -145,7 +145,6 @@ namespace WebApp.ViewModels
             if(couponFilter != null)
             {
                 List<Coupon> f_ListOfCoupons = new List<Coupon>();
-                bool couponRemove = false;
                 List<long> f_AwardChannel = couponFilter.AwardChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
                 List<long> f_IssuerChannel = couponFilter.IssuerChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
                 List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
@@ -190,58 +189,58 @@ namespace WebApp.ViewModels
 
 
                 // Filter using checkbox filters
+                List<Coupon> newCouponList = new List<Coupon>();
                 foreach (Coupon coup in coupons)
                 {
-                    couponRemove = false;
+                    bool couponAdd = false;
 
                     // Filter based on award channel
-                    if (f_AwardChannel.Count() > 0 && !couponRemove)
+                    if (f_AwardChannel.Count() > 0)
                     {
                         List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
-                        foreach (long id in awardChannels)
+                        foreach (long id in f_AwardChannel)
                         {
-                            if (!f_AwardChannel.Contains(id))
+                            if (!awardChannels.Contains(id))
                             {
                                 // all awardChannel filters need to be met to return coupon ?
                                 // if even single coupon 
-                                couponRemove = true;
+                                couponAdd = true;
                             }
                         }
                     }
 
                     // Filter based on issuer channel
-                    if (f_IssuerChannel.Count() > 0 && !couponRemove)
+                    if (f_IssuerChannel.Count() > 0)
                     {
                         List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
-                        foreach (long ids in issuerChannels)
+                        foreach (long ids in f_IssuerChannel)
                         {
-                            if (!f_IssuerChannel.Contains(ids))
+                            if (!issuerChannels.Contains(ids))
                             {
                                 // all issuerChannel filters need to be met to return coupon ?
-                                couponRemove = true;
+                                couponAdd = true;
                             }
                         }
                     }
 
                     // Filter based on coupon status
-                    if (f_CurrentStatus.Count() > 0 && !couponRemove)
+                    if (f_CurrentStatus.Count() > 0)
                     {
                         if (!f_CurrentStatus.Contains(coup.Status))
                         {
                             // current coupon status needs to be in filter status list ?
-                            couponRemove = true;
+                            couponAdd = true;
                         }
                     }
 
                     // Remove coupon from initial list if filter not passed
-                    if (couponRemove)
+                    if (couponAdd)
                     {
-                        var r_Coupon = f_ListOfCoupons.Find(x => x.Id == coup.Id);
-                        f_ListOfCoupons.Remove(r_Coupon);
+                        newCouponList.Add(coup);
                     }
                 }
 
-                return f_ListOfCoupons;
+                return newCouponList;
             }
             return coupons;
         }
