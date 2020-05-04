@@ -147,8 +147,13 @@ namespace WebApp.Services
             List<Coupon> promotionCoupons = new List<Coupon>();
             foreach(Promotion p in promotions)
             {
-                List<Coupon> tmpCoupons = GetPromotionCoupons(p);
-                promotionCoupons.AddRange(tmpCoupons);
+                if(p.Coupons.Count() > 0){
+                    promotionCoupons.AddRange(p.Coupons);
+                } else
+                {
+                    List<Coupon> tmpCoupons = GetPromotionCoupons(p);
+                    promotionCoupons.AddRange(tmpCoupons);
+                }
             }
             return promotionCoupons;
         }
