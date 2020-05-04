@@ -197,7 +197,7 @@ namespace WebApp.ViewModels
                     // Filter based on award channel
                     if (f_AwardChannel.Count() > 0)
                     {
-                        List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList(); // change to GetCouponAwardChannels(coup.Coupon.Id)
+                        List<long> awardChannels = _repo.GetCouponAwardChannels(coup.Id).Select( c => c.AwardChannelId).Distinct().ToList(); // change to GetCouponAwardChannels(coup.Coupon.Id)
                         foreach (long id in f_AwardChannel)
                         {
                             if (awardChannels.Contains(id))
@@ -212,7 +212,7 @@ namespace WebApp.ViewModels
                     // Filter based on issuer channel
                     if (f_IssuerChannel.Count() > 0)
                     {
-                        List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList(); // change to GetCouponIssuerChannels(coup.Coupon.Id)
+                        List<long> issuerChannels = _repo.GetCouponIssuerChannels(coup.Id).Select( c => c.IssuerChannelId).Distinct().ToList(); // change to GetCouponIssuerChannels(coup.Coupon.Id)
                         foreach (long ids in f_IssuerChannel)
                         {
                             if (issuerChannels.Contains(ids))
@@ -240,9 +240,12 @@ namespace WebApp.ViewModels
                     }
                 }
 
-                if(newCouponList.Count() > 0)
+                if(f_AwardChannel.Count() > 0 || f_IssuerChannel.Count() > 0 || f_CurrentStatus.Count() > 0)
                 {
                     return newCouponList;
+                } else
+                {
+                    return f_ListOfCoupons;
                 }
             }
             return coupons;
