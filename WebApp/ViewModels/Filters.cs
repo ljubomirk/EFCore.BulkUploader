@@ -150,12 +150,12 @@ namespace WebApp.ViewModels
                 List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
 
                 // Create method get filterActiveProducts(list, filter)
-                if (couponFilter.ShowActive)
+                if (couponFilter.ActiveCoupons)
                 {
                     List<Coupon> tempCoupon = coupons.Where(x => x.Active == true).ToList();
                     f_ListOfCoupons.AddRange(tempCoupon);
                 }
-                if (couponFilter.ShowInactive)
+                if (couponFilter.InactiveCoupons)
                 {
                     // Initial populating of list with inactive coupons
                     f_ListOfCoupons.AddRange(coupons.Where(x => x.Active == false).ToList<Coupon>());

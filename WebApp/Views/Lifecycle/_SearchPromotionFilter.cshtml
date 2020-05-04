@@ -32,7 +32,6 @@
     </div>
 </div>
 <!-- /promotion details -->
-
 <!-- properties -->
 <div class="row">
     <div class="col s12">
@@ -53,3 +52,20 @@
     </div>
 </div>
 <!-- /properties -->
+<!-- active/inactive checkboxes -->
+<div class="row hide">
+    <div class="col s12">
+        <p class="section-headline u-m-b-remove">@CouponDatabase.Properties.Resources.Filter_ActiveInactive</p>
+        <p>
+            <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
+            </label>
+            <label class="checkbox-hover checkbox-hover__inline">
+                @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
+            </label>
+        </p>
+    </div>
+</div>
+<!-- / active/inactive checkboxes -->
