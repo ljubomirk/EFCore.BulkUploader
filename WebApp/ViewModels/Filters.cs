@@ -197,10 +197,10 @@ namespace WebApp.ViewModels
                     // Filter based on award channel
                     if (f_AwardChannel.Count() > 0)
                     {
-                        List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                        List<long> awardChannels = _repo.GetPromotionAwardChannels(coup.Promotion.Id).Select(a => a.Id).ToList(); // change to GetCouponAwardChannels(coup.Coupon.Id)
                         foreach (long id in f_AwardChannel)
                         {
-                            if (!awardChannels.Contains(id))
+                            if (awardChannels.Contains(id))
                             {
                                 // all awardChannel filters need to be met to return coupon ?
                                 // if even single coupon 
@@ -212,10 +212,10 @@ namespace WebApp.ViewModels
                     // Filter based on issuer channel
                     if (f_IssuerChannel.Count() > 0)
                     {
-                        List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList();
+                        List<long> issuerChannels = _repo.GetPromotionIssuerChannels(coup.Promotion.Id).Select(a => a.Id).ToList(); // change to GetCouponIssuerChannels(coup.Coupon.Id)
                         foreach (long ids in f_IssuerChannel)
                         {
-                            if (!issuerChannels.Contains(ids))
+                            if (issuerChannels.Contains(ids))
                             {
                                 // all issuerChannel filters need to be met to return coupon ?
                                 couponAdd = true;
@@ -226,7 +226,7 @@ namespace WebApp.ViewModels
                     // Filter based on coupon status
                     if (f_CurrentStatus.Count() > 0)
                     {
-                        if (!f_CurrentStatus.Contains(coup.Status))
+                        if (f_CurrentStatus.Contains(coup.Status))
                         {
                             // current coupon status needs to be in filter status list ?
                             couponAdd = true;
@@ -240,7 +240,10 @@ namespace WebApp.ViewModels
                     }
                 }
 
-                return newCouponList;
+                if(newCouponList.Count() > 0)
+                {
+                    return newCouponList;
+                }
             }
             return coupons;
         }
