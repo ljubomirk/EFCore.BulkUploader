@@ -281,6 +281,14 @@ namespace WebApp.Data
                     Enabled = true,
                     ValidFrom = DateTime.Parse("01.06.2020"),
                     ValidTo = DateTime.Parse("01.09.2020")
+                },
+                new Promotion()
+                {
+                    Id = 25,
+                    Code = "Bloom",
+                    Enabled = true,
+                    ValidFrom = DateTime.Parse("14.02.2020"),
+                    ValidTo = DateTime.Parse("14.03.2020")
                 }
             );
             #endregion
@@ -546,6 +554,209 @@ namespace WebApp.Data
                     Status = (int)CouponStatus.Canceled,
                     PromotionId = 1,
                     CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 17,
+                    Code = "SPRING1234567290",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 18,
+                    Code = "SPRING1234567291",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 19,
+                    Code = "SPRING1234567292",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 20,
+                    Code = "SPRING1234567293",
+                    Holder = "38640440482",
+                    User = "38640440482",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 21,
+                    Code = "SPRING1234567294",
+                    Holder = "38640440482",
+                    User = "38640440482",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                }
+            );
+            #endregion
+            #region Coupon issuer channels seed
+            modelBuilder.Entity<CouponIssuerChannel>().HasData(
+                new CouponIssuerChannel()
+                {
+                    CouponId = 2,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 3,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 4,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 5,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 6,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 7,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 8,
+                    IssuerChannelId = (int)IssuerChannelEnum.Telesales
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 9,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 10,
+                    IssuerChannelId = (int)IssuerChannelEnum.Salesforce
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 11,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 12,
+                    IssuerChannelId = (int)IssuerChannelEnum.SelfCare
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 13,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 15,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 17,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 18,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 19,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 20,
+                    IssuerChannelId = (int)IssuerChannelEnum.SelfCare
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 21,
+                    IssuerChannelId = (int)IssuerChannelEnum.SelfCare
+                }
+            );
+            #endregion
+            #region Coupon award channels seed
+            modelBuilder.Entity<CouponAwardChannel>().HasData(
+                new CouponAwardChannel()
+                {
+                    CouponId = 6,
+                    AwardChannelId = (int)AwardChannelEnum.POS
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 7,
+                    AwardChannelId = (int)AwardChannelEnum.Webshop
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 13,
+                    AwardChannelId = (int)AwardChannelEnum.POS
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 15,
+                    AwardChannelId = (int)AwardChannelEnum.Webshop
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 20,
+                    AwardChannelId = (int)AwardChannelEnum.SelfCare
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 21,
+                    AwardChannelId = (int)AwardChannelEnum.SelfCare
                 }
             );
             #endregion

@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200430131834_Init")]
+    [Migration("20200504131558_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,7 @@ namespace WebApp.Migrations
                             Action = "Create Promotion",
                             ApplicationType = 0,
                             Channel = "POS",
-                            IssuedDate = new DateTime(2020, 4, 30, 15, 18, 34, 12, DateTimeKind.Local).AddTicks(8373),
+                            IssuedDate = new DateTime(2020, 5, 4, 15, 15, 58, 45, DateTimeKind.Local).AddTicks(5920),
                             Username = ""
                         },
                         new
@@ -57,7 +57,7 @@ namespace WebApp.Migrations
                             Action = "Update Coupon",
                             ApplicationType = 1,
                             Channel = "",
-                            IssuedDate = new DateTime(2020, 4, 30, 15, 18, 34, 17, DateTimeKind.Local).AddTicks(580),
+                            IssuedDate = new DateTime(2020, 5, 4, 15, 15, 58, 49, DateTimeKind.Local).AddTicks(890),
                             Username = "korisnik"
                         });
                 });
@@ -147,7 +147,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567892",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440481",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -163,7 +163,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567893",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440482",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -195,7 +195,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567891",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -211,7 +211,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567895",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -227,7 +227,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567113",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -275,7 +275,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567894",
                             CouponSeries = 2,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440483",
                             MaxRedeemNo = 1,
                             PromotionId = 5L,
@@ -291,7 +291,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567891",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "",
                             MaxRedeemNo = 1,
                             PromotionId = 5L,
@@ -323,7 +323,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EDOWN1234567912",
                             CouponSeries = 2,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "",
                             MaxRedeemNo = 1,
                             PromotionId = 5L,
@@ -339,7 +339,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567289",
                             CouponSeries = 2,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440481",
                             MaxRedeemNo = 1,
                             PromotionId = 1L,
@@ -355,7 +355,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567290",
                             CouponSeries = 2,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440481",
                             MaxRedeemNo = 1,
                             PromotionId = 1L,
@@ -371,12 +371,92 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567291",
                             CouponSeries = 2,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440481",
                             MaxRedeemNo = 1,
                             PromotionId = 1L,
                             Status = 4,
                             User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            AquireFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567290",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 25L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            AquireFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567291",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 25L,
+                            Status = 2,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            AquireFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567292",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 25L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            AquireFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567293",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 25L,
+                            Status = 3,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            AquireFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567294",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 25L,
+                            Status = 3,
+                            User = "38640440482"
                         });
                 });
 
@@ -391,6 +471,38 @@ namespace WebApp.Migrations
                     b.HasIndex("AwardChannelId");
 
                     b.ToTable("CouponAwardChannel");
+
+                    b.HasData(
+                        new
+                        {
+                            CouponId = 6L,
+                            AwardChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 7L,
+                            AwardChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 13L,
+                            AwardChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 15L,
+                            AwardChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 20L,
+                            AwardChannelId = 3L
+                        },
+                        new
+                        {
+                            CouponId = 21L,
+                            AwardChannelId = 3L
+                        });
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.CouponHistory", b =>
@@ -427,6 +539,98 @@ namespace WebApp.Migrations
                     b.HasIndex("IssuerChannelId");
 
                     b.ToTable("CouponIssuerChannel");
+
+                    b.HasData(
+                        new
+                        {
+                            CouponId = 2L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 3L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 4L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 5L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 6L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 7L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 8L,
+                            IssuerChannelId = 4L
+                        },
+                        new
+                        {
+                            CouponId = 9L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 10L,
+                            IssuerChannelId = 2L
+                        },
+                        new
+                        {
+                            CouponId = 11L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 12L,
+                            IssuerChannelId = 3L
+                        },
+                        new
+                        {
+                            CouponId = 13L,
+                            IssuerChannelId = 1L
+                        },
+                        new
+                        {
+                            CouponId = 15L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 17L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 18L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 19L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 20L,
+                            IssuerChannelId = 3L
+                        },
+                        new
+                        {
+                            CouponId = 21L,
+                            IssuerChannelId = 3L
+                        });
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.IssuerChannel", b =>
@@ -724,6 +928,15 @@ namespace WebApp.Migrations
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            Code = "Bloom",
+                            CouponSeries = 0,
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
