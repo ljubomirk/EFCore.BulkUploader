@@ -1,0 +1,60 @@
+﻿@model CouponDatabase.Models.System;
+@{
+    // somehow Id always returns 0...
+    string action = (Model.Name != null ? "UpdateSystem" : "AddSystem");
+    string headline = (Model.Name != null ? @CouponDatabase.Properties.Resources.Modal_HeadingEditSystem : @CouponDatabase.Properties.Resources.Modal_HeadingAddSystem);
+    string btnLabel = (Model.Name != null ? @CouponDatabase.Properties.Resources.Btn_Edit : @CouponDatabase.Properties.Resources.Btn_AddSystem);
+}
+
+<!-- form modal -->
+@using (Html.BeginForm(action, "Administration", FormMethod.Post, new { role = "form", id = "SystemsModal" }))
+{
+    <div id="modal-systems" class="modal">
+        <div class="modal-content" id="sys-data">
+            <h4>@headline</h4>
+            <div class="row u-m-t-lg">
+                @Html.HiddenFor(s => s.Id)
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.Name, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
+                    @Html.LabelFor(s => s.Name, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.Name)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.Username, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
+                    @Html.LabelFor(s => s.Username, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.Username)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.Password, new { @autocomplete = "off", dataVal = true, htmlAttributes = new { type = "password", placeholder = "", @class = "password" } })
+                    @Html.LabelFor(s => s.Password, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.Password)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon password-icon'>remove_red_eye</i>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+                @CouponDatabase.Properties.Resources.Btn_Close
+            </a>
+            <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-primary">
+                <i class="material-icons left">check</i>
+                @btnLabel
+            </button>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        // reveal password on icon click
+        $(".password-icon")
+            .mousedown(function () {
+                $("input.password").attr('type', 'text');
+            }).mouseup(function () {
+                $("input.password").attr('type', 'password');
+            });
+    })
+</script>

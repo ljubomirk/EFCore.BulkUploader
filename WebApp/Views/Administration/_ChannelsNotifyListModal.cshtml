@@ -1,0 +1,105 @@
+﻿@model CouponDatabase.Models.NotifyList;
+@{
+    string action = (Model.Channel != null ? "UpdateNotifyList" : "AddNotifyList");
+    string headline = (Model.Channel != null ? @CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList : @CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList);
+    string btnLabel = (Model.Channel != null ? @CouponDatabase.Properties.Resources.Btn_Edit : @CouponDatabase.Properties.Resources.Btn_AddToNotifyList);
+}
+
+<!-- form modal -->
+@using (Html.BeginForm(action, "Administration", FormMethod.Post, new { role = "form", id = "NotifyListModal" }))
+{
+    <div id="modal-notify-list" class="modal">
+        <div class="modal-content">
+            <h4>@headline</h4>
+            <div class="row">
+                @Html.HiddenFor(nl => nl.ChannelId)
+                @Html.HiddenFor(nl => nl.Channel.Id)
+                @Html.HiddenFor(nl => nl.SystemId)
+                @Html.HiddenFor(nl => nl.System.Id)
+                @Html.HiddenFor(nl => nl.System.Username)
+                @Html.HiddenFor(nl => nl.System.Password)
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.Channel.Name, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
+                    @Html.LabelFor(s => s.Channel.Name, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.Channel.Name)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.System.Name, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
+                    @Html.LabelFor(s => s.System.Name, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.System)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+                <div class="input-field col s12">
+                    @Html.EditorFor(s => s.Url, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
+                    @Html.LabelFor(s => s.Url, new { @class = "active" })
+                    @Html.ValidationMessageFor(s => s.Url)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+                @CouponDatabase.Properties.Resources.Btn_Close
+            </a>
+            <button type="submit" class="modal-close waves-effect waves-green btn-flat btn-primary">
+                <i class="material-icons left">check</i>
+                @btnLabel
+            </button>
+        </div>
+    </div>
+}
+<!-- /form modal-->
+@*<script>
+
+        $(document).ready(function () {
+            var ctx = {
+                notifyList: {
+                    add: {
+                        heading: '@CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList',
+                        button: '@CouponDatabase.Properties.Resources.Btn_AddToNotifyList'
+                    },
+                    remove: {
+                        heading: '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveNotifyList',
+                        content: '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList',
+                        button: '@CouponDatabase.Properties.Resources.Btn_Remove'
+                    },
+                    edit: {
+                        heading: '@CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList',
+                        button: '@CouponDatabase.Properties.Resources.Btn_SaveChanges'
+                    }
+                }
+            }
+            $(".channel-action").click(function () {
+                var id = this.getAttribute("data-id");
+                var target = this.getAttribute("data-target-modal");
+                var action = this.getAttribute("data-action");
+
+                var titleTxt = ctx[target][action].heading;
+                var btnTxt = ctx[target][action].button;
+
+                //console.log("id: ", id)
+                //console.log("target: ", target)
+                //console.log("action: ", action)
+                //console.log("title: ", title)
+
+                var heading = $(".modal-content h4");
+                var content = $(".modal-content p");
+                var actionBtn = $(".modal-footer a.btn-primary");
+                var inputId = $("#entry-id");
+
+                heading.html(titleTxt);
+                actionBtn.html(btnTxt);
+
+                if (action == "add") {
+                    // update form action
+                } else if (action == "remove") {
+                    // update form action
+                    content.html(text)
+                } else if (action == "edit") {
+                    // update form action
+                    inputId.val(id)
+                }
+            })
+        })
+    </script>*@
