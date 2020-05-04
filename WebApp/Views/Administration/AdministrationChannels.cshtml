@@ -15,7 +15,7 @@
         </h4>
     </div>
     <div class="col s12 m6 u-p-r-remove">
-        <a class="channel-action modal-trigger btn-flat btn-primary right" data-target-modal="systems" data-action="add" href="#modal-form">
+        <a class="channel-action modal-trigger-systems btn-flat btn-primary right" data-url="@Url.Action("SystemDetails", "Administration")" href="#modal-systems">
             <i class="material-icons left">add</i>
             @CouponDatabase.Properties.Resources.Btn_Add
         </a>
@@ -23,7 +23,8 @@
 </div>
 <!-- /heading systems -->
 <!-- systems table -->
-<partial name="_ChannelsSystemsTable" />
+<partial name="_ChannelsSystemsTable" model="Model.Systems" />
+
 
 <!-- heading notify list -->
 <div class="row u-m-t-lg u-p-t-xl">
@@ -33,15 +34,52 @@
         </h4>
     </div>
     <div class="col s12 m6 u-p-r-remove">
-        <a class="channel-action modal-trigger btn-flat btn-primary right" data-target-modal="notifyList" data-action="add" href="#modal-form">
+        <a class="channel-action modal-trigger-notify-list btn-flat btn-primary right" data-url="@Url.Action("NotifyListDetails", "Administration")" href="#modal-notify-list">
             <i class="material-icons left">add</i>
             @CouponDatabase.Properties.Resources.Btn_Add
         </a>
     </div>
 </div>
 <!-- /heading notify list -->
-<!-- notify list table -->
-<partial name="_ChannelsNotifyListTable" />
 
-<partial name="_ChannelsActions" />
-<partial name="_ChannelsModal" />
+<!-- notify list table -->
+<partial name="_ChannelsNotifyListTable" model="Model.NotifyLists" />
+
+<!-- delete item modal -->
+<partial name="_ChannelsDeleteModal" />
+
+@if (ViewBag.Command != null)
+{
+    <partial name="_CommandMessage" for="Channels" />
+}
+
+
+<script>
+    $(document).ready(function () {
+        
+        // update modal when deleting item
+        $(".modal-trigger-remove").click(function () {
+            var url = this.getAttribute("data-url");
+            var target = this.getAttribute("data-target");
+            var modalAction = $("#modal-action-remove");
+            var modalHeader = $("#modal-remove .modal-content h4");
+            var modalContent = $("#modal-remove .modal-content p");
+            var header = "";
+            var content = "";
+
+            if (target == "systems") {
+                header = '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveSystem';
+                content = '@CouponDatabase.Properties.Resources.Modal_ContentRemoveSystem';
+            } else if (target == "notify-list") {
+                header = '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveNotifyList';
+                content = '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList';
+            }
+            console.log(modalAction, url);
+            modalHeader.html(header);
+            modalContent.html(content);
+            modalAction.attr("href", url);
+            $('#modal-remove').modal();
+            $('#modal-remove').modal('open'); 
+        });
+    })
+</script>

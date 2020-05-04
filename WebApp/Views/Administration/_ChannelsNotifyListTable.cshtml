@@ -2,20 +2,21 @@
     ROLE: displays a naughty list
 *@
 
+@model IEnumerable<CouponDatabase.Models.NotifyList>
 
-<table id="users-list" class="striped highlight all-left">
+<table id="notify-list" class="striped highlight all-left">
     <thead>
         <tr>
             <th>
-                Channel
+                @Html.DisplayNameFor(l => l.Channel)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                System
+                @Html.DisplayNameFor(l => l.System)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                Notify URL
+                @Html.DisplayNameFor(l => l.Url)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>&nbsp;</th>
@@ -23,35 +24,51 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>POS</td>
-            <td>CRM</td>
-            <td>https://max.simobil.lan/NET4/Services/Notify.svc</td>
-            <td>
-                <a class='dropdown-trigger' href='!#' data-id="1" data-target='channel-actions' data-target-modal="notifyList">
-                    <i class="material-icons material-icons__hover">more_horiz</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>POS</td>
-            <td>CRM</td>
-            <td>https://max.simobil.lan/NET4/Services/Notify.svc</td>
-            <td>
-                <a class='dropdown-trigger' href='!#' data-id="1" data-target='channel-actions' data-target-modal="notifyList">
-                    <i class="material-icons material-icons__hover">more_horiz</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>POS</td>
-            <td>SalesForce</td>
-            <td>https://max.simobil.lan/NET4/Services/Notify.svc</td>
-            <td>
-                <a class='dropdown-trigger' href='!#' data-id="1" data-target='channel-actions' data-target-modal="notifyList">
-                    <i class="material-icons material-icons__hover">more_horiz</i>
-                </a>
-            </td>
-        </tr>
+        @foreach (var nl in Model)
+        {
+            <tr>
+                <td>@nl.Channel.Name</td>
+                <td>@nl.System.Name</td>
+                <td class="truncate cell">@nl.Url</td>
+                <td>
+                    <a class='dropdown-trigger right u-m-r-md' href='!#' data-id="1" data-target='notify-actions-@nl.ChannelId@nl.SystemId' data-target-modal="notifyList">
+                        <i class="material-icons material-icons__hover">more_horiz</i>
+                    </a>
+                    <ul id='notify-actions-@nl.ChannelId@nl.SystemId' class='dropdown-content'>
+                        <li>
+                            <a class="channel-action modal-trigger-notify-list" data-url="@Url.Action("NotifyListDetails", "Administration", new { Channel = nl.Channel, System = nl.System, Url = nl.Url })" href="#modal-notify-list">
+                                <i class="material-icons">create</i>
+                                @CouponDatabase.Properties.Resources.Btn_Edit
+                            </a>
+                        </li>
+                        <li class="disable">
+                            <a class="channel-action modal-trigger-remove" data-url="@Url.Action("DeleteNotifyList", "Administration", new { ChannelId = nl.ChannelId, SystemId = nl.SystemId })" data-target="notify-list" href="#modal-remove">
+                                <i class="material-icons">delete_forever</i>
+                                @CouponDatabase.Properties.Resources.Btn_Remove
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- modal container -->
+<div id="modal-container-notify-list"></div>
+
+<script>
+    $(document).ready(function () {
+        // get data, inject html and display modal
+        $('.modal-trigger-notify-list').click(function() {
+            var url = $(this).data('url');
+
+            $.get(url, function (data) {
+                $('#modal-container-notify-list').html(data).promise().done(function () {
+                    $('#modal-notify-list').modal();
+                    $('#modal-notify-list').modal('open');
+                });
+            });
+        });
+    })
+</script>

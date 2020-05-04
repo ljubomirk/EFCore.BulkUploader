@@ -2613,6 +2613,8 @@ input[type=range] + .thumb {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
+  .truncate.cell {
+    max-width: 450px; }
 
 .no-padding {
   padding: 0 !important; }
@@ -2690,6 +2692,10 @@ table span.badge {
     border-radius: 4px; }
   .material-icons.validation-error {
     display: none; }
+  .material-icons.password-icon:hover {
+    color: #4d4cac; }
+  .material-icons.password-icon:active {
+    color: #616161; }
 
 .container {
   margin: 0 auto;
@@ -4611,7 +4617,7 @@ body.keyboard-focused .dropdown-content li:focus {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 70%;
+  max-height: 90%;
   width: 55%;
   max-width: 700px;
   margin: auto;

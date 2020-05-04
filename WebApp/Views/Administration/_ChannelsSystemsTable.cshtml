@@ -2,20 +2,21 @@
     ROLE: displays a list of systems as a table
 *@
 
+@model IEnumerable<CouponDatabase.Models.System>
 
-<table id="users-list" class="striped highlight all-left">
+<table id="systems-list" class="striped highlight all-left">
     <thead>
         <tr>
             <th>
-                System
+                @Html.DisplayNameFor(s => s.Name)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                Username
+                @Html.DisplayNameFor(s => s.Username)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                Password
+                @Html.DisplayNameFor(s => s.Password)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>&nbsp;</th>
@@ -23,66 +24,66 @@
     </thead>
 
     <tbody>
+        @foreach(var sys in Model)
+        {
         <tr>
             <td>
-                CRM
+                @sys.Name
             </td>
             <td>
-                gazda007
+                @sys.Username
             </td>
-            <td class="table-password" data-password="zicerone">
+            <td class="table-password" data-password="@sys.Password">
                 <span class="password">***********</span>
                 <i class="material-icons u-m-l-sm">remove_red_eye</i>
             </td>
             <td>
-                <a class='dropdown-trigger' href='!#' data-id="1" data-target='channel-actions' data-target-modal="systems">
+                <a class='dropdown-trigger right u-m-r-md' href='!#' data-id="@sys.Id" data-target='system-actions-@sys.Id' data-target-modal="systems">
                     <i class="material-icons material-icons__hover">more_horiz</i>
                 </a>
+                <ul id='system-actions-@sys.Id' class='dropdown-content'>
+                    <li>
+                        <a class="channel-action modal-trigger-systems" data-url="@Url.Action("SystemDetails", "Administration", new { Id = sys.Id, Name = sys.Name, Username = sys.Username, Password = sys.Password })" href="#modal-systems">
+                            <i class="material-icons">create</i>
+                            @CouponDatabase.Properties.Resources.Btn_Edit
+                        </a>
+                    </li>
+                    <li class="disable">
+                        <a class="channel-action modal-trigger-remove" data-url="@Url.Action("DeleteSystem", "Administration", new { Id = sys.Id })" data-target="systems" href="#modal-remove">
+                            <i class="material-icons">delete_forever</i>
+                            @CouponDatabase.Properties.Resources.Btn_Remove
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
-        <tr>
-            <td>
-                SalesForce
-            </td>
-            <td>
-                Marija
-            </td>
-            <td class="table-password" data-password="zanimateA">
-                <span class="password">***********</span>
-                <i class="material-icons u-m-l-sm">remove_red_eye</i>
-            </td>
-            <td>
-                <a class='dropdown-trigger' href='!#' data-id="sys2" data-target='channel-actions' data-target-modal="systems">
-                    <i class="material-icons material-icons__hover">more_horiz</i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Kudergrofnschlaffen
-            </td>
-            <td>Webshop</td>
-            <td class="table-password" data-password="nematukruva">
-                <span class="password">***********</span>
-                <i class="material-icons u-m-l-sm">remove_red_eye</i>
-            </td>
-            <td>
-                <a class='dropdown-trigger' href='!#' data-id="sys3" data-target='channel-actions' data-target-modal="systems">
-                    <i class="material-icons material-icons__hover">more_horiz</i>
-                </a>
-            </td>
-        </tr>
+        }
     </tbody>
 </table>
 
+<!-- modal container -->
+<div id="modal-container-systems"></div>
+
 <script>
     $(document).ready(function () {
-        
+        // get data, inject html and display modal
+        $('.modal-trigger-systems').click(function() {
+            var url = $(this).data('url');
+
+            $.get(url, function (data) {
+                $('#modal-container-systems').html(data).promise().done(function () {
+                    $('#modal-systems').modal();
+                    $('#modal-systems').modal('open'); 
+                });
+            });
+        });
+
+        // reveal password
         $(".table-password").mousedown(function () {
             var pw = this.getAttribute("data-password")
             var span = $(this).children("span");
             var icon = $(this).children("i");
-            icon.fadeOut("fast");
+            icon.hide();
             span.html(pw);
         }).mouseup(function () {
             var hiddenPw = '***********';
@@ -91,5 +92,7 @@
             icon.fadeIn("fast");
             span.html(hiddenPw);
         })
+
+        
     })
 </script>

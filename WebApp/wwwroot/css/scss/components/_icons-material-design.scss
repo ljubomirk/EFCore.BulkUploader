@@ -13,4 +13,14 @@
     &.validation-error {
         display: none;
     }
+
+    &.password-icon {
+        &:hover {
+            color: $primary-color;
+        }
+
+        &:active {
+            color: color("grey", "darken-2");
+        }
+    }
 }

@@ -48,28 +48,42 @@ namespace WebApp.Controllers
             model.AddChannels(_context.IssuerChannel.ToList<IssuerChannel>());
             return View("AdministrationChannels", model);
         }
-        public IActionResult AddSystem(string name, string username, string password)
+        public IActionResult SystemDetails(CouponSystem model)
         {
+            return PartialView("_ChannelsSystemsModal", model);
+        }
+        public IActionResult AddSystem(CouponSystem model)
+        {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
-        public IActionResult UpdateSystem(long id, string name, string username, string password)
+        public IActionResult UpdateSystem(CouponSystem model)
         {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
         public IActionResult DeleteSystem(long id)
         {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
-        public IActionResult AddNotifyList(long channelId, long systemId, string url)
+        public IActionResult NotifyListDetails(NotifyList model)
         {
+            return PartialView("_ChannelsNotifyListModal", model);
+        }
+        public IActionResult AddNotifyList(NotifyList model)
+        {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
-        public IActionResult UpdateNotifyList(long channelId, long systemId, string url)
+        public IActionResult UpdateNotifyList(NotifyList model)
         {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
         public IActionResult DeleteNotifyList(long channelId, long systemId)
         {
+            ViewBag.Command = new Command(CommandStatus.Valid);
             return ExternalSystemsView();
         }
         public IActionResult AccessHistory(AccessHistoryViewModel model)

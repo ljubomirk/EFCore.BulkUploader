@@ -33,12 +33,9 @@
         dropdown: {
             constrainWidth: false,
             alignment: 'right',
-            outDuration: 100,
-            onCloseEnd: function () {
-                // this fixes the "3 click bug" when dropbox opens and next click is another dropdown
-                //$("body").click();
-                console.log("closed")
-            }
+            outDuration: 100
+            //onCloseEnd: function () {
+            //}
         },
         tabs: { swipeable: true },
         tooltips: { position: 'bottom' }
