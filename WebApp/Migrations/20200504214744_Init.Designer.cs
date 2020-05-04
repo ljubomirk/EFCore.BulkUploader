@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200504131558_Init")]
+    [Migration("20200504214744_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,7 @@ namespace WebApp.Migrations
                             Action = "Create Promotion",
                             ApplicationType = 0,
                             Channel = "POS",
-                            IssuedDate = new DateTime(2020, 5, 4, 15, 15, 58, 45, DateTimeKind.Local).AddTicks(5920),
+                            IssuedDate = new DateTime(2020, 5, 4, 23, 47, 43, 765, DateTimeKind.Local).AddTicks(8825),
                             Username = ""
                         },
                         new
@@ -57,7 +57,7 @@ namespace WebApp.Migrations
                             Action = "Update Coupon",
                             ApplicationType = 1,
                             Channel = "",
-                            IssuedDate = new DateTime(2020, 5, 4, 15, 15, 58, 49, DateTimeKind.Local).AddTicks(890),
+                            IssuedDate = new DateTime(2020, 5, 4, 23, 47, 43, 770, DateTimeKind.Local).AddTicks(1110),
                             Username = "korisnik"
                         });
                 });
@@ -333,11 +333,11 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 14L,
-                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "EASTER1234567289",
+                            AquireFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567289",
                             CouponSeries = 2,
                             Enabled = true,
                             Holder = "38640440481",
@@ -349,11 +349,11 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 15L,
-                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "EASTER1234567290",
+                            AquireFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567290",
                             CouponSeries = 2,
                             Enabled = true,
                             Holder = "38640440481",
@@ -365,11 +365,11 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 16L,
-                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AquireTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "EASTER1234567291",
+                            AquireFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567291",
                             CouponSeries = 2,
                             Enabled = true,
                             Holder = "38640440481",
@@ -385,7 +385,7 @@ namespace WebApp.Migrations
                             AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SPRING1234567290",
+                            Code = "BLOOM1234567092",
                             CouponSeries = 1,
                             Enabled = true,
                             Holder = "38640440481",
@@ -401,7 +401,7 @@ namespace WebApp.Migrations
                             AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SPRING1234567291",
+                            Code = "BLOOM1234567291",
                             CouponSeries = 1,
                             Enabled = true,
                             Holder = "38640440481",
@@ -417,7 +417,7 @@ namespace WebApp.Migrations
                             AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SPRING1234567292",
+                            Code = "BLOOM1234567292",
                             CouponSeries = 1,
                             Enabled = true,
                             Holder = "38640440481",
@@ -433,7 +433,7 @@ namespace WebApp.Migrations
                             AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SPRING1234567293",
+                            Code = "BLOOM1234567293",
                             CouponSeries = 1,
                             Enabled = true,
                             Holder = "38640440482",
@@ -449,12 +449,284 @@ namespace WebApp.Migrations
                             AquireTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             AwardTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Code = "SPRING1234567294",
+                            Code = "BLOOM1234567294",
                             CouponSeries = 1,
                             Enabled = true,
                             Holder = "38640440482",
                             MaxRedeemNo = 1,
                             PromotionId = 25L,
+                            Status = 3,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            AquireFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234567093",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 1L,
+                            Status = 3,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            AquireFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SPRING1234657291",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 1L,
+                            Status = 4,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SUMMER1234657390",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 3L,
+                            Status = 1,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SUMMER1234657391",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 3L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SUMMER1234657292",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 3L,
+                            Status = 1,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SUMMER1234657293",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 3L,
+                            Status = 2,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 28L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "SUMMER1234657294",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 3L,
+                            Status = 4,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 29L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234456294",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 30L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234456295",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 1,
+                            User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 31L,
+                            AquireFrom = new DateTime(2020, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345990",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 32L,
+                            AquireFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345991",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 33L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345992",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 34L,
+                            AquireFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345994",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 35L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345092",
+                            CouponSeries = 1,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 36L,
+                            AquireFrom = new DateTime(2020, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345093",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 37L,
+                            AquireFrom = new DateTime(2020, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345094",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440481",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
+                            Status = 1,
+                            User = "38640440481"
+                        },
+                        new
+                        {
+                            Id = 38L,
+                            AquireFrom = new DateTime(2020, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "YEAR12345095",
+                            CouponSeries = 2,
+                            Enabled = true,
+                            Holder = "38640440482",
+                            MaxRedeemNo = 1,
+                            PromotionId = 26L,
                             Status = 3,
                             User = "38640440482"
                         });
@@ -502,6 +774,16 @@ namespace WebApp.Migrations
                         {
                             CouponId = 21L,
                             AwardChannelId = 3L
+                        },
+                        new
+                        {
+                            CouponId = 22L,
+                            AwardChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 38L,
+                            AwardChannelId = 1L
                         });
                 });
 
@@ -630,6 +912,16 @@ namespace WebApp.Migrations
                         {
                             CouponId = 21L,
                             IssuerChannelId = 3L
+                        },
+                        new
+                        {
+                            CouponId = 22L,
+                            IssuerChannelId = 5L
+                        },
+                        new
+                        {
+                            CouponId = 38L,
+                            IssuerChannelId = 1L
                         });
                 });
 
@@ -719,8 +1011,8 @@ namespace WebApp.Migrations
                             Code = "Spring",
                             CouponSeries = 0,
                             Enabled = true,
-                            ValidFrom = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ValidTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ValidFrom = new DateTime(2020, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -937,6 +1229,15 @@ namespace WebApp.Migrations
                             Enabled = true,
                             ValidFrom = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ValidTo = new DateTime(2020, 3, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            Code = "AllYear",
+                            CouponSeries = 0,
+                            Enabled = true,
+                            ValidFrom = new DateTime(2020, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ValidTo = new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
