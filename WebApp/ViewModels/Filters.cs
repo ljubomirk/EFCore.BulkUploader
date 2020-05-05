@@ -201,7 +201,7 @@ namespace WebApp.ViewModels
                 List<Coupon> newCouponList = new List<Coupon>();
                 foreach (Coupon coup in f_ListOfCoupons)
                 {
-                    bool couponAdd = false;
+                    bool ach = true;
 
                     // Filter based on award channel
                     if (f_AwardChannel.Count() > 0)
@@ -213,12 +213,16 @@ namespace WebApp.ViewModels
                             {
                                 // all awardChannel filters need to be met to return coupon ?
                                 // if even single coupon 
-                                couponAdd = true;
+                                ach = true;
+                            } else
+                            {
+                                ach = false;
                             }
                         }
                     }
 
                     // Filter based on issuer channel
+                    bool ich = true;
                     if (f_IssuerChannel.Count() > 0)
                     {
                         List<long> issuerChannels = _repo.GetCouponIssuerChannels(coup.Id).Select( c => c.IssuerChannelId).Distinct().ToList();
@@ -227,23 +231,30 @@ namespace WebApp.ViewModels
                             if (issuerChannels.Contains(ids))
                             {
                                 // all issuerChannel filters need to be met to return coupon ?
-                                couponAdd = true;
+                                ich = true;
+                            } else
+                            {
+                                ich = false;
                             }
                         }
                     }
 
                     // Filter based on coupon status
+                    bool stat = true;
                     if (f_CurrentStatus.Count() > 0)
                     {
                         if (f_CurrentStatus.Contains(coup.Status))
                         {
                             // current coupon status needs to be in filter status list ?
-                            couponAdd = true;
+                            stat = true;
+                        } else
+                        {
+                            stat = false;
                         }
                     }
 
                     // Remove coupon from initial list if filter not passed
-                    if (couponAdd)
+                    if (ach && ich && stat)
                     {
                         newCouponList.Add(coup);
                     }
