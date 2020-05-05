@@ -132,43 +132,46 @@ namespace WebApp.ViewModels
             }
             else if ((CouponWithLetters || CouponWithNumbers) && NumberOfCoupons != 0)
             {
-
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
-                    Coupon coupon = new Coupon()
+                    string code = getCouponCode();
+                    if(code != "")
                     {
-                        Code = getCouponCode(),
-                        PromotionId = PromotionId,
-                        AquireFrom = AssignableFrom,
-                        AquireTo = AssignableUntil,
-                        AwardFrom = RedeemableFrom,
-                        AwardTo = RedeemableUntil,
-                        Status = (int)CouponStatus.Created,
-                        CouponSeries = CouponSeries
-                    };
+                        Coupon coupon = new Coupon()
+                        {
+                            Code = code,
+                            PromotionId = PromotionId,
+                            AquireFrom = AssignableFrom,
+                            AquireTo = AssignableUntil,
+                            AwardFrom = RedeemableFrom,
+                            AwardTo = RedeemableUntil,
+                            Status = (int)CouponStatus.Created,
+                            CouponSeries = CouponSeries
+                        };
 
-                    ICoupon cpn = new ICoupon(coupon);
+                        ICoupon cpn = new ICoupon(coupon);
 
-                    switch (Status)
-                    {
-                        case CouponStatus.Created:
-                            break;
-                        case CouponStatus.Issued:
-                            cpn.Assign("","");
-                            break;
-                        case CouponStatus.Redeemed:
-                            cpn.Assign("","");
-                            cpn.Redeem("");
-                            break;
-                        case CouponStatus.Canceled:
-                            cpn.Assign("","");
-                            cpn.Cancel();
-                            break;
-                        default:
-                            break;
+                        switch (Status)
+                        {
+                            case CouponStatus.Created:
+                                break;
+                            case CouponStatus.Issued:
+                                cpn.Assign("","");
+                                break;
+                            case CouponStatus.Redeemed:
+                                cpn.Assign("","");
+                                cpn.Redeem("");
+                                break;
+                            case CouponStatus.Canceled:
+                                cpn.Assign("","");
+                                cpn.Cancel();
+                                break;
+                            default:
+                                break;
+                        }
+
+                        listOfCoupons.Add(coupon);
                     }
-
-                    listOfCoupons.Add(coupon);
                 }
             }
 
@@ -187,14 +190,24 @@ namespace WebApp.ViewModels
             var result = "";
             if (CouponWithLetters)
             {
-                chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             }
             if (CouponWithNumbers)
             {
                 chars += "0123456789";
             }
+
+            int couponLength = 0;
+            for (int i = 8; i < CouponMaxLength; i++)
+            {
+              if(countPermutations(i, chars.Length) > NumberOfCoupons)
+                {
+                    couponLength = i;
+                    break;
+                }
+            }
      
-            if (NumberOfCoupons < countPermutations(CouponMaxLength<=8?8:CouponMaxLength, chars.Length))
+            if (NumberOfCoupons < countPermutations(couponLength <= 8?8: couponLength, chars.Length))
             {
             var random = new Random();
             result = new string(
@@ -204,11 +217,14 @@ namespace WebApp.ViewModels
             }
             else
             {
-                result += "INVALID";
+                result += "";
             }
 
+            result = result != ""? 
+                        Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result
+                     : "";
 
-            return Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
+            return result;
         }
     }
 }

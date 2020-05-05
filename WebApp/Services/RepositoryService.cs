@@ -401,6 +401,112 @@ namespace WebApp.Services
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
+
+        public bool LogAppAccess (string action, string username, bool granted)
+        {
+            AccessLog log = new AccessLog(ApplicationEnum.WebApp, "", action, username, granted);
+            Context.AccessLog.Add(log);
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
+        }
+        public bool LogAPIAccess(string action, string channel, string username, bool granted)
+        {
+            AccessLog log = new AccessLog(ApplicationEnum.API, channel, action, username, granted);
+            Context.AccessLog.Add(log);
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
+        }
+
+        internal Command AddSystem(CouponDatabase.Models.System model)
+        {
+            Command result = new Command(CommandStatus.Valid); ;
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.System.Add(model);
+                int saved = Context.SaveChanges();
+                if (saved == 1)
+                    result.Status = CommandStatus.Valid;
+                else
+                    result.Status = CommandStatus.ErrorSystem;
+                Context.Database.CommitTransaction();
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = update.Message;
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = exc.Message;
+            }
+            return result;
+        }
+
+        internal dynamic DeleteSystem(long id)
+        {
+            Command result = null;
+            
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.System.Remove(Context.System.Find(id));
+                int saved = Context.SaveChanges();
+                Context.Database.CommitTransaction();
+                result = new Command(CommandStatus.Valid);
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
+            }
+            return result;
+        }
+
+        internal dynamic UpdateSystem(CouponDatabase.Models.System model)
+        {
+            Command result = null;
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.System.Update(model);
+                int saved = Context.SaveChanges();
+                Context.Database.CommitTransaction();
+                result = new Command(CommandStatus.Valid);
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
+            }
+            return result;
+        }
+
+
+
     }
 
     public class PromotionFactory : IPromotion
