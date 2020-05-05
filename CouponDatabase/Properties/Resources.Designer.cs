@@ -565,6 +565,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error Details.
+        /// </summary>
+        public static string ErrorView_Heading {
+            get {
+                return ResourceManager.GetString("ErrorView_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active/Inactive.
         /// </summary>
         public static string Filter_ActiveInactive {
