@@ -13,17 +13,19 @@ namespace CouponDatabase.Models
     public class User
     {
         public User() { }
-        public User(AccessTypeEnum accessType, string username, string fullname)
+        public User(AccessTypeEnum accessType, string username, string fullname, string domain)
         {
             AccessType = accessType;
             Username = username;
             Fullname = fullname;
+            Domain = domain;
         }
 
         public static List<AccessType> GetAccessTypes()
         {
             return BaseDefs.ArrayFrom<AccessType, AccessTypeEnum>();
         }
+
         public string Username { get; set; }
         public string Domain { get; set; }
         public string Fullname { get; set; }

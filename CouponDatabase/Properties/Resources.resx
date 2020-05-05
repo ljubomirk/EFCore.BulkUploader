@@ -521,4 +521,8 @@
     <value>Invalid user change for coupon status.</value>
     <comment>On invalid user change for coupon status Canceled and Redeemed.</comment>
   </data>
+  <data name="ErrorView_Heading" xml:space="preserve">
+    <value>Error Details</value>
+    <comment>Error view text.</comment>
+  </data>
 </root>

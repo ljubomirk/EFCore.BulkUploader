@@ -18,6 +18,7 @@ using SoapCore;
 using SoapCore.Extensibility;
 using Web.Services.Soap;
 using WebApp.Data;
+using TripleI.ActiveDirectory;
 
 namespace WebApp
 {
@@ -42,6 +43,7 @@ namespace WebApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddLogging();
             //TODO: services.AddAuthentication();
             //TODO: services.AddAuthorization();
             bool dataLoggingOption = Configuration.GetValue<bool>("DbProvider:Logging");
@@ -112,6 +114,9 @@ namespace WebApp
             app.UseCookiePolicy();
             //app.UseHttpContextItemsMiddleware();
             app.UseSession();
+
+            //app.UseLdapAuthorizationService();
+
             app.UseMvcWithDefaultRoute();
 
             var bindCouponAPI = new BasicHttpBinding

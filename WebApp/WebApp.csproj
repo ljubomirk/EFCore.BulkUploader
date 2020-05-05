@@ -140,6 +140,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AD\AD.csproj" />
     <ProjectReference Include="..\CouponDatabase\CouponDatabase.csproj" />
   </ItemGroup>
 

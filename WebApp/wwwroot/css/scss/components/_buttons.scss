@@ -77,6 +77,10 @@
 .btn-danger {
     color: color("red", "base") !important;
     background-color: $button-background-danger !important;
+
+    &:active {
+        color: color("red", "darken-1") !important;
+    }
 }
 
 // Disabled shared style

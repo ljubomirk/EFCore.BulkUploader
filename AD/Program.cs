@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using System;
-using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices.Protocols;
-using System.Net;
-using System.Text.Json;
+﻿using System;
 
-namespace AD
+namespace TripleI.ActiveDirectory
 {
     class Program
     {
@@ -15,90 +9,6 @@ namespace AD
         static string ldap;
         static string dname;
         static string domain;
-
-        public static bool ValidateUserByBind(string filter)
-        {
-            Console.Out.WriteLine("ValidateUserByBind");
-            bool result = true;
-            var credentials = new NetworkCredential(username, password);
-            var serverId = new LdapDirectoryIdentifier(ldap);
-
-            var conn = new LdapConnection(serverId, credentials);
-            try
-            {
-                conn.Bind();
-                conn.Timeout = TimeSpan.FromSeconds(8);
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine("Exception message: {0}", ex.Message);
-
-                result = false;
-            }
-
-            SearchGroups(conn, filter);
-            conn.Dispose();
-
-            return result;
-        }
-
-        public static void ListUserGroups()
-        {
-            Console.Out.WriteLine("ListUserGroups");
-            try
-            {
-                Console.Out.WriteLine("UserPrincipal");
-                UserPrincipal user = UserPrincipal.FindByIdentity(new PrincipalContext(ContextType.Domain, domain), username);
-                Console.Out.WriteLine("UserPrincipal called");
-                foreach (GroupPrincipal group in user.GetGroups())
-                {
-                    Console.Out.WriteLine("Group: " + group);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine("Exception message: {0}", ex.Message);
-
-            }
-        }
-        public static void SearchGroups(LdapConnection conn, string filter)
-        {
-            Console.Out.WriteLine("SearchGroups");
-            try
-            {
-                Console.Out.WriteLine("PageRequest");
-                PageResultRequestControl pageRequestControl = new PageResultRequestControl(100);
-                Console.Out.WriteLine("PageRequest called");
-
-                // used to retrieve the cookie to send for the subsequent request
-                Console.Out.WriteLine("SearchRequest");
-                SearchRequest searchRequest = new SearchRequest();
-                searchRequest.DistinguishedName = dname;
-                searchRequest.Filter = filter;
-                searchRequest.Controls.Add(pageRequestControl);
-
-                Console.Out.WriteLine("SearchRequest call");
-                var response = (SearchResponse)conn.SendRequest(searchRequest);
-                Console.Out.WriteLine("SearchRequest called");
-                Console.Out.WriteLine(JsonSerializer.Serialize(response.ResultCode.ToString()));
-                foreach(SearchResultEntry entries in response.Entries)
-                {
-                    System.Console.WriteLine("Dname: {0}", entries.DistinguishedName);
-                    foreach (string name in entries.Attributes.AttributeNames) {
-                        DirectoryAttribute attribute = entries.Attributes[name];
-                        foreach(string value in attribute.GetValues(name.GetType()))
-                            System.Console.WriteLine("{0}={1}", name, value);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine("Exception message: {0} {1}", ex.Message, ex.StackTrace);
-                if(ex.InnerException!=null)
-                    Console.Error.WriteLine("Exception message: {0}", ex.InnerException.Message);
-            }
-        }
 
         static int Main(string[] args)
         {
@@ -127,14 +37,14 @@ namespace AD
             username = args.GetValue(0).ToString();
             password = args.GetValue(1).ToString();
             var searchFilter = args.Length > 2 ? args.GetValue(2).ToString() : "(objectClass=*)";
-            dname = args.Length > 3 ? args.GetValue(3).ToString() : "CN=Users,DN=simobil,DN=test";
+            dname = args.Length > 3 ? args.GetValue(3).ToString() : "DC=simobil,DC=test";
             domain = args.Length > 5 ? args.GetValue(4).ToString() : "simobil.tst";
             ldap = args.Length > 4 ? args.GetValue(5).ToString() : "wdc2t.simobil.tst:389";
             Console.Out.WriteLine("Testing for {0}.", username);
             /* List groups */
-            ListUserGroups();
+            LdapAuthorization ad = new LdapAuthorization(username, password, ldap, dname, null);
             /* Validate credentials */
-            if (!ValidateUserByBind(searchFilter))
+            if (!ad.Connect())
             {
                 Console.Error.WriteLine("Can not connect for {0}.", username);
                 ret = 1;
@@ -143,6 +53,11 @@ namespace AD
             {
                 Console.Out.WriteLine("User {0} ready.", username);
             }
+            ad.Dispose();
+            DomainCredentials dc = new DomainCredentials(username, domain);
+            foreach(string groupName in dc.ListUserGroups())
+                Console.Out.WriteLine("Group {0} ready.", groupName);
+
             /* return status */
             return ret;
         }
