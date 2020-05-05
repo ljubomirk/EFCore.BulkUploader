@@ -68,7 +68,7 @@ namespace CouponDatabase.Models
             var cr3 = (DateTime.Now.CompareTo(AwardFrom) >= 0) ? true : false;
             var cr4 = (DateTime.Now.CompareTo(AquireTo) < 0) ? true : false;
 
-            return cr1 && cr2 && cr3 && cr4 && pValid;
+            return cr1 && cr2 && cr3 && cr4 && pValid && Enabled;
         }
         #region Relations
         public IList<CouponHistory> CouponHistories { get; set; }
