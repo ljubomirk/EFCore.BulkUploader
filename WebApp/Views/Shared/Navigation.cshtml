@@ -3,37 +3,40 @@
     string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
     string Role = Model.AgentGroup;
 }
-<nav class="nav-extended">
-    <div class="container nav-content">
-        <ul class="tabs tabs-transparent">
-            <li class="tab" style="display:none"><a href="#"></a></li>
-            <li class="tab first">
-                <a class="@(controllerName == "Management" ? "active" : "")" target="_self" href="@Url.Action("ListPromotions", "Management")">
-                    @CouponDatabase.Properties.Resources.Nav_Management
-                </a>
-            </li>
-            <li class="tab">
-                <a class="@(controllerName == "Lifecycle" ? "active" : "")" target="_self" href="@Url.Action("Index", "Lifecycle")">
-                    @CouponDatabase.Properties.Resources.Nav_Lifecycle
-                </a>
-            </li>
-            @if (Role == "CouponAdmin")
-            {
-                <li class="tab">
-                    <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="@Url.Action("Users","Administration")">
-                        @CouponDatabase.Properties.Resources.Nav_Administration
+<div class="navbar-fixed">
+    <nav class="nav-extended">
+        <div class="container nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab" style="display:none"><a href="#"></a></li>
+                <li class="tab first">
+                    <a class="@(controllerName == "Management" ? "active" : "")" target="_self" href="@Url.Action("ListPromotions", "Management")">
+                        @CouponDatabase.Properties.Resources.Nav_Management
                     </a>
                 </li>
-            }
-            <li class="tab last right bold-text">
-                <a href="#">
-                    <span class="grey-text">@CouponDatabase.Properties.Resources.Nav_LoggedIn </span>
-                    <span class="black-text">@@@Model.AgentUsername</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+                <li class="tab">
+                    <a class="@(controllerName == "Lifecycle" ? "active" : "")" target="_self" href="@Url.Action("Index", "Lifecycle")">
+                        @CouponDatabase.Properties.Resources.Nav_Lifecycle
+                    </a>
+                </li>
+                @if (Role == "CouponAdmin")
+                {
+                    <li class="tab">
+                        <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="@Url.Action("Users","Administration")">
+                            @CouponDatabase.Properties.Resources.Nav_Administration
+                        </a>
+                    </li>
+                }
+                <li class="tab last right bold-text">
+                    <a class="@(controllerName == "Administration" ? "active" : "")"  href="@Url.Action("Index","Home")" target="_self">
+                        <span class="grey-text">@CouponDatabase.Properties.Resources.Nav_LoggedIn </span>
+                        <span class="black-text">@@@Model.AgentUsername</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="row u-m-b-xl"></div>
 
 <script>
     $(document).ready(function () {
