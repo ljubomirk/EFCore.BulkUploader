@@ -64,17 +64,17 @@ namespace WebApp.Controllers
         }
         public IActionResult AddSystem(CouponSystem model)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.AddSystem(model);
             return ExternalSystemsView();
         }
         public IActionResult UpdateSystem(CouponSystem model)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.UpdateSystem(model);
             return ExternalSystemsView();
         }
         public IActionResult DeleteSystem(long id)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.DeleteSystem(id);
             return ExternalSystemsView();
         }
         public IActionResult NotifyListDetails(NotifyList model)
