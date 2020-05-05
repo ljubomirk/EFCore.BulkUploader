@@ -19,12 +19,16 @@
         <partial name="Navigation" />
     </header>
 
-    <div class="container">
-        @*<partial name="_CookieConsentPartial" />*@
-        <main role="main" class="pb-3">
+    <main role="main" class="pb-3">
+        <div class="container">
             @RenderBody()
-        </main>
-    </div>
+        </div>
+    </main>
+    <footer>
+
+        <partial name="Footer" />
+    </footer>
+
 
     <script src="~/js/materialize.min.js" asp-append-version="true"></script>
     <script src="~/js/datatables.js" asp-append-version="true"></script>

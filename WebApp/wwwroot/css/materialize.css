@@ -2060,10 +2060,14 @@ html {
 
 body {
   position: relative;
+  display: flex;
   min-height: 100vh;
+  flex-direction: column;
   background-color: #f7f7fa;
-  padding-bottom: 100px;
   overflow-x: hidden; }
+
+main {
+  flex: 1 0 auto; }
 
 button,
 input,
@@ -2314,8 +2318,10 @@ ul.staggered-list li {
   .center-on-small-only {
     text-align: center; } }
 
+footer {
+  margin-top: 2rem; }
+
 .page-footer {
-  padding-top: 20px;
   color: #fff;
   background-color: #4d4cac; }
   .page-footer .footer-copyright {
@@ -2327,6 +2333,11 @@ ul.staggered-list li {
     padding: 10px 0px;
     color: rgba(255, 255, 255, 0.8);
     background-color: rgba(51, 51, 51, 0.08); }
+  .page-footer .footer-img {
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+    height: auto; }
 
 table, th, td {
   border: none; }
@@ -2639,7 +2650,6 @@ dl.inline dt {
   display: inline-block;
   min-width: 200px; }
 
-/* width */
 ::-webkit-scrollbar {
   width: 15px; }
   ::-webkit-scrollbar-track * {

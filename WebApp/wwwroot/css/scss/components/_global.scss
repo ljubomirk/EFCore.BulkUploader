@@ -10,16 +10,16 @@ html {
 
 body {
     position: relative;
-    // display: flex;
+    display: flex;
     min-height: 100vh;
-    // flex-direction: column;
+    flex-direction: column;
     background-color: $grey-light-2;
-    padding-bottom: 100px;
+    //padding-bottom: 100px;
     overflow-x: hidden;
 }
 
 main {
-  // flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 button,
@@ -390,9 +390,11 @@ ul.staggered-list li {
 }
 
 // Footer
+footer {
+    margin-top: 2rem;
+}
 .page-footer {
-  padding-top: 20px;
-  color: $footer-font-color;
+    color: $footer-font-color;
   background-color: $footer-bg-color;
 
   .footer-copyright {
@@ -404,6 +406,13 @@ ul.staggered-list li {
     padding: 10px 0px;
     color: $footer-copyright-font-color;
     background-color: $footer-copyright-bg-color;
+  }
+
+  .footer-img{
+      display: block;
+      margin: 0 auto;
+      width: 400px;
+      height: auto;
   }
 }
 
