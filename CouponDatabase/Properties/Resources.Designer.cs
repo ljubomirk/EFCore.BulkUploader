@@ -520,6 +520,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid user change for coupon status..
+        /// </summary>
+        public static string ErrorInvalidCustomer_Message {
+            get {
+                return ResourceManager.GetString("ErrorInvalidCustomer_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon Redeem Until date is not valid..
         /// </summary>
         public static string ErrorInvalidRedeemDate_Message {

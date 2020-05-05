@@ -291,27 +291,19 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult UpdateCoupons(LifecycleUpdateViewModel model)
         {
-            bool updateCustomer = false;
-            if(model.Customer != null)
-            {
-                updateCustomer = true;
-            }
-            bool updateRedeemTo = false;
-            if(model.RedeemTo != null)
-            {
-                updateRedeemTo = true;
-            }
-            bool updateEnabled = false;
-            if (model.SelectedEnabled != null)
-            {
-                updateEnabled = true;
-            }
-            bool updateStatus = false;
-            if (model.SelectedCouponStatus != null)
-            {
-                updateStatus = true;
-            }
-            
+            /*
+             * TODO:
+             * - improve error reporting format and output
+             */
+
+
+            // Checks for update commands
+            bool updateCustomer = model.Customer != null? true : false;
+            bool updateRedeemTo = model.RedeemTo != null? true : false;
+            bool updateEnabled = model.SelectedEnabled != null? true : false;
+            bool updateStatus = model.SelectedCouponStatus != null? true : false;
+
+            // Session management
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
             if(lmm == null)
             {
@@ -322,7 +314,6 @@ namespace WebApp.Controllers
                 model.DropCouponSeries = lmm.DropCouponSeries;
                 model.DropEnabled = lmm.DropEnabled;
                 model.DropCouponStatus = lmm.DropCouponStatus;
-                
                 model.SelectedPromoCode = lmm.SelectedPromoCode;
                 model.SelectedCouponSeries = lmm.SelectedCouponSeries;
 
@@ -333,6 +324,7 @@ namespace WebApp.Controllers
                 {
                     model.SelectedCouponStatus = lmm.SelectedCouponStatus;
                 }
+
                 if (model.SelectedEnabled != null)
                 {
                     lmm.SelectedEnabled = model.SelectedEnabled;
@@ -343,18 +335,20 @@ namespace WebApp.Controllers
                 }
             }
 
-            List<long> couponIds = new List<long>();
+            List<long> updateCouponIds = new List<long>();
+            List<long> uncheckedCouponIds = new List<long>();
             if (model.CouponList.SelectAllCoupons)
             {
-                couponIds = model.CouponList.CouponItems.Select( c => c.Id ).Distinct().ToList();
+                updateCouponIds = model.CouponList.CouponItems.Select( c => c.Id ).Distinct().ToList();
             } else
             {
-                couponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
+                updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
+                //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
             }
 
             // Find Coupon objects for checked coupons
             List<Coupon> coupons = new List<Coupon>();
-            foreach (long id in couponIds)
+            foreach (long id in updateCouponIds)
             {
                 Coupon coupon = _repo.GetCouponById(id);
                 if (coupon != null)
@@ -485,13 +479,13 @@ namespace WebApp.Controllers
                 {
                     _repo.UpdateCoupon(coupon);
                     updatedCoupons.Add(coupon);
-                    // uncheck checked equivalent in CouponItems
                 }
             }
 
             // Return failed coupon checkboxes as preselected
             // TODO: method returns correct result butu the view doesn't deselect checkboxes of updated coupons
-            model.CouponList.CouponItems = preselectModelCouponList(lmm.CouponItems, failedCouponIds);
+            model.CouponList.CouponItems = updateModelCouponList(model.CouponList.CouponItems, updatedCoupons);
+            model.CouponList.CouponItems = preselectModelCouponList(model.CouponList.CouponItems, failedCouponIds);
 
             lmm.CouponItems = model.CouponList.CouponItems;
 
@@ -510,8 +504,6 @@ namespace WebApp.Controllers
                 ViewBag.Command = new Command(CommandStatus.Valid);
                 HttpContext.Session.SetObject("LMM", lmm);
             }
-
-
             return View("LifecycleCoupons", model);
         }
 
@@ -736,6 +728,34 @@ namespace WebApp.Controllers
                 });
             }
             return checkedItems;
+        }
+
+        private List<CheckedCouponItem> updateModelCouponList(List<CheckedCouponItem> items, List<Coupon> coupons)
+        {
+            List<CheckedCouponItem> updatedItems = new List<CheckedCouponItem>();
+            for(var i = 0; i < items.Count(); i++)
+            {
+                Coupon coupon = coupons.Where(c => c.Id == items[i].Id).FirstOrDefault();
+                if (coupon != null)
+                {
+                    updatedItems.Add(new CheckedCouponItem(){
+                        Active = coupon.Active,
+                        Checked = items[i].Checked,
+                        Code = coupon.Code,
+                        Enabled = coupon.Enabled,
+                        Holder = coupon.Holder,
+                        User = coupon.User,
+                        Label = coupon.Code,
+                        Id = coupon.Id,
+                        Status = coupon.Status
+                    });
+                } else
+                {
+                    updatedItems.Add(items[i]);
+                }
+            }
+            
+            return updatedItems;
         }
 
         private List<CheckedCouponItem> preselectModelCouponList(List<CheckedCouponItem> items, List<long> preselected)

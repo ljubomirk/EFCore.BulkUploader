@@ -70,6 +70,28 @@
     <Compile Remove="Migrations\20200429142327_Init.Designer.cs" />
     <Compile Remove="Migrations\20200429144308_Init.cs" />
     <Compile Remove="Migrations\20200429144308_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200430131834_Init.cs" />
+    <Compile Remove="Migrations\20200430131834_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504130039_Init.cs" />
+    <Compile Remove="Migrations\20200504130039_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504130609_Init.cs" />
+    <Compile Remove="Migrations\20200504130609_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504131558_Init.cs" />
+    <Compile Remove="Migrations\20200504131558_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504182639_Init.cs" />
+    <Compile Remove="Migrations\20200504182639_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504182952_Init.cs" />
+    <Compile Remove="Migrations\20200504182952_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504183205_Init.cs" />
+    <Compile Remove="Migrations\20200504183205_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504183919_Init.cs" />
+    <Compile Remove="Migrations\20200504183919_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504192319_Init.cs" />
+    <Compile Remove="Migrations\20200504192319_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504194902_Init.cs" />
+    <Compile Remove="Migrations\20200504194902_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200504214744_Init.cs" />
+    <Compile Remove="Migrations\20200504214744_Init.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />

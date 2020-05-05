@@ -147,8 +147,13 @@ namespace WebApp.Services
             List<Coupon> promotionCoupons = new List<Coupon>();
             foreach(Promotion p in promotions)
             {
-                List<Coupon> tmpCoupons = GetPromotionCoupons(p);
-                promotionCoupons.AddRange(tmpCoupons);
+                if(p.Coupons.Count() > 0){
+                    promotionCoupons.AddRange(p.Coupons);
+                } else
+                {
+                    List<Coupon> tmpCoupons = GetPromotionCoupons(p);
+                    promotionCoupons.AddRange(tmpCoupons);
+                }
             }
             return promotionCoupons;
         }
@@ -276,6 +281,12 @@ namespace WebApp.Services
             return promotionAwardChannels;
 
         }
+
+        public List<CouponAwardChannel> GetCouponAwardChannels(long idCoupon)
+        {
+            return Context.CouponAwardChannel.Where(c => c.CouponId == idCoupon).ToList();
+        }
+
         public List<IssuerChannel> GetAllIssuerChannels()
         {
             return Context.IssuerChannel.ToList<IssuerChannel>();
@@ -295,6 +306,12 @@ namespace WebApp.Services
             }
             return promotionIssuerChannels;
         }
+
+        public List<CouponIssuerChannel> GetCouponIssuerChannels(long idCoupon)
+        {
+            return Context.CouponIssuerChannel.Where(c => c.CouponId == idCoupon).ToList();
+        }
+
         public long CreatePromotion(Promotion promotion)
         {
             Context.Promotion.Add(promotion);
