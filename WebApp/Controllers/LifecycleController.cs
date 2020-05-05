@@ -182,6 +182,8 @@ namespace WebApp.Controllers
                 couponFilter = lmm.CouponFilter;
             }
 
+            model.DropPromoCodes = lmm.DropPromoCodes;
+
             // Filter promotions and coupons
             List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // Store promos for initial filter to display in dropdown list (after new filters are applied)
             List<Promotion> filter_ListOfPromotions = new List<Promotion>(); // Reference list for getting coupons
@@ -198,31 +200,23 @@ namespace WebApp.Controllers
                         promotionCoupons.AddRange(p.Coupons);
                     }
                 }
+                // Populate with all matching promotion codes from initially filtered result
+                lmm.SelectedPromoCode = model.SelectedPromoCode;
             } else
             {
+                if(lmm.SelectedPromoCode != model.SelectedPromoCode)
+                {
+                    lmm.SelectedCouponSeries = null;
+                    model.SelectedCouponSeries = null;
+                }
                 // Get promo with ID and add into list
                 promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode));
                 promotionCoupons = promotion.Coupons.ToList();
                 filter_ListOfPromotions.Add(promotion);
-            }
 
-            // Filtered coupons to be displayed in table view
-            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
-            // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
-            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
-
-            // Manage promotion code dropdown
-            if (model.SelectedPromoCode == null)
-            {
-                // Populate with all matching promotion codes from initially filtered result
-                model.DropPromoCodes = getSelectListPromotions(filter_ListOfPromotions);
-                lmm.SelectedPromoCode = model.SelectedPromoCode;
-            } else
-            {
-                model.DropPromoCodes = getSelectListPromotions(init_ListOfPromotions);
-                
                 // Set selected dropdown item
                 List<SelectListItem> promoSelectList = new List<SelectListItem>();
+                // Manage promotion code dropdown
                 foreach (SelectListItem item in model.DropPromoCodes)
                 {
                     if (item.Value == model.SelectedPromoCode)
@@ -235,8 +229,14 @@ namespace WebApp.Controllers
                     }
                     promoSelectList.Add(item);
                 }
+                lmm.DropPromoCodes = promoSelectList;
                 model.DropPromoCodes = promoSelectList;
             }
+
+            // Filtered coupons to be displayed in table view
+            List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
+            // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
+            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
 
 
             // Manage coupon series dropdown
@@ -263,6 +263,7 @@ namespace WebApp.Controllers
                 couponSelectList.Add(item);
             }
 
+            lmm.DropCouponSeries = couponSelectList;
             model.DropCouponSeries = couponSelectList;
 
 
