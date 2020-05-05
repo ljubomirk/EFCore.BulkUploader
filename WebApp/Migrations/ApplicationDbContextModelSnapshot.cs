@@ -46,7 +46,7 @@ namespace WebApp.Migrations
                             Action = "Create Promotion",
                             ApplicationType = 0,
                             Channel = "POS",
-                            IssuedDate = new DateTime(2020, 5, 4, 23, 47, 43, 765, DateTimeKind.Local).AddTicks(8825),
+                            IssuedDate = new DateTime(2020, 5, 5, 9, 49, 56, 484, DateTimeKind.Local).AddTicks(6782),
                             Username = ""
                         },
                         new
@@ -55,7 +55,7 @@ namespace WebApp.Migrations
                             Action = "Update Coupon",
                             ApplicationType = 1,
                             Channel = "",
-                            IssuedDate = new DateTime(2020, 5, 4, 23, 47, 43, 770, DateTimeKind.Local).AddTicks(1110),
+                            IssuedDate = new DateTime(2020, 5, 5, 9, 49, 56, 487, DateTimeKind.Local).AddTicks(4817),
                             Username = "korisnik"
                         });
                 });
@@ -177,7 +177,7 @@ namespace WebApp.Migrations
                             AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Code = "EASTER1234567894",
                             CouponSeries = 1,
-                            Enabled = false,
+                            Enabled = true,
                             Holder = "38640440483",
                             MaxRedeemNo = 1,
                             PromotionId = 2L,
@@ -727,6 +727,70 @@ namespace WebApp.Migrations
                             PromotionId = 26L,
                             Status = 3,
                             User = "38640440482"
+                        },
+                        new
+                        {
+                            Id = 39L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567901",
+                            CouponSeries = 3,
+                            Enabled = false,
+                            Holder = "38591641146",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 2,
+                            User = "38591641146"
+                        },
+                        new
+                        {
+                            Id = 40L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567902",
+                            CouponSeries = 3,
+                            Enabled = true,
+                            Holder = "38591641146",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 2,
+                            User = "38591641146"
+                        },
+                        new
+                        {
+                            Id = 41L,
+                            AquireFrom = new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567903",
+                            CouponSeries = 3,
+                            Enabled = true,
+                            Holder = "38591641146",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 1,
+                            User = "38591641146"
+                        },
+                        new
+                        {
+                            Id = 42L,
+                            AquireFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AquireTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardFrom = new DateTime(2020, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AwardTo = new DateTime(2020, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Code = "EASTER1234567904",
+                            CouponSeries = 3,
+                            Enabled = false,
+                            Holder = "38591641147",
+                            MaxRedeemNo = 1,
+                            PromotionId = 2L,
+                            Status = 1,
+                            User = "38591641147"
                         });
                 });
 

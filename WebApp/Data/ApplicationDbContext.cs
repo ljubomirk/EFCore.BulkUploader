@@ -378,7 +378,7 @@ namespace WebApp.Data
                     AquireTo = new DateTime(2020, 6, 1),
                     AwardFrom = new DateTime(2020, 4, 1),
                     AwardTo = new DateTime(2020, 6, 1),
-                    Enabled = false,
+                    Enabled = true,
                     Status = (int)CouponStatus.Created,
                     PromotionId = 2,
                     CouponSeries = 1
@@ -892,8 +892,67 @@ namespace WebApp.Data
                     Status = (int)CouponStatus.Redeemed,
                     PromotionId = 26,
                     CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 39,
+                    Code = "EASTER1234567901",
+                    Holder = "38591641146",
+                    User = "38591641146",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 6, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 6, 1),
+                    Enabled = false,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 2,
+                    CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 40,
+                    Code = "EASTER1234567902",
+                    Holder = "38591641146",
+                    User = "38591641146",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 5, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 5, 1),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 2,
+                    CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 41,
+                    Code = "EASTER1234567903",
+                    Holder = "38591641146",
+                    User = "38591641146",
+                    AquireFrom = new DateTime(2020, 4, 12),
+                    AquireTo = new DateTime(2020, 5, 12),
+                    AwardFrom = new DateTime(2020, 4, 12),
+                    AwardTo = new DateTime(2020, 5, 12),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 2,
+                    CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 42,
+                    Code = "EASTER1234567904",
+                    Holder = "38591641147",
+                    User = "38591641147",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 5, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 5, 1),
+                    Enabled = false,
+                    Status = (int)CouponStatus.Created,
+                    PromotionId = 2,
+                    CouponSeries = 3
                 }
-                // dodati neaktivne ali s POS kanalima
             );
             #endregion
             #region Coupon issuer channels seed
