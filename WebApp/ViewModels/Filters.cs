@@ -62,10 +62,7 @@ namespace WebApp.ViewModels
             List<Promotion> promotionDuration = new List<Promotion>();
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
-                promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
-                f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
-                f_ListOfPromotions.AddRange(promotionDuration);
-                f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
+                f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo) || (x.ValidTo >= promotionFilter.ValidTo)).ToList<Promotion>();
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
@@ -73,10 +70,7 @@ namespace WebApp.ViewModels
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
                 if (promotionFilter.ValidTo != null)
                 {
-                    promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
-                    f_ListOfPromotions.AddRange(promotionDuration);
-                    f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidTo <= promotionFilter.ValidTo) || x.ValidTo >= promotionFilter.ValidTo).ToList<Promotion>();
                 }
             }
 
@@ -116,11 +110,6 @@ namespace WebApp.ViewModels
                 }
                 f_ListOfPromotions = newFilterPromotions;
             }
-
-            /* 
-             * e.g.
-             * f_ListOfPromotions = f_ListOfPromotions.Union(promotionsByCode).Union(promotionsByValidDate).Union(PromotionsByStatus).ToList();
-             */
 
             // Return filtered list of promotions with existing coupons
             if (promotionsWithCoupons)
