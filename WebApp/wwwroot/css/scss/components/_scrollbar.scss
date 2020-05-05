@@ -1,0 +1,17 @@
+﻿/* width */
+::-webkit-scrollbar {
+    width: 15px;
+
+    &-track * {
+        background: transparent;
+    }
+
+    &-thumb {
+        background: #888;
+        border-radius: 8px;
+
+        &:hover {
+            background: #555;
+        }
+    }
+}
