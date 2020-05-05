@@ -22,6 +22,8 @@ Check out this repositry and open solution COMMANDO for start working on project
     Call `Update-Database`
 
   - Update local SQLDatabase after initial setup
+    Change environment to Development
+    `$env:ASPNETCORE_ENVIRONMENT='Development'`
     Delete all objects from database
     `Update-Database 0`
     Install database  
