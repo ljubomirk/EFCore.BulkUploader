@@ -59,16 +59,25 @@ namespace WebApp.ViewModels
             if (promotionFilter.ShowInactive)
                 f_ListOfPromotions.AddRange(allPromotions.Where(x => x.Active == false).ToList<Promotion>());
 
+            List<Promotion> promotionDuration = new List<Promotion>();
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
+                promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
                 f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+                f_ListOfPromotions.AddRange(promotionDuration);
+                f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
                 if (promotionFilter.ValidFrom != null)
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
                 if (promotionFilter.ValidTo != null)
+                {
+                    promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+                    f_ListOfPromotions.AddRange(promotionDuration);
+                    f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
+                }
             }
 
             if (promotionFilter.Code != null)
@@ -192,7 +201,7 @@ namespace WebApp.ViewModels
                 List<Coupon> newCouponList = new List<Coupon>();
                 foreach (Coupon coup in f_ListOfCoupons)
                 {
-                    bool couponAdd = false;
+                    bool ach = true;
 
                     // Filter based on award channel
                     if (f_AwardChannel.Count() > 0)
@@ -204,12 +213,16 @@ namespace WebApp.ViewModels
                             {
                                 // all awardChannel filters need to be met to return coupon ?
                                 // if even single coupon 
-                                couponAdd = true;
+                                ach = true;
+                            } else
+                            {
+                                ach = false;
                             }
                         }
                     }
 
                     // Filter based on issuer channel
+                    bool ich = true;
                     if (f_IssuerChannel.Count() > 0)
                     {
                         List<long> issuerChannels = _repo.GetCouponIssuerChannels(coup.Id).Select( c => c.IssuerChannelId).Distinct().ToList();
@@ -218,23 +231,30 @@ namespace WebApp.ViewModels
                             if (issuerChannels.Contains(ids))
                             {
                                 // all issuerChannel filters need to be met to return coupon ?
-                                couponAdd = true;
+                                ich = true;
+                            } else
+                            {
+                                ich = false;
                             }
                         }
                     }
 
                     // Filter based on coupon status
+                    bool stat = true;
                     if (f_CurrentStatus.Count() > 0)
                     {
                         if (f_CurrentStatus.Contains(coup.Status))
                         {
                             // current coupon status needs to be in filter status list ?
-                            couponAdd = true;
+                            stat = true;
+                        } else
+                        {
+                            stat = false;
                         }
                     }
 
                     // Remove coupon from initial list if filter not passed
-                    if (couponAdd)
+                    if (ach && ich && stat)
                     {
                         newCouponList.Add(coup);
                     }

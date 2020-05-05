@@ -95,208 +95,208 @@ namespace WebApp.Data
                     Id = 1,
                     Code = "Spring",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("20.03.2020"),
-                    ValidTo = DateTime.Parse("20.05.2020")
+                    ValidFrom = new DateTime(2020, 3, 20),
+                    ValidTo = new DateTime(2020, 5, 20)
                 },
                 new Promotion()
                 {
                     Id = 2,
                     Code = "Easter",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.06.2020")
+                    ValidFrom = new DateTime(2020, 4, 1),
+                    ValidTo = new DateTime(2020, 6, 1)
                 },
                 new Promotion()
                 {
                     Id = 3,
                     Code = "Summer",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.05.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020, 5, 1),
+                    ValidTo = new DateTime(2020, 9, 1)
                 },
                 new Promotion()
                 {
                     Id = 4,
                     Code = "SpringDown",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020, 3, 1),
+                    ValidTo = new DateTime(2020, 5, 1)
                 },
                 new Promotion()
                 {
                     Id = 5,
                     Code = "EasterDown",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.06.2020")
+                    ValidFrom = new DateTime(2020, 4, 1),
+                    ValidTo = new DateTime(2020, 4, 12)
                 },
                 new Promotion()
                 {
                     Id = 6,
                     Code = "SummerDown",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020, 6, 1),
+                    ValidTo = new DateTime(2020, 9, 1)
                 },
                 new Promotion()
                 {
                     Id = 7,
                     Code = "FUNZIES!",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.06.2020")
+                    ValidFrom = new DateTime(2020, 4, 1),
+                    ValidTo = new DateTime(2020, 6, 1)
                 },
                 new Promotion()
                 {
                     Id = 8,
                     Code = "NOTfunzies",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.06.2020")
+                    ValidFrom = new DateTime(2020,4,1),
+                    ValidTo = new DateTime(2020,6,1)
                 },
                 new Promotion()
                 {
                     Id = 9,
                     Code = "Summer3",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020, 9, 1)
                 },
                 new Promotion()
                 {
                     Id = 10,
                     Code = "Spring4",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,3,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 11,
                     Code = "Easter4",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,4,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 12,
                     Code = "Summer4",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020,9,1)
                 },
                 new Promotion()
                 {
                     Id = 13,
                     Code = "Spring5",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,3,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 14,
                     Code = "Easter5",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,4,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 15,
                     Code = "Summer5",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020,9,1)
                 },
                 new Promotion()
                 {
                     Id = 16,
                     Code = "Spring6",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,3,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 17,
                     Code = "Easter6",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,4,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 18,
                     Code = "Summer6",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020,9,1)
                 },
                 new Promotion()
                 {
                     Id = 19,
                     Code = "Spring7",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,3,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 20,
                     Code = "Easter7",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020,4,1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 21,
                     Code = "Summer7",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020,9,1)
                 },
                 new Promotion()
                 {
                     Id = 22,
                     Code = "Spring8",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.03.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020, 3, 1),
+                    ValidTo = new DateTime(2020,5,1)
                 },
                 new Promotion()
                 {
                     Id = 23,
                     Code = "Easter8",
                     Enabled = false,
-                    ValidFrom = DateTime.Parse("01.04.2020"),
-                    ValidTo = DateTime.Parse("01.05.2020")
+                    ValidFrom = new DateTime(2020, 4, 1),
+                    ValidTo = new DateTime(2020, 5, 1)
                 },
                 new Promotion()
                 {
                     Id = 24,
                     Code = "Summer8",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("01.06.2020"),
-                    ValidTo = DateTime.Parse("01.09.2020")
+                    ValidFrom = new DateTime(2020,6,1),
+                    ValidTo = new DateTime(2020,9,1)
                 },
                 new Promotion()
                 {
                     Id = 25,
                     Code = "Bloom",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("14.02.2020"),
-                    ValidTo = DateTime.Parse("14.03.2020")
+                    ValidFrom = new DateTime(2020, 2, 14),
+                    ValidTo = new DateTime(2020, 3, 14)
                 },
                 new Promotion()
                 {
                     Id = 26,
                     Code = "AllYear",
                     Enabled = true,
-                    ValidFrom = DateTime.Parse("1.02.2020"),
-                    ValidTo = DateTime.Parse("1.08.2020")
+                    ValidFrom = new DateTime(2020, 2, 1),
+                    ValidTo = new DateTime(2020, 8, 1)
                 }
             );
             #endregion
@@ -952,6 +952,156 @@ namespace WebApp.Data
                     Status = (int)CouponStatus.Created,
                     PromotionId = 2,
                     CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 43,
+                    Code = "EASTER1234567905",
+                    Holder = "38591641148",
+                    User = "38591641148",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 5, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 5, 1),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 2,
+                    CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 44,
+                    Code = "EASTER1234567906",
+                    Holder = "38591641148",
+                    User = "38591641148",
+                    AquireFrom = new DateTime(2020, 4, 1),
+                    AquireTo = new DateTime(2020, 5, 1),
+                    AwardFrom = new DateTime(2020, 4, 1),
+                    AwardTo = new DateTime(2020, 5, 1),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 2,
+                    CouponSeries = 3
+                },
+                new Coupon()
+                {
+                    Id = 45,
+                    Code = "SPRING1234567190",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 3, 20),
+                    AquireTo = new DateTime(2020, 5, 20),
+                    AwardFrom = new DateTime(2020, 3, 20),
+                    AwardTo = new DateTime(2020, 5, 20),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 1,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 46,
+                    Code = "SPRING1234567191",
+                    Holder = "38640440481",
+                    User = "38640440481",
+                    AquireFrom = new DateTime(2020, 3, 20),
+                    AquireTo = new DateTime(2020, 5, 20),
+                    AwardFrom = new DateTime(2020, 3, 20),
+                    AwardTo = new DateTime(2020, 5, 20),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 1,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 47,
+                    Code = "YEAR12345096",
+                    Holder = "38640440487",
+                    User = "38640440487",
+                    AquireFrom = new DateTime(2020, 4, 8),
+                    AquireTo = new DateTime(2020, 4, 18),
+                    AwardFrom = new DateTime(2020, 4, 8),
+                    AwardTo = new DateTime(2020, 4, 18),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 26,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 48,
+                    Code = "YEAR12345097",
+                    Holder = "38640440487",
+                    User = "38640440487",
+                    AquireFrom = new DateTime(2020, 4, 8),
+                    AquireTo = new DateTime(2020, 4, 18),
+                    AwardFrom = new DateTime(2020, 4, 8),
+                    AwardTo = new DateTime(2020, 4, 18),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 26,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 49,
+                    Code = "BLOOM1234567295",
+                    Holder = "38640440485",
+                    User = "38640440485",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 50,
+                    Code = "BLOOM1234567296",
+                    Holder = "38640440486",
+                    User = "38640440486",
+                    AquireFrom = new DateTime(2020, 2, 14),
+                    AquireTo = new DateTime(2020, 3, 14),
+                    AwardFrom = new DateTime(2020, 2, 14),
+                    AwardTo = new DateTime(2020, 3, 14),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 25,
+                    CouponSeries = 1
+                },
+                new Coupon()
+                {
+                    Id = 51,
+                    Code = "SUMMER1234657492",
+                    Holder = "38640440484",
+                    User = "38640440484",
+                    AquireFrom = new DateTime(2020, 5, 1),
+                    AquireTo = new DateTime(2020, 9, 1),
+                    AwardFrom = new DateTime(2020, 5, 1),
+                    AwardTo = new DateTime(2020, 9, 1),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Redeemed,
+                    PromotionId = 3,
+                    CouponSeries = 2
+                },
+                new Coupon()
+                {
+                    Id = 52,
+                    Code = "SUMMER1234657493",
+                    Holder = "38640440485",
+                    User = "38640440485",
+                    AquireFrom = new DateTime(2020, 5, 1),
+                    AquireTo = new DateTime(2020, 9, 1),
+                    AwardFrom = new DateTime(2020, 5, 1),
+                    AwardTo = new DateTime(2020, 9, 1),
+                    Enabled = true,
+                    Status = (int)CouponStatus.Issued,
+                    PromotionId = 3,
+                    CouponSeries = 2
                 }
             );
             #endregion
@@ -1056,6 +1206,56 @@ namespace WebApp.Data
                 {
                     CouponId = 38,
                     IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 43,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 44,
+                    IssuerChannelId = (int)IssuerChannelEnum.POS
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 45,
+                    IssuerChannelId = (int)IssuerChannelEnum.SelfCare
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 46,
+                    IssuerChannelId = (int)IssuerChannelEnum.SelfCare
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 47,
+                    IssuerChannelId = (int)IssuerChannelEnum.Telesales
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 48,
+                    IssuerChannelId = (int)IssuerChannelEnum.Telesales
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 49,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 50,
+                    IssuerChannelId = (int)IssuerChannelEnum.Webshop
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 51,
+                    IssuerChannelId = (int)IssuerChannelEnum.Salesforce
+                },
+                new CouponIssuerChannel()
+                {
+                    CouponId = 52,
+                    IssuerChannelId = (int)IssuerChannelEnum.Salesforce
                 }
             );
             #endregion
@@ -1100,6 +1300,46 @@ namespace WebApp.Data
                 {
                     CouponId = 38,
                     AwardChannelId = (int)AwardChannelEnum.POS
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 43,
+                    AwardChannelId = (int)AwardChannelEnum.POS
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 44,
+                    AwardChannelId = (int)AwardChannelEnum.POS
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 45,
+                    AwardChannelId = (int)AwardChannelEnum.SelfCare
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 46,
+                    AwardChannelId = (int)AwardChannelEnum.SelfCare
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 47,
+                    AwardChannelId = (int)AwardChannelEnum.Telesales
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 48,
+                    AwardChannelId = (int)AwardChannelEnum.Telesales
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 49,
+                    AwardChannelId = (int)AwardChannelEnum.Webshop
+                },
+                new CouponAwardChannel()
+                {
+                    CouponId = 50,
+                    AwardChannelId = (int)AwardChannelEnum.Webshop
                 }
             );
             #endregion
