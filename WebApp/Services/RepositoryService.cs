@@ -384,6 +384,23 @@ namespace WebApp.Services
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
+
+        public bool LogAppAccess (string action, string username, bool granted)
+        {
+            AccessLog log = new AccessLog(ApplicationEnum.WebApp, "", action, username, granted);
+            Context.AccessLog.Add(log);
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
+        }
+        public bool LogAPIAccess(string action, string channel, string username, bool granted)
+        {
+            AccessLog log = new AccessLog(ApplicationEnum.API, channel, action, username, granted);
+            Context.AccessLog.Add(log);
+            int returnValue = Context.SaveChanges();
+            return returnValue > 0 ? true : false;
+        }
+
+
     }
 
     public class PromotionFactory : IPromotion
