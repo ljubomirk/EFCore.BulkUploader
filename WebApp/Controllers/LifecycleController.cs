@@ -8,6 +8,8 @@ using CouponDatabase.Models;
 using CouponDatabase.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
@@ -25,12 +27,19 @@ namespace WebApp.Controllers
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private ILogger _logger;
-
+        private readonly ContextData _contextData;
         public LifecycleController(ApplicationDbContext context, ILogger<LifecycleController> logger)
         {      
              _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
+            _contextData = new ContextData();
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
+            base.OnActionExecuting(context);
         }
 
         /// <summary>

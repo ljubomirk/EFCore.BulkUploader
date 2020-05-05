@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Services;
@@ -18,12 +20,20 @@ namespace WebApp.Controllers
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AdministrationController> _logger;
+        private readonly ContextData _contextData;
 
         public AdministrationController(ApplicationDbContext context, ILogger<AdministrationController> logger)
         {
             _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
+            _contextData = new ContextData();
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
+            base.OnActionExecuting(context);
         }
         public IActionResult Users(UsersViewModel model)
         {

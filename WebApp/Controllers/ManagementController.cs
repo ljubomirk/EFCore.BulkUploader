@@ -15,6 +15,8 @@ using System.IO;
 using ExcelDataReader;
 using CouponDatabase.Lifecycle;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace WebApp.Controllers
 {
@@ -26,13 +28,20 @@ namespace WebApp.Controllers
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ManagementController> _logger;
+        private readonly ContextData _contextData;
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
+            base.OnActionExecuting(context);
+        }
 
         public ManagementController(ApplicationDbContext context, ILogger<ManagementController> logger)
         {      
              _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
-
+            _contextData = new ContextData();
 
         }
 
@@ -45,7 +54,6 @@ namespace WebApp.Controllers
         {
             PromotionListViewModel model = new PromotionListViewModel();
             model.Promotions.AddRange(_repo.GetAllPromotions());
-            model.Promotions = populatePromotionData(model.Promotions);
             model.Filter = new PromotionFilter();
             model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
             return View("PromotionList",model);
@@ -305,16 +313,6 @@ namespace WebApp.Controllers
             }
 
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
-        }
-
-        private List<Promotion> populatePromotionData(List<Promotion> promotions)
-        {
-            foreach (Promotion item in promotions)
-            {
-                item.CouponSeries = _repo.GetCouponSeriesVal(item.Id);
-            }
-
-            return promotions;
         }
 
         private bool isPropertyChecked(string propName, List<PromotionProperty> properties)
