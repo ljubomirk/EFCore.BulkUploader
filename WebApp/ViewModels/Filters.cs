@@ -59,16 +59,25 @@ namespace WebApp.ViewModels
             if (promotionFilter.ShowInactive)
                 f_ListOfPromotions.AddRange(allPromotions.Where(x => x.Active == false).ToList<Promotion>());
 
+            List<Promotion> promotionDuration = new List<Promotion>();
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
+                promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
                 f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+                f_ListOfPromotions.AddRange(promotionDuration);
+                f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
                 if (promotionFilter.ValidFrom != null)
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
                 if (promotionFilter.ValidTo != null)
+                {
+                    promotionDuration = f_ListOfPromotions.Where(p => p.ValidTo >= promotionFilter.ValidTo).ToList();
                     f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidTo <= promotionFilter.ValidTo).ToList<Promotion>();
+                    f_ListOfPromotions.AddRange(promotionDuration);
+                    f_ListOfPromotions = f_ListOfPromotions.Select(p => p).Distinct().ToList();
+                }
             }
 
             if (promotionFilter.Code != null)
