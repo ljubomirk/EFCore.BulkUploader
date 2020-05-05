@@ -747,7 +747,7 @@ namespace WebApp.Controllers
                 {
                     updatedItems.Add(new CheckedCouponItem(){
                         Active = coupon.Active,
-                        Checked = items[i].Checked,
+                        Checked = false,
                         Code = coupon.Code,
                         Enabled = coupon.Enabled,
                         Holder = coupon.Holder,
@@ -758,7 +758,18 @@ namespace WebApp.Controllers
                     });
                 } else
                 {
-                    updatedItems.Add(items[i]);
+                    updatedItems.Add(new CheckedCouponItem()
+                    {
+                        Active = items[i].Active,
+                        Checked = false,
+                        Code = items[i].Code,
+                        Enabled = items[i].Enabled,
+                        Holder = items[i].Holder,
+                        User = items[i].User,
+                        Label = items[i].Code,
+                        Id = items[i].Id,
+                        Status = items[i].Status
+                    });
                 }
             }
             
