@@ -89,12 +89,12 @@ namespace WebApp.Controllers
             }
             return PartialView("_ChannelsNotifyListModal", model);
         }
-        public IActionResult AddNotifyList(NotifyList model)
+        public IActionResult AddNotifyList(ExternalSystemsViewModel model)
         {
             ViewBag.Command = _repo.AddNotifyList(model);
             return ExternalSystemsView();
         }
-        public IActionResult UpdateNotifyList(NotifyList model)
+        public IActionResult UpdateNotifyList(ExternalSystemsViewModel model)
         {
             ViewBag.Command = _repo.UpdateNotifyList(model);
             return ExternalSystemsView();

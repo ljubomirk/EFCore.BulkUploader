@@ -514,14 +514,14 @@ namespace WebApp.Services
             return result;
         }
 
-        internal dynamic AddNotifyList(NotifyList model)
+        internal dynamic AddNotifyList(ExternalSystemsViewModel model)
         {
             Command result = null;
 
             try
             {
                 Context.Database.BeginTransaction();
-                Context.NotifyList.Add(new NotifyList() {ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
+                //Context.NotifyList.Add(new NotifyList() {ChannelId = (long)model.DropChannels.Find(x=>x.Selected==true).Value, SystemId = model.SystemId, Url = model.Url });
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
@@ -544,13 +544,13 @@ namespace WebApp.Services
             return result;
         }
 
-        internal dynamic UpdateNotifyList(NotifyList model)
+        internal dynamic UpdateNotifyList(ExternalSystemsViewModel model)
         {
             Command result = null;
             try
             {
                 Context.Database.BeginTransaction();
-                Context.NotifyList.Update(new NotifyList() { ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
+                //Context.NotifyList.Update(new NotifyList() { ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
                 int saved = Context.SaveChanges();
                 Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);

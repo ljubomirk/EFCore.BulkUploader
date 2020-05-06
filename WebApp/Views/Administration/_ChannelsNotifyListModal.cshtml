@@ -21,28 +21,28 @@
 <!-- form modal -->
 @using (Html.BeginForm(action, "Administration", FormMethod.Post, new { role = "form", id = "NotifyListModal" }))
 {
-    @*@Html.HiddenFor(nl => nl.System.Id)
-    @Html.HiddenFor(nl => nl.Channel.Id)*@
+    @Html.HiddenFor(nl => nl.ChannelId)
+    @Html.HiddenFor(nl => nl.SystemId)
     <div id="modal-notify-list" class="modal">
         <div class="modal-content">
             <h4>@headline</h4>
             <div class="row u-m-t-lg">
                 <div class="input-field col s12">
                     @Html.LabelFor(p => p.Channels, new { @class = "active", @for = "Channels" })
-                    @Html.DropDownListFor(p => p.Channels, channelList, "-- option --", new { @class = "dropdown", dataVal = true })
+                    @Html.DropDownListFor(p => p.ChannelId, channelList, "-- option --", new { @class = "dropdown", dataVal = true })
                     <i class='material-icons suffix validation-error'>warning</i>
                 </div>
                 <div class="input-field col s12">
                     @Html.LabelFor(p => p.Systems, new { @class = "active", @for = "Systems" })
-                    @Html.DropDownListFor(p => p.Systems, systemList, "-- option --", new { @class = "dropdown", dataVal = true })
+                    @Html.DropDownListFor(p => p.SystemId, systemList, "-- option --", new { @class = "dropdown", dataVal = true })
                     <i class='material-icons suffix validation-error'>warning</i>
                 </div>
-                @*<div class="input-field col s12">
+               <div class="input-field col s12">
                     @Html.EditorFor(s => s.Url, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
                     @Html.LabelFor(s => s.Url, new { @class = "active" })
                     @Html.ValidationMessageFor(s => s.Url)
                     <i class='material-icons suffix validation-error'>warning</i>
-                </div>*@
+                </div>
             </div>
         </div>
         <div class="modal-footer">

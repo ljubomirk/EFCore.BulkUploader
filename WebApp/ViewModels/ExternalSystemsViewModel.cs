@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CouponSystem = CouponDatabase.Models.System;
@@ -15,8 +16,10 @@ namespace WebApp.ViewModels
         public List<SelectListItem> DropSystems { get; private set; }
         public List<SelectListItem> DropChannels { get; private set; }
         public List<NotifyList> NotifyLists { get; private set; }
-
-        public ExternalSystemsViewModel() { }
+        public string ChannelId { get; set; }
+        public string SystemId { get; set; }
+        [DataType(DataType.Url)]
+        public string Url { get; set; }
 
         public void AddSystems(IList<CouponSystem> systems)
         {
