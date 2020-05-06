@@ -57,6 +57,11 @@ namespace WebApp.Services
             return result;
         }
 
+        internal List<AccessLog> GetAllAccessLogs()
+        {
+            return Context.AccessLog.ToList<AccessLog>();
+        }
+
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
             List<Promotion> promList = new List<Promotion>();
@@ -105,6 +110,11 @@ namespace WebApp.Services
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
             }
             return result;
+        }
+
+        internal List<CouponDatabase.Models.System> getAllSystems()
+        {
+            return Context.System.ToList<CouponDatabase.Models.System>();
         }
 
         internal int GetCouponSeriesVal(long id)
@@ -445,6 +455,34 @@ namespace WebApp.Services
             }
             return result;
         }
+        internal dynamic UpdateSystem(CouponDatabase.Models.System model)
+        {
+            Command result = null;
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.System.Update(model);
+                int saved = Context.SaveChanges();
+                Context.Database.CommitTransaction();
+                result = new Command(CommandStatus.Valid);
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
+            }
+            return result;
+        }
 
         internal dynamic DeleteSystem(long id)
         {
@@ -476,13 +514,43 @@ namespace WebApp.Services
             return result;
         }
 
-        internal dynamic UpdateSystem(CouponDatabase.Models.System model)
+        internal dynamic AddNotifyList(NotifyList model)
+        {
+            Command result = null;
+
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.NotifyList.Add(new NotifyList() {ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
+                int saved = Context.SaveChanges();
+                if (saved == 1)
+                    result.Status = CommandStatus.Valid;
+                else
+                    result.Status = CommandStatus.ErrorSystem;
+                Context.Database.CommitTransaction();
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = update.Message;
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = exc.Message;
+            }
+            return result;
+        }
+
+        internal dynamic UpdateNotifyList(NotifyList model)
         {
             Command result = null;
             try
             {
                 Context.Database.BeginTransaction();
-                Context.System.Update(model);
+                Context.NotifyList.Update(new NotifyList() { ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
                 int saved = Context.SaveChanges();
                 Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
@@ -505,7 +573,35 @@ namespace WebApp.Services
             return result;
         }
 
+        internal dynamic deleteNotifyList(long channelId, long systemId)
+        {
+            Command result = null;
 
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.NotifyList.Remove(Context.NotifyList.Find(new NotifyList() { ChannelId = channelId, SystemId = systemId }));
+                int saved = Context.SaveChanges();
+                Context.Database.CommitTransaction();
+                result = new Command(CommandStatus.Valid);
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
+            }
+            return result;
+        }
 
     }
 

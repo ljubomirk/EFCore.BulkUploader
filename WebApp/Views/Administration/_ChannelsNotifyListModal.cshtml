@@ -1,8 +1,8 @@
-﻿@model CouponDatabase.Models.NotifyList;
+﻿@model ExternalSystemsViewModel;
 @{
-    string action = (Model.Channel != null ? "UpdateNotifyList" : "AddNotifyList");
-    string headline = (Model.Channel != null ? @CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList : @CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList);
-    string btnLabel = (Model.Channel != null ? @CouponDatabase.Properties.Resources.Btn_Edit : @CouponDatabase.Properties.Resources.Btn_AddToNotifyList);
+    string action = (Model.DropChannels.Count() == 1 ? "UpdateNotifyList" : "AddNotifyList");
+    string headline = (Model.DropChannels.Count() == 1 ? @CouponDatabase.Properties.Resources.Modal_HeadingEditANotifyList : @CouponDatabase.Properties.Resources.Modal_HeadingAddToNotifyList);
+    string btnLabel = (Model.DropChannels.Count() == 1 ? @CouponDatabase.Properties.Resources.Btn_Edit : @CouponDatabase.Properties.Resources.Btn_AddToNotifyList);
 }
 
 <!-- form modal -->
@@ -12,13 +12,13 @@
         <div class="modal-content">
             <h4>@headline</h4>
             <div class="row">
-                @Html.HiddenFor(nl => nl.ChannelId)
+                @*@Html.HiddenFor(nl => nl.ChannelId)
                 @Html.HiddenFor(nl => nl.Channel.Id)
                 @Html.HiddenFor(nl => nl.SystemId)
                 @Html.HiddenFor(nl => nl.System.Id)
                 @Html.HiddenFor(nl => nl.System.Username)
-                @Html.HiddenFor(nl => nl.System.Password)
-                <div class="input-field col s12">
+                @Html.HiddenFor(nl => nl.System.Password)*@
+                @*<div class="input-field col s12">
                     @Html.EditorFor(s => s.Channel.Name, new { @type = "text", @autocomplete = "off", dataVal = true, htmlAttributes = new { placeholder = "" } })
                     @Html.LabelFor(s => s.Channel.Name, new { @class = "active" })
                     @Html.ValidationMessageFor(s => s.Channel.Name)
@@ -35,7 +35,7 @@
                     @Html.LabelFor(s => s.Url, new { @class = "active" })
                     @Html.ValidationMessageFor(s => s.Url)
                     <i class='material-icons suffix validation-error'>warning</i>
-                </div>
+                </div>*@
             </div>
         </div>
         <div class="modal-footer">
