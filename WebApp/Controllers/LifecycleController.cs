@@ -731,7 +731,11 @@ namespace WebApp.Controllers
                     User = coupon.User,
                     Enabled = coupon.Enabled,
                     Status = coupon.Status, 
-                    Active = coupon.Active 
+                    Active = coupon.Active,
+                    AquireTo = coupon.AquireTo,
+                    AquireFrom = coupon.AquireFrom,
+                    AwardFrom = coupon.AwardFrom,
+                    AwardTo = coupon.AwardTo
                 });
             }
             return checkedItems;
@@ -754,7 +758,11 @@ namespace WebApp.Controllers
                         User = coupon.User,
                         Label = coupon.Code,
                         Id = coupon.Id,
-                        Status = coupon.Status
+                        Status = coupon.Status,
+                        AquireFrom = coupon.AquireFrom,
+                        AquireTo = coupon.AquireTo,
+                        AwardFrom  = coupon.AwardFrom,
+                        AwardTo = coupon.AwardTo
                     });
                 } else
                 {
@@ -768,7 +776,11 @@ namespace WebApp.Controllers
                         User = items[i].User,
                         Label = items[i].Code,
                         Id = items[i].Id,
-                        Status = items[i].Status
+                        Status = items[i].Status,
+                        AquireFrom = items[i].AquireFrom,
+                        AquireTo = items[i].AquireTo,
+                        AwardFrom = items[i].AwardFrom,
+                        AwardTo = items[i].AwardTo
                     });
                 }
             }
