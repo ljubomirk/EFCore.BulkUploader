@@ -24,7 +24,7 @@
         </h4>
     </div>
     <!-- user filter -->
-    @using (Html.BeginForm("FilterUsers", "Administration", FormMethod.Get, new { role = "form", id = "FilterUsers" }))
+    @using (Html.BeginForm("FilterUsers", "Administration", FormMethod.Post, new { role = "form", id = "FilterUsers" }))
     {
         <div class="col s12 m4 two-cols select-wrapper-action u-p-r-remove">
             @for (int i = 0; i < Model.AccessTypes.Count; i++)

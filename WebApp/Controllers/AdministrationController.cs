@@ -51,6 +51,25 @@ namespace WebApp.Controllers
             return Users(model);
         }
 
+        public IActionResult FilterUsers(UsersViewModel model)
+        {
+            List<User> users = new List<User>();
+            if (model.Users==null)
+            {
+                foreach (CheckedItem item in model.AccessTypes)
+                {
+                    if (item.Checked)
+                    {
+                        foreach (User user in _repo.GetAllUsers().Where(y => (int)y.AccessType == item.Id))
+                        {
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+            return View("AdministrationUsers", new UsersViewModel(users));
+        }
+
         public IActionResult ExternalSystemsView()
         {
             ExternalSystemsViewModel model = new ExternalSystemsViewModel();
