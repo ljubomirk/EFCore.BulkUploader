@@ -4,7 +4,7 @@
 @model WebApp.ViewModels.AccessHistoryFilters;
 
 <div id="form-filter">
-    @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Get, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
+    @using (Html.BeginForm("FilteredListAccessHistory", "Administration", FormMethod.Post, new { @class = "form-filter", role = "form", id = "AccessHistoryFilters", hidden = true }))
     {
         <div class="container">
             <div class="row u-m-t-md">

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Services;
 using WebApp.ViewModels;
+using CouponDatabase.Models;
 using CouponSystem = CouponDatabase.Models.System;
 
 namespace WebApp.Controllers
@@ -107,5 +108,20 @@ namespace WebApp.Controllers
             model.AddLogs(_context.AccessLog.ToList<AccessLog>());
             return View("AdministrationAccessHistory", model);
         }
+        public IActionResult FilteredListAccessHistory(AccessHistoryFilters filter)
+        {
+            AccessHistoryViewModel model = new AccessHistoryViewModel();
+            //model.AddLogs(_context.AccessLog.ToList<AccessLog>());
+
+            AccessHistoryFilters filters = new AccessHistoryFilters(_context);
+
+            List<AccessLog> filteredListOfAccessLogs = filters.GetFilteredAccessHistory(filter);
+
+            model.AddLogs(filteredListOfAccessLogs);
+            model.Filters = filter;
+            return View("AdministrationAccessHistory", model);
+        }
+
+        
     }
 }

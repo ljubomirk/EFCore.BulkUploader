@@ -35,7 +35,7 @@ namespace CouponDatabase.Models
         public string Action { get; set; }
         public string Username { get; set; }
         public bool Granted { get; }
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime IssuedDate { get; set; }
 
