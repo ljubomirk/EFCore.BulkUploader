@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Services;
 using WebApp.ViewModels;
+using CouponDatabase.Models;
 using CouponSystem = CouponDatabase.Models.System;
 
 namespace WebApp.Controllers
@@ -77,23 +78,30 @@ namespace WebApp.Controllers
             ViewBag.Command = _repo.DeleteSystem(id);
             return ExternalSystemsView();
         }
-        public IActionResult NotifyListDetails(NotifyList model)
+        public IActionResult NotifyListDetails(ExternalSystemsViewModel model)
         {
+            if(model.Channels==null && model.Systems == null)
+            {
+                model = new ExternalSystemsViewModel();
+                model.AddDropChannels(_context.IssuerChannel.ToList<IssuerChannel>());
+                model.AddDropSystems(_context.System.ToList<CouponSystem>());
+                model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
+            }
             return PartialView("_ChannelsNotifyListModal", model);
         }
         public IActionResult AddNotifyList(NotifyList model)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.AddNotifyList(model);
             return ExternalSystemsView();
         }
         public IActionResult UpdateNotifyList(NotifyList model)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.UpdateNotifyList(model);
             return ExternalSystemsView();
         }
         public IActionResult DeleteNotifyList(long channelId, long systemId)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            ViewBag.Command = _repo.deleteNotifyList(channelId, systemId);
             return ExternalSystemsView();
         }
         public IActionResult AccessHistory(AccessHistoryViewModel model)
@@ -107,5 +115,20 @@ namespace WebApp.Controllers
             model.AddLogs(_context.AccessLog.ToList<AccessLog>());
             return View("AdministrationAccessHistory", model);
         }
+        public IActionResult FilteredListAccessHistory(AccessHistoryFilters filter)
+        {
+            AccessHistoryViewModel model = new AccessHistoryViewModel();
+            //model.AddLogs(_context.AccessLog.ToList<AccessLog>());
+
+            AccessHistoryFilters filters = new AccessHistoryFilters(_context);
+
+            List<AccessLog> filteredListOfAccessLogs = filters.GetFilteredAccessHistory(filter);
+
+            model.AddLogs(filteredListOfAccessLogs);
+            model.Filters = filter;
+            return View("AdministrationAccessHistory", model);
+        }
+
+        
     }
 }
