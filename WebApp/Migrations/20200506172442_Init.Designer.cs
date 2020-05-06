@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200505133555_Init")]
+    [Migration("20200506172442_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,15 +27,20 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Action");
+                    b.Property<string>("Action")
+                        .HasMaxLength(80);
 
                     b.Property<int>("ApplicationType");
 
-                    b.Property<string>("Channel");
+                    b.Property<string>("Channel")
+                        .HasMaxLength(20);
+
+                    b.Property<bool>("Granted");
 
                     b.Property<DateTime>("IssuedDate");
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -48,7 +53,8 @@ namespace WebApp.Migrations
                             Action = "Create Promotion",
                             ApplicationType = 0,
                             Channel = "POS",
-                            IssuedDate = new DateTime(2020, 5, 5, 15, 35, 54, 639, DateTimeKind.Local).AddTicks(9910),
+                            Granted = false,
+                            IssuedDate = new DateTime(2020, 5, 6, 19, 24, 41, 867, DateTimeKind.Local).AddTicks(7586),
                             Username = ""
                         },
                         new
@@ -57,7 +63,8 @@ namespace WebApp.Migrations
                             Action = "Update Coupon",
                             ApplicationType = 1,
                             Channel = "",
-                            IssuedDate = new DateTime(2020, 5, 5, 15, 35, 54, 642, DateTimeKind.Local).AddTicks(7515),
+                            Granted = false,
+                            IssuedDate = new DateTime(2020, 5, 6, 19, 24, 41, 871, DateTimeKind.Local).AddTicks(6896),
                             Username = "korisnik"
                         });
                 });
@@ -68,7 +75,8 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -111,13 +119,15 @@ namespace WebApp.Migrations
 
                     b.Property<DateTime?>("AwardTo");
 
-                    b.Property<string>("Code");
+                    b.Property<string>("Code")
+                        .HasMaxLength(40);
 
                     b.Property<int>("CouponSeries");
 
                     b.Property<bool>("Enabled");
 
-                    b.Property<string>("Holder");
+                    b.Property<string>("Holder")
+                        .HasMaxLength(20);
 
                     b.Property<int>("MaxRedeemNo");
 
@@ -125,7 +135,8 @@ namespace WebApp.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("User");
+                    b.Property<string>("User")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -1245,7 +1256,8 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -1301,7 +1313,8 @@ namespace WebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(40);
 
                     b.Property<int>("CouponSeries");
 
@@ -1746,7 +1759,8 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -1791,11 +1805,14 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -1821,13 +1838,16 @@ namespace WebApp.Migrations
             modelBuilder.Entity("CouponDatabase.Models.User", b =>
                 {
                     b.Property<string>("Username")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20);
 
                     b.Property<int>("AccessType");
 
-                    b.Property<string>("Domain");
+                    b.Property<string>("Domain")
+                        .HasMaxLength(20);
 
-                    b.Property<string>("Fullname");
+                    b.Property<string>("Fullname")
+                        .HasMaxLength(80);
 
                     b.HasKey("Username");
 

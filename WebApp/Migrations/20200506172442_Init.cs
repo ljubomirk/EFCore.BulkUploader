@@ -15,9 +15,10 @@ namespace WebApp.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationType = table.Column<int>(nullable: false),
-                    Channel = table.Column<string>(nullable: true),
-                    Action = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
+                    Channel = table.Column<string>(maxLength: 20, nullable: true),
+                    Action = table.Column<string>(maxLength: 80, nullable: true),
+                    Username = table.Column<string>(maxLength: 20, nullable: true),
+                    Granted = table.Column<bool>(nullable: false),
                     IssuedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -31,7 +32,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,7 +45,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -57,7 +58,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: false),
+                    Code = table.Column<string>(maxLength: 40, nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
                     ValidFrom = table.Column<DateTime>(nullable: true),
                     ValidTo = table.Column<DateTime>(nullable: true),
@@ -74,7 +75,7 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -87,9 +88,9 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 20, nullable: true),
+                    Username = table.Column<string>(maxLength: 20, nullable: true),
+                    Password = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,9 +101,9 @@ namespace WebApp.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Username = table.Column<string>(nullable: false),
-                    Domain = table.Column<string>(nullable: true),
-                    Fullname = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(maxLength: 20, nullable: false),
+                    Domain = table.Column<string>(maxLength: 20, nullable: true),
+                    Fullname = table.Column<string>(maxLength: 80, nullable: true),
                     AccessType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -116,9 +117,9 @@ namespace WebApp.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: true),
-                    Holder = table.Column<string>(nullable: true),
-                    User = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(maxLength: 40, nullable: true),
+                    Holder = table.Column<string>(maxLength: 20, nullable: true),
+                    User = table.Column<string>(maxLength: 20, nullable: true),
                     Status = table.Column<int>(nullable: false),
                     AquireFrom = table.Column<DateTime>(nullable: true),
                     AquireTo = table.Column<DateTime>(nullable: true),
@@ -310,11 +311,11 @@ namespace WebApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "AccessLog",
-                columns: new[] { "Id", "Action", "ApplicationType", "Channel", "IssuedDate", "Username" },
+                columns: new[] { "Id", "Action", "ApplicationType", "Channel", "Granted", "IssuedDate", "Username" },
                 values: new object[,]
                 {
-                    { 1L, "Create Promotion", 0, "POS", new DateTime(2020, 5, 5, 15, 35, 54, 639, DateTimeKind.Local).AddTicks(9910), "" },
-                    { 2L, "Update Coupon", 1, "", new DateTime(2020, 5, 5, 15, 35, 54, 642, DateTimeKind.Local).AddTicks(7515), "korisnik" }
+                    { 1L, "Create Promotion", 0, "POS", false, new DateTime(2020, 5, 6, 19, 24, 41, 867, DateTimeKind.Local).AddTicks(7586), "" },
+                    { 2L, "Update Coupon", 1, "", false, new DateTime(2020, 5, 6, 19, 24, 41, 871, DateTimeKind.Local).AddTicks(6896), "korisnik" }
                 });
 
             migrationBuilder.InsertData(

@@ -21,6 +21,7 @@ namespace CouponDatabase.Models
         [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
        // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
+        [MaxLength(40)]
         public String Code { get; set; }
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]

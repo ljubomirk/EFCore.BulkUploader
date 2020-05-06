@@ -25,9 +25,13 @@ namespace CouponDatabase.Models
         public long Id { get; set; }
         //[System.ComponentModel.DataAnnotations.MaxLength(20,ErrorMessageResourceName = , ErrorMessageResourceType = 1]
         [DataType(DataType.Text)]
+
+        [MaxLength(40)]
         public string Code { get; set; }
 
+        [MaxLength(20)]
         public string Holder { get; set; }
+        [MaxLength(20)]
         public string User { get; set; }
 
         public int Status { get; set; }

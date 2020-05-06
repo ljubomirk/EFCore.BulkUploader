@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CouponDatabase.Lifecycle
@@ -8,6 +9,7 @@ namespace CouponDatabase.Lifecycle
     {
         // Use ChannelEnum for mapping
         public long Id { get; set; }
+        [MaxLength(20)]
         public string Name { get; set; }
         public static List<C> ArrayFrom<C, T>() where T : Enum where C : BaseDefs, new()
         {

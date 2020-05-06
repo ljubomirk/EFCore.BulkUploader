@@ -104,6 +104,14 @@
     <Compile Remove="Migrations\20200505133056_Init.Designer.cs" />
     <Compile Remove="Migrations\20200505133224_Init.cs" />
     <Compile Remove="Migrations\20200505133224_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200505133555_Init.cs" />
+    <Compile Remove="Migrations\20200505133555_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200506170501_Init.cs" />
+    <Compile Remove="Migrations\20200506170501_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200506171101_Init.cs" />
+    <Compile Remove="Migrations\20200506171101_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200506171409_Init.cs" />
+    <Compile Remove="Migrations\20200506171409_Init.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />

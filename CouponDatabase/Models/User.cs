@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using CouponDatabase.Lifecycle;
 
 namespace CouponDatabase.Models
@@ -26,8 +27,11 @@ namespace CouponDatabase.Models
             return BaseDefs.ArrayFrom<AccessType, AccessTypeEnum>();
         }
 
+        [MaxLength(20)]
         public string Username { get; set; }
+        [MaxLength(20)]
         public string Domain { get; set; }
+        [MaxLength(80)]
         public string Fullname { get; set; }
         public AccessTypeEnum AccessType { get; set; }
     }

@@ -31,10 +31,13 @@ namespace CouponDatabase.Models
         [DataType(DataType.Text)]
         public ApplicationEnum ApplicationType { get; set; }
 
+        [MaxLength(20)]
         public string Channel { get; set; }
+        [MaxLength(80)]
         public string Action { get; set; }
+        [MaxLength(20)]
         public string Username { get; set; }
-        public bool Granted { get; }
+        public Boolean Granted { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime IssuedDate { get; set; }
