@@ -68,7 +68,7 @@
 
 <script>
     $(document).ready(function () {
-        // update button logic for state style
+        // update button logic for enable/disable style
         var btn = $("#modal-trigger");
         var strUpdate = '@CouponDatabase.Properties.Resources.Btn_UpdateSelected';
         var trigger = $("#modal-action");
@@ -92,7 +92,7 @@
             // set number of selected coupons in header
             $("#coupon-number-modal").text($("input:checked.checkbox-coupon").length);
             
-            // set change messages
+            // set change messages according to data-type
             $(".input-coupon").each(function () {
                 var val = $(this).val();
                 var property = this.getAttribute("data-modal");

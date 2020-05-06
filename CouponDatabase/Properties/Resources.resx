@@ -525,4 +525,12 @@
     <value>Error Details</value>
     <comment>Error view text.</comment>
   </data>
+  <data name="Btn_CopyReport" xml:space="preserve">
+    <value>Copy Report</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="ErrorView_CopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard</value>
+    <comment>Error view text.</comment>
+  </data>
 </root>

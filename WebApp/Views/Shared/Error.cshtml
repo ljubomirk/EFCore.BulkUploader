@@ -16,13 +16,17 @@
                 </div>
                 <div class="col s6">
                     <a href="@Url.Action("Index", "Home")" class="waves-effect waves-light btn-flat btn-default right"><i class="material-icons">clear</i></a>
-                    <button onclick="copyToClipboard();" id="btn-copy" class="waves-effect waves-light btn-flat btn-danger right u-m-r-md"><i class="material-icons left">content_copy</i>Copy Report</button>
+                    <button onclick="copyToClipboard();" id="btn-copy" class="waves-effect waves-light btn-flat btn-danger right u-m-r-md">
+                        <i class="material-icons left">content_copy</i>
+                        @CouponDatabase.Properties.Resources.Btn_CopyReport
+                    </button>
                 </div>
             </div>
             <div class="error-content">
                 <p class="u-m-b-remove">
                     <strong>Request ID:</strong> <code>@Model.RequestId</code>
                 </p>
+                <!-- content that is copied is hidden in textarea -->
                 <textarea id="error-msg">@Model.RequestId</textarea>
             </div>
         </div>
@@ -34,6 +38,6 @@
     function copyToClipboard() {
         document.getElementById("error-msg").select();
         document.execCommand('copy');
-        M.toast({ html: 'Copied to clipboard', classes: "success" })
+        M.toast({ html: '@CouponDatabase.Properties.Resources.ErrorView_CopiedToClipboard', classes: "success" })
     }
 </script>

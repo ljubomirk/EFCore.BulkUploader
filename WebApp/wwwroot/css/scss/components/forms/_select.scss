@@ -65,7 +65,8 @@ select {
 
     position: relative;
 
-    input.select-dropdown {
+    input.select-dropdown,
+    select.select-dropdown{
         &:focus {
             border: 1px solid $primary-color;
 

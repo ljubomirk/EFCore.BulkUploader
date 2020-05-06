@@ -67,6 +67,7 @@
                 $('#modal-container-notify-list').html(data).promise().done(function () {
                     $('#modal-notify-list').modal();
                     $('#modal-notify-list').modal('open');
+                    $('select').formSelect();
                 });
             });
         });

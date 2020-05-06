@@ -57,7 +57,7 @@
 <script>
     $(document).ready(function () {
         
-        // update modal when deleting item
+        // update confirmation modal when deleting item
         $(".modal-trigger-remove").click(function () {
             var url = this.getAttribute("data-url");
             var target = this.getAttribute("data-target");
@@ -70,11 +70,13 @@
             if (target == "systems") {
                 header = '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveSystem';
                 content = '@CouponDatabase.Properties.Resources.Modal_ContentRemoveSystem';
+
             } else if (target == "notify-list") {
                 header = '@CouponDatabase.Properties.Resources.Modal_HeadingRemoveNotifyList';
                 content = '@CouponDatabase.Properties.Resources.Modal_ContentRemoveNotifyList';
+
             }
-            console.log(modalAction, url);
+
             modalHeader.html(header);
             modalContent.html(content);
             modalAction.attr("href", url);

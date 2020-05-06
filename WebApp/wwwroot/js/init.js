@@ -12,13 +12,11 @@
         // open calendar on icon click
         $(".date-icon").on('click', function () {
             $(this).parent().children('.calendar').calendar("show");
-            //var dateField = $(this).parent().children('.calendar');
-            //dateField[0].click(function () { console.log("click")});
-            //console.log(dateField[0])
         })
     }
 
     // init tabs
+    $('.tabs').tabs(); // navigation will always be present
     if ($(".tabs-section").length > 0) $(".tabs-section").tabs(config.options.tabs);
 
     // init table
@@ -33,7 +31,7 @@
             config.options.table.columnDefs = [];
         }
         var tables = $('table').DataTable(config.options.table);
-        // place actions to different container
+        // place export button to different container
         if ($('#table-export').length > 0) {
             tables.buttons().container().appendTo('#table-export');
         }

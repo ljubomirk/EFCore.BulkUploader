@@ -151,6 +151,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Report.
+        /// </summary>
+        public static string Btn_CopyReport {
+            get {
+                return ResourceManager.GetString("Btn_CopyReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Btn_Create {
@@ -561,6 +570,15 @@ namespace CouponDatabase.Properties {
         public static string ErrorPromotionNotFound_Message {
             get {
                 return ResourceManager.GetString("ErrorPromotionNotFound_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copied to clipboard.
+        /// </summary>
+        public static string ErrorView_CopiedToClipboard {
+            get {
+                return ResourceManager.GetString("ErrorView_CopiedToClipboard", resourceCulture);
             }
         }
         

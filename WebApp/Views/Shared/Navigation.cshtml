@@ -1,10 +1,15 @@
 ﻿@{ 
-    // TODO: refactor handling active class - stop nav from rerendering if route changes
+    // get controller name to determine active link
     string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+
+    // get role to determine if Admin section will be available
     string Role = Model.AgentGroup;
 }
 <div class="navbar-fixed">
     <nav class="nav-extended">
+        <div class="brand-logo">
+            <img src="~/images/logo.png" alt="logo" />
+        </div>
         <div class="container nav-content">
             <ul class="tabs tabs-transparent">
                 <li class="tab" style="display:none"><a href="#"></a></li>
@@ -18,6 +23,7 @@
                         @CouponDatabase.Properties.Resources.Nav_Lifecycle
                     </a>
                 </li>
+                @* TODO: update role string to variable *@
                 @if (Role == "CouponAdmin")
                 {
                     <li class="tab">
@@ -27,7 +33,7 @@
                     </li>
                 }
                 <li class="tab last right bold-text">
-                    <a class="@(controllerName == "Administration" ? "active" : "")"  href="@Url.Action("Index","Home")" target="_self">
+                    <a class="@(controllerName == "Administration" ? "active" : "")" href="@Url.Action("Index","Home")" target="_self">
                         <span class="grey-text">@CouponDatabase.Properties.Resources.Nav_LoggedIn </span>
                         <span class="black-text">@@@Model.AgentUsername</span>
                     </a>
@@ -37,9 +43,3 @@
     </nav>
 </div>
 <div class="row u-m-b-xl"></div>
-
-<script>
-    $(document).ready(function () {
-        $('.tabs').tabs();
-    });
-</script>

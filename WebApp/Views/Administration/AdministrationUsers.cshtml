@@ -18,26 +18,40 @@
 
 <!-- heading -->
 <div class="row u-p-t-xl">
-    <div class="col s12 m7 u-p-l-remove">
+    <div class="col s12 m6 u-p-l-remove">
         <h4 class="u-m-t-remove">
             @CouponDatabase.Properties.Resources.Nav_AdministrationUsers
         </h4>
     </div>
-    <div class="col s12 m3 select-wrapper-action u-p-r-remove">
-        <select id="select-users" class="">
-            <option value="all" selected>Show Users And Admins</option>
-            <option value="admin">Show Admins</option>
-            <option value="user">Show Users</option>
-        </select>
-    </div>
+    <!-- user filter -->
+    @using (Html.BeginForm("FilterUsers", "Administration", FormMethod.Get, new { role = "form", id = "FilterUsers" }))
+    {
+        <div class="col s12 m4 two-cols select-wrapper-action u-p-r-remove">
+            @for (int i = 0; i < Model.AccessTypes.Count; i++)
+            {
+                <p class="checkbox-hover">
+                    <label class="u-m-r-md">
+                        @Html.CheckBoxFor(c => c.AccessTypes[i].Checked, new { @class = "filled-in", @autocomplete = "off", onchange = "this.form.submit();" })
+                        <span>@Html.DisplayFor(c => c.AccessTypes[i].Label, new { @class = "checkbox-hover checkbox-hover__inline" })</span>
+                        @Html.HiddenFor(c => c.AccessTypes[i].Id)
+                        @Html.HiddenFor(c => c.AccessTypes[i].Label)
+                    </label>
+                </p>
+            }
+        </div>
+    }
+    <!-- /user filter -->
+    <!-- action -->
     <div class="col s12 m2 u-p-r-remove">
         <a href="@Url.Action("UpdateUsers", "Administration")" class="waves-effect waves-light btn-flat btn-primary right" id="update-users">
             <i class="material-icons update-icon left">update</i>
             @CouponDatabase.Properties.Resources.Btn_Update
         </a>
     </div>
+    <!-- /action -->
 </div>
 <!-- /heading -->
+
 <!-- users table -->
 <partial name="_UsersTable" model="Model.Users"/>
 
@@ -48,6 +62,7 @@
 
 <script>
     $(document).ready(function () {
+        // change icon to spinner on button when updating users
         $("#update-users").click(function (e) {
             if ($(".update-icon").hasClass("loading")) {
                 e.preventDefault();

@@ -2339,112 +2339,6 @@ footer {
     width: 400px;
     height: auto; }
 
-table, th, td {
-  border: none; }
-
-table {
-  width: 100%;
-  display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
-  box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
-  table.striped th {
-    color: #9494a2;
-    font-weight: 600;
-    padding-left: 36px !important; }
-    table.striped th:first-child {
-      padding-left: 25px !important;
-      text-align: left; }
-  table.striped tr {
-    border-bottom: none; }
-  table.striped > thead {
-    background-color: #fff;
-    border-bottom: 1px solid rgba(1, 0, 94, 0.08); }
-  table.striped > tbody > tr:nth-child(odd) {
-    background-color: rgba(242, 242, 242, 0.5); }
-  table.striped > tbody > tr > td {
-    border-radius: 0; }
-    table.striped > tbody > tr > td:first-child {
-      padding-left: 25px; }
-    table.striped > tbody > tr > td:not(:first-child) {
-      text-align: center; }
-  table.all-left th {
-    text-align: left !important;
-    padding-left: 18px !important; }
-    table.all-left th:first-child {
-      padding-left: 25px; }
-  table.all-left > tbody > tr > td {
-    text-align: left !important;
-    padding-left: 18px; }
-    table.all-left > tbody > tr > td:first-child {
-      padding-left: 25px; }
-  table.highlight > tbody > tr {
-    transition: background-color .25s ease; }
-    table.highlight > tbody > tr:hover {
-      /*cursor: pointer;*/
-      background-color: rgba(127, 126, 198, 0.1); }
-  table.centered thead tr th, table.centered tbody tr td {
-    text-align: center; }
-
-tr {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-
-td, th {
-  padding: 15px 30px;
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-  border-radius: 2px; }
-  td > a, th > a {
-    color: inherit; }
-
-@media only screen and (max-width: 992px) {
-  table.responsive-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    display: block;
-    position: relative;
-    /* sort out borders */ }
-    table.responsive-table td:empty:before {
-      content: '\00a0'; }
-    table.responsive-table th,
-    table.responsive-table td {
-      margin: 0;
-      vertical-align: top; }
-    table.responsive-table th {
-      text-align: left; }
-    table.responsive-table thead {
-      display: block;
-      float: left; }
-      table.responsive-table thead tr {
-        display: block;
-        padding: 0 10px 0 0; }
-        table.responsive-table thead tr th::before {
-          content: "\00a0"; }
-    table.responsive-table tbody {
-      display: block;
-      width: auto;
-      position: relative;
-      overflow-x: auto;
-      white-space: nowrap; }
-      table.responsive-table tbody tr {
-        display: inline-block;
-        vertical-align: top; }
-    table.responsive-table th {
-      display: block;
-      text-align: right; }
-    table.responsive-table td {
-      display: block;
-      min-height: 1.25em;
-      text-align: left; }
-    table.responsive-table tr {
-      border-bottom: none;
-      padding: 0 10px; }
-    table.responsive-table thead {
-      border: 0;
-      border-right: 1px solid rgba(0, 0, 0, 0.12); } }
-
 .collection {
   margin: 0.5rem 0 1rem 0;
   border: 1px solid #e0e0e0;
@@ -3461,7 +3355,10 @@ nav {
     color: #fff;
     display: inline-block;
     font-size: 2.1rem;
-    padding: 0; }
+    padding-left: 1rem; }
+    nav .brand-logo img {
+      max-height: 50px;
+      max-width: 150px; }
     nav .brand-logo.center {
       left: 50%;
       transform: translateX(-50%); }
@@ -4644,7 +4541,8 @@ body.keyboard-focused .dropdown-content li:focus {
   width: 55%;
   max-width: 700px;
   margin: auto;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
+  overflow: visible;
   border-radius: 4px;
   will-change: top, opacity; }
   .modal:focus {
@@ -5941,7 +5839,8 @@ select {
   .select-wrapper.invalid + label {
     width: 100%;
     pointer-events: none; }
-  .select-wrapper input.select-dropdown {
+  .select-wrapper input.select-dropdown,
+  .select-wrapper select.select-dropdown {
     background-color: #fff;
     border: solid 1px #d5d5df;
     border-radius: 4px;
@@ -5960,9 +5859,11 @@ select {
     display: block;
     user-select: none;
     z-index: 1; }
-    .select-wrapper input.select-dropdown:focus {
+    .select-wrapper input.select-dropdown:focus,
+    .select-wrapper select.select-dropdown:focus {
       border: 1px solid #4d4cac; }
-      .select-wrapper input.select-dropdown:focus + label {
+      .select-wrapper input.select-dropdown:focus + label,
+      .select-wrapper select.select-dropdown:focus + label {
         color: #4d4cac; }
   .select-wrapper .caret {
     position: absolute;
@@ -7860,6 +7761,112 @@ fieldset[disabled] .calendar table tr td span.active.disabled:hover.focus {
  * Included libraries:
  *   DataTables 1.10.20, Buttons 1.6.1, HTML5 export 1.6.1
  */
+table, th, td {
+  border: none; }
+
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0 4px 8px 0 rgba(92, 92, 107, 0.08), 0 1px 3px 0 rgba(77, 76, 172, 0.08); }
+  table.striped th {
+    color: #9494a2;
+    font-weight: 600;
+    padding-left: 36px !important; }
+    table.striped th:first-child {
+      padding-left: 25px !important;
+      text-align: left; }
+  table.striped tr {
+    border-bottom: none; }
+  table.striped > thead {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(1, 0, 94, 0.08); }
+  table.striped > tbody > tr:nth-child(odd) {
+    background-color: rgba(242, 242, 242, 0.5); }
+  table.striped > tbody > tr > td {
+    border-radius: 0; }
+    table.striped > tbody > tr > td:first-child {
+      padding-left: 25px; }
+    table.striped > tbody > tr > td:not(:first-child) {
+      text-align: center; }
+  table.all-left th {
+    text-align: left !important;
+    padding-left: 18px !important; }
+    table.all-left th:first-child {
+      padding-left: 25px; }
+  table.all-left > tbody > tr > td {
+    text-align: left !important;
+    padding-left: 18px; }
+    table.all-left > tbody > tr > td:first-child {
+      padding-left: 25px; }
+  table.highlight > tbody > tr {
+    transition: background-color .25s ease; }
+    table.highlight > tbody > tr:hover {
+      /*cursor: pointer;*/
+      background-color: rgba(127, 126, 198, 0.1); }
+  table.centered thead tr th, table.centered tbody tr td {
+    text-align: center; }
+
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+
+td, th {
+  padding: 15px 30px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px; }
+  td > a, th > a {
+    color: inherit; }
+
+@media only screen and (max-width: 992px) {
+  table.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    position: relative;
+    /* sort out borders */ }
+    table.responsive-table td:empty:before {
+      content: '\00a0'; }
+    table.responsive-table th,
+    table.responsive-table td {
+      margin: 0;
+      vertical-align: top; }
+    table.responsive-table th {
+      text-align: left; }
+    table.responsive-table thead {
+      display: block;
+      float: left; }
+      table.responsive-table thead tr {
+        display: block;
+        padding: 0 10px 0 0; }
+        table.responsive-table thead tr th::before {
+          content: "\00a0"; }
+    table.responsive-table tbody {
+      display: block;
+      width: auto;
+      position: relative;
+      overflow-x: auto;
+      white-space: nowrap; }
+      table.responsive-table tbody tr {
+        display: inline-block;
+        vertical-align: top; }
+    table.responsive-table th {
+      display: block;
+      text-align: right; }
+    table.responsive-table td {
+      display: block;
+      min-height: 1.25em;
+      text-align: left; }
+    table.responsive-table tr {
+      border-bottom: none;
+      padding: 0 10px; }
+    table.responsive-table thead {
+      border: 0;
+      border-right: 1px solid rgba(0, 0, 0, 0.12); } }
+
 /*
  * Table styles
  */
