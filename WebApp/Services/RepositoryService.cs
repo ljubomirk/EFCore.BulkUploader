@@ -73,6 +73,11 @@ namespace WebApp.Services
             return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
         }
 
+        internal List<User> GetAllUsers()
+        {
+            return Context.User.ToList<User>();
+        }
+
         public Coupon GetCouponById(long id)
         {
             return Context.Coupon.Where(c => c.Id == id).First();

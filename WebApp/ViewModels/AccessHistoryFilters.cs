@@ -53,20 +53,50 @@ namespace WebApp.ViewModels
             List<AccessLog> f_ListOfAccessLog = new List<AccessLog>();
 
             if (accessHistoryFilter.AccessTypes[0].Checked)
-                f_ListOfAccessLog.AddRange(allAccessLogs.Where(x => x.Username == accessHistoryFilter.AccessTypes[0].Label).ToList<AccessLog>());
+            {
+                foreach (AccessLog item in allAccessLogs)
+                {
+                    User user = (User)_repo.GetAllUsers().Where(y => y.Username == item.Username).FirstOrDefault();
+                    if (user != null)
+                    {
+                        if((int)user.AccessType == accessHistoryFilter.AccessTypes[0].Id)
+                        {
+                            f_ListOfAccessLog.Add(item);
+                        }
+                    }
+                }
+            }
             if (accessHistoryFilter.AccessTypes[1].Checked)
-                f_ListOfAccessLog.AddRange(allAccessLogs.Where(x => x.Username == accessHistoryFilter.AccessTypes[1].Label).ToList<AccessLog>());
+            {
+                foreach (AccessLog item in allAccessLogs)
+                {
+                    User user = (User)_repo.GetAllUsers().Where(y => y.Username == item.Username).FirstOrDefault();
+                    if (user != null)
+                    {
+                        if ((int)user.AccessType == accessHistoryFilter.AccessTypes[1].Id)
+                        {
+                            f_ListOfAccessLog.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (accessHistoryFilter.AccessGrants[0].Checked)
+                f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.Granted == true).ToList<AccessLog>();
+            if (accessHistoryFilter.AccessGrants[1].Checked)
+                f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.Granted == false).ToList<AccessLog>();
+
 
             if (accessHistoryFilter.AccessFrom != null && accessHistoryFilter.AccessTo != null)
             {
-                f_ListOfAccessLog = allAccessLogs.Where(x => x.IssuedDate >= accessHistoryFilter.AccessFrom && x.IssuedDate <= accessHistoryFilter.AccessTo).ToList<AccessLog>();
+                f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.IssuedDate >= accessHistoryFilter.AccessFrom && x.IssuedDate <= accessHistoryFilter.AccessTo).ToList<AccessLog>();
             }
             else if (accessHistoryFilter.AccessFrom != null || accessHistoryFilter.AccessTo != null)
             {
                 if (accessHistoryFilter.AccessFrom != null)
-                    f_ListOfAccessLog = allAccessLogs.Where(x => x.IssuedDate >= accessHistoryFilter.AccessFrom).ToList<AccessLog>();
+                    f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.IssuedDate >= accessHistoryFilter.AccessFrom).ToList<AccessLog>();
                 if (accessHistoryFilter.AccessTo != null)
-                    f_ListOfAccessLog = allAccessLogs.Where(x => x.IssuedDate <= accessHistoryFilter.AccessTo).ToList<AccessLog>();
+                    f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.IssuedDate <= accessHistoryFilter.AccessTo).ToList<AccessLog>();
             }
 
 
