@@ -115,7 +115,10 @@ namespace WebApp
             //app.UseHttpContextItemsMiddleware();
             app.UseSession();
 
-            //app.UseLdapAuthorizationService();
+            if (!env.EnvironmentName.Equals("Development"))
+            {
+                app.UseLdapAuthorizationService();
+            }
 
             app.UseMvcWithDefaultRoute();
 

@@ -53,7 +53,7 @@ namespace TripleI.ActiveDirectory
             }
             catch (Exception ex)
             {
-                _logger.LogError("Exception message: {0}", ex.Message);
+                _logger.LogError("Exception message: {0} - {1}", ex.Message, ex.StackTrace);
 
                 result = false;
             }

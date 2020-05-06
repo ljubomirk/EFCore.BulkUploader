@@ -22,7 +22,7 @@ namespace TripleI.ActiveDirectory
         {
             string username = context.Request.Headers["domain"];
             _logger.LogInformation("LdapAuthorazation comenses!");
-            LdapAuthorization ad = new LdapAuthorization(username, "", "", "", _logger);
+            LdapAuthorization ad = new LdapAuthorization("coupont", "Rok Seliskar 20", "wdc2t.simobil.tst:389", "DC=simobil,DC=test", _logger);
             ad.Connect();
             if (ad.SearchUsers(username).Count==1)
                 await _next.Invoke(context);
