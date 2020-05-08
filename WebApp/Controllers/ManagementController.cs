@@ -210,7 +210,21 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
         {
-            bool returnValue = _repo.insertCoupons(model.GenerateCoupons());
+            List<Coupon> potentiallySameCoupons = new List<Coupon>();
+            if(model.Prefix != null)
+            {
+                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring(0, model.Prefix.Length) == model.Prefix).ToList<Coupon>());
+            }
+            if (model.Suffix != null)
+            {
+                if(model.Prefix != null)
+                {
+                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>();
+                }
+                else
+                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>());
+            }
+            bool returnValue = _repo.insertCoupons(model.GenerateCoupons(potentiallySameCoupons));
             if (returnValue)
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);

@@ -50,7 +50,7 @@ namespace WebApp.ViewModels
         public IFormFile file { get; set; }
         public Nullable<Int32> MaximumRedeem { get; set; }
 
-        public List<Coupon> GenerateCoupons()
+        public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons)
         {
             DataSet resultFromFile = new DataSet();
             List<Coupon> listOfCoupons = new List<Coupon>();
@@ -169,8 +169,16 @@ namespace WebApp.ViewModels
                             default:
                                 break;
                         }
-
-                        listOfCoupons.Add(coupon);
+                        if (pottentialySameCoupons.Any(x => x.Code == coupon.Code))
+                        {
+                            NumberOfCoupons++;
+                        }
+                        else if (listOfCoupons.Any(x=>x.Code == coupon.Code))
+                        {
+                            NumberOfCoupons++;
+                        }
+                        else
+                            listOfCoupons.Add(coupon);
                     }
                 }
             }

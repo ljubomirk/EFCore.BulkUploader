@@ -235,6 +235,11 @@ namespace WebApp.Services
             return Context.Property.ToList<Property>();
         }
 
+        internal List<Coupon> getCoupons()
+        {
+            return Context.Coupon.ToList<Coupon>();
+        }
+
         /*
          * Generate list of CurrentStatus class instances from CouponStatus.
          * Assign CouponStatus enum's values and names to instances.
