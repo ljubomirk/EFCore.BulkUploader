@@ -612,6 +612,36 @@ namespace WebApp.Services
             return result;
         }
 
+
+        internal dynamic AddUser(User user)
+        {
+            Command result = new Command(CommandStatus.Valid);
+            try
+            {
+                Context.Database.BeginTransaction();
+                Context.User.Add(user);
+                int saved = Context.SaveChanges();
+                if (saved == 1)
+                    result.Status = CommandStatus.Valid;
+                else
+                    result.Status = CommandStatus.ErrorSystem;
+                Context.Database.CommitTransaction();
+            }
+            catch (DbUpdateException update)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = update.Message;
+            }
+            catch (Exception exc)
+            {
+                Context.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = exc.Message;
+            }
+            return result;
+        }
+
     }
 
     public class PromotionFactory : IPromotion

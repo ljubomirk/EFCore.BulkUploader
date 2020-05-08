@@ -45,9 +45,19 @@ namespace WebApp.Controllers
 
         public IActionResult UpdateUsers(UsersViewModel model)
         {
-            model = new UsersViewModel(_context.User.ToList<User>());
-            model.Users.Add(new User() { AccessType = AccessTypeEnum.Manager, Username = "manga", Fullname = "Marko Menađerović", Domain = "MANGA-PC" });
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            if(model.Users != null)
+            {
+                foreach (User user in model.Users)
+                {
+                    ViewBag.Command = _repo.AddUser(user);
+                }
+            }
+            else
+            {
+                model = new UsersViewModel(_context.User.ToList<User>());
+                model.Users.Add(new User() { AccessType = AccessTypeEnum.Manager, Username = "manga", Fullname = "Marko Menađerović", Domain = "MANGA-PC" });
+                ViewBag.Command = new Command(CommandStatus.Valid);
+            }
             return Users(model);
         }
 
