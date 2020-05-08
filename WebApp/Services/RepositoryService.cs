@@ -11,6 +11,7 @@ using CouponDatabase.Lifecycle;
 using WebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace WebApp.Services
 {
@@ -434,7 +435,7 @@ namespace WebApp.Services
 
         internal Command AddSystem(CouponDatabase.Models.System model)
         {
-            Command result = new Command(CommandStatus.Valid); ;
+            Command result = new Command(CommandStatus.Valid);
             try
             {
                 Context.Database.BeginTransaction();
@@ -521,12 +522,12 @@ namespace WebApp.Services
 
         internal dynamic AddNotifyList(ExternalSystemsViewModel model)
         {
-            Command result = null;
+            Command result = new Command(CommandStatus.Valid);
 
             try
             {
                 Context.Database.BeginTransaction();
-                //Context.NotifyList.Add(new NotifyList() {ChannelId = (long)model.DropChannels.Find(x=>x.Selected==true).Value, SystemId = model.SystemId, Url = model.Url });
+                Context.NotifyList.Add(new NotifyList() {ChannelId = Int32.Parse(model.ChannelId), SystemId = Int32.Parse(model.SystemId), Url = model.Url });
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
@@ -552,10 +553,13 @@ namespace WebApp.Services
         internal dynamic UpdateNotifyList(ExternalSystemsViewModel model)
         {
             Command result = null;
+            NotifyList notifyList = new NotifyList() { ChannelId = Int32.Parse(model.ChannelId), SystemId = Int32.Parse(model.SystemId), Url = model.Url };
+            NotifyList targetNotifyList = new NotifyList();
             try
             {
                 Context.Database.BeginTransaction();
-                //Context.NotifyList.Update(new NotifyList() { ChannelId = model.ChannelId, SystemId = model.SystemId, Url = model.Url });
+                targetNotifyList = Context.NotifyList.Where(x=> x.ChannelId == notifyList.ChannelId && x.SystemId == notifyList.SystemId).First();
+                targetNotifyList.Url = notifyList.Url;
                 int saved = Context.SaveChanges();
                 Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
@@ -585,7 +589,7 @@ namespace WebApp.Services
             try
             {
                 Context.Database.BeginTransaction();
-                Context.NotifyList.Remove(Context.NotifyList.Find(new NotifyList() { ChannelId = channelId, SystemId = systemId }));
+                Context.NotifyList.Remove(Context.NotifyList.Where(x => x.ChannelId == channelId && x.SystemId == systemId).First());
                 int saved = Context.SaveChanges();
                 Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);

@@ -101,7 +101,6 @@ namespace WebApp.Controllers
         {
             if(model.Channels==null && model.Systems == null)
             {
-                model = new ExternalSystemsViewModel();
                 model.AddDropChannels(_context.IssuerChannel.ToList<IssuerChannel>());
                 model.AddDropSystems(_context.System.ToList<CouponSystem>());
                 model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
