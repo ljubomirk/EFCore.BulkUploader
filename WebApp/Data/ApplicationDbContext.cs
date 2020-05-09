@@ -52,6 +52,9 @@ namespace WebApp.Data
             modelBuilder.Entity<Coupon>()
                         .HasIndex(b => b.Code)
                         .IsUnique();
+            modelBuilder.Entity<CouponSystem>()
+                        .HasIndex(b => b.Name)
+                        .IsUnique();
             /* Primary key */
             modelBuilder.Entity<User>().HasKey(
                 u => new { u.Username }
