@@ -9,15 +9,15 @@
         <div class="container">
             <div class="row u-m-t-md">
                 <div class="col s12 m4">
-                    <p class="section-headline">@Html.DisplayNameFor(f => f.AccessTypes)</p>
+                    <p class="section-headline">@Html.DisplayNameFor(f => f.ApplicationTypes)</p>
                     <p>
-                        @for (int i = 0; i < Model.AccessTypes.Count; i++)
+                        @for (int i = 0; i < Model.ApplicationTypes.Count; i++)
                         {
                             <label class="u-m-r-md">
-                                @Html.CheckBoxFor(c => c.AccessTypes[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
-                                <span>@Html.DisplayFor(c => c.AccessTypes[i].Label, new { @class="checkbox-hover checkbox-hover__inline" })</span>
-                                @Html.HiddenFor(c => c.AccessTypes[i].Id)
-                                @Html.HiddenFor(c => c.AccessTypes[i].Label)
+                                @Html.CheckBoxFor(c => c.ApplicationTypes[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
+                                <span>@Html.DisplayFor(c => c.ApplicationTypes[i].Label, new { @class="checkbox-hover checkbox-hover__inline" })</span>
+                                @Html.HiddenFor(c => c.ApplicationTypes[i].Id)
+                                @Html.HiddenFor(c => c.ApplicationTypes[i].Label)
                             </label>
                         }
                     </p>

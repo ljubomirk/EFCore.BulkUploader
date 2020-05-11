@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="tab tab-sub">
-                <a class="subnav-link @(ViewBag.PageName == "AdministrationAccessHistory" ? "active" : "")" target="_self" href="@Url.Action("AccessHistory","Administration")">
+                <a class="subnav-link @(ViewBag.PageName == "AdministrationAccessHistory" ? "active" : "")" target="_self" href="@Url.Action("FilteredListAccessHistory","Administration")">
                     @CouponDatabase.Properties.Resources.Nav_AdministrationAccessHistory
                 </a>
             </li>

@@ -53,9 +53,10 @@ namespace WebApp.Controllers
         public IActionResult ListPromotions()
         {
             PromotionListViewModel model = new PromotionListViewModel();
-            model.Promotions.AddRange(_repo.GetAllPromotions());
+            model.Promotions.AddRange(_repo.GetAllPromotions().Where(x=>x.Active == true));
             model.Filter = new PromotionFilter();
             model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
+
             return View("PromotionList",model);
         }
 

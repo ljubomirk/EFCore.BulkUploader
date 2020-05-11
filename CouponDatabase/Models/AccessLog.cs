@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponDatabase.Lifecycle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,9 +9,11 @@ namespace CouponDatabase.Models
 {
     public enum ApplicationEnum
     {
-        API,
-        WebApp
+        WebApp,
+        API
     }
+
+    public class ApplicationType : BaseDefs { }
 
     public class AccessLog
     {
@@ -41,6 +44,11 @@ namespace CouponDatabase.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime IssuedDate { get; set; }
+
+        public static List<ApplicationType> GetApplicationTypes()
+        {
+            return BaseDefs.ArrayFrom<ApplicationType, ApplicationEnum>();
+        }
 
     }
 

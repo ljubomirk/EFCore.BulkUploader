@@ -20,7 +20,7 @@ namespace WebApp.ViewModels
             _repo = new RepositoryServices(context);
         }
 
-        public List<CheckedItem> AccessTypes{ get; set; }
+        public List<CheckedItem> ApplicationTypes{ get; set; }
         public List<CheckedItem> AccessGrants {get; set;}
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -33,17 +33,17 @@ namespace WebApp.ViewModels
 
         public AccessHistoryFilters()
         {
-            AccessTypes = new List<CheckedItem>();
-            foreach(var type in User.GetAccessTypes())
+            ApplicationTypes = new List<CheckedItem>();
+            foreach(var type in AccessLog.GetApplicationTypes())
             {
-                AccessTypes.Add(new CheckedItem() { Id = type.Id, Checked = true, Label = type.Name });
+                ApplicationTypes.Add(new CheckedItem() { Id = type.Id, Checked = true, Label = type.Name });
             }
             AccessGrants = new List<CheckedItem>
             {
                 new CheckedItem() { Id = 0, Checked = true, Label = "Yes" },
                 new CheckedItem() { Id = 1, Checked = false, Label = "No" }
             };
-            AccessFrom = DateTime.Now.AddMonths(-1);
+            AccessFrom = DateTime.Now.AddDays(-1);
             AccessTo = DateTime.Now;
         }
 
@@ -52,39 +52,19 @@ namespace WebApp.ViewModels
             List<AccessLog> allAccessLogs = _repo.GetAllAccessLogs();
             List<AccessLog> f_ListOfAccessLog = new List<AccessLog>();
 
-            if (accessHistoryFilter.AccessTypes[0].Checked)
+            if (accessHistoryFilter.ApplicationTypes[0].Checked)
             {
-                foreach (AccessLog item in allAccessLogs)
-                {
-                    User user = (User)_repo.GetAllUsers().Where(y => y.Username == item.Username).FirstOrDefault();
-                    if (user != null)
-                    {
-                        if((int)user.AccessType == accessHistoryFilter.AccessTypes[0].Id)
-                        {
-                            f_ListOfAccessLog.Add(item);
-                        }
-                    }
-                }
+                f_ListOfAccessLog.AddRange(_repo.GetAllAccessLogs().Where(x => (int)x.ApplicationType == accessHistoryFilter.ApplicationTypes[0].Id));
             }
-            if (accessHistoryFilter.AccessTypes[1].Checked)
+            if (accessHistoryFilter.ApplicationTypes[1].Checked)
             {
-                foreach (AccessLog item in allAccessLogs)
-                {
-                    User user = (User)_repo.GetAllUsers().Where(y => y.Username == item.Username).FirstOrDefault();
-                    if (user != null)
-                    {
-                        if ((int)user.AccessType == accessHistoryFilter.AccessTypes[1].Id)
-                        {
-                            f_ListOfAccessLog.Add(item);
-                        }
-                    }
-                }
+                f_ListOfAccessLog.AddRange(_repo.GetAllAccessLogs().Where(x => (int)x.ApplicationType == accessHistoryFilter.ApplicationTypes[1].Id));
             }
 
             if (accessHistoryFilter.AccessGrants[0].Checked)
                 f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.Granted == true).ToList<AccessLog>();
             if (accessHistoryFilter.AccessGrants[1].Checked)
-                f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.Granted == false).ToList<AccessLog>();
+                f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.Granted == true).ToList<AccessLog>();
 
 
             if (accessHistoryFilter.AccessFrom != null && accessHistoryFilter.AccessTo != null)
