@@ -15,7 +15,8 @@ namespace TripleI.ActiveDirectory
             /*ClientCredential cred = new ClientCredential("abc", "def");
             var authContext = new AuthenticationContext("https://login.microsoftonline.com/common");
             var result = authContext.AcquireTokenAsync("https://graph.microsoft.com",
-                 cred );*/
+                 cred );
+            */
 
             /* 
              * Example usages:

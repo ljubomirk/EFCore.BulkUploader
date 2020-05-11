@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -20,12 +21,25 @@ namespace TripleI.ActiveDirectory
 
         public async Task Invoke(HttpContext context)
         {
-            string username = context.Request.Headers["domain"];
-            _logger.LogInformation("LdapAuthorazation comenses!");
+            string username = Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
+            _logger.LogInformation("LdapAuthorization for {0}.", username);
+            context.Request.Headers.TryGetValue("Authorization", out var authorization);
+            _logger.LogInformation("LdapService for authorization:{0}!", string.Join("",authorization.ToArray()));
+            _logger.LogInformation("LdapService for username:{0}!", username);
             LdapAuthorization ad = new LdapAuthorization("coupont", "Rok Seliskar 20", "wdc2t.simobil.tst:389", "DC=simobil,DC=test", _logger);
             ad.Connect();
-            if (ad.SearchUsers(username).Count==1)
+            if (ad.SearchUsers(username).Count == 0) { 
+                context.Request.Headers.Add("ApplicationGroup", new Microsoft.Extensions.Primitives.StringValues("None"));
                 await _next.Invoke(context);
+            }
+            else
+            {
+                if (ad.SearchUsersInGroup("Coupon Manager").Count == 1)
+                    context.Request.Headers.Add("ApplicationGroup", new Microsoft.Extensions.Primitives.StringValues("Manager"));
+                if (ad.SearchUsersInGroup("Coupon Administrator").Count == 1)
+                    context.Request.Headers.Add("ApplicationGroup", new Microsoft.Extensions.Primitives.StringValues("Administrator"));
+                await _next.Invoke(context);
+            }
             _logger.LogInformation(message: "LdapAuth done {DateTime}. ", DateTime.Now.ToLocalTime().ToString());
         }
     }
