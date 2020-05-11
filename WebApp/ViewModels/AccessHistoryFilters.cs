@@ -43,8 +43,8 @@ namespace WebApp.ViewModels
                 new CheckedItem() { Id = 0, Checked = true, Label = "Yes" },
                 new CheckedItem() { Id = 1, Checked = false, Label = "No" }
             };
-            AccessFrom = DateTime.Now.AddDays(-1);
-            AccessTo = DateTime.Now;
+            AccessFrom = DateTime.Now.Date;
+            AccessTo = DateTime.Now.Date.AddHours(23.99);
         }
 
         public List<AccessLog> GetFilteredAccessHistory(AccessHistoryFilters accessHistoryFilter)
