@@ -148,12 +148,16 @@ namespace WebApp.Services
         #region PromotionCommands
         public List<Promotion> GetAllPromotions()
         {
+            _logger.LogDebug(Utils.GetLogFormat() + "GetAllPromotions");
             List<Promotion> allPromotions = Context.Promotion.ToList<Promotion>();
-            foreach (Promotion promotion in allPromotions)
+            allPromotions.ForEach(p => 
                 {
-                GetPromotionData(promotion);
+                    //_logger.LogDebug(Utils.GetLogFormat() + "Loading hasCoupons {0}", p.Id);
+                    p.HasCoupons = getHasCouponsForPromotion(p.Id);
+                    GetPromotionData(p);
                 }
-
+            );
+            _logger.LogDebug(Utils.GetLogFormat() + "Return promotion");
             return allPromotions;
         }
         /*
@@ -217,26 +221,28 @@ namespace WebApp.Services
         {
             _logger.LogDebug(Utils.GetLogFormat()+"Loading promotion {1}:{2}", promotion.Id,promotion.Code);
             Context.Entry(promotion).Collection(p => p.PromotionProperties).Load();
+            //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:props", promotion.Id);
             Context.Entry(promotion).Collection(p => p.PromotionAwardChannels).Load();
+            //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:awardCh", promotion.Id);
             Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();
+            //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:issuerCh", promotion.Id);
             //Context.Entry(promotion).Collection(p => p.Coupons).Load();
-            if (getHasCouponsForPromotion(promotion.Id))
-            {
-                promotion.Coupons = new List<Coupon>();
-                promotion.Coupons = GetPromotionCoupons(promotion);
-            }
+            _logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:has&Load", promotion.Id);
             foreach (var promProp in promotion.PromotionProperties)
             {
                 promProp.Property = Context.Property.Find(promProp.PropertyId);
             }
+            //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:props&Load", promotion.Id);
             foreach (var awardChannel in promotion.PromotionAwardChannels)
             {
                 awardChannel.AwardChannel = Context.AwardChannel.Find(awardChannel.AwardChannelId);
             }
+            //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:award&Load", promotion.Id);
             foreach (var channel in promotion.PromotionIssuerChannels)
             {
                 channel.IssuerChannel = Context.IssuerChannel.Find(channel.IssuerChannelId);
             }
+            _logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:issuer&Load", promotion.Id);
 
             return promotion;
         }

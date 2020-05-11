@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using CouponDatabase.Properties;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace CouponDatabase.Models
 {
@@ -33,10 +34,9 @@ namespace CouponDatabase.Models
         [Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidTo { get; set; }
         public int CouponSeries { get; set; }
-        public Boolean HasCoupons
-        {
-            get => this.GetHasCoupons();
-        }
+
+        [NotMapped]
+        public Boolean HasCoupons{ get; set; }
         #endregion
         #region Construction
         public Promotion()
