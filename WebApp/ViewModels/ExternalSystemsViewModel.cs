@@ -21,6 +21,12 @@ namespace WebApp.ViewModels
         [DataType(DataType.Url)]
         public string Url { get; set; }
 
+        public ExternalSystemsViewModel():base()
+        {
+            
+        }
+        public ExternalSystemsViewModel(string username, string group):base(username, group) { }
+
         public void AddSystems(IList<CouponSystem> systems)
         {
             Systems = systems.ToList<CouponSystem>();

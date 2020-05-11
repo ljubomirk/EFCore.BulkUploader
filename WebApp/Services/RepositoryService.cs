@@ -12,6 +12,7 @@ using WebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WebApp.Services
 {
@@ -58,9 +59,25 @@ namespace WebApp.Services
             return result;
         }
 
-        internal List<AccessLog> GetAllAccessLogs()
+        internal List<AccessLog> GetAccessLogs(DateTime? accessFrom, DateTime? accessTo, List<CheckedItem> grantedItems, List<CheckedItem> accessTypes)
         {
-            return Context.AccessLog.ToList<AccessLog>();
+            List<long> grantFilter = new List<long>();
+            foreach(var granted in grantedItems)
+            {
+                if(granted.Checked)
+                    grantFilter.Add(granted.Id);
+            }
+            List<int> accessFilter = new List<int>();
+            foreach (var access in accessTypes)
+            {
+                if (access.Checked)
+                    grantFilter.Add(access.Id);
+            }
+            return Context.AccessLog.Where(item => item.IssuedDate >= accessFrom)
+                    .Where(item => item.IssuedDate <= accessTo)
+                    .Where(item => grantFilter.Contains(item.Granted ? 0 : 1))
+                    .Where(item => accessFilter.Contains((int)item.ApplicationType))
+                    .ToList();
         }
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
@@ -133,9 +150,9 @@ namespace WebApp.Services
         {
             List<Promotion> allPromotions = Context.Promotion.ToList<Promotion>();
             foreach (Promotion promotion in allPromotions)
-            {
+                {
                 GetPromotionData(promotion);
-            }
+                }
 
             return allPromotions;
         }

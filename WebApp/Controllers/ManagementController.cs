@@ -17,23 +17,26 @@ using CouponDatabase.Lifecycle;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using WebApp.GenericFilters;
 
 namespace WebApp.Controllers
 {
 
     //[Authorize]
     [Route("Management/[action]")]
-    public class ManagementController : Controller
+    [ControllerExceptionFilterAttribute]
+    public class ManagementController : BaseController
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ManagementController> _logger;
-        private readonly ContextData _contextData;
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
             base.OnActionExecuting(context);
+            if (_contextData.AgentUsername.Equals("") || _contextData.AgentGroup.Equals(""))
+                new Exception("User not authorized");
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData?.AgentUsername, true);
         }
 
         public ManagementController(ApplicationDbContext context, ILogger<ManagementController> logger)
@@ -41,8 +44,6 @@ namespace WebApp.Controllers
              _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
-            _contextData = new ContextData();
-
         }
 
         /// <summary>
@@ -52,12 +53,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult ListPromotions()
         {
-            PromotionListViewModel model = new PromotionListViewModel();
-            model.Promotions.AddRange(_repo.GetAllPromotions().Where(x=>x.Active == true));
-            model.Filter = new PromotionFilter();
-            model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
-
-            return View("PromotionList",model);
+            return FilteredListPromotions(new PromotionFilter());
         }
 
         // <summary>
@@ -67,7 +63,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult FilteredListPromotions(PromotionFilter filter)
         {
-            PromotionListViewModel model = new PromotionListViewModel();
+            PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             Filters filters = new Filters(_context);
 
             List<Promotion> filteredListOfPromotions = filters.GetFilteredPromotionList(filter);
@@ -85,12 +81,12 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult AddCouponSeries(long id)
         {
-            CouponSeriesViewModel model = new CouponSeriesViewModel();
             Promotion promotion = _repo.GetPromotionWithId(id);
-            model.PromotionId = id;
+            CouponSeriesViewModel model = new CouponSeriesViewModel(_contextData, promotion.ValidFrom, promotion.ValidTo);
+            model.PromotionId = promotion.Id;
             model.CouponWithLetters = true;
             model.CouponWithNumbers = true;
-            model.CouponSeries = _repo.GetCouponSeriesVal(id) + 1;
+            model.CouponSeries = promotion.CouponSeries + 1;
             if (isPropertyChecked("AllowMultipleRedeems", promotion.PromotionProperties as List<PromotionProperty>))
             {
                 model.MaximumRedeem = 1;
@@ -101,9 +97,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Enable(long Id, bool enable)
         {
-            PromotionListViewModel model = new PromotionListViewModel();
             Promotion promotion = _repo.GetPromotionWithId(Id);
-            
+
             promotion.Enabled = enable;
             _repo.UpdatePromotion(promotion);
 
@@ -112,6 +107,7 @@ namespace WebApp.Controllers
 
             ViewBag.Command = new Command(CommandStatus.Valid);
 
+            PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             model.Promotions.AddRange(_repo.GetAllPromotions());
             model.Filter = new PromotionFilter();
             model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
@@ -121,7 +117,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult CreatePromotion()
         {
-            PromotionDetailsViewModel model = new PromotionDetailsViewModel
+            PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
             {
                 Promotion = new Promotion(),
                 Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>()),
@@ -141,7 +137,7 @@ namespace WebApp.Controllers
             if (promotion.HasCoupons)
             {
                 view = "PromotionList";
-                PromotionListViewModel model = new PromotionListViewModel();
+                PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
                 model.Promotions.AddRange(_repo.GetAllPromotions());
                 model.Filter = new PromotionFilter();
                 model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
@@ -150,7 +146,7 @@ namespace WebApp.Controllers
             else
             {
                 _repo.GetPromotionData(promotion);
-                PromotionDetailsViewModel model = new PromotionDetailsViewModel
+                PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
                 {
                     Promotion = promotion,
                     Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
@@ -184,6 +180,7 @@ namespace WebApp.Controllers
 
                     ViewBag.Command = new Command(CommandStatus.Valid);
                 }
+                promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
             }
             else
             {
@@ -204,13 +201,14 @@ namespace WebApp.Controllers
                     ViewBag.Command = new Command(CommandStatus.DataError_PromotionUpdateFailed);
                 }
             }
-            return View("PromotionDetails", viewModel);
+            return RedirectToAction("AddCouponSeries", new { id = promo.Id });
         }
 
 
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
         {
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - num:{0}", model.NumberOfCoupons);
             List<Coupon> potentiallySameCoupons = new List<Coupon>();
             if(model.Prefix != null)
             {
@@ -225,7 +223,11 @@ namespace WebApp.Controllers
                 else
                     potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>());
             }
-            bool returnValue = _repo.insertCoupons(model.GenerateCoupons(potentiallySameCoupons));
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
+            List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons);
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
+            bool returnValue = _repo.insertCoupons(coupons);
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", returnValue);
             if (returnValue)
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
@@ -236,7 +238,8 @@ namespace WebApp.Controllers
             {
                 ViewBag.Command = new Command(CommandStatus.DataError_CouponInsertFailed);
             }
-            return View("PromotionCouponSeries", model);
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
+            return RedirectToAction("AddCouponSeries", new { id = model.PromotionId });
         }
 
         #region TEST
@@ -252,7 +255,7 @@ namespace WebApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel(_contextData.AgentUsername, _contextData.AgentGroup) { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         #region Helpers

@@ -19,6 +19,8 @@ using SoapCore.Extensibility;
 using Web.Services.Soap;
 using WebApp.Data;
 using TripleI.ActiveDirectory;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace WebApp
 {
@@ -44,8 +46,9 @@ namespace WebApp
             });
 
             services.AddLogging();
-            //TODO: services.AddAuthentication();
-            //TODO: services.AddAuthorization();
+
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddAuthorization();
             bool dataLoggingOption = Configuration.GetValue<bool>("DbProvider:Logging");
             string DbProviderName = Configuration.GetValue<string>("DbProvider:Name");
             if (DbProviderName == "Oracle")
@@ -73,12 +76,13 @@ namespace WebApp
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
             services.AddMvc().AddMvcOptions(o=> o.EnableEndpointRouting=false);
 
 #if DEBUG
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 #endif
+
+            services.AddHttpContextAccessor();
 
             services.AddSoapCore();
 
@@ -98,7 +102,7 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.EnvironmentName.Equals("Internal"))
+            if (env.EnvironmentName.Equals("Development"))
             {
                 app.UseDeveloperExceptionPage();
             }

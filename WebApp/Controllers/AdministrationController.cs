@@ -11,60 +11,46 @@ using Microsoft.Extensions.Logging;
 using WebApp.Data;
 using WebApp.Services;
 using WebApp.ViewModels;
-using CouponDatabase.Models;
 using CouponSystem = CouponDatabase.Models.System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
-    public class AdministrationController : Controller
+    public class AdministrationController : BaseController
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AdministrationController> _logger;
-        private readonly ContextData _contextData;
 
         public AdministrationController(ApplicationDbContext context, ILogger<AdministrationController> logger)
         {
             _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
-            _contextData = new ContextData();
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
             base.OnActionExecuting(context);
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
         }
-        public IActionResult Users(UsersViewModel model)
+        public IActionResult Users()
         {
-            if(model.Users==null)
-                model = new UsersViewModel(_context.User.ToList<User>());
-            return View("AdministrationUsers", model);
+            List<User> users = _repo.GetAllUsers();
+            UsersViewModel userModel = new UsersViewModel(_contextData.AgentUsername, _contextData.AgentGroup, users);
+            return View("AdministrationUsers", userModel);
         }
 
         public IActionResult UpdateUsers(UsersViewModel model)
         {
-            if(model.Users != null)
-            {
-                foreach (User user in model.Users)
-                {
-                    ViewBag.Command = _repo.AddUser(user);
-                }
-            }
-            else
-            {
-                model = new UsersViewModel(_context.User.ToList<User>());
-                model.Users.Add(new User() { AccessType = AccessTypeEnum.Manager, Username = "manga", Fullname = "Marko Menađerović", Domain = "MANGA-PC" });
-                ViewBag.Command = new Command(CommandStatus.Valid);
-            }
-            return Users(model);
+            ViewBag.Command = new Command(CommandStatus.Valid);
+            return RedirectToAction("Users");
         }
 
         public IActionResult FilterUsers(UsersViewModel model)
         {
             List<User> users = new List<User>();
-            if (model.Users==null)
+            if (model.Users == null)
             {
                 foreach (CheckedItem item in model.AccessTypes)
                 {
@@ -77,12 +63,15 @@ namespace WebApp.Controllers
                     }
                 }
             }
-            return View("AdministrationUsers", new UsersViewModel(users));
+            else
+                users = model.Users;
+            UsersViewModel userModel = new UsersViewModel(_contextData.AgentUsername, _contextData.AgentGroup, users);
+            return View("AdministrationUsers", userModel);
         }
 
         public IActionResult ExternalSystemsView()
         {
-            ExternalSystemsViewModel model = new ExternalSystemsViewModel();
+            ExternalSystemsViewModel model = new ExternalSystemsViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             model.AddSystems(_context.System.ToList<CouponSystem>());
             model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
             model.AddChannels(_context.IssuerChannel.ToList<IssuerChannel>());
@@ -109,13 +98,14 @@ namespace WebApp.Controllers
         }
         public IActionResult NotifyListDetails(ExternalSystemsViewModel model)
         {
-            if(model.Channels==null && model.Systems == null)
+            ExternalSystemsViewModel ret = new ExternalSystemsViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
+            if (model.Channels==null && model.Systems == null)
             {
-                model.AddDropChannels(_context.IssuerChannel.ToList<IssuerChannel>());
-                model.AddDropSystems(_context.System.ToList<CouponSystem>());
-                model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
+                ret.AddDropChannels(_context.IssuerChannel.ToList<IssuerChannel>());
+                ret.AddDropSystems(_context.System.ToList<CouponSystem>());
+                ret.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
             }
-            return PartialView("_ChannelsNotifyListModal", model);
+            return PartialView("_ChannelsNotifyListModal", ret);
         }
         public IActionResult AddNotifyList(ExternalSystemsViewModel model)
         {
@@ -135,7 +125,7 @@ namespace WebApp.Controllers
         public IActionResult AccessHistory(AccessHistoryViewModel model)
         {
             if (model.Filters == null) {
-                model = new AccessHistoryViewModel
+                model = new AccessHistoryViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
                 {
                     Filters = new AccessHistoryFilters()
                 };
@@ -145,7 +135,7 @@ namespace WebApp.Controllers
         }
         public IActionResult FilteredListAccessHistory(AccessHistoryFilters filter)
         {
-            AccessHistoryViewModel model = new AccessHistoryViewModel();
+            AccessHistoryViewModel model = new AccessHistoryViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             //model.AddLogs(_context.AccessLog.ToList<AccessLog>());
 
             AccessHistoryFilters filters = new AccessHistoryFilters(_context);

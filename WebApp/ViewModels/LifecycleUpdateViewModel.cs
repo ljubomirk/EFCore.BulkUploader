@@ -45,20 +45,28 @@ namespace WebApp.ViewModels
         public List<CouponCommand> CouponsSelected { get; set; }
         public List<LifecycleCommand> LifecycleCommands { get; set; }
 
-        public LifecycleUpdateViewModel()
-            {
-                CouponList = new CouponList();
-                CouponList.Coupons = new List<Coupon>();
-            }
-            public void Add(Coupon coupon)
-            {
-                CouponList = new CouponList();
-                CouponList.Coupons.Add(coupon);
-            }
-            public void AddRange(IList<Coupon> coupons)
-            {
-                CouponList = new CouponList();
-                CouponList.Coupons.AddRange(coupons);
-            }
+        private void Init()
+        {
+            CouponList = new CouponList();
+            CouponList.Coupons = new List<Coupon>();
         }
+        public LifecycleUpdateViewModel()
+        {
+            Init();
+        }
+        public LifecycleUpdateViewModel(string username, string group) : base(username, group)
+        {
+            Init();
+        }
+        public void Add(Coupon coupon)
+        {
+            CouponList = new CouponList();
+            CouponList.Coupons.Add(coupon);
+        }
+        public void AddRange(IList<Coupon> coupons)
+        {
+            CouponList = new CouponList();
+            CouponList.Coupons.AddRange(coupons);
+        }
+    }
 }

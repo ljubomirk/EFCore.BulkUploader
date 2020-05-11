@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Security;
 using System.Threading.Tasks;
 
 namespace WebApp.ViewModels
@@ -13,6 +14,9 @@ namespace WebApp.ViewModels
         public List<CheckedItem> IssuerChannels { get; set; }
         public Promotion Promotion { get; set; }
         public bool hasEndDate { get; set; }
+
+        public PromotionDetailsViewModel() : base() { }
+        public PromotionDetailsViewModel(string username, string group) : base(username, group){ }
     }
 
 }

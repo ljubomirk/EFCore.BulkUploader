@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Migrations;
 
 namespace WebApp.ViewModels
 {
@@ -12,11 +13,19 @@ namespace WebApp.ViewModels
         public PromotionFilter PromotionFilter;
         public List<Coupon> Coupons { get; set; }
         public CouponFilters CouponFilter;
-        public LifecycleSearchViewModel()
+
+        private void Init()
         {
             Coupons = new List<Coupon>();
             Promotions = new List<Promotion>();
-
+        }
+        public LifecycleSearchViewModel()
+        {
+            Init();
+        }
+        public LifecycleSearchViewModel(string username, string group) : base(username, group)
+        {
+            Init();
         }
         public void AddPromotion(Promotion promo)
         {

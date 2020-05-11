@@ -12,8 +12,13 @@ namespace WebApp.ViewModels
         public string AgentGroup { get; private set; }
         public ContextData()
         {
-            AgentUsername = "Kazimir";
-            AgentGroup = "CouponAdmin";
+            AgentUsername = "";
+            AgentGroup = "";
+        }
+        public ContextData(string username, string group)
+        {
+            AgentUsername = username;
+            AgentGroup = (group!=null)? group: "";
         }
     }
 }

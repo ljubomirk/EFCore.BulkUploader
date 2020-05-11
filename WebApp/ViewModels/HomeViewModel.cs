@@ -11,7 +11,9 @@ namespace WebApp.ViewModels
 
         public HomeViewModel()
         {
-            
+        }
+        public HomeViewModel(string username, string group) : base(username, group)
+        {
         }
     }
 }

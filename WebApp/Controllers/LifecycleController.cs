@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
+using WebApp.GenericFilters;
 using WebApp.Services;
 using WebApp.ViewModels;
 using static CouponDatabase.Models.Coupon;
@@ -22,24 +23,23 @@ namespace WebApp.Controllers
 
     //[Authorize]
     [Route("Lifecycle/[action]")]
-    public class LifecycleController : Controller
+    [ControllerExceptionFilterAttribute]
+    public class LifecycleController : BaseController
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private ILogger _logger;
-        private readonly ContextData _contextData;
         public LifecycleController(ApplicationDbContext context, ILogger<LifecycleController> logger)
         {      
              _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
-            _contextData = new ContextData();
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
             base.OnActionExecuting(context);
+            _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData.AgentUsername, true);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace WebApp.Controllers
         public IActionResult Search(PromotionFilter promotionFilter, CouponFilters couponFilter)
         {
             Filters filters = new Filters(_context); // Filter model instance with filter methods
-            LifecycleUpdateViewModel model = new LifecycleUpdateViewModel();
+            LifecycleUpdateViewModel model = new LifecycleUpdateViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
 
             // Check if LMM object exists in session
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
@@ -105,6 +105,7 @@ namespace WebApp.Controllers
             // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
+            f_ListOfCoupons = f_ListOfCoupons.Take<Coupon>(100).ToList();
 
             // Filter promotions by retrieved coupons
             IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
@@ -297,7 +298,7 @@ namespace WebApp.Controllers
              * - improve error reporting format and output
              */
 
-            LifecycleUpdateViewModel modelCopy = new LifecycleUpdateViewModel(){ 
+            LifecycleUpdateViewModel modelCopy = new LifecycleUpdateViewModel(_contextData.AgentUsername, _contextData.AgentGroup){ 
                 Customer = model.Customer,
                 RedeemTo = model.RedeemTo,
                 SelectedPromoCode = model.SelectedPromoCode,
@@ -611,7 +612,7 @@ namespace WebApp.Controllers
 
         public LifecycleSearchViewModel initLifecycleFilters()
         {
-            LifecycleSearchViewModel model = new LifecycleSearchViewModel();
+            LifecycleSearchViewModel model = new LifecycleSearchViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             
             model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
             model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
@@ -631,7 +632,7 @@ namespace WebApp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel(_contextData.AgentUsername, _contextData.AgentGroup) { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         /*

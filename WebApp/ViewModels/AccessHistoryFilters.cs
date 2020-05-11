@@ -49,10 +49,13 @@ namespace WebApp.ViewModels
 
         public List<AccessLog> GetFilteredAccessHistory(AccessHistoryFilters accessHistoryFilter)
         {
-            List<AccessLog> allAccessLogs = _repo.GetAllAccessLogs();
-            List<AccessLog> f_ListOfAccessLog = new List<AccessLog>();
+            List<AccessLog> accessLogs = _repo.GetAccessLogs(accessHistoryFilter.AccessFrom,
+                                                                accessHistoryFilter.AccessTo, 
+                                                                accessHistoryFilter.AccessGrants,
+                                                                accessHistoryFilter.AccessTypes);
+            List<AccessLog> f_ListOfAccessLog = accessLogs;
 
-            if (accessHistoryFilter.ApplicationTypes[0].Checked)
+            /*if (accessHistoryFilter.AccessTypes[0].Checked)
             {
                 f_ListOfAccessLog.AddRange(_repo.GetAllAccessLogs().Where(x => (int)x.ApplicationType == accessHistoryFilter.ApplicationTypes[0].Id));
             }
@@ -78,7 +81,7 @@ namespace WebApp.ViewModels
                 if (accessHistoryFilter.AccessTo != null)
                     f_ListOfAccessLog = f_ListOfAccessLog.Where(x => x.IssuedDate <= accessHistoryFilter.AccessTo).ToList<AccessLog>();
             }
-
+            */
 
             return f_ListOfAccessLog;
         }

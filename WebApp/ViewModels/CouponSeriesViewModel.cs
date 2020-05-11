@@ -44,12 +44,22 @@ namespace WebApp.ViewModels
         public CouponStatus Status { get; set; }
         public string Prefix { get; set; }
         public string Suffix { get; set; }
+        [Range(8, 20)]
         public int CouponMaxLength { get; set; }
         public bool CouponWithLetters { get; set; }
         public bool CouponWithNumbers { get; set; }
         public IFormFile file { get; set; }
         public Nullable<Int32> MaximumRedeem { get; set; }
 
+        public CouponSeriesViewModel() { 
+        }
+        public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo)
+        {
+            AssignableFrom = PromotionValidFrom;
+            AssignableUntil = PromotionValidTo;
+            RedeemableFrom = PromotionValidFrom;
+            RedeemableUntil = PromotionValidTo;
+        }
         public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons)
         {
             DataSet resultFromFile = new DataSet();
@@ -169,7 +179,7 @@ namespace WebApp.ViewModels
                             default:
                                 break;
                         }
-                        if (pottentialySameCoupons.Any(x => x.Code == coupon.Code))
+                        if (pottentialySameCoupons!=null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
                         {
                             NumberOfCoupons++;
                         }

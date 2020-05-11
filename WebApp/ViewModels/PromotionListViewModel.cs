@@ -14,6 +14,10 @@ namespace WebApp.ViewModels
         {
             Promotions = new List<Promotion>();
         }
+        public PromotionListViewModel(string username, string group) : base(username, group)
+        {
+            Promotions = new List<Promotion>();
+        }
         public void Add(Promotion promo)
         {
             Promotions.Add(promo);
