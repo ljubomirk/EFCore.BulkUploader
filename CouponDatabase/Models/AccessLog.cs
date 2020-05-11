@@ -9,8 +9,8 @@ namespace CouponDatabase.Models
 {
     public enum ApplicationEnum
     {
-        WebApp,
-        API
+        API,
+        WebApp
     }
 
     public class ApplicationType : BaseDefs { }
