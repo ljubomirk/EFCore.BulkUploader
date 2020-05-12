@@ -32,11 +32,7 @@ namespace Web.Services.Impl
 
         Command StoreCoupons(List<CouponDatabase.Models.Coupon> coupons)
         {
-            Command response;
-            if (!_repo.insertCoupons(coupons))
-                response = new Command(CommandStatus.ErrorInvalidStatus);
-            else
-                response = new Command(CommandStatus.Valid);
+            Command response = _repo.Add(coupons);
             return response;
         }
 

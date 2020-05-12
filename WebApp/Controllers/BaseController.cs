@@ -16,7 +16,7 @@ namespace WebApp.Controllers
             base.OnActionExecuting(ctx);
             ViewData["IsAuthenticated"] = HttpContext?.User?.Identity?.IsAuthenticated;
             ViewData["Username"] = HttpContext?.User?.Identity?.Name;
-            _contextData = new ContextData(ViewData["Username"].ToString(), "CouponAdmin");
+            _contextData = new ContextData(ViewData["Username"]?.ToString(), "CouponAdmin");
         }
 
     }
