@@ -31,28 +31,38 @@ namespace WebApp.Services
             Context = context;
             _logger = logger;
         }
-        public Command Add(Coupon coupon)
+        public Command Add(IList<Coupon> coupons)
         {
             Command result = new Command(CommandStatus.Valid);
             try {
                 Context.Database.BeginTransaction();
-                Context.Coupon.Add(coupon);
+                foreach(Coupon coupon in coupons) { 
+                    Context.Coupon.Add(coupon);
+                    if(coupon.CouponHistories!=null)
+                    foreach (CouponHistory ch in coupon.CouponHistories)
+                    {
+                        if (Context.CouponHistory.Find(ch.Id) == null)
+                            Context.CouponHistory.Add(ch);
+                    }
+                }
                 int saved = Context.SaveChanges();
-                if (saved == 1)
+                if (saved > 0)
                     result.Status = CommandStatus.Valid;
                 else
                     result.Status = CommandStatus.ErrorSystem;
                 Context.Database.CommitTransaction();
             }
-            catch(DbUpdateException update)
+            catch (DbUpdateException update)
             {
-                Context.Database.RollbackTransaction();
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = update.Message;
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
+                if(Context.Database.CurrentTransaction!=null)
+                    Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = exc.Message;
             }
@@ -104,7 +114,7 @@ namespace WebApp.Services
 
         public Command UpdateCoupon(Coupon coupon)
         {
-            Command result = null;
+            Command result;
             try
             {
                 Context.Database.BeginTransaction();
@@ -118,17 +128,25 @@ namespace WebApp.Services
                 Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
             }
+            catch (DbUpdateConcurrencyException concurrent)
+            {
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.DataError_CouponUpdateFailed);
+                _logger.LogError("Exception DBUpdate:{0}", concurrent.Message);
+            }
             catch (DbUpdateException update)
             {
-                Context.Database.RollbackTransaction();
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log update.Message;
                 _logger.LogError("Exception DBUpdate:{0}", update.Message);
-               
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
@@ -442,7 +460,7 @@ namespace WebApp.Services
             {
                 Context.Coupon.Add(coupon);
             }
-            /*TODO add handling dupl */
+            
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
@@ -467,24 +485,15 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             try
             {
-                Context.Database.BeginTransaction();
                 Context.System.Add(model);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
                 else
                     result.Status = CommandStatus.ErrorSystem;
-                Context.Database.CommitTransaction();
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result.Status = CommandStatus.ErrorSystem;
-                result.Message = update.Message;
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = exc.Message;
             }
@@ -495,23 +504,12 @@ namespace WebApp.Services
             Command result = null;
             try
             {
-                Context.Database.BeginTransaction();
                 Context.System.Update(model);
                 int saved = Context.SaveChanges();
-                Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result = new Command(CommandStatus.ErrorSystem);
-                //store to log update.Message;
-                _logger.LogError("Exception DBUpdate:{0}", update.Message);
-
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
@@ -525,23 +523,12 @@ namespace WebApp.Services
             
             try
             {
-                Context.Database.BeginTransaction();
                 Context.System.Remove(Context.System.Find(id));
                 int saved = Context.SaveChanges();
-                Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result = new Command(CommandStatus.ErrorSystem);
-                //store to log update.Message;
-                _logger.LogError("Exception DBUpdate:{0}", update.Message);
-
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
@@ -555,24 +542,15 @@ namespace WebApp.Services
 
             try
             {
-                Context.Database.BeginTransaction();
                 Context.NotifyList.Add(new NotifyList() {ChannelId = Int32.Parse(model.ChannelId), SystemId = Int32.Parse(model.SystemId), Url = model.Url });
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
                 else
                     result.Status = CommandStatus.ErrorSystem;
-                Context.Database.CommitTransaction();
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result.Status = CommandStatus.ErrorSystem;
-                result.Message = update.Message;
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = exc.Message;
             }
@@ -586,24 +564,13 @@ namespace WebApp.Services
             NotifyList targetNotifyList = new NotifyList();
             try
             {
-                Context.Database.BeginTransaction();
                 targetNotifyList = Context.NotifyList.Where(x=> x.ChannelId == notifyList.ChannelId && x.SystemId == notifyList.SystemId).First();
                 targetNotifyList.Url = notifyList.Url;
                 int saved = Context.SaveChanges();
-                Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result = new Command(CommandStatus.ErrorSystem);
-                //store to log update.Message;
-                _logger.LogError("Exception DBUpdate:{0}", update.Message);
-
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
@@ -617,23 +584,12 @@ namespace WebApp.Services
 
             try
             {
-                Context.Database.BeginTransaction();
                 Context.NotifyList.Remove(Context.NotifyList.Where(x => x.ChannelId == channelId && x.SystemId == systemId).First());
                 int saved = Context.SaveChanges();
-                Context.Database.CommitTransaction();
                 result = new Command(CommandStatus.Valid);
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result = new Command(CommandStatus.ErrorSystem);
-                //store to log update.Message;
-                _logger.LogError("Exception DBUpdate:{0}", update.Message);
-
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result = new Command(CommandStatus.ErrorSystem);
                 //store to log result.Message = exc.Message;
                 _logger.LogError("Exception DBUpdate:{0}", exc.Message);
@@ -647,24 +603,15 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             try
             {
-                Context.Database.BeginTransaction();
                 Context.User.Add(user);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
                 else
                     result.Status = CommandStatus.ErrorSystem;
-                Context.Database.CommitTransaction();
-            }
-            catch (DbUpdateException update)
-            {
-                Context.Database.RollbackTransaction();
-                result.Status = CommandStatus.ErrorSystem;
-                result.Message = update.Message;
             }
             catch (Exception exc)
             {
-                Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = exc.Message;
             }
