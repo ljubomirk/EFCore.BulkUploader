@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebApp.Data;
-using WebApp.GenericFilters;
 using WebApp.Services;
 using WebApp.ViewModels;
 using static CouponDatabase.Models.Coupon;
@@ -23,7 +22,6 @@ namespace WebApp.Controllers
 
     //[Authorize]
     [Route("Lifecycle/[action]")]
-    [ControllerExceptionFilterAttribute]
     public class LifecycleController : BaseController
     {
         private readonly RepositoryServices _repo;

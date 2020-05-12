@@ -59,7 +59,7 @@ namespace WebApp.Services
             return result;
         }
 
-        internal List<AccessLog> GetAccessLogs(DateTime? accessFrom, DateTime? accessTo, List<CheckedItem> grantedItems, List<CheckedItem> accessTypes)
+        internal List<AccessLog> GetAccessLogs(DateTime? accessFrom, DateTime? accessTo, List<CheckedItem> grantedItems, List<CheckedItem> applTypes)
         {
             List<long> grantFilter = new List<long>();
             foreach(var granted in grantedItems)
@@ -67,17 +67,18 @@ namespace WebApp.Services
                 if(granted.Checked)
                     grantFilter.Add(granted.Id);
             }
-            List<int> accessFilter = new List<int>();
-            foreach (var access in accessTypes)
+            List<long> accessFilter = new List<long>();
+            foreach (var access in applTypes)
             {
                 if (access.Checked)
-                    grantFilter.Add(access.Id);
+                    accessFilter.Add(access.Id);
             }
-            return Context.AccessLog.Where(item => item.IssuedDate >= accessFrom)
-                    .Where(item => item.IssuedDate <= accessTo)
-                    .Where(item => grantFilter.Contains(item.Granted ? 0 : 1))
-                    .Where(item => accessFilter.Contains((int)item.ApplicationType))
-                    .ToList();
+            var ret = Context.AccessLog
+                    .Where(item => item.IssuedDate >= accessFrom);
+            ret = ret.Where(item => item.IssuedDate <= accessTo);
+            ret = ret.Where(item => grantFilter.Contains(item.Granted ? 0 : 1));
+            ret = ret.Where(item => accessFilter.Contains((long)item.ApplicationType));
+            return ret.ToList();
         }
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)

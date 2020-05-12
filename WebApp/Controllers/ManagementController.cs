@@ -17,14 +17,12 @@ using CouponDatabase.Lifecycle;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using WebApp.GenericFilters;
 
 namespace WebApp.Controllers
 {
 
     //[Authorize]
     [Route("Management/[action]")]
-    [ControllerExceptionFilterAttribute]
     public class ManagementController : BaseController
     {
         private readonly RepositoryServices _repo;

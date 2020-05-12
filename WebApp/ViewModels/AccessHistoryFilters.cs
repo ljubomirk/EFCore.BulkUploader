@@ -52,7 +52,7 @@ namespace WebApp.ViewModels
             List<AccessLog> accessLogs = _repo.GetAccessLogs(accessHistoryFilter.AccessFrom,
                                                                 accessHistoryFilter.AccessTo, 
                                                                 accessHistoryFilter.AccessGrants,
-                                                                accessHistoryFilter.AccessTypes);
+                                                                accessHistoryFilter.ApplicationTypes);
             List<AccessLog> f_ListOfAccessLog = accessLogs;
 
             /*if (accessHistoryFilter.AccessTypes[0].Checked)
