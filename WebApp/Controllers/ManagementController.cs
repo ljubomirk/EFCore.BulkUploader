@@ -132,6 +132,8 @@ namespace WebApp.Controllers
             // if (promo == null) RedirectToAction("Error");
             string view = "PromotionDetails";
             var promotion = _repo.GetPromotionWithId(Id);
+            if (TempData["CommandStatus"] != null)
+                ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
             if (promotion.HasCoupons)
             {
                 view = "PromotionList";
@@ -173,10 +175,7 @@ namespace WebApp.Controllers
                 bool fieldsUpdated = updatePromotionFields(viewModel, Id);
                 if (Id>0 || fieldsUpdated)
                 {
-                    //ViewBag.CommandStatus = "[OK]";
-                    //ViewBag.CommandMessage = "Promotion created.";
-
-                    ViewBag.Command = new Command(CommandStatus.Valid);
+                    TempData["CommandStatus"] = CommandStatus.Valid;
                 }
                 promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
             }
@@ -187,19 +186,13 @@ namespace WebApp.Controllers
 
                 if (promotionUpdated ||fieldsUpdated)
                 {
-                    //ViewBag.CommandStatus = "[OK]";
-                    //ViewBag.CommandMessage = "Promotion saved.";
-
-                    ViewBag.Command = new Command(CommandStatus.Valid);
+                    TempData["CommandStatus"] = CommandStatus.Valid;
                 }
                 else{
-                    //ViewBag.CommandStatus = "[NOT OK]";
-                    //ViewBag.CommandMessage = "Promotion didn't saved.";
-
-                    ViewBag.Command = new Command(CommandStatus.DataError_PromotionUpdateFailed);
+                    TempData["CommandStatus"] = CommandStatus.DataError_PromotionUpdateFailed;
                 }
             }
-            return RedirectToAction("AddCouponSeries", new { id = promo.Id });
+            return RedirectToAction("EditPromotion", new { id = promo.Id });
         }
 
 
