@@ -80,6 +80,8 @@ namespace WebApp.Controllers
         public IActionResult AddCouponSeries(long id)
         {
             Promotion promotion = _repo.GetPromotionWithId(id);
+            if (TempData["CommandStatus"] != null)
+                ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
             CouponSeriesViewModel model = new CouponSeriesViewModel(_contextData, promotion.ValidFrom, promotion.ValidTo);
             model.PromotionId = promotion.Id;
             model.CouponWithLetters = true;
@@ -217,18 +219,15 @@ namespace WebApp.Controllers
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
             List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons);
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
-            bool returnValue = _repo.insertCoupons(coupons);
-            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", returnValue);
-            if (returnValue)
+            Command cmd = _repo.Add(coupons);
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", cmd.Status);
+            if (cmd.Status == CommandStatus.Valid)
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
                 _repo.UpdateCouponSeriesNum(model.PromotionId);
                 model.CouponSeries++;
             }
-            else
-            {
-                ViewBag.Command = new Command(CommandStatus.DataError_CouponInsertFailed);
-            }
+            TempData["CommandStatus"] = cmd.Status;
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
             return RedirectToAction("AddCouponSeries", new { id = model.PromotionId });
         }
