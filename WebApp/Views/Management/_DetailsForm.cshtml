@@ -106,7 +106,7 @@
                     {
                         @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
                         <p class="checkbox-hover">
-                            <label>
+                            <label id = "@Model.Properties[i].Label">
                                 @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
                                 <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
                                 @Html.HiddenFor(c => c.Properties[i].Id)
@@ -127,7 +127,7 @@
                             <i class="material-icons left">check</i>
                             @CouponDatabase.Properties.Resources.Btn_Create
                         </button>
-                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary">
+                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary disabled">
                             <i class="material-icons left">arrow_forward</i>
                             @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
                         </a>
@@ -159,11 +159,11 @@
         // change label of switch
         var switchStatus = $("#switch-status");
         // set init state
-        setSwitchStatus($("#Promotion_Enabled").is(":checked"))
+        setSwitchStatus($("#Promotion_Enabled").is(":checked"));
         // set state on change
         $("#Promotion_Enabled").change(function () {
             setSwitchStatus($(this).is(":checked"))
-        })
+        });
         
 
         function setSwitchStatus(enabled) {
@@ -176,11 +176,19 @@
 
         // enable end date input field
         // - on first render, check state and set input style
-        handleValidTo($("#toggle-validTo").is(":checked"))
+        handleValidTo($("#toggle-validTo").is(":checked"));
         // - state check on click
         $("label#chk-endDate").click(function () {
             handleValidTo($("input", this).prop("checked"))
-        })
+        });
+
+        //button Create And Add Series enable/disable
+        $("label#AllowCouponSeries").change(function () {
+            if ($("input", this).prop("checked"))
+                $("#add-series").removeClass("disabled");
+            else
+                $("#add-series").addClass("disabled");
+        });
 
         function handleValidTo(condition) {
             if (condition) {
