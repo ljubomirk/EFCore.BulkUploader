@@ -661,5 +661,31 @@ END;
 /
 
 /* VIEWS */
+CREATE OR REPLACE VIEW COUPON AS
+SELECT "Id" AS ID,
+       "Code" AS CODE,
+       "Holder" AS HOLDER,
+       "User" AS CUSER,
+       "Status" AS STATUS,
+       "AquireFrom" AS AQUIRE_FROM,
+       "AquireTo" AS AQUIRE_TO,
+       "AwardFrom" AS AWARD_FROM,
+       "AwardTo" AS AWARD_TO,
+       "PromotionId" AS PROMOTION_ID,
+       "CouponSeries" AS COUPON_SERIES,
+       "MaxRedeemNo" AS MAX_REDEEM_NO,
+       "Enabled" AS ENABLED 
+ FROM "Coupon";
+
+CREATE OR REPLACE VIEW PROMOTION AS
+SELECT "Id" AS ID,
+       "Code" AS CODE,
+       "Enabled" AS ENABLED,
+       "ValidFrom" AS VALID_FROM,
+       "ValidTo" AS VALID_TO,
+       "CouponSeries" AS COUPON_SERIES
+ FROM "Promotion";
 
 /* DONE */
+SELECT * FROM COUPON;
+SELECT * FROM PROMOTION;
