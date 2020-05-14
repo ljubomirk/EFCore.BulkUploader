@@ -196,7 +196,7 @@ namespace Web.Services.Impl
         public List<Coupon> GetUserCoupons(string User)
         {
             List<Coupon> result = new List<Coupon>();
-            List<CouponDatabase.Models.Coupon> found = _repo.GetUserCoupons(User).ToList();
+            List<CouponDatabase.Models.Coupon> found = _repo.GetUserCoupons(User, null, null, null);
             foreach(var coupon in found)
             {
                 result.Add((new ICoupon(coupon)).Get());

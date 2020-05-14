@@ -395,13 +395,21 @@ namespace WebApp.Services
         /// </summary>
         /// <param name="user">User assigned for Promotion</param>
         /// <returns></returns>
-        public IList<Coupon> GetUserCoupons(string user)
+        public List<Coupon> GetUserCoupons(string user, CouponStatus? status, DateTime? validFrom, DateTime? validTo)
         {
             List<Coupon> coupons = Context.Coupon
                 .Include(c => c.Promotion)
                     .Where(p => p.Promotion.Active == true)
-                .Where(item => item.User == user || item.Holder == user)
+                    .Where(item => item.User == user || item.Holder == user)
                 .ToList();
+
+            if (status.HasValue)
+                coupons = coupons.Where(c => c.Status == (int)status).ToList();
+            if (validFrom.HasValue)
+                coupons = coupons.Where(c => DateTime.Now.CompareTo(c.AwardFrom) >= 0).ToList();
+            if (validTo.HasValue)
+                coupons = coupons.Where(c => DateTime.Now.CompareTo(c.AwardTo) < 0).ToList();
+
             return coupons;
         }
 
