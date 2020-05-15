@@ -10,44 +10,66 @@
 
 # Getting Started
 Check out this repositry and open solution COMMANDO for start working on project:
-1.	Installation process 
+1.	Installation process
   - Open solutions COMMANDO in Visual Studio 2019
 
   - Install dependencies:
-    On Solution right click -> Restore NuGet packages
-    Rebuild solution
+    1. On Solution right click -> Restore NuGet packages
+    2. Rebuild solution
 
   - Setup local SQLServer
-    Open PackageManager Console
-    Call `Update-Database`
+    1. Open PackageManager Console
+    2. Call\
+    `Update-Database`
 
   - Update local SQLDatabase after initial setup
-    Change environment to Development
+    1. Change environment to Development (optional)\
     `$env:ASPNETCORE_ENVIRONMENT='Development'`
-    Delete all objects from database
+    1. Delete all objects from database\
     `Update-Database 0`
-    Install database  
+    1. Install database\
     `Update-Database`
 
   - Oracle output script
-    Change environment to Staging
+    1. Change environment to Staging\
     `$env:ASPNETCORE_ENVIRONMENT='Staging'`
-    Generate DDL SQL
+    2. Generate DDL SQL\
     `Script-Migration -o DB/OracleDDL.sql`
-    Fix partitions
+    3. Fix partitions
+
+  - Configuration and environments:
+    1. Development
+    - VS Configuration: Debug 
+    - Settings: appsettings.Development.json
+    - DB installation: migration script
+    2. Integration (TBD)
+    - VS Configuration: Release
+    - Settings: appsettings.Integration.json
+    - DB installation: migration script
+    - Publish on pull request to master
+    3. Staging
+    - Settings: appsettings.Staging.json
+    - DB installation DB/OracleDDL.sql
+    - VS publish: method File system
+      - Configuration: Release
+      - Target Framework: netcoreapp3.1
+      - Deployment mode: Self-Contained
+      - Target-Runtime: win-x64
+    4. Production (TBD)
+    - Settings: appsettings.Production.json
+    - VS publish: method File system
+      - Configuration: Release
+      - Target Framework: netcoreapp3.1
+      - Deployment mode: Self-Contained
+      - Target-Runtime: win-x64
+    - DB installation DB/OracleDDL.sql
 
 2.	Software dependencies 
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
-  0.3 Alpha Centauri 
-  - Promotion List done
-  - Promotion Details prepared
-  - Promotion AddCoupon prepared
-  0.2 Back2Store
-  - Promotion List prepared
-  - Promotion List prepared
-  0.1 Initial release
+  0.8 Test environment week1
+   - testing features of WebApp
 
 4.	API references 
   API
