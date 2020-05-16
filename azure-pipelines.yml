@@ -27,11 +27,13 @@ steps:
     msbuildArgs: '/p:SkipInvalidConfigurations=true'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: 'WebApp/*.csproj'
-    versioningScheme: 'byBuildNumber'
+    nobuild: true
+    versioningScheme: 'off'
+    
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
