@@ -219,10 +219,9 @@ namespace WebApp.Services
          */
         public Promotion GetPromotionWithId(long id)
         {
-            Promotion promotion = new Promotion();
-            promotion = Context.Promotion.Find(id);
-            GetPromotionData(promotion);
-            
+            Promotion promotion = Context.Promotion.Find(id);
+            if(promotion!=null)
+                GetPromotionData(promotion);
             return promotion;
         }
 

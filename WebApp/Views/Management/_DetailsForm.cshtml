@@ -127,10 +127,10 @@
                             <i class="material-icons left">check</i>
                             @CouponDatabase.Properties.Resources.Btn_Create
                         </button>
-                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management", new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat btn-default-primary disabled">
-                            <i class="material-icons left">arrow_forward</i>
+                        <button id="add-series" type="submit" formaction="/Management/StoreAddCouponSeries" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md disabled">
+                            <i class="material-icons left">check</i>
                             @CouponDatabase.Properties.Resources.Btn_CreateAndAddSeries
-                        </a>
+                        </button>
                     }
                     else
                     {

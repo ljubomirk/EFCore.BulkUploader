@@ -162,7 +162,12 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult SavePromotion(PromotionDetailsViewModel viewModel)
+        public IActionResult StoreAddCouponSeries(PromotionDetailsViewModel viewModel)
+        {
+            return SavePromotion(viewModel, true);
+        }
+        [HttpPost]
+        public IActionResult SavePromotion(PromotionDetailsViewModel viewModel, bool addSeries)
         {
             Promotion promo = new Promotion();
             if (viewModel.Promotion.Id != 0)
@@ -194,7 +199,10 @@ namespace WebApp.Controllers
                     TempData["CommandStatus"] = CommandStatus.DataError_PromotionUpdateFailed;
                 }
             }
-            return RedirectToAction("EditPromotion", new { id = promo.Id });
+            if (addSeries) //Create And Add Series
+                return RedirectToAction("AddCouponSeries", new { id = promo.Id });
+            else
+                return RedirectToAction("EditPromotion", new { id = promo.Id });
         }
 
 
