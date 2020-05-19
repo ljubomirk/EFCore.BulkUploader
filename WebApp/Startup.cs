@@ -87,12 +87,11 @@ namespace WebApp
             services.AddSoapCore();
 
             // Setup SOAP security
-            string user = Configuration.GetValue<string>("SOAPWS:Username");
-            string pwd = Configuration.GetValue<string>("SOAPWS:Password");
-            _logger.LogInformation("Setup security for " + user);
-            // working only for one authentication password
+            //string user = Configuration.GetValue<string>("SOAPWS:Username");
+            //string pwd = Configuration.GetValue<string>("SOAPWS:Password");
+            //_logger.LogInformation("Setup security for " + user);
+            // working only for one authentication password so will not be used, basic auth on IIS
             // services.AddSoapWsSecurityFilter("test", "321");
-            services.AddSoapWsSecurityFilter("test", "123");
 
             services.AddTransient<CouponService.CouponAPI>();
             services.AddTransient<CouponService.PromotionAPI>();
