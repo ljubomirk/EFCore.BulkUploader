@@ -51,9 +51,8 @@ namespace WebApp.ViewModels
         public IFormFile file { get; set; }
         public Nullable<Int32> MaximumRedeem { get; set; }
 
-        public CouponSeriesViewModel() { 
-        }
-        public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo)
+        public CouponSeriesViewModel() : base() { }
+        public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo):base(contextData.AgentUsername, contextData.AgentGroup)
         {
             AssignableFrom = PromotionValidFrom;
             AssignableUntil = PromotionValidTo;
