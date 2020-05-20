@@ -388,7 +388,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/CouponAPI</con:endpoint>
+        <con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -405,7 +405,13 @@
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
         <con:credentials>
-          <con:authType>No Authorization</con:authType>
+          <con:username>bintegra</con:username>
+          <con:password>K-1234567</con:password>
+          <con:domain/>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:preemptive>false</con:preemptive>
+          <con:authType>Global HTTP Settings</con:authType>
         </con:credentials>
         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
         <con:jmsPropertyConfig/>
@@ -417,7 +423,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/CouponAPI</con:endpoint>
+        <con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -434,7 +440,11 @@
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
         <con:credentials>
-          <con:authType>No Authorization</con:authType>
+          <con:username>maks</con:username>
+          <con:password>M-1234567</con:password>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
         </con:credentials>
         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
         <con:jmsPropertyConfig/>
@@ -1028,9 +1038,11 @@
     <con:operation id="b0981fe1-fc75-4bf0-8f20-037834c06d1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" name="AddCoupon" bindingOperationName="AddCoupon" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call id="aa9ea89a-0b26-49b7-9004-7be699c274c3" name="AddCouponExample1">
-        <con:settings/>
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint>
+        <con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -1050,7 +1062,11 @@
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
         <con:credentials>
-          <con:authType>No Authorization</con:authType>
+          <con:username>maks</con:username>
+          <con:password>M-1234567</con:password>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes>
+          <con:authType>Global HTTP Settings</con:authType>
         </con:credentials>
         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
         <con:jmsPropertyConfig/>
@@ -1204,9 +1220,9 @@
   <con:endpointStrategy xsi:type="con:DefaultEndpointStrategy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:endpoint mode="COMPLEMENT" username="" password="123" domain="" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint>
     <con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" outgoingWss="" wssTimeToLive="">http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
-    <con:endpoint mode="COMPLEMENT" username="test" password="123" domain="wscoupont.simobil.tst" wssType="PasswordText">http://wscoupont.simobil.tst/PromotionAPI</con:endpoint>
-    <con:endpoint mode="COMPLEMENT" username="test" password="123" domain="" wssType="PasswordText">http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
-    <con:endpoint mode="COMPLEMENT" username="test" password="123" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint>
+    <con:endpoint mode="COMPLEMENT" username="maks" password="123" domain="wscoupont.simobil.tst" wssType="PasswordText">http://wscoupont.simobil.tst/PromotionAPI</con:endpoint>
+    <con:endpoint mode="OVERRIDE" username="test" password="123" domain="" wssType="PasswordText" incomingWss="" outgoingWss="">http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
+    <con:endpoint mode="OVERRIDE" username="test" password="123" wssType="PasswordText">https://localhost:44389/CouponAPI</con:endpoint>
     <con:endpoint mode="COMPLEMENT" username="test" password="123" domain="ljubo-pc" wssType="PasswordText">https://localhost:44389/PromotionAPI</con:endpoint>
   </con:endpointStrategy>
   <con:properties/>
