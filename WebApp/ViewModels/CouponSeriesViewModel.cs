@@ -109,7 +109,8 @@ namespace WebApp.ViewModels
                                 AwardTo = RedeemableUntil,
                                 Status = (int)CouponStatus.Created,
                                 CouponSeries = CouponSeries,
-                                User = CouponUser
+                                User = CouponUser,
+                                Enabled = true
                             };
 
                             ICoupon cpn = new ICoupon(coupon);
@@ -155,7 +156,8 @@ namespace WebApp.ViewModels
                             AwardFrom = RedeemableFrom,
                             AwardTo = RedeemableUntil,
                             Status = (int)CouponStatus.Created,
-                            CouponSeries = CouponSeries
+                            CouponSeries = CouponSeries,
+                            Enabled = true
                         };
 
                         ICoupon cpn = new ICoupon(coupon);
