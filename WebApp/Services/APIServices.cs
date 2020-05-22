@@ -69,6 +69,7 @@ namespace Web.Services.Impl
         /// <returns></returns>
         public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)
         {
+            _repo.LogAPIAccess("PromotionAPI.AddCoupon", "POS", "", true);
             Command response = CheckPromotion(PromotionCode);
             if (response.Status == CommandStatus.Valid)
             {
@@ -93,6 +94,7 @@ namespace Web.Services.Impl
         /// <returns></returns>
         public Command AddCoupons(string PromotionCode, IList<Coupon> coupons)
         {
+            _repo.LogAPIAccess("PromotionAPI.AddCoupons", "POS", "", true);
             Command response = CheckPromotion(PromotionCode);
             if (response.Status == CommandStatus.Valid)
             {
@@ -116,6 +118,7 @@ namespace Web.Services.Impl
 
         public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
         {
+            _repo.LogAPIAccess("PromotionAPI.Get", "POS", "", true);
             List<Promotion> result = new List<Promotion>();
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
             if (Code!=null && Code.Length > 0)
@@ -136,6 +139,7 @@ namespace Web.Services.Impl
 
         public Command Create(string PromotionCode, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
+            _repo.LogAPIAccess("PromotionAPI.Create", "POS", "", true);
             Command response = new Command(CommandStatus.Valid);
             CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
             List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
@@ -168,6 +172,7 @@ namespace Web.Services.Impl
         }
         public Command Assign(string PromotionCode, string CouponCode, string Holder, string User)
         {
+            _repo.LogAPIAccess("CouponAPI.Assign", "POS", "", true);
             //CouponDatabase.Models.Promotion promo = _repo.GetAllPromotions().Find(p => p.Code == PromotionCode);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             ICoupon cmd = new ICoupon(coupon);
@@ -179,6 +184,7 @@ namespace Web.Services.Impl
 
         public Command Cancel(string PromotionCode, string CouponCode)
         {
+            _repo.LogAPIAccess("CouponAPI.Cancel", "POS", "", true);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             ICoupon cmd = new ICoupon(coupon);
             Command response = cmd.Cancel();
@@ -189,12 +195,14 @@ namespace Web.Services.Impl
 
         public Coupon Get(string PromotionCode, string CouponCode)
         {
+            _repo.LogAPIAccess("CouponAPI.Get", "POS", "", true);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             return (new ICoupon(coupon)).Get();
         }
 
         public List<Coupon> GetUserCoupons(string User)
         {
+            _repo.LogAPIAccess("CouponAPI.GetUserCoupons", "POS", "", true);
             List<Coupon> result = new List<Coupon>();
             List<CouponDatabase.Models.Coupon> found = _repo.GetUserCoupons(User, null, null, null);
             foreach(var coupon in found)
@@ -206,6 +214,7 @@ namespace Web.Services.Impl
 
         public Command Redeem(string PromotionCode, string CouponCode, string User)
         {
+            _repo.LogAPIAccess("CouponAPI.Redeem", "POS", "", true);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             ICoupon cmd = new ICoupon(coupon);
             Command response = cmd.Redeem(User);
@@ -218,6 +227,7 @@ namespace Web.Services.Impl
 
         public Command UndoRedeem(string PromotionCode, string CouponCode)
         {
+            _repo.LogAPIAccess("CouponAPI.UndoRedeem", "POS", "", true);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             ICoupon cmd = new ICoupon(coupon);
             Command response = cmd.UndoRedeem();
@@ -228,6 +238,7 @@ namespace Web.Services.Impl
 
         public Command Validate(string PromotionCode, string CouponCode, string User)
         {
+            _repo.LogAPIAccess("CouponAPI.Validate", "POS", "", true);
             Command response;
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
             if (coupon == null)

@@ -32,8 +32,6 @@ namespace WebApp.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-            if (_contextData.AgentUsername.Equals("") || _contextData.AgentGroup.Equals(""))
-                new Exception("User not authorized");
             _repo.LogAppAccess(((ControllerActionDescriptor)context.ActionDescriptor).ActionName, _contextData?.AgentUsername, true);
         }
 
