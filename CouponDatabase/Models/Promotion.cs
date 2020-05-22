@@ -73,7 +73,16 @@ namespace CouponDatabase.Models
 
             return Coupons!=null ? true : false;
         }
-
+        public List<PropertyTypeEnum> GetProperties()
+        {
+            List<PropertyTypeEnum> result = new List<PropertyTypeEnum>();
+            if(this.PromotionProperties!=null)
+                foreach (PromotionProperty pp in this.PromotionProperties)
+                {
+                    result.Add((PropertyTypeEnum)pp.PropertyId);
+                }
+            return result;
+        }
         #endregion
         #region Relations
         public IList<PromotionIssuerChannel> PromotionIssuerChannels { get; set; }
