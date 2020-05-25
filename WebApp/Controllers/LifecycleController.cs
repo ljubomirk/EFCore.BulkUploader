@@ -228,6 +228,8 @@ namespace WebApp.Controllers
                     }
                     promoSelectList.Add(item);
                 }
+                // Populate with all matching promotion codes from initially filtered result
+                lmm.SelectedPromoCode = model.SelectedPromoCode;
                 lmm.DropPromoCodes = promoSelectList;
                 model.DropPromoCodes = promoSelectList;
             }
