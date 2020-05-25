@@ -465,7 +465,6 @@ namespace WebApp.Controllers
                     if (response.Status == CommandStatus.Valid)
                     {
                         passedChecks++;
-
                     }
                     else
                     {
@@ -748,8 +747,10 @@ namespace WebApp.Controllers
             for(var i = 0; i < items.Count(); i++)
             {
                 Coupon coupon = coupons.Where(c => c.Id == items[i].Id).FirstOrDefault();
+                
                 if (coupon != null)
                 {
+                    coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
                     updatedItems.Add(new CheckedCouponItem(){
                         Active = coupon.Active,
                         Checked = false,
