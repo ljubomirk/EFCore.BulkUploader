@@ -7,80 +7,82 @@
 <div id="form-filter">
     @using (Html.BeginForm("FilteredListPromotions", "Management", FormMethod.Post, new { @class = "form-filter", role = "form", id = "PromotionFilter", hidden = true }))
     {
-        <div class="container">
-            <div class="row u-m-t-md">
-                <div class="col s12 m4 u-p-l-remove">
-                    <div class="u-p-t-lg">
-                        <div class="input-field">
-                            @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                            @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
-                            @Html.ValidationMessageFor(f => f.Code)
-                            <i class='material-icons suffix validation-error'>warning</i>
-                        </div>
+    <div class="container">
+        <div class="row u-m-t-md">
+            <div class="col s12 m4 u-p-l-remove">
+                <div class="u-p-t-lg">
+                    <div class="input-field">
+                        @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
+                        @Html.ValidationMessageFor(f => f.Code)
+                        <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                 </div>
-                <div class="col s12 m8 u-p-l-remove">
-                    <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
-                    <p>
-                        <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                            @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
-                            <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
-                        </label>
-                        <label class="checkbox-hover checkbox-hover__inline">
-                            @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
-                            <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
-                        </label>
-                    </p>
-                </div>
             </div>
-            <div class="row u-m-t-negativ">
-                <div class="col s12 u-p-l-remove">
-                    <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
-                </div>
-                <div class="col s12 three-cols">
-
-                    @for (int i = 0; i < Model.Properties.Count; i++)
-                    {
-                        <p class="checkbox-hover">
-                            <label>
-                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
-                                <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
-                                @Html.HiddenFor(c => c.Properties[i].Id)
-                                @Html.HiddenFor(c => c.Properties[i].Label)
-                            </label>
-                        </p>
-                    }
-
-                </div>
-            </div>
-            <div class="row u-m-t-xl u-m-l-sm-negative">
-                <div class="input-field col s12 m4">
-                    @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                    @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(f => f.ValidFrom)
-                    <i class='material-icons suffix validation-error'>warning</i>
-                    <i class='material-icons suffix date-icon'>event</i>
-                </div>
-                <div class="input-field col s12 m4">
-                    @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                    @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(f => f.ValidTo)
-                    <i class='material-icons suffix validation-error'>warning</i>
-                    <i class='material-icons suffix date-icon'>event</i>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 u-p-l-remove">
-                    <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
-                        <i class="material-icons left">check</i>
-                        @CouponDatabase.Properties.Resources.Btn_ApplyFilters
-                    </button>
-                    <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
-                        @CouponDatabase.Properties.Resources.Btn_Cancel
-                    </a>
-                </div>
+            <div class="col s12 m8 u-p-l-remove">
+                <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
+                <p>
+                    <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                        @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
+                    </label>
+                    <label class="checkbox-hover checkbox-hover__inline">
+                        @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
+                    </label>
+                </p>
             </div>
         </div>
+        <!-- Not used
+        <div class="row u-m-t-negativ">
+            <div class="col s12 u-p-l-remove">
+                <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
+            </div>
+            <div class="col s12 three-cols">
+
+                @for (int i = 0; i < Model.Properties.Count; i++)
+                {
+                    <p class="checkbox-hover">
+                        <label>
+                            @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in", @autocomplete = "off" })
+                            <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
+                            @Html.HiddenFor(c => c.Properties[i].Id)
+                            @Html.HiddenFor(c => c.Properties[i].Label)
+                        </label>
+                    </p>
+                }
+
+            </div>
+        </div>
+        -->
+        <div class="row u-m-t-xl u-m-l-sm-negative">
+            <div class="input-field col s12 m4">
+                @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(f => f.ValidFrom)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+            <div class="input-field col s12 m4">
+                @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(f => f.ValidTo)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 u-p-l-remove">
+                <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
+                    <i class="material-icons left">check</i>
+                    @CouponDatabase.Properties.Resources.Btn_ApplyFilters
+                </button>
+                <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
+                    @CouponDatabase.Properties.Resources.Btn_Cancel
+                </a>
+            </div>
+        </div>
+    </div>
     }
 </div>
 
