@@ -306,7 +306,6 @@ namespace WebApp.Controllers
                 SelectedEnabled = model.SelectedEnabled,
                 SelectedCouponStatus = model.SelectedCouponStatus,
             };
-            CouponList couponList = model.CouponList;
 
             // Session management
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
@@ -342,13 +341,27 @@ namespace WebApp.Controllers
 
             List<long> updateCouponIds = new List<long>();
             List<long> uncheckedCouponIds = new List<long>();
+
+            CouponList couponList = new CouponList();
+            couponList.CouponItems = lmm.CouponItems;
             
-            if (couponList.SelectAllCoupons)
+
+            if (model.CouponList.SelectAllCoupons)
             {                
                 updateCouponIds = couponList.CouponItems.Select( c => c.Id ).Distinct().ToList();
             } else
             {
-                updateCouponIds = couponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
+                // jesu li itemi na nevidljivim stranicama isto checked?
+                updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
+
+                // Set checked status for items from session (these hold initial data which is not sent during POST)
+                for(var i = 0; i < couponList.CouponItems.Count(); i++)
+                {
+                    if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
+                    {
+                        couponList.CouponItems[i].Checked = true;
+                    }
+                }
                 //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
             }
             couponList.SelectAllCoupons = model.CouponList.SelectAllCoupons;
