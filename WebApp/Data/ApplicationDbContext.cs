@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Data;
 using CouponDatabase.Models;
 using CouponSystem = CouponDatabase.Models.System;
 using CouponDatabase.Lifecycle;
@@ -43,6 +42,40 @@ namespace WebApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            #region SnakeCase table and column names
+            /** 
+             * fix table and column name to be upper case for Oracle
+             */
+            if (Database.ProviderName == "Oracle.EntityFrameworkCore")
+            { 
+                foreach (var entity in modelBuilder.Model.GetEntityTypes())
+                {
+                    // Replace table names
+                    entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
+
+                    // Replace column names            
+                    foreach (var property in entity.GetProperties())
+                    {
+                        property.Relational().ColumnName = property.Relational().ColumnName.ToSnakeCase();
+                    }
+
+                    foreach (var key in entity.GetKeys())
+                    {
+                        key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    }
+
+                    foreach (var key in entity.GetForeignKeys())
+                    {
+                        key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    }
+
+                    foreach (var index in entity.GetIndexes())
+                    {
+                        index.Relational().Name = index.Relational().Name.ToSnakeCase();
+                    }
+                }
+            }
+            #endregion
             #region Keys
             /* Unique keys */
             modelBuilder.Entity<Promotion>()
@@ -1361,6 +1394,5 @@ namespace WebApp.Data
             );
             #endregion
         }
-
     }
 }

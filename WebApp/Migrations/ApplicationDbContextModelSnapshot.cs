@@ -23,26 +23,34 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Action")
+                        .HasColumnName("ACTION")
                         .HasMaxLength(80);
 
-                    b.Property<int>("ApplicationType");
+                    b.Property<int>("ApplicationType")
+                        .HasColumnName("APPLICATION_TYPE");
 
                     b.Property<string>("Channel")
+                        .HasColumnName("CHANNEL")
                         .HasMaxLength(20);
 
-                    b.Property<bool>("Granted");
+                    b.Property<bool>("Granted")
+                        .HasColumnName("GRANTED");
 
-                    b.Property<DateTime>("IssuedDate");
+                    b.Property<DateTime>("IssuedDate")
+                        .HasColumnName("ISSUED_DATE");
 
                     b.Property<string>("Username")
+                        .HasColumnName("USERNAME")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_ACCESS_LOG");
 
-                    b.ToTable("AccessLog");
+                    b.ToTable("ACCESS_LOG");
 
                     b.HasData(
                         new
@@ -52,7 +60,7 @@ namespace WebApp.Migrations
                             ApplicationType = 0,
                             Channel = "POS",
                             Granted = false,
-                            IssuedDate = new DateTime(2020, 5, 6, 19, 24, 41, 867, DateTimeKind.Local).AddTicks(7586),
+                            IssuedDate = new DateTime(2020, 6, 6, 22, 27, 46, 684, DateTimeKind.Local).AddTicks(7673),
                             Username = ""
                         },
                         new
@@ -62,7 +70,7 @@ namespace WebApp.Migrations
                             ApplicationType = 1,
                             Channel = "",
                             Granted = false,
-                            IssuedDate = new DateTime(2020, 5, 6, 19, 24, 41, 871, DateTimeKind.Local).AddTicks(6896),
+                            IssuedDate = new DateTime(2020, 6, 6, 22, 27, 46, 688, DateTimeKind.Local).AddTicks(1070),
                             Username = "korisnik"
                         });
                 });
@@ -71,14 +79,17 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .HasColumnName("NAME")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_AWARD_CHANNEL");
 
-                    b.ToTable("AwardChannel");
+                    b.ToTable("AWARD_CHANNEL");
 
                     b.HasData(
                         new
@@ -107,44 +118,59 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("AquireFrom");
+                    b.Property<DateTime?>("AquireFrom")
+                        .HasColumnName("AQUIRE_FROM");
 
-                    b.Property<DateTime?>("AquireTo");
+                    b.Property<DateTime?>("AquireTo")
+                        .HasColumnName("AQUIRE_TO");
 
-                    b.Property<DateTime?>("AwardFrom");
+                    b.Property<DateTime?>("AwardFrom")
+                        .HasColumnName("AWARD_FROM");
 
-                    b.Property<DateTime?>("AwardTo");
+                    b.Property<DateTime?>("AwardTo")
+                        .HasColumnName("AWARD_TO");
 
                     b.Property<string>("Code")
+                        .HasColumnName("CODE")
                         .HasMaxLength(40);
 
-                    b.Property<int>("CouponSeries");
+                    b.Property<int>("CouponSeries")
+                        .HasColumnName("COUPON_SERIES");
 
-                    b.Property<bool>("Enabled");
+                    b.Property<bool>("Enabled")
+                        .HasColumnName("ENABLED");
 
                     b.Property<string>("Holder")
+                        .HasColumnName("HOLDER")
                         .HasMaxLength(20);
 
-                    b.Property<int>("MaxRedeemNo");
+                    b.Property<int>("MaxRedeemNo")
+                        .HasColumnName("MAX_REDEEM_NO");
 
-                    b.Property<long>("PromotionId");
+                    b.Property<long>("PromotionId")
+                        .HasColumnName("PROMOTION_ID");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("Status")
+                        .HasColumnName("STATUS");
 
                     b.Property<string>("User")
+                        .HasColumnName("USER")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_COUPON");
 
                     b.HasIndex("Code")
                         .IsUnique()
-                        .HasFilter("[Code] IS NOT NULL");
+                        .HasFilter("[CODE] IS NOT NULL");
 
-                    b.HasIndex("PromotionId");
+                    b.HasIndex("PromotionId")
+                        .HasName("IX_COUPON_PROMOTION_ID");
 
-                    b.ToTable("Coupon");
+                    b.ToTable("COUPON");
 
                     b.HasData(
                         new
@@ -967,15 +993,18 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.CouponAwardChannel", b =>
                 {
-                    b.Property<long>("CouponId");
+                    b.Property<long>("CouponId")
+                        .HasColumnName("COUPON_ID");
 
-                    b.Property<long>("AwardChannelId");
+                    b.Property<long>("AwardChannelId")
+                        .HasColumnName("AWARD_CHANNEL_ID");
 
                     b.HasKey("CouponId", "AwardChannelId");
 
-                    b.HasIndex("AwardChannelId");
+                    b.HasIndex("AwardChannelId")
+                        .HasName("IX_COUPON_AWARD_CHANNEL_AWARD_CHANNEL_ID");
 
-                    b.ToTable("CouponAwardChannel");
+                    b.ToTable("COUPON_AWARD_CHANNEL");
 
                     b.HasData(
                         new
@@ -1064,36 +1093,47 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Action");
+                    b.Property<string>("Action")
+                        .HasColumnName("ACTION");
 
-                    b.Property<long>("CouponId");
+                    b.Property<long>("CouponId")
+                        .HasColumnName("COUPON_ID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnName("DATE");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("Status")
+                        .HasColumnName("STATUS");
 
-                    b.Property<string>("User");
+                    b.Property<string>("User")
+                        .HasColumnName("USER");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_COUPON_HISTORY");
 
-                    b.HasIndex("CouponId");
+                    b.HasIndex("CouponId")
+                        .HasName("IX_COUPON_HISTORY_COUPON_ID");
 
-                    b.ToTable("CouponHistory");
+                    b.ToTable("COUPON_HISTORY");
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.CouponIssuerChannel", b =>
                 {
-                    b.Property<long>("CouponId");
+                    b.Property<long>("CouponId")
+                        .HasColumnName("COUPON_ID");
 
-                    b.Property<long>("IssuerChannelId");
+                    b.Property<long>("IssuerChannelId")
+                        .HasColumnName("ISSUER_CHANNEL_ID");
 
                     b.HasKey("CouponId", "IssuerChannelId");
 
-                    b.HasIndex("IssuerChannelId");
+                    b.HasIndex("IssuerChannelId")
+                        .HasName("IX_COUPON_ISSUER_CHANNEL_ISSUER_CHANNEL_ID");
 
-                    b.ToTable("CouponIssuerChannel");
+                    b.ToTable("COUPON_ISSUER_CHANNEL");
 
                     b.HasData(
                         new
@@ -1252,14 +1292,17 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .HasColumnName("NAME")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_ISSUER_CHANNEL");
 
-                    b.ToTable("IssuerChannel");
+                    b.ToTable("ISSUER_CHANNEL");
 
                     b.HasData(
                         new
@@ -1291,43 +1334,54 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.NotifyList", b =>
                 {
-                    b.Property<long>("SystemId");
+                    b.Property<long>("SystemId")
+                        .HasColumnName("SYSTEM_ID");
 
-                    b.Property<long>("ChannelId");
+                    b.Property<long>("ChannelId")
+                        .HasColumnName("CHANNEL_ID");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("Url")
+                        .HasColumnName("URL");
 
                     b.HasKey("SystemId", "ChannelId");
 
-                    b.HasIndex("ChannelId");
+                    b.HasIndex("ChannelId")
+                        .HasName("IX_NOTIFY_LIST_CHANNEL_ID");
 
-                    b.ToTable("NotifyList");
+                    b.ToTable("NOTIFY_LIST");
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.Promotion", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
                         .IsRequired()
+                        .HasColumnName("CODE")
                         .HasMaxLength(40);
 
-                    b.Property<int>("CouponSeries");
+                    b.Property<int>("CouponSeries")
+                        .HasColumnName("COUPON_SERIES");
 
-                    b.Property<bool>("Enabled");
+                    b.Property<bool>("Enabled")
+                        .HasColumnName("ENABLED");
 
-                    b.Property<DateTime?>("ValidFrom");
+                    b.Property<DateTime?>("ValidFrom")
+                        .HasColumnName("VALID_FROM");
 
-                    b.Property<DateTime?>("ValidTo");
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnName("VALID_TO");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_PROMOTION");
 
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Promotion");
+                    b.ToTable("PROMOTION");
 
                     b.HasData(
                         new
@@ -1568,15 +1622,18 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionAwardChannel", b =>
                 {
-                    b.Property<long>("PromotionId");
+                    b.Property<long>("PromotionId")
+                        .HasColumnName("PROMOTION_ID");
 
-                    b.Property<long>("AwardChannelId");
+                    b.Property<long>("AwardChannelId")
+                        .HasColumnName("AWARD_CHANNEL_ID");
 
                     b.HasKey("PromotionId", "AwardChannelId");
 
-                    b.HasIndex("AwardChannelId");
+                    b.HasIndex("AwardChannelId")
+                        .HasName("IX_PROMOTION_AWARD_CHANNEL_AWARD_CHANNEL_ID");
 
-                    b.ToTable("PromotionAwardChannel");
+                    b.ToTable("PROMOTION_AWARD_CHANNEL");
 
                     b.HasData(
                         new
@@ -1633,15 +1690,18 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionIssuerChannel", b =>
                 {
-                    b.Property<long>("PromotionId");
+                    b.Property<long>("PromotionId")
+                        .HasColumnName("PROMOTION_ID");
 
-                    b.Property<long>("IssuerChannelId");
+                    b.Property<long>("IssuerChannelId")
+                        .HasColumnName("ISSUER_CHANNEL_ID");
 
                     b.HasKey("PromotionId", "IssuerChannelId");
 
-                    b.HasIndex("IssuerChannelId");
+                    b.HasIndex("IssuerChannelId")
+                        .HasName("IX_PROMOTION_ISSUER_CHANNEL_ISSUER_CHANNEL_ID");
 
-                    b.ToTable("PromotionIssuerChannel");
+                    b.ToTable("PROMOTION_ISSUER_CHANNEL");
 
                     b.HasData(
                         new
@@ -1698,15 +1758,18 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("CouponDatabase.Models.PromotionProperty", b =>
                 {
-                    b.Property<long>("PromotionId");
+                    b.Property<long>("PromotionId")
+                        .HasColumnName("PROMOTION_ID");
 
-                    b.Property<long>("PropertyId");
+                    b.Property<long>("PropertyId")
+                        .HasColumnName("PROPERTY_ID");
 
                     b.HasKey("PromotionId", "PropertyId");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("PropertyId")
+                        .HasName("IX_PROMOTION_PROPERTY_PROPERTY_ID");
 
-                    b.ToTable("PromotionProperty");
+                    b.ToTable("PROMOTION_PROPERTY");
 
                     b.HasData(
                         new
@@ -1755,14 +1818,17 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .HasColumnName("NAME")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_PROPERTY");
 
-                    b.ToTable("Property");
+                    b.ToTable("PROPERTY");
 
                     b.HasData(
                         new
@@ -1801,20 +1867,29 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .HasColumnName("NAME")
                         .HasMaxLength(20);
 
                     b.Property<string>("Password")
+                        .HasColumnName("PASSWORD")
                         .HasMaxLength(20);
 
                     b.Property<string>("Username")
+                        .HasColumnName("USERNAME")
                         .HasMaxLength(20);
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("PK_SYSTEM");
 
-                    b.ToTable("System");
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[NAME] IS NOT NULL");
+
+                    b.ToTable("SYSTEM");
 
                     b.HasData(
                         new
@@ -1837,19 +1912,23 @@ namespace WebApp.Migrations
                 {
                     b.Property<string>("Username")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("USERNAME")
                         .HasMaxLength(20);
 
-                    b.Property<int>("AccessType");
+                    b.Property<int>("AccessType")
+                        .HasColumnName("ACCESS_TYPE");
 
                     b.Property<string>("Domain")
+                        .HasColumnName("DOMAIN")
                         .HasMaxLength(20);
 
                     b.Property<string>("Fullname")
+                        .HasColumnName("FULLNAME")
                         .HasMaxLength(80);
 
                     b.HasKey("Username");
 
-                    b.ToTable("User");
+                    b.ToTable("USER");
 
                     b.HasData(
                         new
@@ -1873,6 +1952,7 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("Coupons")
                         .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK_COUPON_PROMOTION_PROMOTION_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1881,11 +1961,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.AwardChannel", "AwardChannel")
                         .WithMany()
                         .HasForeignKey("AwardChannelId")
+                        .HasConstraintName("FK_COUPON_AWARD_CHANNEL_AWARD_CHANNEL_AWARD_CHANNEL_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
                         .WithMany()
                         .HasForeignKey("CouponId")
+                        .HasConstraintName("FK_COUPON_AWARD_CHANNEL_COUPON_COUPON_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1894,6 +1976,7 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
                         .WithMany("CouponHistories")
                         .HasForeignKey("CouponId")
+                        .HasConstraintName("FK_COUPON_HISTORY_COUPON_COUPON_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1902,11 +1985,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.Coupon", "Coupon")
                         .WithMany()
                         .HasForeignKey("CouponId")
+                        .HasConstraintName("FK_COUPON_ISSUER_CHANNEL_COUPON_COUPON_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
                         .WithMany()
                         .HasForeignKey("IssuerChannelId")
+                        .HasConstraintName("FK_COUPON_ISSUER_CHANNEL_ISSUER_CHANNEL_ISSUER_CHANNEL_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1915,11 +2000,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.IssuerChannel", "Channel")
                         .WithMany()
                         .HasForeignKey("ChannelId")
+                        .HasConstraintName("FK_NOTIFY_LIST_ISSUER_CHANNEL_CHANNEL_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.System", "System")
                         .WithMany()
                         .HasForeignKey("SystemId")
+                        .HasConstraintName("FK_NOTIFY_LIST_SYSTEM_SYSTEM_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1928,11 +2015,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.AwardChannel", "AwardChannel")
                         .WithMany()
                         .HasForeignKey("AwardChannelId")
+                        .HasConstraintName("FK_PROMOTION_AWARD_CHANNEL_AWARD_CHANNEL_AWARD_CHANNEL_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionAwardChannels")
                         .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK_PROMOTION_AWARD_CHANNEL_PROMOTION_PROMOTION_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1941,11 +2030,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.IssuerChannel", "IssuerChannel")
                         .WithMany()
                         .HasForeignKey("IssuerChannelId")
+                        .HasConstraintName("FK_PROMOTION_ISSUER_CHANNEL_ISSUER_CHANNEL_ISSUER_CHANNEL_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionIssuerChannels")
                         .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK_PROMOTION_ISSUER_CHANNEL_PROMOTION_PROMOTION_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1954,11 +2045,13 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.Promotion", "Promotion")
                         .WithMany("PromotionProperties")
                         .HasForeignKey("PromotionId")
+                        .HasConstraintName("FK_PROMOTION_PROPERTY_PROMOTION_PROMOTION_ID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CouponDatabase.Models.Property", "Property")
                         .WithMany()
                         .HasForeignKey("PropertyId")
+                        .HasConstraintName("FK_PROMOTION_PROPERTY_PROPERTY_PROPERTY_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
