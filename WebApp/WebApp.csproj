@@ -114,6 +114,12 @@
     <Compile Remove="Migrations\20200506171409_Init.Designer.cs" />
     <Compile Remove="Migrations\20200606202324_OracleSnakeCase.cs" />
     <Compile Remove="Migrations\20200606202324_OracleSnakeCase.Designer.cs" />
+    <Compile Remove="Migrations\20200606202747_OracleSnakeCase.cs" />
+    <Compile Remove="Migrations\20200606202747_OracleSnakeCase.Designer.cs" />
+    <Compile Remove="Migrations\20200612195234_Init.cs" />
+    <Compile Remove="Migrations\20200612195234_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200612200707_Init.cs" />
+    <Compile Remove="Migrations\20200612200707_Init.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="compilerconfig.json" />

@@ -10,7 +10,7 @@ namespace CouponDatabase.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime IssuedDate { get; set; }
 
         public string Action { get; set; }
         public int Status { get; set; }
@@ -24,7 +24,7 @@ namespace CouponDatabase.Models
         }
         public CouponHistory(Coupon coupon, string action, string user)
         {
-            Date = DateTime.Now;
+            IssuedDate = DateTime.Now;
             Action = action;
             CouponId = coupon.Id;
             Status = coupon.Status;

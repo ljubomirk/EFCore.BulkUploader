@@ -104,7 +104,7 @@ namespace WebApp.Services
 
         internal List<User> GetAllUsers()
         {
-            return Context.User.ToList<User>();
+            return Context.ApplUser.ToList<User>();
         }
 
         public Coupon GetCouponById(long id)
@@ -610,7 +610,7 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             try
             {
-                Context.User.Add(user);
+                Context.ApplUser.Add(user);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;

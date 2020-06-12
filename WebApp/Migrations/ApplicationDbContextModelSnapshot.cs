@@ -60,7 +60,7 @@ namespace WebApp.Migrations
                             ApplicationType = 0,
                             Channel = "POS",
                             Granted = false,
-                            IssuedDate = new DateTime(2020, 6, 6, 22, 27, 46, 684, DateTimeKind.Local).AddTicks(7673),
+                            IssuedDate = new DateTime(2020, 6, 12, 22, 20, 48, 467, DateTimeKind.Local).AddTicks(5607),
                             Username = ""
                         },
                         new
@@ -70,7 +70,7 @@ namespace WebApp.Migrations
                             ApplicationType = 1,
                             Channel = "",
                             Granted = false,
-                            IssuedDate = new DateTime(2020, 6, 6, 22, 27, 46, 688, DateTimeKind.Local).AddTicks(1070),
+                            IssuedDate = new DateTime(2020, 6, 12, 22, 20, 48, 473, DateTimeKind.Local).AddTicks(8046),
                             Username = "korisnik"
                         });
                 });
@@ -1928,7 +1928,7 @@ namespace WebApp.Migrations
 
                     b.HasKey("Username");
 
-                    b.ToTable("USER");
+                    b.ToTable("APPL_USER");
 
                     b.HasData(
                         new
