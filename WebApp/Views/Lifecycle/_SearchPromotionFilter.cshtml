@@ -8,11 +8,24 @@
 
 <!-- promotion details -->
 <div class="row">
-    <div class="input-field date col s6">
+    <div class="input-field col s6">
         @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
         @Html.LabelFor(f => f.Code, new { htmlAttributes = new { @class = "active" } })
         @Html.ValidationMessageFor(p => p.Code)
         <i class='material-icons suffix validation-error'>warning</i>
+    </div>
+    <div class="input-fieldcol s6">
+        <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
+        <p>
+            <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
+            </label>
+            <label class="checkbox-hover checkbox-hover__inline">
+                @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
+            </label>
+        </p>
     </div>
 </div>
 <div class="row">
