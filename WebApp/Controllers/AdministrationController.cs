@@ -72,23 +72,34 @@ namespace WebApp.Controllers
         public IActionResult ExternalSystemsView()
         {
             ExternalSystemsViewModel model = new ExternalSystemsViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
-            model.AddSystems(_context.System.ToList<CouponSystem>());
+            List<CouponSystem> systems = _repo.getAllSystems().ToList<CouponSystem>();
+            List<ViewSystem> vSystems = new List<ViewSystem>();
+            foreach(CouponSystem system in systems)
+            {
+                vSystems.Add(new ViewSystem() {
+                    Id = system.Id, 
+                    Name = system.Name, 
+                    Username = system.Login, 
+                    Password = "" 
+                });
+            }
+            model.AddSystems(vSystems);
             model.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
             model.AddChannels(_context.IssuerChannel.ToList<IssuerChannel>());
             return View("AdministrationChannels", model);
         }
-        public IActionResult SystemDetails(CouponSystem model)
+        public IActionResult SystemDetails(ViewSystem viewmodel)
         {
-            return PartialView("_ChannelsSystemsModal", model);
+            return PartialView("_ChannelsSystemsModal", viewmodel);
         }
-        public IActionResult AddSystem(CouponSystem model)
+        public IActionResult AddSystem(ViewSystem viewmodel)
         {
-            ViewBag.Command = _repo.AddSystem(model);
+            ViewBag.Command = _repo.AddSystem(viewmodel);
             return ExternalSystemsView();
         }
-        public IActionResult UpdateSystem(CouponSystem model)
+        public IActionResult UpdateSystem(ViewSystem viewmodel)
         {
-            ViewBag.Command = _repo.UpdateSystem(model);
+            ViewBag.Command = _repo.UpdateSystem(viewmodel);
             return ExternalSystemsView();
         }
         public IActionResult DeleteSystem(long id)

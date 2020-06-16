@@ -9,9 +9,21 @@ using CouponSystem = CouponDatabase.Models.System;
 
 namespace WebApp.ViewModels
 {
+    public class ViewSystem
+    {
+
+        public long Id { get; set; }
+        [MaxLength(20)]
+        public string Name { get; set; }
+        [MaxLength(20)]
+        public string Username { get; set; }
+        [MaxLength(20)]
+        public string Password { get; set; }
+    }
+
     public class ExternalSystemsViewModel : ContextData
     {
-        public List<CouponSystem> Systems { get; private set; }
+        public List<ViewSystem> Systems { get; private set; }
         public List<IssuerChannel> Channels { get; private set; }
         public List<SelectListItem> DropSystems { get; private set; }
         public List<SelectListItem> DropChannels { get; private set; }
@@ -27,9 +39,9 @@ namespace WebApp.ViewModels
         }
         public ExternalSystemsViewModel(string username, string group):base(username, group) { }
 
-        public void AddSystems(IList<CouponSystem> systems)
+        public void AddSystems(IList<ViewSystem> systems)
         {
-            Systems = systems.ToList<CouponSystem>();
+            Systems = systems.ToList();
         }
         public void AddDropSystems(IList<CouponSystem> systems)
         {

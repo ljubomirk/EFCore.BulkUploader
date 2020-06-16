@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebApp.Services
 {
@@ -487,11 +488,19 @@ namespace WebApp.Services
             return returnValue > 0 ? true : false;
         }
 
-        internal Command AddSystem(CouponDatabase.Models.System model)
+        internal Command AddSystem(ViewSystem vSystem)
         {
             Command result = new Command(CommandStatus.Valid);
             try
             {
+                PasswordHasher<string> hasher = new PasswordHasher<string>();
+                CouponDatabase.Models.System model =
+                    new CouponDatabase.Models.System()
+                    {
+                        Name = vSystem.Name,
+                        Login = vSystem.Username,
+                        PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
+                    };
                 Context.System.Add(model);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
@@ -506,11 +515,20 @@ namespace WebApp.Services
             }
             return result;
         }
-        internal dynamic UpdateSystem(CouponDatabase.Models.System model)
+        internal dynamic UpdateSystem(ViewSystem vSystem)
         {
             Command result = null;
             try
             {
+                PasswordHasher<string> hasher = new PasswordHasher<string>();
+                CouponDatabase.Models.System model =
+                    new CouponDatabase.Models.System()
+                    {
+                        Id = vSystem.Id,
+                        Name = vSystem.Name,
+                        Login = vSystem.Username,
+                        PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
+                    };
                 Context.System.Update(model);
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);

@@ -14,8 +14,8 @@ namespace CouponDatabase.Models
         [MaxLength(20)]
         public string Name { get; set; }
         [MaxLength(20)]
-        public string Username { get; set; }
-        [MaxLength(20)]
-        public string Password { get; set; }
+        public string Login { get; set; }
+        [MaxLength(200)]
+        public string PwdHash { get; set; }
     }
 }
