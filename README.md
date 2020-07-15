@@ -20,7 +20,7 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Setup local SQLServer
     1. Open PackageManager Console
     2. Call\
-    `Update-Database`
+    `Update-Database` (hint: set startup project to WebApp before running command)
 
   - Update local SQLDatabase after initial setup
     1. Change environment to Development (optional)\
