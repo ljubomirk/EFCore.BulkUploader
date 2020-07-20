@@ -106,3 +106,24 @@
     </div>
     <!-- / active/inactive checkboxes -->
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#ValidFrom").calendar().on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#ValidTo').calendar('setStartDate', minDate);
+        });
+
+        $("#AssignableFrom").calendar().on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#AssignableUntil').calendar('setStartDate', minDate);
+        });
+
+        
+        $("#RedeemableFrom").calendar().on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#RedeemableUntil').calendar('setStartDate', minDate);
+        });
+
+    });
+</script>

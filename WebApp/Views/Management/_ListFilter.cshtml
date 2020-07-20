@@ -110,5 +110,11 @@
             $("#btn-filter").removeClass('btn-transparent');
             $("#btn-filter i").html('unfold_more');
         })
+
+
+        $("#ValidFrom").calendar().on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#ValidTo').calendar('setStartDate', minDate);
+        });
     });
 </script>

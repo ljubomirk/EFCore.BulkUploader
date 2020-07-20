@@ -164,7 +164,21 @@
         $("#Promotion_Enabled").change(function () {
             setSwitchStatus($(this).is(":checked"))
         });
-        
+
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = dd + '.' + mm + '.' + yyyy;
+
+        $("#Promotion_ValidFrom").calendar({
+            "startDate": today
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#Promotion_ValidTo').calendar('setStartDate', minDate);
+        });
 
         function setSwitchStatus(enabled) {
             if (enabled) {
@@ -207,4 +221,6 @@
             }
         }
     });
+
+
 </script>
