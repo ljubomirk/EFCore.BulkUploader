@@ -178,6 +178,7 @@
         }).on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#Promotion_ValidTo').calendar('setStartDate', minDate);
+            $('#Promotion_ValidTo').calendar('setDate', "");
         });
 
         function setSwitchStatus(enabled) {
