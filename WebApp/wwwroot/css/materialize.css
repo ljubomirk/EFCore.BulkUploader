@@ -4033,7 +4033,7 @@ p.section-headline {
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent; }
   .btn.error, .error.btn-large, .error.btn-small,
-  .btn-flat.error {
+  .btn-flat.errtxt {
     background-color: #F44336 !important; }
     .btn.error:hover, .error.btn-large:hover, .error.btn-small:hover,
     .btn-flat.error:hover {
@@ -6803,7 +6803,9 @@ input[type=range]::-ms-thumb {
   .tap-target-wrapper.open .tap-target-wave::after {
     visibility: visible;
     animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-    transition: opacity .3s, transform .3s, visibility 0s 1s; }
+    transition: opacity .3s,
+ transform .3s,
+ visibility 0s 1s; }
 
 .tap-target {
   position: absolute;
@@ -6838,7 +6840,9 @@ input[type=range]::-ms-thumb {
     transition: transform .3s; }
   .tap-target-wave::after {
     visibility: hidden;
-    transition: opacity .3s, transform .3s, visibility 0s;
+    transition: opacity .3s,
+ transform .3s,
+ visibility 0s;
     z-index: -1; }
 
 .tap-target-origin {
