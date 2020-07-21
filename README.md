@@ -37,6 +37,10 @@ Check out this repositry and open solution COMMANDO for start working on project
     `Script-Migration -o DB/OracleDDL.sql`
     3. Fix partitions
 
+  - Setup css and javascript minifiers
+    1. Install extension "Bundler & Minifier"
+    2. On materialize.css right click -> Bundler & Minifier -> Minify File 
+
   - Configuration and environments:
     1. Development
     - VS Configuration: Debug 
@@ -68,6 +72,8 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
+  1.0 Deployed to A1 production 20.5.2020
+
   0.8 Test environment week1
    - testing features of WebApp
 
