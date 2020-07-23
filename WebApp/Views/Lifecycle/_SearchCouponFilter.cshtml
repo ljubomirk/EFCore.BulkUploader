@@ -112,18 +112,22 @@
         $("#ValidFrom").calendar().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#ValidTo').calendar('setStartDate', minDate);
+            $('#ValidTo').calendar('setDate', "");
         });
 
         $("#AssignableFrom").calendar().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#AssignableUntil').calendar('setStartDate', minDate);
+            $('#AssignableUntil').calendar('setDate', "");
         });
 
         
         $("#RedeemableFrom").calendar().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#RedeemableUntil').calendar('setStartDate', minDate);
+            $('#RedeemableUntil').calendar('setDate', "");
         });
+
 
     });
 </script>

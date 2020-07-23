@@ -174,11 +174,25 @@
             $(".update-icon").addClass("loading").html("autorenew");
         })
 
+        $("#AssignableFrom").calendar({}).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#AssignableUntil').calendar('setStartDate', minDate);
+            $('#AssignableUntil').calendar('setDate', "");
+        });
+
+        $("#RedeemableFrom").calendar({}).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            $('#RedeemableUntil').calendar('setStartDate', minDate);
+            $('#RedeemableUntil').calendar('setDate', "");
+        });
+
     });
 
 
     function updateCouponStatus(val) {
         $("#Status").val(val);
     }
+
+
 
 </script>
