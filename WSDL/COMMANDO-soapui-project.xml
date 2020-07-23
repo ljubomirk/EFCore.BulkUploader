@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="3d482024-0975-4e4a-85d4-4c1e1192d5c2" activeEnvironment="Default" name="COMMANDO" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="3d482024-0975-4e4a-85d4-4c1e1192d5c2" activeEnvironment="Default" name="COMMANDO" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
   <con:interface xsi:type="con:WsdlInterface" id="87cfc46a-1373-4185-a973-800e9c14bcf1" wsaVersion="NONE" name="CouponAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}CouponAPI" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ljubo/Kod/COMMANDO/WSDL/CouponAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
@@ -582,15 +582,15 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/CouponAPI</con:endpoint>
+        <con:endpoint>http://localhost:58506/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
       <com:Redeem>
          <!--Optional:-->
-         <com:PromotionCode>Spring</com:PromotionCode>
+         <com:PromotionCode>55</com:PromotionCode>
          <!--Optional:-->
-         <com:CouponCode>EASTER1234567893</com:CouponCode>
+         <com:CouponCode>2test_n2mldux6</com:CouponCode>
          <!--Optional:-->
          <com:User>38640440482</com:User>
       </com:Redeem>
@@ -612,15 +612,15 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/CouponAPI</con:endpoint>
+        <con:endpoint>http://localhost:58506/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
       <com:UndoRedeem>
           <!--Optional:-->
-         <com:PromotionCode>Spring</com:PromotionCode>
+         <com:PromotionCode>55</com:PromotionCode>
          <!--Optional:-->
-         <com:CouponCode>EASTER1234567893</com:CouponCode>
+         <com:CouponCode>2test_n2mldux6</com:CouponCode>
       </com:UndoRedeem>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>

@@ -143,6 +143,7 @@ namespace CouponDatabase.Services
                         Coupon.Status = (int)CouponStatus.Redeemed;
                     Coupon.MaxRedeemNo--;
                     AddHistory("Redeem", user);
+                    Coupon.User = user;
                 }
             }
             return result;
@@ -153,11 +154,12 @@ namespace CouponDatabase.Services
             Lifecycle.Command result = StateChange(CouponStatus.Issued);
             if (result.Status == CommandStatus.Valid)
             {
-                CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
-                result = new Command(status);
+                //CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
+                //result = new Command(status);
                 if(result.Status == CommandStatus.Valid) {
                     Coupon.MaxRedeemNo++;
                     Coupon.Status = (int)CouponStatus.Issued;
+                    Coupon.User = "";
                     AddHistory("UndoRedeem", "");
                 }
             }
@@ -178,20 +180,6 @@ namespace CouponDatabase.Services
                         Coupon.Holder = Holder;
                     else
                         result = new Command(CommandStatus.ErrorInvalidUser);
-                }
-                /**
-                 * Named consumer coupons rules
-                 */
-                if (props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
-                {
-                    Coupon.User = Holder;
-                }
-                /**
-                 * Named consumer coupons rules
-                 */
-                if (props.Contains(PropertyTypeEnum.NamedConsumers) && !props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
-                {
-                    Coupon.User = User;
                 }
                 if (result.Status == CommandStatus.Valid)
                 {

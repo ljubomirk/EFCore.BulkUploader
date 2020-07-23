@@ -110,7 +110,8 @@ namespace WebApp.Services
 
         public Coupon GetCouponById(long id)
         {
-            return Context.Coupon.Where(c => c.Id == id).First();
+            Coupon coupon = Context.Coupon.Find(id);
+            return Context.Coupon.Include(c => c.Promotion).Where(c => c.Id == id).First();
         }
 
         public Command UpdateCoupon(Coupon coupon)
