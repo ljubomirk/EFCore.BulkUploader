@@ -5865,24 +5865,16 @@ select {
       .select-wrapper input.select-dropdown:focus + label,
       .select-wrapper select.select-dropdown:focus + label {
         color: #4d4cac; }
-  .select-wrapper  {
+
+  .select-wrapper .caret {
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     margin: auto 0;
-    z-index: 20;
+    z-index: -1;
     fill: rgba(0, 0, 0, 0.87); }
 
-     .caret {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto 0;
-        z-index: -1;
-        fill: rgba(0, 0, 0, 0.87);
-    }
   .select-wrapper + label {
     position: absolute;
     top: -38px;
@@ -8655,10 +8647,6 @@ td.table-password {
   opacity: 0;
   height: 0; }
 
-.select-wrapper input.select-dropdown, .select-wrapper select.select-dropdown, .select-wrapper {
-    background: transparent;
-}
-
 .row .col.m6{
     z-index:0;
 }
@@ -8667,6 +8655,7 @@ td.table-password {
     z-index:-1;
 }
 
-input.single-line.text-box{
-    background:transparent;
+input.single-line.text-box, input[type=text].valid:not(.browser-default), .select-wrapper input.select-dropdown {
+    background-color: transparent;
 }
+
