@@ -8658,3 +8658,15 @@ td.table-password {
 .select-wrapper input.select-dropdown, .select-wrapper select.select-dropdown, .select-wrapper {
     background: transparent;
 }
+
+.row .col.m6{
+    z-index:0;
+}
+
+.material-icons.validation-error{
+    z-index:-1;
+}
+
+input.single-line.text-box{
+    background:transparent;
+}
