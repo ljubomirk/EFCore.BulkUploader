@@ -574,6 +574,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System error: Please contact IT!.
+        /// </summary>
+        public static string ErrorSystem_Message {
+            get {
+                return ResourceManager.GetString("ErrorSystem_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copied to clipboard.
         /// </summary>
         public static string ErrorView_CopiedToClipboard {

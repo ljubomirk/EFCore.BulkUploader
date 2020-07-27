@@ -139,11 +139,13 @@ namespace CouponDatabase.Services
                 result = Validate(user);
                 if (result.Status == CommandStatus.Valid)
                 {
-                    if(Coupon.MaxRedeemNo>0)
-                        Coupon.Status = (int)CouponStatus.Redeemed;
                     Coupon.MaxRedeemNo--;
-                    AddHistory("Redeem", user);
+
+                    //when MaxRedeemNo == 0 then Coupon.Status is Redeemed, otherwise should stay Issued
+                    if (Coupon.MaxRedeemNo==0)  
+                        Coupon.Status = (int)CouponStatus.Redeemed;
                     Coupon.User = user;
+                    AddHistory("Redeem", user);
                 }
             }
             return result;

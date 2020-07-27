@@ -20,7 +20,7 @@ namespace WebApp.ViewModels
         public long Id { get; set; }
         //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
         public int CouponSeries { get; set; }
-        public long PromotionId { get; set; }
+        public Promotion _promo { get; set; }
         public int NumberOfCoupons { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_AssignableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
@@ -64,6 +64,7 @@ namespace WebApp.ViewModels
             DataSet resultFromFile = new DataSet();
             List<Coupon> listOfCoupons = new List<Coupon>();
 
+            //Check if Excel/csv file is loaded
             if (file != null)
             {
                 if (file.Length > 0)
@@ -93,24 +94,19 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
+                    //Read first sheet of Excel file
                     if(resultFromFile.Tables[0]!= null)
                     {
                         foreach (DataRow row in resultFromFile.Tables[0].Rows)
                         {
+                            //Check if CouponUser are defined
                             string CouponUser = row.ItemArray[1].ToString();
 
-                            Coupon coupon = new Coupon()
+                            //Get coupon code for import
+                            string couponCode = row.ItemArray[0].ToString();
+                            Coupon coupon = new Coupon(couponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil,CouponSeries ,(int)MaximumRedeem)
                             {
-                                Code = row.ItemArray[0].ToString(),
-                                PromotionId = PromotionId,
-                                AquireFrom = AssignableFrom,
-                                AquireTo = AssignableUntil,
-                                AwardFrom = RedeemableFrom,
-                                AwardTo = RedeemableUntil,
-                                Status = (int)CouponStatus.Created,
-                                CouponSeries = CouponSeries,
-                                User = CouponUser,
-                                Enabled = true
+                                Holder = CouponUser
                             };
 
                             ICoupon cpn = new ICoupon(coupon);
@@ -147,19 +143,8 @@ namespace WebApp.ViewModels
                     string code = getCouponCode();
                     if(code != "")
                     {
-                        Coupon coupon = new Coupon()
-                        {
-                            Code = code,
-                            PromotionId = PromotionId,
-                            AquireFrom = AssignableFrom,
-                            AquireTo = AssignableUntil,
-                            AwardFrom = RedeemableFrom,
-                            AwardTo = RedeemableUntil,
-                            Status = (int)CouponStatus.Created,
-                            CouponSeries = CouponSeries,
-                            Enabled = true
-                        };
-
+                        Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil,CouponSeries, (int)MaximumRedeem);
+                        //Add coupon to service class
                         ICoupon cpn = new ICoupon(coupon);
 
                         switch (Status)

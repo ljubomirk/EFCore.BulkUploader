@@ -20,6 +20,19 @@ namespace CouponDatabase.Models
             Promotion = promo;
             MaxRedeemNo = maxRedeemNo;
         }
+        public Coupon(string code, CouponDatabase.Lifecycle.CouponStatus status, Promotion promo,DateTime? assignableFrom,DateTime? assignableUntil,DateTime? redeemableFrom,DateTime? redeemableUntil, int series=1 ,int maxRedeemNo = 1,bool enabled=true)
+        {
+            Code = code;
+            Status = (int)status;
+            Promotion = promo;
+            MaxRedeemNo = maxRedeemNo;
+            AquireFrom = assignableFrom;
+            AquireTo = assignableUntil;
+            AwardFrom = redeemableFrom;
+            AwardTo = redeemableUntil;
+            CouponSeries = series;
+            Enabled = enabled;
+        }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }

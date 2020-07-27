@@ -37,7 +37,13 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             try {
                 Context.Database.BeginTransaction();
-                foreach(Coupon coupon in coupons) { 
+                foreach(Coupon coupon in coupons) {
+                    //removed Promotion reference, if already exists
+                    if (coupon.Promotion?.Id != 0) { 
+                        coupon.PromotionId = coupon.Promotion.Id;
+                        coupon.Promotion = null;
+                    }
+
                     Context.Coupon.Add(coupon);
                     if(coupon.CouponHistories!=null)
                     foreach (CouponHistory ch in coupon.CouponHistories)

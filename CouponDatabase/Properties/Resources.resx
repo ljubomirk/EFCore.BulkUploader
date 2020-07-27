@@ -533,4 +533,8 @@
     <value>Copied to clipboard</value>
     <comment>Error view text.</comment>
   </data>
+  <data name="ErrorSystem_Message" xml:space="preserve">
+    <value>System error: Please contact IT!</value>
+    <comment>Generic system message</comment>
+  </data>
 </root>

@@ -22,7 +22,7 @@
 
 @using (Html.BeginForm("GenerateCoupons", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm", enctype = "multipart/form-data" }))
 {
-    @Html.HiddenFor(p => p.PromotionId)
+    @Html.HiddenFor(p => p._promo.Id)
 
     <div class="form-box">
         <div class="container">
