@@ -349,6 +349,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string Btn_View {
+            get {
+                return ResourceManager.GetString("Btn_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string CouponFilter_Search {
@@ -966,6 +975,15 @@ namespace CouponDatabase.Properties {
         public static string Promotion_TitleEdit {
             get {
                 return ResourceManager.GetString("Promotion_TitleEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Promotion.
+        /// </summary>
+        public static string Promotion_TitleView {
+            get {
+                return ResourceManager.GetString("Promotion_TitleView", resourceCulture);
             }
         }
         

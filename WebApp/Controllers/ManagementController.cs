@@ -159,6 +159,42 @@ namespace WebApp.Controllers
             
         }
 
+        [Route("{Id}")]
+        [HttpGet]
+        public IActionResult ViewPromotion(long Id)
+        {
+            // if (promo == null) RedirectToAction("Error");
+            string view = "ViewPromotionDetails";
+            var promotion = _repo.GetPromotionWithId(Id);
+            if (TempData["CommandStatus"] != null)
+                ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
+            if (promotion.HasCoupons)
+            {
+                view = "PromotionList";
+                PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
+                model.Promotions.AddRange(_repo.GetAllPromotions());
+                model.Filter = new PromotionFilter();
+                model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
+                return View(view, model);
+            }
+            else
+            {
+                _repo.GetPromotionData(promotion);
+                PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
+                {
+                    Promotion = promotion,
+                    Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
+                    AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), promotion.PromotionAwardChannels as List<PromotionAwardChannel>),
+                    IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), promotion.PromotionIssuerChannels as List<PromotionIssuerChannel>),
+                    hasEndDate = promotion.ValidTo != null ? true : false
+                };
+                return View(view, model);
+            }
+
+        }
+
+
+
         [HttpPost]
         public IActionResult StoreAddCouponSeries(PromotionDetailsViewModel viewModel)
         {

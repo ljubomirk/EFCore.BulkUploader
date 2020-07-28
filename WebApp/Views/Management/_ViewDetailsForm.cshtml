@@ -1,0 +1,165 @@
+﻿@*
+    ROLE: displays promotion create/edit form and handles data for posting to controller
+*@
+
+@{
+    // used to enable/disable add series button
+    bool allowAddSeries = false;
+}
+
+@model WebApp.ViewModels.PromotionDetailsViewModel;
+
+
+@using (Html.BeginForm("SavePromotion", "Management", FormMethod.Post, new { role = "form", id = "PromotionForm" }))
+{
+    @Html.HiddenFor(p => p.Promotion.Id)
+    <div class="form-box">
+        <div class="container">
+            <!-- top form return msg -->
+            @if (ViewBag.Command != null)
+            {
+                <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
+            }
+            <!-- input fields -->
+            <div class="row">
+                <div class="row">
+                    <div class="input-field date col s12 m6">
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @disabled = "disabled" } })
+                        @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
+                        @Html.ValidationMessageFor(p => p.Promotion.Code)
+                        <i class='material-icons suffix validation-error'>warning</i>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <div class="switch u-m-t-sm">
+                            <label>
+                                @Html.CheckBoxFor(p => p.Promotion.Enabled,  new {@disabled = "disabled" } )
+                                <span class="lever"></span>
+                                <span id="switch-status">Disabled</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @disabled = "disabled" } })
+                    @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @disabled = "disabled" } })
+                    @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+                <div class="col s12">
+                    <p class="u-m-t-remove u-m-l-xs">
+                        <label id="chk-endDate">
+                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo", @disabled = "disabled" })
+                            <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
+                        </label>
+                    </p>
+                </div>
+            </div>
+            <!-- /input fields -->
+            <!-- checkboxes -->
+            <div class="row">
+                <!-- IssuerChannels -->
+                <div class="col s12 m6">
+                    <p class="section-headline">@Html.DisplayNameFor(m => m.IssuerChannels)</p>
+                    @for (int i = 0; i < Model.IssuerChannels.Count; i++)
+                    {
+                        <p class="checkbox-hover">
+                            <label>
+                                @Html.CheckBoxFor(c => c.IssuerChannels[i].Checked, new { @class = "filled-in" ,@disabled = "disabled" })
+                                <span>@Html.DisplayFor(c => c.IssuerChannels[i].Label)</span>
+                                @Html.HiddenFor(c => c.IssuerChannels[i].Id)
+                                @Html.HiddenFor(c => c.IssuerChannels[i].Label)
+                            </label>
+                        </p>
+                    }
+                </div>
+                <!-- /IssuerChannels -->
+                <!-- AwardChannels -->
+                <div class="col s12 m6">
+                    <p class="section-headline">@Html.DisplayNameFor(m => m.AwardChannels)</p>
+                    @for (int i = 0; i < Model.AwardChannels.Count; i++)
+                    {
+                        <p class="checkbox-hover">
+                            <label>
+                                @Html.CheckBoxFor(c => c.AwardChannels[i].Checked, new { @class = "filled-in" , @disabled = "disabled" })
+                                <span>@Html.DisplayFor(c => c.AwardChannels[i].Label)</span>
+                                @Html.HiddenFor(c => c.AwardChannels[i].Id)
+                                @Html.HiddenFor(c => c.AwardChannels[i].Label)
+                            </label>
+                        </p>
+                    }
+                </div>
+                <!-- /AwardChannels -->
+                <!-- Properties -->
+                <div class="col s12">
+                    <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.Properties)</p>
+                </div>
+                <div class="col s12 two-cols">
+                    @for (int i = 0; i < Model.Properties.Count; i++)
+                    {
+                        @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
+                        <p class="checkbox-hover">
+                            <label id="@Model.Properties[i].Label">
+                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in", @disabled = "disabled" })
+                                <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
+                                @Html.HiddenFor(c => c.Properties[i].Id)
+                                @Html.HiddenFor(c => c.Properties[i].Label)
+                            </label>
+                        </p>
+                    }
+                </div>
+                <!-- /Properties -->
+            </div>
+            <!-- /checkboxes -->
+            
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        // change label of switch
+        var switchStatus = $("#switch-status");
+        // set init state
+        setSwitchStatus($("#Promotion_Enabled").is(":checked"));
+        // set state on change
+        $("#Promotion_Enabled").change(function () {
+            setSwitchStatus($(this).is(":checked"))
+        });
+        
+
+        function setSwitchStatus(enabled) {
+            if (enabled) {
+                switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusEnabled');
+            } else {
+                switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusDisabled');
+            }
+        }
+        
+       
+
+        function handleValidTo(condition) {
+            if (condition) {
+                $("#Promotion_ValidTo").prop("disabled", false);
+                $("#toggle-validTo").prop("checked", true);
+                $("#Promotion_ValidTo").parent()
+                    .children(".date-icon").removeClass("disabled");
+                $("#icon-endDate").removeClass("disabled");
+            } else {
+                $("#Promotion_ValidTo").val("");
+                $("#Promotion_ValidTo").removeClass("valid invalid");
+                $("#Promotion_ValidTo").prop("disabled", true);
+                $("#toggle-validTo").prop("checked", false);
+                $("#Promotion_ValidTo").parent()
+                    .children(".date-icon").addClass("disabled");
+            }
+        }
+    });
+</script>

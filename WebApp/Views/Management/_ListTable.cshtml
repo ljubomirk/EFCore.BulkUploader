@@ -74,9 +74,15 @@
                     <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@p.Id'>
                         <i class="material-icons material-icons__hover">more_horiz</i>
                     </a>
-                    <ul id='promotion-actions-@p.Id' class='dropdown-content'>
-                        <li>
-                            <a class="action-promo @(p.HasCoupons ? "disabled": "")" data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = p.Id })">
+                    <ul id='promotion-actions-@p.Id' class='dropdown-content'>                      
+                        <li @(p.HasCoupons ? "" : "hidden")>
+                            <a class="action-promo" data-action="ViewPromotion" href="@Url.Action("ViewPromotion", "Management", new { id = p.Id })">
+                                <i class="material-icons" )>pageview</i>
+                                @CouponDatabase.Properties.Resources.Btn_View
+                            </a>
+                        </li> 
+                        <li @(p.HasCoupons ? "hidden" : "")>
+                            <a class="action-promo " data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = p.Id })">
                                 <i class="material-icons">create</i>
                                 @CouponDatabase.Properties.Resources.Btn_Edit
                             </a>

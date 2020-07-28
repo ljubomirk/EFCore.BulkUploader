@@ -149,6 +149,10 @@
     <value>Save Changes</value>
     <comment>Button label.</comment>
   </data>
+	<data name="Btn_View" xml:space="preserve">
+    <value>View</value>
+    <comment>Button label.</comment>
+  </data>
   <data name="CouponStatus_Canceled" xml:space="preserve">
     <value>Canceled</value>
     <comment>Coupon status.</comment>
@@ -259,6 +263,10 @@
   </data>
   <data name="Promotion_TitleEdit" xml:space="preserve">
     <value>Edit Promotion</value>
+    <comment>Title for promotion details page.</comment>
+  </data>
+	<data name="Promotion_TitleView" xml:space="preserve">
+    <value>View Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
   <data name="Btn_ApplyFilters" xml:space="preserve">
