@@ -50,7 +50,7 @@ namespace WebApp.ViewModels
         public bool CouponWithNumbers { get; set; }
         public IFormFile file { get; set; }
         public Nullable<Int32> MaximumRedeem { get; set; }
-
+        
         public CouponSeriesViewModel() : base() { }
         public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo):base(contextData.AgentUsername, contextData.AgentGroup)
         {
@@ -82,7 +82,7 @@ namespace WebApp.ViewModels
                         if(extension == ".xls" || extension == ".xlsx")
                         {
                             using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
-                            { 
+                            {
                                 resultFromFile = reader.AsDataSet();
                             }
                         }
@@ -104,7 +104,7 @@ namespace WebApp.ViewModels
 
                             //Get coupon code for import
                             string couponCode = row.ItemArray[0].ToString();
-                            Coupon coupon = new Coupon(couponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil,CouponSeries ,(int)MaximumRedeem)
+                            Coupon coupon = new Coupon(couponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
                             {
                                 Holder = CouponUser
                             };
@@ -116,7 +116,7 @@ namespace WebApp.ViewModels
                                 case CouponStatus.Created:
                                     break;
                                 case CouponStatus.Issued:
-                                    cpn.Assign("", CouponUser); 
+                                    cpn.Assign("", CouponUser);
                                     break;
                                 case CouponStatus.Redeemed:
                                     cpn.Assign("", CouponUser);
@@ -141,9 +141,18 @@ namespace WebApp.ViewModels
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
                     string code = getCouponCode();
-                    if(code != "")
+                    if (code != "")
                     {
-                        Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil,CouponSeries, (int)MaximumRedeem);
+                        Coupon coupon = null;
+                        if (MaximumRedeem.HasValue)
+                        {
+                           coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
+                        }
+                        else
+                        {
+                           coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries);
+                        }
+
                         //Add coupon to service class
                         ICoupon cpn = new ICoupon(coupon);
 
@@ -152,33 +161,35 @@ namespace WebApp.ViewModels
                             case CouponStatus.Created:
                                 break;
                             case CouponStatus.Issued:
-                                cpn.Assign("","");
+                                cpn.Assign("", "");
                                 break;
                             case CouponStatus.Redeemed:
-                                cpn.Assign("","");
+                                cpn.Assign("", "");
                                 cpn.Redeem("");
                                 break;
                             case CouponStatus.Canceled:
-                                cpn.Assign("","");
+                                cpn.Assign("", "");
                                 cpn.Cancel();
                                 break;
                             default:
                                 break;
                         }
-                        if (pottentialySameCoupons!=null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
+                        if (pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
                         {
                             NumberOfCoupons++;
                         }
-                        else if (listOfCoupons.Any(x=>x.Code == coupon.Code))
+                        else if (listOfCoupons.Any(x => x.Code == coupon.Code))
                         {
                             NumberOfCoupons++;
                         }
                         else
+                        {
                             listOfCoupons.Add(coupon);
+                        }
                     }
                 }
-            }
 
+            }
             return listOfCoupons;
         }
 
