@@ -143,16 +143,12 @@ namespace WebApp.ViewModels
                     string code = getCouponCode();
                     if (code != "")
                     {
-                        Coupon coupon = null;
-                        if (MaximumRedeem.HasValue)
+                        
+                        if (!MaximumRedeem.HasValue)
                         {
-                           coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
+                            MaximumRedeem = 1;
                         }
-                        else
-                        {
-                           coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries);
-                        }
-
+                         Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
                         //Add coupon to service class
                         ICoupon cpn = new ICoupon(coupon);
 
