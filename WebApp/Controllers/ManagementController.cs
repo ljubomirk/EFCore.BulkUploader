@@ -168,17 +168,6 @@ namespace WebApp.Controllers
             var promotion = _repo.GetPromotionWithId(Id);
             if (TempData["CommandStatus"] != null)
                 ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
-            if (promotion.HasCoupons)
-            {
-                view = "PromotionList";
-                PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
-                model.Promotions.AddRange(_repo.GetAllPromotions());
-                model.Filter = new PromotionFilter();
-                model.Filter.Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>());
-                return View(view, model);
-            }
-            else
-            {
                 _repo.GetPromotionData(promotion);
                 PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
                 {
@@ -189,7 +178,7 @@ namespace WebApp.Controllers
                     hasEndDate = promotion.ValidTo != null ? true : false
                 };
                 return View(view, model);
-            }
+            
 
         }
 
