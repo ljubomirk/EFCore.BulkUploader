@@ -164,7 +164,7 @@ namespace WebApp.Controllers
         public IActionResult ViewPromotion(long Id)
         {
             // if (promo == null) RedirectToAction("Error");
-            string view = "ViewPromotionDetails";
+            string view = "PromotionDisplay";
             var promotion = _repo.GetPromotionWithId(Id);
             if (TempData["CommandStatus"] != null)
                 ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
