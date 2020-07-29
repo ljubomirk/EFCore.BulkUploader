@@ -925,6 +925,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name..
+        /// </summary>
+        public static string Promotion_Name {
+            get {
+                return ResourceManager.GetString("Promotion_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is required..
+        /// </summary>
+        public static string Promotion_Name_Required {
+            get {
+                return ResourceManager.GetString("Promotion_Name_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Properties.
         /// </summary>
         public static string Promotion_Properties {

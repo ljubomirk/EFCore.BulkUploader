@@ -37,6 +37,12 @@ namespace CouponDatabase.Models
 
         [NotMapped]
         public Boolean HasCoupons{ get; set; }
+
+        [Required(ErrorMessageResourceName = "Promotion_Name_Required", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "Promotion_Name", ResourceType = typeof(Resources))]
+        [DataType(DataType.Text)]
+        [MaxLength(40)]
+        public String Name { get; set; }
         #endregion
         #region Construction
         public Promotion()
@@ -90,5 +96,6 @@ namespace CouponDatabase.Models
         public IList<PromotionProperty> PromotionProperties { get; set; }
         public IList<Coupon> Coupons { get; set; }
         #endregion
+        
     }
 }

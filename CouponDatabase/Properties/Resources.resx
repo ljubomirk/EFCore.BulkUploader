@@ -149,7 +149,7 @@
     <value>Save Changes</value>
     <comment>Button label.</comment>
   </data>
-	<data name="Btn_View" xml:space="preserve">
+  <data name="Btn_View" xml:space="preserve">
     <value>View</value>
     <comment>Button label.</comment>
   </data>
@@ -265,7 +265,7 @@
     <value>Edit Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
-	<data name="Promotion_TitleView" xml:space="preserve">
+  <data name="Promotion_TitleView" xml:space="preserve">
     <value>View Promotion</value>
     <comment>Title for promotion details page.</comment>
   </data>
@@ -544,5 +544,13 @@
   <data name="ErrorSystem_Message" xml:space="preserve">
     <value>System error: Please contact IT!</value>
     <comment>Generic system message</comment>
+  </data>
+  <data name="Promotion_Name" xml:space="preserve">
+    <value>Name.</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_Name_Required" xml:space="preserve">
+    <value>Name is required.</value>
+    <comment>Label of property.</comment>
   </data>
 </root>
