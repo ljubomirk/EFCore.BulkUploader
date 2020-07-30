@@ -146,6 +146,9 @@
     <PackageReference Include="SoapCore" Version="1.1.0-alpha" />
     <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
   </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Management\" />
@@ -161,5 +164,9 @@
     <ProjectReference Include="..\AD\AD.csproj" />
     <ProjectReference Include="..\CouponDatabase\CouponDatabase.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet bundle" />
+  </Target>
 
 </Project>
