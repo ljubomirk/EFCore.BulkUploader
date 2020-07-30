@@ -38,8 +38,7 @@ Check out this repositry and open solution COMMANDO for start working on project
     3. Fix partitions
 
   - Setup css and javascript minifiers
-    1. Install extension "Bundler & Minifier"
-    2. On materialize.css right click -> Bundler & Minifier -> Minify File 
+    --> DEPRECATED: This is now automatized with dotnet cli tool BundlerMinifier.Core postbuild cmd "dotnet bundle"
 
   - Configuration and environments:
     1. Development
