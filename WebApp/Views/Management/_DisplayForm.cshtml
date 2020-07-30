@@ -24,15 +24,20 @@
             <div class="row">
                 <div class="row">
                     <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @readonly = "readonly" } })
+                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly="true" } })
+                        @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
+                        @Html.ValidationMessageFor(p => p.Promotion.Name)
+                        <i class='material-icons suffix validation-error'>warning</i>
+                    </div>
+                    <div class="input-field date col s12 m6">
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                         @Html.ValidationMessageFor(p => p.Promotion.Code)
-                        <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12 m6">
                         <div class="switch u-m-t-sm">
                             <label>
-                                @Html.CheckBoxFor(p => p.Promotion.Enabled,  new {@disabled = "disabled" } )
+                                @Html.CheckBoxFor(p => p.Promotion.Enabled, new { @disabled = "disabled" })
                                 <span class="lever"></span>
                                 <span id="switch-status">Disabled</span>
                             </label>
@@ -40,15 +45,15 @@
                     </div>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @disabled = "disabled" } })
-                    @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active", @disabled = "disabled" } })
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @disabled = "disabled"} })
+                    @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
                     <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field col s12 m6">
                     @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @disabled = "disabled" } })
-                    @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active", @disabled = "disabled" } })
+                    @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
                     <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
