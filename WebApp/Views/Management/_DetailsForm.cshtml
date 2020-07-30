@@ -30,7 +30,7 @@
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true,@readonly="true" } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                         @Html.ValidationMessageFor(p => p.Promotion.Code)
                     </div>

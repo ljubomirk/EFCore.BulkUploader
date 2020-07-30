@@ -356,6 +356,16 @@ namespace WebApp.Services
         {
             return Context.CouponAwardChannel.Where(c => c.CouponId == idCoupon).ToList();
         }
+        public bool CheckPromotionCode(string code)
+        {
+            if( Context.Promotion.Where(c => c.Code == code).Count() == 0){
+                return true;
+            }
+            return false;
+
+        }
+
+
 
         public List<IssuerChannel> GetAllIssuerChannels()
         {

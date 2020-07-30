@@ -25,7 +25,8 @@ namespace CouponDatabase.Models
         public String Name { get; set; }
         // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
         [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
-       // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
+        // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
+         [Display(Name = "Promotion_Code", ResourceType = typeof(Resources),AutoGenerateField =true)]
         [DataType(DataType.Text)]
         [MaxLength(40)]
 
@@ -44,12 +45,16 @@ namespace CouponDatabase.Models
         [NotMapped]
         public Boolean HasCoupons{ get; set; }
 
-        
+
         #endregion
         #region Construction
         public Promotion()
         {
-            
+   
+        }
+        public Promotion(string code)
+        {
+            this.Code = code;
         }
         #endregion
         #region Behaviour

@@ -115,9 +115,19 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult CreatePromotion()
         {
+            string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!_repo.CheckPromotionCode(code));
+
             PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
             {
-                Promotion = new Promotion(),
+                Promotion = new Promotion(code),
                 Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>()),
                 AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<PromotionAwardChannel>()),
                 IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<PromotionIssuerChannel>())
@@ -178,11 +188,7 @@ namespace WebApp.Controllers
                     hasEndDate = promotion.ValidTo != null ? true : false
                 };
                 return View(view, model);
-            
-
         }
-
-
 
         [HttpPost]
         public IActionResult StoreAddCouponSeries(PromotionDetailsViewModel viewModel)
