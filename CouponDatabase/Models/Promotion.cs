@@ -18,12 +18,18 @@ namespace CouponDatabase.Models
         #region Properties 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-       // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
+        [Required(ErrorMessageResourceName = "Promotion_Name_Required", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "Promotion_Name", ResourceType = typeof(Resources))]
+        [DataType(DataType.Text)]
+        [MaxLength(40)]
+        public String Name { get; set; }
+        // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
         [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
        // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
         [MaxLength(40)]
-        public String Code { get; set; }
+
+        public  String  Code { get; set; }
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -38,11 +44,7 @@ namespace CouponDatabase.Models
         [NotMapped]
         public Boolean HasCoupons{ get; set; }
 
-        [Required(ErrorMessageResourceName = "Promotion_Name_Required", ErrorMessageResourceType = typeof(Resources))]
-        [Display(Name = "Promotion_Name", ResourceType = typeof(Resources))]
-        [DataType(DataType.Text)]
-        [MaxLength(40)]
-        public String Name { get; set; }
+        
         #endregion
         #region Construction
         public Promotion()
