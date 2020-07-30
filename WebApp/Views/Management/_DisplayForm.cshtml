@@ -24,20 +24,20 @@
             <div class="row">
                 <div class="row">
                     <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly="true" } })
+                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly="true"  } })
                         @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
                         @Html.ValidationMessageFor(p => p.Promotion.Name)
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @readonly = "true" } })
                         @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                         @Html.ValidationMessageFor(p => p.Promotion.Code)
                     </div>
                     <div class="input-field col s12 m6">
                         <div class="switch u-m-t-sm">
                             <label>
-                                @Html.CheckBoxFor(p => p.Promotion.Enabled, new { @disabled = "disabled" })
+                                @Html.CheckBoxFor(p => p.Promotion.Enabled , new { @class = "nochange" })
                                 <span class="lever"></span>
                                 <span id="switch-status">Disabled</span>
                             </label>
@@ -45,14 +45,14 @@
                     </div>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @disabled = "disabled"} })
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @readonly = "true" } })
                     @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
                     <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @disabled = "disabled" } })
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  , @readonly = "true" } })
                     @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
                     <i class='material-icons suffix validation-error'>warning</i>
@@ -61,7 +61,7 @@
                 <div class="col s12">
                     <p class="u-m-t-remove u-m-l-xs">
                         <label id="chk-endDate">
-                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo", @disabled = "disabled" })
+                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in nochange", @id = "toggle-validTo" })
                             <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
                         </label>
                     </p>
@@ -77,7 +77,7 @@
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.IssuerChannels[i].Checked, new { @class = "filled-in" ,@disabled = "disabled" })
+                                @Html.CheckBoxFor(c => c.IssuerChannels[i].Checked, new { @class = "filled-in nochange" })
                                 <span>@Html.DisplayFor(c => c.IssuerChannels[i].Label)</span>
                                 @Html.HiddenFor(c => c.IssuerChannels[i].Id)
                                 @Html.HiddenFor(c => c.IssuerChannels[i].Label)
@@ -93,7 +93,7 @@
                     {
                         <p class="checkbox-hover">
                             <label>
-                                @Html.CheckBoxFor(c => c.AwardChannels[i].Checked, new { @class = "filled-in" , @disabled = "disabled" })
+                                @Html.CheckBoxFor(c => c.AwardChannels[i].Checked, new { @class = "filled-in nochange" })
                                 <span>@Html.DisplayFor(c => c.AwardChannels[i].Label)</span>
                                 @Html.HiddenFor(c => c.AwardChannels[i].Id)
                                 @Html.HiddenFor(c => c.AwardChannels[i].Label)
@@ -112,7 +112,7 @@
                         @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
                         <p class="checkbox-hover">
                             <label id="@Model.Properties[i].Label">
-                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in", @disabled = "disabled" })
+                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in nochange"})
                                 <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
                                 @Html.HiddenFor(c => c.Properties[i].Id)
                                 @Html.HiddenFor(c => c.Properties[i].Label)
@@ -138,7 +138,7 @@
         $("#Promotion_Enabled").change(function () {
             setSwitchStatus($(this).is(":checked"))
         });
-        
+
 
         function setSwitchStatus(enabled) {
             if (enabled) {
@@ -147,24 +147,9 @@
                 switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusDisabled');
             }
         }
-        
-       
 
-        function handleValidTo(condition) {
-            if (condition) {
-                $("#Promotion_ValidTo").prop("disabled", false);
-                $("#toggle-validTo").prop("checked", true);
-                $("#Promotion_ValidTo").parent()
-                    .children(".date-icon").removeClass("disabled");
-                $("#icon-endDate").removeClass("disabled");
-            } else {
-                $("#Promotion_ValidTo").val("");
-                $("#Promotion_ValidTo").removeClass("valid invalid");
-                $("#Promotion_ValidTo").prop("disabled", true);
-                $("#toggle-validTo").prop("checked", false);
-                $("#Promotion_ValidTo").parent()
-                    .children(".date-icon").addClass("disabled");
-            }
-        }
+        $(".nochange").click(function () {
+            return false;
+        });
     });
 </script>
