@@ -132,16 +132,16 @@ namespace Web.Services.Impl
             }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
+                result.Add(new Promotion() { Code = promo.Code, Name = promo.Name, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
             }
             return result;
         }
 
-        public Command Create(string PromotionCode, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
+        public Command Create(string PromotionName, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
             _repo.LogAPIAccess("PromotionAPI.Create", "POS", "", true);
             Command response = new Command(CommandStatus.Valid);
-            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
+            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Name = PromotionName, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
             List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
             long promoId = _repo.CreatePromotion(promo);
             List<CouponDatabase.Models.PromotionProperty> promProps = new List<CouponDatabase.Models.PromotionProperty>();

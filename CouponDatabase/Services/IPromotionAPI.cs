@@ -20,7 +20,7 @@ namespace CouponDatabase.Services
         IList<Promotion> Get(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
 
         [OperationContract]
-        Command Create(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
+        Command Create(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
 
         [OperationContract]
         Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, Nullable<DateTime> ExpireDate, CouponStatus Status);
