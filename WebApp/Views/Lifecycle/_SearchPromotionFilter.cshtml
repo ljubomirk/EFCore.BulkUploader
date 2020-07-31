@@ -9,6 +9,12 @@
 <!-- promotion details -->
 <div class="row">
     <div class="input-field col s6">
+        @Html.EditorFor(f => f.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.Name, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.Name)
+        <i class='material-icons suffix validation-error'>warning</i>
+    </div>
+    <div class="input-field col s6">
         @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
         @Html.LabelFor(f => f.Code, new { htmlAttributes = new { @class = "active" } })
         @Html.ValidationMessageFor(p => p.Code)
