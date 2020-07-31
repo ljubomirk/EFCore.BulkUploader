@@ -628,6 +628,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Name.
+        /// </summary>
+        public static string Filter_ByName {
+            get {
+                return ResourceManager.GetString("Filter_ByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Property.
         /// </summary>
         public static string Filter_ByProperty {
@@ -925,7 +934,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name..
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Promotion_Name {
             get {
@@ -934,7 +943,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name is required..
+        ///   Looks up a localized string similar to Name is required.
         /// </summary>
         public static string Promotion_Name_Required {
             get {

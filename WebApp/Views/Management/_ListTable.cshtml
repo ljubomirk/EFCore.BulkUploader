@@ -8,6 +8,10 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(m => m.Name)
+                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+            </th>
+            <th>
                 @Html.DisplayNameFor(m => m.Code)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
@@ -48,60 +52,61 @@
                     break;
                 } 
             }
-            <tr>
-                <td>@Html.DisplayFor(item => p.Code)</td>
-                <td>@Html.DisplayFor(item => p.ValidFrom)</td>
-                <td>@Html.DisplayFor(item => p.ValidTo)
-                <td>
-                    @if (p.HasCoupons)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    @if (p.Active)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    @if (p.Enabled)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@p.Id'>
-                        <i class="material-icons material-icons__hover">more_horiz</i>
-                    </a>
-                    <ul id='promotion-actions-@p.Id' class='dropdown-content'>                      
-                        <li @(p.HasCoupons ? "" : "hidden")>
-                            <a class="action-promo" data-action="ViewPromotion" href="@Url.Action("ViewPromotion", "Management", new { id = p.Id })">
-                                <i class="material-icons" )>pageview</i>
-                                @CouponDatabase.Properties.Resources.Btn_View
-                            </a>
-                        </li> 
-                        <li @(p.HasCoupons ? "hidden" : "")>
-                            <a class="action-promo " data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = p.Id })">
-                                <i class="material-icons">create</i>
-                                @CouponDatabase.Properties.Resources.Btn_Edit
-                            </a>
-                        </li>
-                        <li>
-                            <a class="action-promo @(!allowCoupons ? "disabled":"")" data-action="AddSeries" href="@Url.Action("AddCouponSeries", "Management", new { id = p.Id })">
-                                <i class="material-icons">add</i>
-                                @CouponDatabase.Properties.Resources.Btn_AddSeries
-                            </a>
-                        </li>
-                        <li class="@(p.Enabled ? "disable": "enable")">
-                            <a class="action-promo modal-trigger" data-url="@Url.Action("Enable", "Management", new { id = p.Id, enable = !p.Enabled })" data-enabled="@p.Enabled" href="#modal-confirmation">
-                                <i class='material-icons left'>check</i>
-                                @(p.Enabled ? CouponDatabase.Properties.Resources.Btn_SetDisabled : CouponDatabase.Properties.Resources.Btn_SetEnabled)
-                            </a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(item => p.Name)</td>
+            <td>@Html.DisplayFor(item => p.Code)</td>
+            <td>@Html.DisplayFor(item => p.ValidFrom)</td>
+            <td>@Html.DisplayFor(item => p.ValidTo)
+            <td>
+                @if (p.HasCoupons)
+                {
+                    <i class="material-icons">check</i>
+                }
+            </td>
+            <td>
+                @if (p.Active)
+                {
+                    <i class="material-icons">check</i>
+                }
+            </td>
+            <td>
+                @if (p.Enabled)
+                {
+                    <i class="material-icons">check</i>
+                }
+            </td>
+            <td>
+                <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@p.Id'>
+                    <i class="material-icons material-icons__hover">more_horiz</i>
+                </a>
+                <ul id='promotion-actions-@p.Id' class='dropdown-content'>
+                    <li @(p.HasCoupons ? "" : "hidden")>
+                        <a class="action-promo" data-action="ViewPromotion" href="@Url.Action("ViewPromotion", "Management", new { id = p.Id })">
+                            <i class="material-icons" )>pageview</i>
+                            @CouponDatabase.Properties.Resources.Btn_View
+                        </a>
+                    </li>
+                    <li @(p.HasCoupons ? "hidden" : "")>
+                        <a class="action-promo " data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = p.Id })">
+                            <i class="material-icons">create</i>
+                            @CouponDatabase.Properties.Resources.Btn_Edit
+                        </a>
+                    </li>
+                    <li>
+                        <a class="action-promo @(!allowCoupons ? "disabled":"")" data-action="AddSeries" href="@Url.Action("AddCouponSeries", "Management", new { id = p.Id })">
+                            <i class="material-icons">add</i>
+                            @CouponDatabase.Properties.Resources.Btn_AddSeries
+                        </a>
+                    </li>
+                    <li class="@(p.Enabled ? "disable": "enable")">
+                        <a class="action-promo modal-trigger" data-url="@Url.Action("Enable", "Management", new { id = p.Id, enable = !p.Enabled })" data-enabled="@p.Enabled" href="#modal-confirmation">
+                            <i class='material-icons left'>check</i>
+                            @(p.Enabled ? CouponDatabase.Properties.Resources.Btn_SetDisabled : CouponDatabase.Properties.Resources.Btn_SetEnabled)
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

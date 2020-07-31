@@ -12,6 +12,12 @@
             <div class="col s12 m4 u-p-l-remove">
                 <div class="u-p-t-lg">
                     <div class="input-field">
+                        @Html.EditorFor(f => f.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.LabelFor(f => f.Name, CouponDatabase.Properties.Resources.Filter_ByName, new { @class = "active" })
+                        @Html.ValidationMessageFor(f => f.Name)
+                        <i class='material-icons suffix validation-error'>warning</i>
+                    </div>
+                    <div class="input-field">
                         @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                         @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
                         @Html.ValidationMessageFor(f => f.Code)

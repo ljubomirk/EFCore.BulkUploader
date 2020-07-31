@@ -16,7 +16,8 @@ namespace WebApp.ViewModels
         {
             _repo = new RepositoryServices(context);
         }
-
+        
+        public string  Name{ get; set; }
         public string Code { get; set; }
         public bool ShowActive { get; set; }
         public bool ShowInactive { get; set; }
@@ -86,7 +87,13 @@ namespace WebApp.ViewModels
                 }
             }
 
-            if(promotionFilter.Properties?.Where(p => p.Checked).Count() > 0)
+
+            if (promotionFilter.Name != null)
+            {
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Name.ToLower().Contains(promotionFilter.Name.ToLower())).ToList<Promotion>(); 
+            }
+
+            if (promotionFilter.Properties?.Where(p => p.Checked).Count() > 0)
             {
                 /*
                  * TODO: 

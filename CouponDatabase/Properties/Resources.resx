@@ -546,11 +546,15 @@
     <comment>Generic system message</comment>
   </data>
   <data name="Promotion_Name" xml:space="preserve">
-    <value>Name.</value>
+    <value>Name</value>
     <comment>Label of property.</comment>
   </data>
   <data name="Promotion_Name_Required" xml:space="preserve">
-    <value>Name is required.</value>
+    <value>Name is required</value>
     <comment>Label of property.</comment>
+  </data>
+  <data name="Filter_ByName" xml:space="preserve">
+    <value>By Name</value>
+    <comment>Filter label.</comment>
   </data>
 </root>
