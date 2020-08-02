@@ -141,7 +141,19 @@ namespace Web.Services.Impl
         {
             _repo.LogAPIAccess("PromotionAPI.Create", "POS", "", true);
             Command response = new Command(CommandStatus.Valid);
-            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Name = PromotionName, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
+
+            /* AUTO GENERATE PROMOTION CODE*/
+            string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!_repo.CheckPromotionCode(code));
+            /* END OF AUTO GENERATE PROMOTION CODE */
+            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Name = PromotionName, Code = code, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
             List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
             long promoId = _repo.CreatePromotion(promo);
             List<CouponDatabase.Models.PromotionProperty> promProps = new List<CouponDatabase.Models.PromotionProperty>();
