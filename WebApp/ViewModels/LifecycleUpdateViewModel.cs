@@ -13,14 +13,14 @@ namespace WebApp.ViewModels
     public class LifecycleUpdateViewModel : ContextData
     {
         // Dropdown filters, list
-        public List<SelectListItem> DropPromoCodes { get; set; }
+        public List<SelectListItem> DropPromoNames { get; set; }
         public List<SelectListItem> DropCouponSeries { get; set; }
         public List<SelectListItem> DropCouponStatus { get; set; }
         public List<SelectListItem> DropEnabled{ get; set; }
 
         // Dropdown filters, selection
-        [Display(Name = "Promotion Code")]
-        public string SelectedPromoCode { get; set; }
+        [Display(Name = "Promotion Name")]
+        public string SelectedPromoName { get; set; }
         [Display(Name = "Coupon Series")]
         public string SelectedCouponSeries { get; set; }
         [Display(Name = "Status")]

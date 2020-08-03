@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "_UpdateFilter";
 
-    List<SelectListItem> promotionCodes = new List<SelectListItem>();
-    if (Model.DropPromoCodes != null)
+    List<SelectListItem> promotionNames = new List<SelectListItem>();
+    if (Model.DropPromoNames != null)
     {
-        promotionCodes = Model.DropPromoCodes;
+        promotionNames = Model.DropPromoNames;
     }
 
     List<SelectListItem> couponSeries = new List<SelectListItem>();
@@ -14,14 +14,14 @@
         couponSeries = Model.DropCouponSeries;
     }
 
-    bool disableCouponSeries = Model.SelectedPromoCode == null ? true : false;
+    bool disableCouponSeries = Model.SelectedPromoName == null ? true : false;
 }
 
 <!-- Form submit on dropdown filter change -->
 @using (Html.BeginForm("UpdateSearchFilter", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateSearchFilter" }))
 {
     <div class="col s2">
-        @Html.DropDownListFor(p => p.SelectedPromoCode, promotionCodes, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();" })
+        @Html.DropDownListFor(p => p.SelectedPromoName, promotionNames, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();" })
     </div>
 
     <div class="col s2">

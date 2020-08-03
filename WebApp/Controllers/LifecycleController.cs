@@ -111,7 +111,7 @@ namespace WebApp.Controllers
             foreach(long id in couponPromotionIds)
             {
                 Promotion promotion = _repo.GetPromotionWithId(id);
-                if(couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0)
+                if(couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0 && promotion.Name != "" )
                 {
                     couponPromotions.Add(promotion);
                 }
@@ -119,7 +119,7 @@ namespace WebApp.Controllers
 
             // Dropdown data
             model.DropCouponSeries = new List<SelectListItem>(); // initially empty as no series can be chosen without promotion code 
-            model.DropPromoCodes = getSelectListPromotions(couponPromotions);
+            model.DropPromoNames = getSelectListPromotions(couponPromotions);
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
             
@@ -136,7 +136,7 @@ namespace WebApp.Controllers
             lmm.CouponFilter = couponFilter;
             lmm.CouponItems = model.CouponList.CouponItems;
             
-            lmm.DropPromoCodes = model.DropPromoCodes;
+            lmm.DropPromoNames = model.DropPromoNames;
             lmm.DropCouponSeries = model.DropCouponSeries;
             lmm.DropEnabled = model.DropEnabled;
             lmm.DropCouponStatus = model.DropCouponStatus;
@@ -181,7 +181,7 @@ namespace WebApp.Controllers
                 couponFilter = lmm.CouponFilter;
             }
 
-            model.DropPromoCodes = lmm.DropPromoCodes;
+            model.DropPromoNames = lmm.DropPromoNames;
 
             // Filter promotions and coupons
             List<Promotion> init_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true); // Store promos for initial filter to display in dropdown list (after new filters are applied)
@@ -189,7 +189,7 @@ namespace WebApp.Controllers
             Promotion promotion = new Promotion(); // Promotion selected via promo code dropdown
             List<Coupon> promotionCoupons = new List<Coupon>();
             // Get single promotion or all filtered promotions
-            if (model.SelectedPromoCode == null)
+            if (model.SelectedPromoName == null)
             {
                 filter_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
                 foreach(Promotion p in filter_ListOfPromotions)
@@ -200,25 +200,25 @@ namespace WebApp.Controllers
                     }
                 }
                 // Populate with all matching promotion codes from initially filtered result
-                lmm.SelectedPromoCode = model.SelectedPromoCode;
+                lmm.SelectedPromoName = model.SelectedPromoName;
             } else
             {
-                if(lmm.SelectedPromoCode != model.SelectedPromoCode)
+                if(lmm.SelectedPromoName != model.SelectedPromoName)
                 {
                     lmm.SelectedCouponSeries = null;
                     model.SelectedCouponSeries = null;
                 }
                 // Get promo with ID and add into list
-                promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoCode));
+                promotion = _repo.GetPromotionWithId(Convert.ToInt64(model.SelectedPromoName));
                 promotionCoupons = promotion.Coupons.ToList();
                 filter_ListOfPromotions.Add(promotion);
 
                 // Set selected dropdown item
                 List<SelectListItem> promoSelectList = new List<SelectListItem>();
                 // Manage promotion code dropdown
-                foreach (SelectListItem item in model.DropPromoCodes)
+                foreach (SelectListItem item in model.DropPromoNames)
                 {
-                    if (item.Value == model.SelectedPromoCode)
+                    if (item.Value == model.SelectedPromoName  )
                     {
                         item.Selected = true;
                     }
@@ -229,9 +229,9 @@ namespace WebApp.Controllers
                     promoSelectList.Add(item);
                 }
                 // Populate with all matching promotion codes from initially filtered result
-                lmm.SelectedPromoCode = model.SelectedPromoCode;
-                lmm.DropPromoCodes = promoSelectList;
-                model.DropPromoCodes = promoSelectList;
+                lmm.SelectedPromoName = model.SelectedPromoName;
+                lmm.DropPromoNames = promoSelectList;
+                model.DropPromoNames = promoSelectList;
             }
 
             // Filtered coupons to be displayed in table view
@@ -276,7 +276,7 @@ namespace WebApp.Controllers
             model.CouponList.Coupons = filter_ListOfCoupons;            
             model.CouponList.CouponItems = setModelCouponList(model.CouponList.Coupons);
 
-            model.SelectedPromoCode = model.SelectedPromoCode;
+            model.SelectedPromoName = model.SelectedPromoName;
             model.SelectedCouponSeries = model.SelectedCouponSeries;
 
             // Session management
@@ -301,7 +301,7 @@ namespace WebApp.Controllers
             LifecycleUpdateViewModel modelCopy = new LifecycleUpdateViewModel(_contextData.AgentUsername, _contextData.AgentGroup){ 
                 Customer = model.Customer,
                 RedeemTo = model.RedeemTo,
-                SelectedPromoCode = model.SelectedPromoCode,
+                SelectedPromoName = model.SelectedPromoName,
                 SelectedCouponSeries = model.SelectedCouponSeries,
                 SelectedEnabled = model.SelectedEnabled,
                 SelectedCouponStatus = model.SelectedCouponStatus,
@@ -314,11 +314,11 @@ namespace WebApp.Controllers
                 lmm = new LifecycleManagementModel();
             } else
             {
-                modelCopy.DropPromoCodes = lmm.DropPromoCodes;
+                modelCopy.DropPromoNames = lmm.DropPromoNames;
                 modelCopy.DropCouponSeries = lmm.DropCouponSeries;
                 modelCopy.DropEnabled = lmm.DropEnabled;
                 modelCopy.DropCouponStatus = lmm.DropCouponStatus;
-                modelCopy.SelectedPromoCode = lmm.SelectedPromoCode;
+                modelCopy.SelectedPromoName = lmm.SelectedPromoName;
                 modelCopy.SelectedCouponSeries = lmm.SelectedCouponSeries;
 
                 if (modelCopy.SelectedCouponStatus != null)
@@ -539,7 +539,7 @@ namespace WebApp.Controllers
             foreach(Promotion p in promotions)
             {
                 selectList.Add(new SelectListItem { 
-                    Text = p.Code,
+                    Text = p.Name,
                     Value = p.Id.ToString()
                 });
             }
