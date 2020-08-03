@@ -21,29 +21,31 @@
                 <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
             }
             <!-- input fields -->
+        <div class="row">
             <div class="row">
-                <div class="row">
-                    <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                        @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
-                        @Html.ValidationMessageFor(p => p.Promotion.Name)
-                        <i class='material-icons suffix validation-error'>warning</i>
-                    </div>
-                    <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true,@readonly="true" } })
-                        @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
-                        @Html.ValidationMessageFor(p => p.Promotion.Code)
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <div class="switch u-m-t-sm">
-                            <label>
-                                @Html.CheckBoxFor(p => p.Promotion.Enabled)
-                                <span class="lever"></span>
-                                <span id="switch-status">Disabled</span>
-                            </label>
-                        </div>
+                <div class="input-field date col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.Name)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                </div>
+                <div class="input-field col s12 m6">
+                    <div class="switch u-m-t-sm">
+                        <label>
+                            @Html.CheckBoxFor(p => p.Promotion.Enabled)
+                            <span class="lever"></span>
+                            <span id="switch-status">Disabled</span>
+                        </label>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="input-field date col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
+                    @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.Code)
+                </div>
+             </div>
                 <div class="input-field col s12 m6">
                     @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                     @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
@@ -111,7 +113,7 @@
                     {
                         @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
                         <p class="checkbox-hover">
-                            <label id = "@Model.Properties[i].Label">
+                            <label id="@Model.Properties[i].Label">
                                 @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
                                 <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
                                 @Html.HiddenFor(c => c.Properties[i].Id)

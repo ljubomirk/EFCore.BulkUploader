@@ -17,12 +17,6 @@
                         @Html.ValidationMessageFor(f => f.Name)
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
-                    <div class="input-field">
-                        @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                        @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
-                        @Html.ValidationMessageFor(f => f.Code)
-                        <i class='material-icons suffix validation-error'>warning</i>
-                    </div>
                 </div>
             </div>
             <div class="col s12 m8 u-p-l-remove">
@@ -39,7 +33,19 @@
                 </p>
             </div>
         </div>
-        <!-- Not used
+        <div class="row u-m-t-md">
+            <div class="col s12 m4 u-p-l-remove">
+                <div class="u-p-t-lg">
+                    <div class="input-field">
+                        @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.LabelFor(f => f.Code, CouponDatabase.Properties.Resources.Filter_ByCode, new { @class = "active" })
+                        @Html.ValidationMessageFor(f => f.Code)
+                        <i class='material-icons suffix validation-error'>warning</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Not used
         <div class="row u-m-t-negativ">
             <div class="col s12 u-p-l-remove">
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByProperty</p>
@@ -61,36 +67,44 @@
             </div>
         </div>
         -->
-        <div class="row u-m-t-xl u-m-l-sm-negative">
-            <div class="input-field col s12 m4">
-                @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                @Html.ValidationMessageFor(f => f.ValidFrom)
-                <i class='material-icons suffix validation-error'>warning</i>
-                <i class='material-icons suffix date-icon'>event</i>
-            </div>
-            <div class="input-field col s12 m4">
-                @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
-                @Html.ValidationMessageFor(f => f.ValidTo)
-                <i class='material-icons suffix validation-error'>warning</i>
-                <i class='material-icons suffix date-icon'>event</i>
+    <div class="row  ">
+        <div class="col s12 m4 u-p-l-remove">
+            <div class="u-p-t-lg">
+                <div class="input-field">
+                    @Html.EditorFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(f => f.ValidFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12 u-p-l-remove">
-                <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
-                    <i class="material-icons left">check</i>
-                    @CouponDatabase.Properties.Resources.Btn_ApplyFilters
-                </button>
-                <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
-                    @CouponDatabase.Properties.Resources.Btn_Cancel
-                </a>
+        <div class="col s12 m4 u-p-l-remove">
+            <div class="u-p-t-lg ">
+                <div class="input-field">
+                    @Html.EditorFor(p => p.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(f => f.ValidTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
             </div>
         </div>
     </div>
-    }
-</div>
+                    <div class="row">
+                        <div class="col s12 u-p-l-remove">
+                            <button id="btn-submit" type="submit" data-position="bottom" class="waves-effect waves-light btn-flat btn-primary u-m-r-md">
+                                <i class="material-icons left">check</i>
+                                @CouponDatabase.Properties.Resources.Btn_ApplyFilters
+                            </button>
+                            <a class="waves-effect waves-light btn-flat btn-transparent" id="filter-close">
+                                @CouponDatabase.Properties.Resources.Btn_Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        }
+    </div>
 
 <script>
     $(document).ready(function () {

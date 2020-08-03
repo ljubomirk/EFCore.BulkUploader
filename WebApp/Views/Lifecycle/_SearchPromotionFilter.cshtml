@@ -7,84 +7,92 @@
 </div>
 
 <!-- promotion details -->
-<div class="row">
-    <div class="input-field col s6">
-        @Html.EditorFor(f => f.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.Name, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.Name)
-        <i class='material-icons suffix validation-error'>warning</i>
+<div class="row u-m-t-md">
+    <div class="col s6  ">
+        <div class="u-p-t-lg">
+            <div class="input-field">
+                @Html.EditorFor(f => f.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(f => f.Name, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.Name)
+                <i class='material-icons suffix validation-error'>warning</i>
+            </div>
+        </div>
     </div>
-    <div class="input-field col s6">
-        @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.Code, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.Code)
-        <i class='material-icons suffix validation-error'>warning</i>
-    </div>
-    <div class="input-fieldcol s6">
-        <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
-        <p>
-            <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
-                <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
-            </label>
-            <label class="checkbox-hover checkbox-hover__inline">
-                @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
-                <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
-            </label>
-        </p>
-    </div>
+    <div class="col s6  ">
+                <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
+                <p>
+                    <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                        @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
+                    </label>
+                    <label class="checkbox-hover checkbox-hover__inline">
+                        @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
+                    </label>
+                </p>
+            </div>
+        
 </div>
-<div class="row">
-    <div class="input-field date col s6">
-        @Html.EditorFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.ValidFrom)
-        <i class='material-icons suffix validation-error'>warning</i>
-        <i class='material-icons suffix date-icon'>event</i>
-    </div>
-    <div class="input-field date col s6">
-        @Html.EditorFor(f => f.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.ValidTo, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.ValidTo)
-        <i class='material-icons suffix validation-error'>warning</i>
-        <i class='material-icons suffix date-icon'>event</i>
-    </div>
-</div>
-<!-- /promotion details -->
-<!-- properties -->
-<div class="row">
-    <div class="col s12">
-        <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.Properties)</p>
-    </div>
-    <div class="col s12 two-cols">
-        @for (int i = 0; i < Model.Properties.Count; i++)
-        {
-            <p class="checkbox-hover">
-                <label>
-                    @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
-                    <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
-                    @Html.HiddenFor(c => c.Properties[i].Id)
-                    @Html.HiddenFor(c => c.Properties[i].Label)
-                </label>
-            </p>
-        }
-    </div>
-</div>
-<!-- /properties -->
-<!-- active/inactive checkboxes -->
-<div class="row hide">
-    <div class="col s12">
-        <p class="section-headline u-m-b-remove">@CouponDatabase.Properties.Resources.Filter_ActiveInactive</p>
-        <p>
-            <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
-                <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
-            </label>
-            <label class="checkbox-hover checkbox-hover__inline">
-                @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
-                <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
-            </label>
-        </p>
-    </div>
-</div>
-<!-- / active/inactive checkboxes -->
+
+        <div class="row">
+            <div class="input-field col s6">
+                @Html.EditorFor(f => f.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(f => f.Code, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.Code)
+                <i class='material-icons suffix validation-error'>warning</i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field date col s6">
+                @Html.EditorFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(f => f.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.ValidFrom)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+            <div class="input-field date col s6">
+                @Html.EditorFor(f => f.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(f => f.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.ValidTo)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+        </div>
+        <!-- /promotion details -->
+        <!-- properties -->
+        <div class="row">
+            <div class="col s12">
+                <p class="section-headline u-m-b-remove">@Html.DisplayNameFor(m => m.Properties)</p>
+            </div>
+            <div class="col s12 two-cols">
+                @for (int i = 0; i < Model.Properties.Count; i++)
+                {
+                    <p class="checkbox-hover">
+                        <label>
+                            @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in" })
+                            <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
+                            @Html.HiddenFor(c => c.Properties[i].Id)
+                            @Html.HiddenFor(c => c.Properties[i].Label)
+                        </label>
+                    </p>
+                }
+            </div>
+        </div>
+        <!-- /properties -->
+        <!-- active/inactive checkboxes -->
+        <div class="row hide">
+            <div class="col s12">
+                <p class="section-headline u-m-b-remove">@CouponDatabase.Properties.Resources.Filter_ActiveInactive</p>
+                <p>
+                    <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
+                        @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
+                    </label>
+                    <label class="checkbox-hover checkbox-hover__inline">
+                        @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                        <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
+                    </label>
+                </p>
+            </div>
+        </div>
+        <!-- / active/inactive checkboxes -->

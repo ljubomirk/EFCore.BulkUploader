@@ -21,38 +21,40 @@
                 <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
             }
             <!-- input fields -->
+        <div class="row">
             <div class="row">
-                <div class="row">
-                    <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly="true"  } })
-                        @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
-                        @Html.ValidationMessageFor(p => p.Promotion.Name)
-                        <i class='material-icons suffix validation-error'>warning</i>
-                    </div>
-                    <div class="input-field date col s12 m6">
-                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @readonly = "true" } })
-                        @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
-                        @Html.ValidationMessageFor(p => p.Promotion.Code)
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <div class="switch u-m-t-sm">
-                            <label>
-                                @Html.CheckBoxFor(p => p.Promotion.Enabled , new { @class = "nochange" })
-                                <span class="lever"></span>
-                                <span id="switch-status">Disabled</span>
-                            </label>
-                        </div>
-                    </div>
+                <div class="input-field date col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
+                    @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.Name)
+                    <i class='material-icons suffix validation-error'>warning</i>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true , @readonly = "true" } })
+                    <div class="switch u-m-t-sm">
+                        <label>
+                            @Html.CheckBoxFor(p => p.Promotion.Enabled, new { @class = "nochange" })
+                            <span class="lever"></span>
+                            <span id="switch-status">Disabled</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field date col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
+                    @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.Code)
+                </div>
+            </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
                     @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
                     <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
                 <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true  , @readonly = "true" } })
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
                     @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
                     <i class='material-icons suffix validation-error'>warning</i>
@@ -112,7 +114,7 @@
                         @if (Model.Properties[i].Label == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString() && Model.Properties[i].Checked == true) allowAddSeries = true;
                         <p class="checkbox-hover">
                             <label id="@Model.Properties[i].Label">
-                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in nochange"})
+                                @Html.CheckBoxFor(c => c.Properties[i].Checked, new { @class = "filled-in nochange" })
                                 <span>@Html.DisplayFor(c => c.Properties[i].Label)</span>
                                 @Html.HiddenFor(c => c.Properties[i].Id)
                                 @Html.HiddenFor(c => c.Properties[i].Label)
@@ -123,7 +125,7 @@
                 <!-- /Properties -->
             </div>
             <!-- /checkboxes -->
-            
+
         </div>
     </div>
 }
