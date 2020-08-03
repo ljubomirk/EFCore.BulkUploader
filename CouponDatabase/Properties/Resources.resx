@@ -557,4 +557,8 @@
     <value>By Name</value>
     <comment>Filter label.</comment>
   </data>
+  <data name="DropDown_OptionNotSelectedText" xml:space="preserve">
+    <value>--option--</value>
+    <comment>Default text for not selected dropdown option.</comment>
+  </data>
 </root>

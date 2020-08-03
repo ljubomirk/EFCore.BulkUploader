@@ -32,11 +32,11 @@
         </div>
         <div class="input-field col s2">
             @Html.LabelFor(p => p.SelectedEnabled, new { @class = "active", @for = "SelectedEnabled" })
-            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal = "enabled", @data_type = "select", @data_id = "Enabled" })
+            @Html.DropDownListFor(p => p.SelectedEnabled, enabledList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "input-coupon select-coupon", @data_modal = "enabled", @data_type = "select", @data_id = "Enabled" })
         </div>
         <div class="input-field col s2">
             @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
-            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, "-- option --", new { @class = "input-coupon select-coupon", @data_modal = "status", @data_type = "select", @data_id = "Select" })
+            @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "input-coupon select-coupon", @data_modal = "status", @data_type = "select", @data_id = "Select" })
         </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s2">

@@ -520,6 +520,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to --option--.
+        /// </summary>
+        public static string DropDown_OptionNotSelectedText {
+            get {
+                return ResourceManager.GetString("DropDown_OptionNotSelectedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon not found in Database..
         /// </summary>
         public static string ErrorCouponNotFound_Message {

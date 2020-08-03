@@ -21,17 +21,17 @@
 @using (Html.BeginForm("UpdateSearchFilter", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateSearchFilter" }))
 {
     <div class="col s2">
-        @Html.DropDownListFor(p => p.SelectedPromoCode, promotionCodes, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+        @Html.DropDownListFor(p => p.SelectedPromoCode, promotionCodes, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();" })
     </div>
 
     <div class="col s2">
         @if (disableCouponSeries)
         {
-            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();", @disabled = "disabled" })
+            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();", @disabled = "disabled" })
         }
         else
         {
-            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, "-- option --", new { @class = "filter-coupon", onchange = "this.form.submit();" })
+            @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();" })
         }
 
     </div>
