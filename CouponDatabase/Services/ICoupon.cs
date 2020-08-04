@@ -104,12 +104,15 @@ namespace CouponDatabase.Services
                     /**
                      * Named coupons rules
                      */
-                    if (props.Contains(PropertyTypeEnum.NamedConsumers)) {
+                    if (props.Contains(PropertyTypeEnum.NamedHolders)) {
+                        if (user == "")
+                            result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
                         /**
                          * For named coupons that holder is consumer, coupon Holder and user must macth
                          */
                         if (props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer) && Coupon.Holder != user)
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
+
                         /**
                          * For multiple redeem coupons user can use only once when named 
                          */
@@ -122,6 +125,8 @@ namespace CouponDatabase.Services
             {
                 result = new Lifecycle.Command(CommandStatus.ErrorCouponNotFound);
             }
+
+            
             return result;
         }
         /// <summary>
@@ -227,16 +232,21 @@ namespace CouponDatabase.Services
                     else
                         result = new Command(CommandStatus.ErrorInvalidUser);
                 }
+                
                 /**
+                 * *COMMENTED OUT SINCE IT'S NOT USED ANYMORE*
                  * Named consumer coupons rules
-                 */
+               
                 if (props.Contains(PropertyTypeEnum.NamedConsumers) && props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
                 {
                     Coupon.User = user;
                 }
+                **/
                 if (result.Status == CommandStatus.Valid)
                 {
-                    AddHistory("AssignUser", user);
+                    if (user != "")
+                        AddHistory("AssignUser", user);
+
                 }
             }
             else
