@@ -15,8 +15,7 @@
             <xs:element name="Get">
                 <xs:complexType>
                     <xs:sequence>
-						<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-                        <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+						            <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                         <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime" />
                         <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime" />
                     </xs:sequence>
