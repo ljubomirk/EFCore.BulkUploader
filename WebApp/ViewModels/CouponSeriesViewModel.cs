@@ -217,12 +217,22 @@ namespace WebApp.ViewModels
                     break;
                 }
             }
-     
+            var prefixLength=0;
+            if (Prefix == null)
+                prefixLength = 0;
+            else
+                prefixLength = Prefix.Length;
+            var suffixLength = 0;
+            if (Suffix == null)
+                suffixLength = 0;
+            else
+                suffixLength = Suffix.Length;
+
             if (NumberOfCoupons < countPermutations(couponLength <= 8?8: couponLength, chars.Length))
             {
             var random = new Random();
             result = new string(
-                Enumerable.Repeat(chars, CouponMaxLength<8?8:CouponMaxLength)
+                Enumerable.Repeat(chars,(CouponMaxLength - prefixLength - suffixLength))
                           .Select(s => s[random.Next(s.Length)])
                           .ToArray());
             }

@@ -34,14 +34,14 @@
             </p>
         </div>
         <div class="col s6">
-            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
+            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup" onclick="updateExampleCoupon('buttonRemove');"><i class="material-icons">remove</i></button>
             <div class="input-field col s4">
                 @Html.EditorFor(p => p.CouponMaxLength, new { htmlAttributes = new {value= "8", @type = "number", placeholder = "", @autocomplete = "off", id = "input_length", onchange = "updateExampleCoupon()", dataVal = true, min = 8, max = 20 } })
                 @Html.LabelFor(p => p.CouponMaxLength, new { htmlAttributes = new { @class = "active" } })
                 @Html.ValidationMessageFor(p => p.CouponMaxLength)
                 <i class='material-icons suffix validation-error'>warning</i>
             </div>
-            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup"><i class="material-icons">add</i></button>
+            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup" onclick="updateExampleCoupon('buttonAdd')" ><i class="material-icons">add</i></button>
         </div>
     </div>
     <div class="row u-m-t-md">
@@ -50,14 +50,14 @@
             <label class="active" for="example">Example Coupon</label>
         </div>
         <div class="col s6">
-            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup" onclick="updateExampleCoupon();"><i class="material-icons">remove</i></button>
+            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup" ><i class="material-icons">remove</i></button>
             <div class="input-field col s4">
                 @Html.EditorFor(p => p.NumberOfCoupons, new { htmlAttributes = new {value = "1", Value = "1", @type = "number", placeholder = "", @autocomplete = "off", dataVal = true, id = "coupon_number", min = 1, max = 100000  }, @Value = "1" })
                 @Html.LabelFor(p => p.NumberOfCoupons, new { htmlAttributes = new { @class = "active" } })
                 @Html.ValidationMessageFor(p => p.NumberOfCoupons)
                 <i class='material-icons suffix validation-error'>warning</i>
             </div>
-            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup" onclick="updateExampleCoupon();"><i class="material-icons">add</i></button>
+            <button type="button" class="waves-effect waves-light btn-flat btn-default btn-add commando-primary-text u-m-l-sm u-m-t-md-btnGroup" ><i class="material-icons">add</i></button>
         </div>
     </div>
     <div class="row">
@@ -71,19 +71,30 @@
 </section>
 
 <script>
-     $(document).ready(function () {
-        updateExampleCoupon();
+    $(document).ready(function () {
         $("#coupon_number").val($("#coupon_number").attr('min'));
         $("#input_length").val($("#input_length").attr('min'));
+        updateExampleCoupon();
     });
 
     // updates sample coupon
-    function updateExampleCoupon() {
+    function updateExampleCoupon(delay = "") {
         var pref = $('#input_prefix').val();
         var suf = $('#input_suffix').val();
-        var len = 6;
+        var len = parseInt($('#input_length').val());
         var type = "";
 
+        // when clicking on buttons add and remove value of len is equal to the value before clicking on butten
+        if (delay == "buttonRemove") len--;
+        if (delay == "buttonAdd") len++;
+
+        if (pref.length + suf.length >= len) {
+            $('#input_prefix').prop("readonly", true);
+            $('#input_suffix').prop("readonly", true);
+        } else {
+            $('#input_prefix').prop("readonly", false);
+            $('#input_suffix').prop("readonly", false);
+        }
         if ($('#chb_CouponWithLetters').is(':checked')
             && !$('#chb_CouponWithNumbers').is(':checked')) {
             type = "str";
@@ -97,7 +108,8 @@
         } else {
             type = "all";
         }
-        
+
+        len = len - pref.length - suf.length;
         $("#exampleCoupon").val(pref + generateString(type, len) + suf);
     }
     // generates random string dpending on type and length
