@@ -217,18 +217,10 @@ namespace WebApp.ViewModels
                     break;
                 }
             }
-            var prefixLength=0;
-            if (Prefix == null)
-                prefixLength = 0;
-            else
-                prefixLength = Prefix.Length;
-            var suffixLength = 0;
-            if (Suffix == null)
-                suffixLength = 0;
-            else
-                suffixLength = Suffix.Length;
-
-            if (NumberOfCoupons < countPermutations(couponLength <= 8?8: couponLength, chars.Length))
+            var prefixLength = Prefix == null? 0 : Prefix.Length;
+            int suffixLength = Suffix == null? 0 : Suffix.Length;
+            
+            if (NumberOfCoupons < countPermutations(couponLength <= 8?8: couponLength, chars.Length) && CouponMaxLength >=8 && prefixLength + suffixLength <= CouponMaxLength )
             {
             var random = new Random();
             result = new string(
