@@ -19,8 +19,10 @@ namespace WebApp.ViewModels
     {
         public long Id { get; set; }
         //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "Coupon_Series", ResourceType = typeof(Resources))]
         public int CouponSeries { get; set; }
         public Promotion _promo { get; set; }
+        [Display(Name = "Number_OfCoupons", ResourceType = typeof(Resources))]
         public int NumberOfCoupons { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //[Required(ErrorMessageResourceName = "Coupon_AssignableFrom_Required", ErrorMessageResourceType = typeof(Resources))]
@@ -42,13 +44,17 @@ namespace WebApp.ViewModels
         [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableUntil { get; set; }
         public CouponStatus Status { get; set; }
+        [Display(Name = "Coupon_Prefix", ResourceType = typeof(Resources))]
         public string Prefix { get; set; }
+        [Display(Name = "Coupon_Suffix", ResourceType = typeof(Resources))]
         public string Suffix { get; set; }
         [Range(8, 20)]
+        [Display(Name = "Coupon_MaxLength", ResourceType = typeof(Resources))]
         public int CouponMaxLength { get; set; }
         public bool CouponWithLetters { get; set; }
         public bool CouponWithNumbers { get; set; }
         public IFormFile file { get; set; }
+        [Display(Name = "Coupon_MaximumRedeem", ResourceType = typeof(Resources))]
         public Nullable<Int32> MaximumRedeem { get; set; }
         
         public CouponSeriesViewModel() : base() { }

@@ -561,4 +561,56 @@
     <value>--option--</value>
     <comment>Default text for not selected dropdown option.</comment>
   </data>
+  <data name="SeriesGenerate_ExampleCoupon" xml:space="preserve">
+    <value>Example coupon</value>
+    <comment>Label for example coupon.</comment>
+  </data>
+  <data name="AccessHistory_AccessGrants" xml:space="preserve">
+    <value>Access grants</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="AccessHistory_ApplicationTypes" xml:space="preserve">
+    <value>Application types</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Coupon_MaximumRedeem" xml:space="preserve">
+    <value>Maximum redeem</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Coupon_MaxLength" xml:space="preserve">
+    <value>Cooupon max. length</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Coupon_Prefix" xml:space="preserve">
+    <value>Prefix</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Coupon_RequestedStatus" xml:space="preserve">
+    <value>Requested status</value>
+    <comment>Label for coupon status.</comment>
+  </data>
+  <data name="Coupon_Series" xml:space="preserve">
+    <value>Coupon Series</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Coupon_Suffix" xml:space="preserve">
+    <value>Suffix</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Number_OfCoupons" xml:space="preserve">
+    <value>Number of coupons</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_AwardChannels" xml:space="preserve">
+    <value>Award channels</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_CurrentStatus" xml:space="preserve">
+    <value>Current status</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_IssuerChannels" xml:space="preserve">
+    <value>Issuer channels</value>
+    <comment>Label of property.</comment>
+  </data>
 </root>

@@ -61,6 +61,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access grants.
+        /// </summary>
+        public static string AccessHistory_AccessGrants {
+            get {
+                return ResourceManager.GetString("AccessHistory_AccessGrants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application types.
+        /// </summary>
+        public static string AccessHistory_ApplicationTypes {
+            get {
+                return ResourceManager.GetString("AccessHistory_ApplicationTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notify List.
         /// </summary>
         public static string Administration_ChannelsNotifyList {
@@ -354,6 +372,60 @@ namespace CouponDatabase.Properties {
         public static string Btn_View {
             get {
                 return ResourceManager.GetString("Btn_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum redeem.
+        /// </summary>
+        public static string Coupon_MaximumRedeem {
+            get {
+                return ResourceManager.GetString("Coupon_MaximumRedeem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cooupon max. length.
+        /// </summary>
+        public static string Coupon_MaxLength {
+            get {
+                return ResourceManager.GetString("Coupon_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix.
+        /// </summary>
+        public static string Coupon_Prefix {
+            get {
+                return ResourceManager.GetString("Coupon_Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested status.
+        /// </summary>
+        public static string Coupon_RequestedStatus {
+            get {
+                return ResourceManager.GetString("Coupon_RequestedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coupon Series.
+        /// </summary>
+        public static string Coupon_Series {
+            get {
+                return ResourceManager.GetString("Coupon_Series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suffix.
+        /// </summary>
+        public static string Coupon_Suffix {
+            get {
+                return ResourceManager.GetString("Coupon_Suffix", resourceCulture);
             }
         }
         
@@ -898,6 +970,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of coupons.
+        /// </summary>
+        public static string Number_OfCoupons {
+            get {
+                return ResourceManager.GetString("Number_OfCoupons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allowed Issuer.
         /// </summary>
         public static string Promotion_AllowedIssuer {
@@ -912,6 +993,15 @@ namespace CouponDatabase.Properties {
         public static string Promotion_AllowedUser {
             get {
                 return ResourceManager.GetString("Promotion_AllowedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Award channels.
+        /// </summary>
+        public static string Promotion_AwardChannels {
+            get {
+                return ResourceManager.GetString("Promotion_AwardChannels", resourceCulture);
             }
         }
         
@@ -939,6 +1029,24 @@ namespace CouponDatabase.Properties {
         public static string Promotion_Code_Required {
             get {
                 return ResourceManager.GetString("Promotion_Code_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current status.
+        /// </summary>
+        public static string Promotion_CurrentStatus {
+            get {
+                return ResourceManager.GetString("Promotion_CurrentStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Issuer channels.
+        /// </summary>
+        public static string Promotion_IssuerChannels {
+            get {
+                return ResourceManager.GetString("Promotion_IssuerChannels", resourceCulture);
             }
         }
         
@@ -1029,6 +1137,15 @@ namespace CouponDatabase.Properties {
         public static string Promotions_Title {
             get {
                 return ResourceManager.GetString("Promotions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example coupon.
+        /// </summary>
+        public static string SeriesGenerate_ExampleCoupon {
+            get {
+                return ResourceManager.GetString("SeriesGenerate_ExampleCoupon", resourceCulture);
             }
         }
         
