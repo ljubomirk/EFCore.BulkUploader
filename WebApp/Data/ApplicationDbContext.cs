@@ -36,7 +36,7 @@ namespace WebApp.Data
         //Administration
         public DbSet<User> ApplUser { get; set; }
         public DbSet<AccessLog> AccessLog { get; set; }
-        public DbSet<CouponSystem> System { get; set; }
+        public DbSet<CouponSystem> Coupon_System { get; set; }
         public DbSet<NotifyList> NotifyList { get; set; }
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -1406,5 +1406,6 @@ modelBuilder.Entity<AccessLog>().HasData(
 */
 #endregion
 }
+    
 }
 }

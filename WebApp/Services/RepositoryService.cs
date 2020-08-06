@@ -164,7 +164,7 @@ namespace WebApp.Services
 
         internal List<CouponDatabase.Models.System> getAllSystems()
         {
-            return Context.System.ToList<CouponDatabase.Models.System>();
+            return Context.Coupon_System.ToList<CouponDatabase.Models.System>();
         }
 
         internal int GetCouponSeriesVal(long id)
@@ -518,7 +518,7 @@ namespace WebApp.Services
                         Login = vSystem.Username,
                         PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
                     };
-                Context.System.Add(model);
+                Context.Coupon_System.Add(model);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
@@ -546,7 +546,7 @@ namespace WebApp.Services
                         Login = vSystem.Username,
                         PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
                     };
-                Context.System.Update(model);
+                Context.Coupon_System.Update(model);
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);
             }
@@ -565,7 +565,7 @@ namespace WebApp.Services
             
             try
             {
-                Context.System.Remove(Context.System.Find(id));
+                Context.Coupon_System.Remove(Context.Coupon_System.Find(id));
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);
             }
