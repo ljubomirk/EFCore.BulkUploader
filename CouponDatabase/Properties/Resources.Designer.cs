@@ -385,7 +385,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cooupon max. length.
+        ///   Looks up a localized string similar to Coupon max. length.
         /// </summary>
         public static string Coupon_MaxLength {
             get {

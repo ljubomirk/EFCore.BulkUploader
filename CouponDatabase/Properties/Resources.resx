@@ -578,7 +578,7 @@
     <comment>Label of property.</comment>
   </data>
   <data name="Coupon_MaxLength" xml:space="preserve">
-    <value>Cooupon max. length</value>
+    <value>Coupon max. length</value>
     <comment>Label of property.</comment>
   </data>
   <data name="Coupon_Prefix" xml:space="preserve">
