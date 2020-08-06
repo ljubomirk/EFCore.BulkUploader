@@ -621,4 +621,8 @@
     <value>Show inactive</value>
     <comment>Label of property.</comment>
   </data>
+  <data name="Promotion_State" xml:space="preserve">
+    <value>State</value>
+    <comment>Label of property.</comment>
+  </data>
 </root>

@@ -1105,6 +1105,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string Promotion_State {
+            get {
+                return ResourceManager.GetString("Promotion_State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string Promotion_StatusDisabled {
