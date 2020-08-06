@@ -19,7 +19,9 @@ namespace WebApp.ViewModels
         
         public string  Name{ get; set; }
         public string Code { get; set; }
+        [Display(Name = "Promotion_ShowActive", ResourceType = typeof(Resources))]
         public bool ShowActive { get; set; }
+        [Display(Name = "Promotion_ShowInactive", ResourceType = typeof(Resources))]
         public bool ShowInactive { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]

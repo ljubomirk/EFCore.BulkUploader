@@ -613,4 +613,12 @@
     <value>Issuer channels</value>
     <comment>Label of property.</comment>
   </data>
+  <data name="Promotion_ShowActive" xml:space="preserve">
+    <value>Show active</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_ShowInactive" xml:space="preserve">
+    <value>Show inactive</value>
+    <comment>Label of property.</comment>
+  </data>
 </root>

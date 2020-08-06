@@ -1087,6 +1087,24 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show active.
+        /// </summary>
+        public static string Promotion_ShowActive {
+            get {
+                return ResourceManager.GetString("Promotion_ShowActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show inactive.
+        /// </summary>
+        public static string Promotion_ShowInactive {
+            get {
+                return ResourceManager.GetString("Promotion_ShowInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string Promotion_StatusDisabled {
