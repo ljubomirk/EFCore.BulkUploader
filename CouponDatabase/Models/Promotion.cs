@@ -34,11 +34,11 @@ namespace CouponDatabase.Models
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        [Display(Name = "Date_ValidFrom", ResourceType = typeof(Resources))]
+        //[Display(Name = "Date_ValidFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidFrom { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        [Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
+        //[Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidTo { get; set; }
         public int CouponSeries { get; set; }
 
