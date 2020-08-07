@@ -2,31 +2,30 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Oracle.EntityFrameworkCore.Metadata;
 using WebApp.Data;
 
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200807143438_PromotionProperty_Update")]
+    [Migration("20200807152223_PromotionProperty_Update")]
     partial class PromotionProperty_Update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Oracle:ValueGenerationStrategy", OracleValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             modelBuilder.Entity("CouponDatabase.Models.AccessLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Action")
                         .HasColumnName("ACTION")
@@ -59,8 +58,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Name")
                         .HasColumnName("NAME")
@@ -98,8 +96,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<DateTime?>("AquireFrom")
                         .HasColumnName("AQUIRE_FROM");
@@ -144,8 +141,7 @@ namespace WebApp.Migrations
                         .HasName("PK_COUPON");
 
                     b.HasIndex("Code")
-                        .IsUnique()
-                        .HasFilter("[CODE] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("PromotionId")
                         .HasName("IX_COUPON_PROMOTION_ID");
@@ -173,8 +169,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Action")
                         .HasColumnName("ACTION");
@@ -220,8 +215,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Name")
                         .HasColumnName("NAME")
@@ -283,8 +277,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Code")
                         .HasColumnName("CODE")
@@ -311,8 +304,7 @@ namespace WebApp.Migrations
                         .HasName("PK_PROMOTION");
 
                     b.HasIndex("Code")
-                        .IsUnique()
-                        .HasFilter("[CODE] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("PROMOTION");
                 });
@@ -369,8 +361,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Name")
                         .HasColumnName("NAME")
@@ -390,7 +381,7 @@ namespace WebApp.Migrations
                         new
                         {
                             Id = 4L,
-                            Name = "HolderOnlyConsumer"
+                            Name = "HoldersOnlyConsumer"
                         },
                         new
                         {
@@ -408,8 +399,7 @@ namespace WebApp.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("ID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("ID");
 
                     b.Property<string>("Login")
                         .HasColumnName("LOGIN")
@@ -427,8 +417,7 @@ namespace WebApp.Migrations
                         .HasName("PK_COUPON_SYSTEM");
 
                     b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[NAME] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("COUPON_SYSTEM");
                 });
