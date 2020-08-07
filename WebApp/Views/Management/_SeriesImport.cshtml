@@ -21,7 +21,8 @@
     </div>
     <div class="row u-m-t-md">
         <div class="col s12">
-            <button type="submit" class="waves-effect waves-light btn-flat btn-primary">
+            @Html.HiddenFor(i => i.CouponCreation, new { htmlAttributes = new { value = "2", Value = "2" } })
+            <button type="submit" class="waves-effect waves-light btn-flat btn-primary" id="btn-import">
                 <i class="material-icons update-icon left">check</i>
                 @CouponDatabase.Properties.Resources.Btn_Import
             </button>
@@ -51,6 +52,10 @@
                 fileNameHolder.show('slow');
             }
             fileName.val(name);
+        })
+
+        $("#btn-import").click(function () {
+            document.getElementById('CouponCreation').value = "2";
         })
     });
 </script>

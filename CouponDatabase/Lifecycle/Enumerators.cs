@@ -75,4 +75,11 @@ namespace CouponDatabase.Lifecycle
         No = 0,
         Yes = 1
     }
+    public enum CouponCreationEnum : int
+    {
+        [EnumMemberAttribute]
+        Generate = 1,
+        [EnumMemberAttribute]
+        Import = 2
+    }
 }
