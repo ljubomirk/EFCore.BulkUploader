@@ -64,10 +64,10 @@ namespace CouponDatabase.Lifecycle
 
     public enum PropertyTypeEnum
     {
-        NamedHolders = 1,
-        HolderIsOnlyConsumer = 2,
-        AllowMultipleRedeems = 3,
-        AllowCouponSeries = 4
+        NamedHolders = 3,
+        HolderOnlyConsumer = 4,
+        AllowMultipleRedeems = 5,
+        AllowCouponSeries = 6
     }
 
     public enum CouponEnableEnum

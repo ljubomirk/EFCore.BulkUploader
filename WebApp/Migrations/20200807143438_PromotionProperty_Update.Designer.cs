@@ -10,7 +10,7 @@ using WebApp.Data;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200807080524_PromotionProperty_Update")]
+    [Migration("20200807143438_PromotionProperty_Update")]
     partial class PromotionProperty_Update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -287,7 +287,6 @@ namespace WebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnName("CODE")
                         .HasMaxLength(40);
 
@@ -312,7 +311,8 @@ namespace WebApp.Migrations
                         .HasName("PK_PROMOTION");
 
                     b.HasIndex("Code")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CODE] IS NOT NULL");
 
                     b.ToTable("PROMOTION");
                 });
@@ -384,22 +384,22 @@ namespace WebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 3L,
                             Name = "NamedHolders"
                         },
                         new
                         {
-                            Id = 2L,
-                            Name = "HolderIsOnlyConsumer"
+                            Id = 4L,
+                            Name = "HolderOnlyConsumer"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 5L,
                             Name = "AllowMultipleRedeems"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 6L,
                             Name = "AllowCouponSeries"
                         });
                 });

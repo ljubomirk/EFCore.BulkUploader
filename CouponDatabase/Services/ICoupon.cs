@@ -110,7 +110,7 @@ namespace CouponDatabase.Services
                         /**
                          * For named coupons that holder is consumer, coupon Holder and user must macth
                          */
-                        if (props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer) && Coupon.Holder != user)
+                        if (props.Contains(PropertyTypeEnum.HolderOnlyConsumer) && Coupon.Holder != user)
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
 
                         /**

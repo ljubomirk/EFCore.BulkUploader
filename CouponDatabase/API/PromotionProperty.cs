@@ -9,13 +9,13 @@ namespace CouponDatabase.API
     public enum PromotionPropertyEnum
     {
         [EnumMember]
-        NamedHolders = 1,
+        NamedHolders = 3,
         [EnumMember]
-        HolderIsOnlyConsumer = 2,
+        HolderOnlyConsumer = 4,
         [EnumMember]
-        AllowMultipleRedeem = 3,
+        AllowMultipleRedeem = 5,
         [EnumMember]
-        AllowCouponSeries = 4,
+        AllowCouponSeries = 6,
     }
     [DataContract(Name = "PromotionProperty", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/")]
     public class PromotionProperty
