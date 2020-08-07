@@ -20,11 +20,13 @@
 <!-- Form submit on dropdown filter change -->
 @using (Html.BeginForm("UpdateSearchFilter", "Lifecycle", FormMethod.Post, new { role = "form", id = "UpdateSearchFilter" }))
 {
-    <div class="col s2">
+    <div class="col s2 input-field">
+        <label class="active"><span>@CouponDatabase.Properties.Resources.Promotion_PromotionName</span></label>
         @Html.DropDownListFor(p => p.SelectedPromoName, promotionNames, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();" })
     </div>
 
-    <div class="col s2">
+    <div class="col s2 input-field">
+        <label class="active"><span>@CouponDatabase.Properties.Resources.Coupon_Series</span></label>
         @if (disableCouponSeries)
         {
             @Html.DropDownListFor(c => c.SelectedCouponSeries, couponSeries, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "filter-coupon", onchange = "this.form.submit();", @disabled = "disabled" })

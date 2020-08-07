@@ -1,4 +1,5 @@
 ﻿using CouponDatabase.Lifecycle;
+using CouponDatabase.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,17 +33,23 @@ namespace CouponDatabase.Models
         public long Id { get; set; }
         //[System.ComponentModel.DataAnnotations.MaxLength(20,ErrorMessageResourceName = , ErrorMessageResourceType = 1]
         [DataType(DataType.Text)]
+        [Display(Name = "AccessHistory_ApplicationType", ResourceType = typeof(Resources))]
         public ApplicationEnum ApplicationType { get; set; }
 
         [MaxLength(20)]
+        [Display(Name = "AccessHistory_Channel", ResourceType = typeof(Resources))]
         public string Channel { get; set; }
         [MaxLength(80)]
+        [Display(Name = "AccessHistory_Action", ResourceType = typeof(Resources))]
         public string Action { get; set; }
         [MaxLength(20)]
+        [Display(Name = "AccessHistory_Username", ResourceType = typeof(Resources))]
         public string Username { get; set; }
+        [Display(Name = "AccessHistory_Granted", ResourceType = typeof(Resources))]
         public Boolean Granted { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [Display(Name = "AccessHistory_IssudedDate", ResourceType = typeof(Resources))]
         public DateTime IssuedDate { get; set; }
 
         public static List<ApplicationType> GetApplicationTypes()

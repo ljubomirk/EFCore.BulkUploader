@@ -17,6 +17,7 @@ namespace CouponDatabase.Models
     {
         #region Properties 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Promotion_Id", ResourceType = typeof(Resources), AutoGenerateField = true)]
         public long Id { get; set; }
         [Required(ErrorMessageResourceName = "Promotion_Name_Required", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Promotion_Name", ResourceType = typeof(Resources))]
@@ -29,19 +30,20 @@ namespace CouponDatabase.Models
          [Display(Name = "Promotion_Code", ResourceType = typeof(Resources),AutoGenerateField =true)]
         [DataType(DataType.Text)]
         [MaxLength(40)]
-
         public  String  Code { get; set; }
+        [Display(Name = "Promotion_StatusEnabled", ResourceType = typeof(Resources))]
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        //[Display(Name = "Date_ValidFrom", ResourceType = typeof(Resources))]
+        [Display(Name = "Date_ValidFrom", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidFrom { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        //[Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
+        [Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidTo { get; set; }
+        [Display(Name = "Coupon_Series", ResourceType = typeof(Resources))]
         public int CouponSeries { get; set; }
-
+        [Display(Name = "Promotion_HasCoupons", ResourceType = typeof(Resources))]
         [NotMapped]
         public Boolean HasCoupons{ get; set; }
 
@@ -59,6 +61,7 @@ namespace CouponDatabase.Models
         #endregion
         #region Behaviour
         /* Active is virtual value, read from other values */
+        [Display(Name = "Promotion_Active", ResourceType = typeof(Resources))]
         public Boolean Active
         {
             get => this.GetActive();
