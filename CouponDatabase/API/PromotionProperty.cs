@@ -11,7 +11,7 @@ namespace CouponDatabase.API
         [EnumMember]
         NamedHolders = 3,
         [EnumMember]
-        HoldersOnlyConsumer = 4,
+        HolderOnlyConsumer = 4,
         [EnumMember]
         AllowMultipleRedeem = 5,
         [EnumMember]
