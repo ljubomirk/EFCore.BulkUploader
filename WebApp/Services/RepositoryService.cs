@@ -394,6 +394,16 @@ namespace WebApp.Services
 
         public long CreatePromotion(Promotion promotion)
         {
+            string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!CheckPromotionCode(code));
+            promotion.Code = code;
             Context.Promotion.Add(promotion);
             Context.SaveChanges();
             return promotion.Id;

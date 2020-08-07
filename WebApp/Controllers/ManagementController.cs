@@ -115,7 +115,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult CreatePromotion()
         {
-            string code = "";
+            /*string code = "";
             do
             {
                 var random = new Random();
@@ -124,10 +124,10 @@ namespace WebApp.Controllers
                           .Select(s => s[random.Next(s.Length)])
                           .ToArray());
             } while (!_repo.CheckPromotionCode(code));
-
+            */
             PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
             {
-                Promotion = new Promotion(code),
+                Promotion = new Promotion(),
                 Properties = setModelProperties(_repo.GetAllProperties(), new List<PromotionProperty>()),
                 AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<PromotionAwardChannel>()),
                 IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<PromotionIssuerChannel>())

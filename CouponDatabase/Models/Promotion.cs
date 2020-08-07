@@ -24,7 +24,7 @@ namespace CouponDatabase.Models
         [MaxLength(40)]
         public String Name { get; set; }
         // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
-        [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
+        //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
         // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
          [Display(Name = "Promotion_Code", ResourceType = typeof(Resources),AutoGenerateField =true)]
         [DataType(DataType.Text)]
