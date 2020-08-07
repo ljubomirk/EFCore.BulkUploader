@@ -590,7 +590,7 @@
     <comment>Label for coupon status.</comment>
   </data>
   <data name="Coupon_Series" xml:space="preserve">
-    <value>Coupon Series</value>
+    <value>Coupon series</value>
     <comment>Label of property.</comment>
   </data>
   <data name="Coupon_Suffix" xml:space="preserve">
@@ -623,6 +623,118 @@
   </data>
   <data name="Promotion_State" xml:space="preserve">
     <value>State</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_Active" xml:space="preserve">
+    <value>Active</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Promotion_HasCoupons" xml:space="preserve">
+    <value>Has coupons</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Systems_Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="Systems_Password" xml:space="preserve">
+    <value>Password</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="User_AccessType" xml:space="preserve">
+    <value>Access type</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="User_Domain" xml:space="preserve">
+    <value>Domain</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="User_Fullname" xml:space="preserve">
+    <value>Fullname</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="User_Username" xml:space="preserve">
+    <value>Username</value>
+    <comment>Label of property.</comment>
+  </data>
+  <data name="AccessHistory_Action" xml:space="preserve">
+    <value>Action</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="AccessHistory_ApplicationType" xml:space="preserve">
+    <value>Application type</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="AccessHistory_Channel" xml:space="preserve">
+    <value>Channel</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="AccessHistory_Granted" xml:space="preserve">
+    <value>Granted</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="AccessHistory_IssudedDate" xml:space="preserve">
+    <value>Issuded date</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="AccessHistory_Username" xml:space="preserve">
+    <value>Username</value>
+    <comment>Value of table header on Access History table.</comment>
+  </data>
+  <data name="Coupon_Code" xml:space="preserve">
+    <value>Code</value>
+    <comment>Coupon property.</comment>
+  </data>
+  <data name="Coupon_Holder" xml:space="preserve">
+    <value>Holder</value>
+    <comment>Coupon property.</comment>
+  </data>
+  <data name="Coupon_Id" xml:space="preserve">
+    <value>ID</value>
+    <comment>Coupon property.</comment>
+  </data>
+  <data name="Coupon_Status" xml:space="preserve">
+    <value>Status</value>
+    <comment>Coupon property.</comment>
+  </data>
+  <data name="Coupon_User" xml:space="preserve">
+    <value>User</value>
+    <comment>Coupon property.</comment>
+  </data>
+  <data name="Date_AquireFrom" xml:space="preserve">
+    <value>Aquire from</value>
+    <comment>Aquire from date.</comment>
+  </data>
+  <data name="Date_AquireTo" xml:space="preserve">
+    <value>Aquire to</value>
+    <comment>Aquire to date.</comment>
+  </data>
+  <data name="Date_AwardFrom" xml:space="preserve">
+    <value>Award from</value>
+    <comment>Award from date.</comment>
+  </data>
+  <data name="Date_AwardTo" xml:space="preserve">
+    <value>Award to</value>
+    <comment>Award to date.</comment>
+  </data>
+  <data name="NotifyList_Channel" xml:space="preserve">
+    <value>Channel</value>
+    <comment>Value of table header on Notify List table.</comment>
+  </data>
+  <data name="NotifyList_System" xml:space="preserve">
+    <value>System</value>
+    <comment>Value of table header on Notify List table.</comment>
+  </data>
+  <data name="NotifyList_Url" xml:space="preserve">
+    <value>URL</value>
+    <comment>Value of table header on Notify List table.</comment>
+  </data>
+  <data name="Promotion_Id" xml:space="preserve">
+    <value>ID</value>
+    <comment>Promotion property.</comment>
+  </data>
+  <data name="Promotion_PromotionName" xml:space="preserve">
+    <value>Promotion name</value>
     <comment>Label of property.</comment>
   </data>
 </root>
