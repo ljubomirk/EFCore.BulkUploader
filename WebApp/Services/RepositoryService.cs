@@ -55,8 +55,10 @@ namespace WebApp.Services
                 int saved = Context.SaveChanges();
                 if (saved > 0)
                     result.Status = CommandStatus.Valid;
-                else
-                    result.Status = CommandStatus.ErrorSystem;
+                else {
+                    result = new Command(CommandStatus.Error_DuplicateCouponExists);
+                    result.Message = String.Format(result.Message);
+                }
                 Context.Database.CommitTransaction();
             }
             catch (DbUpdateException update)

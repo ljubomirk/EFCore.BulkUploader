@@ -737,4 +737,8 @@
     <value>Promotion name</value>
     <comment>Label of property.</comment>
   </data>
+  <data name="Error_DuplicateCouponExists_Message" xml:space="preserve">
+    <value>Application error: Coupon exists in database.</value>
+    <comment>When coupon with given code already exists in database.</comment>
+  </data>
 </root>

@@ -43,6 +43,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         DataError_CouponUpdateFailed = 10,
         [EnumMemberAttribute]
+        Error_DuplicateCouponExists = 11,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 
