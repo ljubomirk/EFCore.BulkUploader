@@ -148,15 +148,16 @@ namespace WebApp.ViewModels
                     }
                     else if (CouponCreation == (int)CouponCreationEnum.Generate)
                     {
+                        int couponsMade = 0;
                         foreach (DataRow row in resultFromFile.Tables[0].Rows)
                         {
                             //Check if CouponUser are defined
                             string CouponUser = row.ItemArray[0].ToString();
-                            string CouponCode = getCouponCode();
+                            string CouponCode = getCouponCode(couponsMade);
 
                             while((pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == CouponCode)) || listOfCoupons.Any(x => x.Code == CouponCode))
                             {
-                                CouponCode = getCouponCode();
+                                CouponCode = getCouponCode(couponsMade);
                             }
                             MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
 
@@ -187,6 +188,7 @@ namespace WebApp.ViewModels
                             }
                             
                                 listOfCoupons.Add(coupon);
+                                couponsMade++;
                         }
                     }
 
@@ -197,7 +199,7 @@ namespace WebApp.ViewModels
             {
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
-                    string code = getCouponCode();
+                    string code = getCouponCode(i);
                     if (code != "")
                     {
                         
@@ -251,7 +253,7 @@ namespace WebApp.ViewModels
             return Convert.ToInt64(Math.Pow(B, N));
         }
 
-        private string getCouponCode()
+        private string getCouponCode(int createdCoupons)
         {
 
             string chars = "";
@@ -265,7 +267,7 @@ namespace WebApp.ViewModels
                 chars += "0123456789";
             }
 
-            int couponLength = 0;
+            /*int couponLength = 0;
             for (int i = 8; i < CouponMaxLength; i++)
             {
               if(countPermutations(i, chars.Length) > NumberOfCoupons)
@@ -273,27 +275,28 @@ namespace WebApp.ViewModels
                     couponLength = i;
                     break;
                 }
-            }
+            }*/
             var prefixLength = Prefix == null? 0 : Prefix.Length;
             int suffixLength = Suffix == null? 0 : Suffix.Length;
             
-            if (NumberOfCoupons < countPermutations(couponLength <= 8?8: couponLength, chars.Length) && CouponMaxLength >=8 && prefixLength + suffixLength <= CouponMaxLength )
+            if (NumberOfCoupons <= ( countPermutations(CouponMaxLength - prefixLength - suffixLength, chars.Length) - createdCoupons ) )
             {
             var random = new Random();
             result = new string(
                 Enumerable.Repeat(chars,(CouponMaxLength - prefixLength - suffixLength))
                           .Select(s => s[random.Next(s.Length)])
                           .ToArray());
+                result = Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
             }
             else
             {
                 result += "";
             }
-
+            /*
             result = result != ""? 
                         Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result
                      : "";
-
+            */
             return result;
         }
     }
