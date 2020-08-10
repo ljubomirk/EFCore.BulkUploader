@@ -10,7 +10,7 @@
                 <h5 class="section u-m-t-remove">Coupon Format</h5>
             </div>
             <div class="input-field col s3">
-                @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_prefix", onkeyup = "updateExampleCoupon()", dataVal = true } })
+                @Html.EditorFor(p => p.Prefix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_prefix", onkeydown = "updateExampleCoupon()", onkeyup = "updateExampleCoupon()", dataVal = true } })
                 @Html.LabelFor(p => p.Prefix, new { htmlAttributes = new { @class = "active" } })
                 @Html.ValidationMessageFor(p => p.Prefix)
                 <i class='material-icons suffix validation-error'>warning</i>
@@ -22,7 +22,7 @@
                 </p>
             </div>
             <div class="input-field col s3">
-                @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_suffix", onkeyup = "updateExampleCoupon()", dataVal = true } })
+                @Html.EditorFor(p => p.Suffix, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", id = "input_suffix", onkeydown = "updateExampleCoupon()", onkeyup = "updateExampleCoupon()", dataVal = true } })
                 @Html.LabelFor(p => p.Suffix, new { htmlAttributes = new { @class = "active" } })
                 @Html.ValidationMessageFor(p => p.Suffix)
                 <i class='material-icons suffix validation-error'>warning</i>
