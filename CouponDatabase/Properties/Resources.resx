@@ -533,4 +533,8 @@
     <value>Copied to clipboard</value>
     <comment>Error view text.</comment>
   </data>
+  <data name="ErrorSelectOneCheckbox_Message" xml:space="preserve">
+    <value>Select atleast one checkbox : "Use letters" or "Use numbers"</value>
+    <comment>Atleast one checkbox must be selected.</comment>
+  </data>
 </root>

@@ -49,6 +49,10 @@ namespace WebApp.Services
                 int saved = Context.SaveChanges();
                 if (saved > 0)
                     result.Status = CommandStatus.Valid;
+                else if (coupons.Count == 0) {
+                            result = new Command(CommandStatus.ErrorSelectOneCheckbox);
+                            result.Message = String.Format(result.Message);
+                        }
                 else
                     result.Status = CommandStatus.ErrorSystem;
                 Context.Database.CommitTransaction();

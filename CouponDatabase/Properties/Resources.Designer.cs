@@ -574,6 +574,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select atleast one checkbox : &quot;Use letters&quot; or &quot;Use numbers&quot;.
+        /// </summary>
+        public static string ErrorSelectOneCheckbox_Message {
+            get {
+                return ResourceManager.GetString("ErrorSelectOneCheckbox_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copied to clipboard.
         /// </summary>
         public static string ErrorView_CopiedToClipboard {

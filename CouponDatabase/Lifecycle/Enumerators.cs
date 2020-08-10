@@ -43,6 +43,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         DataError_CouponUpdateFailed = 10,
         [EnumMemberAttribute]
+        ErrorSelectOneCheckbox = 11,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

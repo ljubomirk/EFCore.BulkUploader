@@ -12,6 +12,7 @@ using ExcelDataReader;
 using System.Data;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.Services;
+using FoolProof.Core;
 
 namespace WebApp.ViewModels
 {
@@ -46,7 +47,9 @@ namespace WebApp.ViewModels
         public string Suffix { get; set; }
         [Range(8, 20)]
         public int CouponMaxLength { get; set; }
+        [RequiredIfNot("CouponWithNumbers",true)]
         public bool CouponWithLetters { get; set; }
+        [RequiredIfNot("CouponWithLetters",true)]
         public bool CouponWithNumbers { get; set; }
         public IFormFile file { get; set; }
         public Nullable<Int32> MaximumRedeem { get; set; }
