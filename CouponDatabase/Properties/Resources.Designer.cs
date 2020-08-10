@@ -574,7 +574,7 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select atleast one checkbox : &quot;Use letters&quot; or &quot;Use numbers&quot;.
+        ///   Looks up a localized string similar to Select at least one checkbox : &quot;Use letters&quot; or &quot;Use numbers&quot;.
         /// </summary>
         public static string ErrorSelectOneCheckbox_Message {
             get {
