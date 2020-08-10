@@ -18526,10 +18526,6 @@ DataTable.ext.buttons.excelHtml5 = {
 
 		// Title and top messages
 		var exportInfo = dt.buttons.exportInfo( config );
-		if ( exportInfo.title ) {
-			addRow( [exportInfo.title], rowPos );
-			mergeCells( rowPos, data.header.length-1 );
-		}
 
 		if ( exportInfo.messageTop ) {
 			addRow( [exportInfo.messageTop], rowPos );
@@ -18545,7 +18541,15 @@ DataTable.ext.buttons.excelHtml5 = {
 	
 		dataStartRow = rowPos;
 
-		for ( var n=0, ie=data.body.length ; n<ie ; n++ ) {
+		for (var n = 0, ie = data.body.length; n < ie; n++) {
+			for (var i = 0; i < data.body[n].length; i++) {
+				if (i == 8 || i == 10) {
+					if (data.body[n][i] == "check")
+						data.body[n][i] = "yes"
+					else
+						data.body[n][i] = "no"
+                }
+            }
 			addRow( data.body[n], rowPos );
 		}
 	
