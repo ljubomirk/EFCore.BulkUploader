@@ -718,10 +718,10 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xsi:type="con:WsdlInterface" id="144771be-f6ce-4832-a2f8-f940fad2f781" wsaVersion="NONE" name="PromotionAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}PromotionAPI" soapVersion="1_1" anonymous="optional" definition="C:/Users/Tomislav/Documents/COMMANDO/WSDL/PromotionAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface xsi:type="con:WsdlInterface" id="144771be-f6ce-4832-a2f8-f940fad2f781" wsaVersion="NONE" name="PromotionAPI" type="wsdl" bindingName="{http://www.triple-innovations.com/WS/COMMANDO/}PromotionAPI" soapVersion="1_1" anonymous="optional" definition="C:/Users/ljubo/source/repos/COMMANDO/WSDL/PromotionAPI.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache type="TEXT" rootPart="file:/C:/Users/Tomislav/Documents/COMMANDO/WSDL/PromotionAPI.wsdl"><con:part><con:url>file:/C:/Users/Tomislav/Documents/COMMANDO/WSDL/PromotionAPI.wsdl</con:url><con:content><![CDATA[<!--COMMANDO PromotionAPI WSDL  v1.3-->
+    <con:definitionCache type="TEXT" rootPart="file:/C:/Users/ljubo/source/repos/COMMANDO/WSDL/PromotionAPI.wsdl"><con:part><con:url>file:/C:/Users/ljubo/source/repos/COMMANDO/WSDL/PromotionAPI.wsdl</con:url><con:content><![CDATA[<!--COMMANDO PromotionAPI WSDL  v1.4-->
 <wsdl:definitions targetNamespace="http://www.triple-innovations.com/WS/COMMANDO/" name="PromotionAPI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.triple-innovations.com/WS/COMMANDO/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsp:Policy wsu:Id="PromotionAPI_Promotion_policy">
     <wsp:ExactlyOne>
@@ -737,7 +737,7 @@
       <xs:element name="Get">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string"/>
             <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime"/>
             <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime"/>
           </xs:sequence>
@@ -754,7 +754,6 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
-            <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string"/>
             <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime"/>
             <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime"/>
             <xs:element minOccurs="0" name="Enabled" type="xs:boolean"/>
@@ -852,6 +851,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Active" type="xs:boolean"/>
           <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
           <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime"/>
           <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime"/>
         </xs:sequence>
@@ -898,10 +898,8 @@
       <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
       <xs:simpleType name="PromotionPropertyEnum">
         <xs:restriction base="xs:string">
-          <xs:enumeration value="UniqueCoupons"/>
-          <xs:enumeration value="NamedConsumers"/>
           <xs:enumeration value="NamedHolders"/>
-          <xs:enumeration value="HolderIsOnlyConsumer"/>
+          <xs:enumeration value="HoldersOnlyConsumer"/>
           <xs:enumeration value="AllowMultipleRedeem"/>
           <xs:enumeration value="AllowCouponSeries"/>
         </xs:restriction>
@@ -921,10 +919,13 @@
           <xs:enumeration value="ErrorPromotionNotFound"/>
           <xs:enumeration value="ErrorCouponNotFound"/>
           <xs:enumeration value="ErrorInvalidUser"/>
+          <xs:enumeration value="ErrorInvalidCustomer"/>
           <xs:enumeration value="ErrorInvalidRedeemDate"/>
           <xs:enumeration value="DataError_CouponInsertFailed"/>
           <xs:enumeration value="DataError_PromotionInsertFailed"/>
           <xs:enumeration value="DataError_PromotionUpdateFailed"/>
+          <xs:enumeration value="DataError_CouponUpdateFailed"/>
+          <xs:enumeration value="Error_DuplicateCouponExists"/>
           <xs:enumeration value="ErrorSystem"/>
         </xs:restriction>
       </xs:simpleType>
@@ -1027,13 +1028,13 @@
   </wsdl:binding>
   <wsdl:service name="PromotionAPI">
     <wsdl:port name="PromotionAPI" binding="tns:PromotionAPI">
-      <soap:address location="https://localhost:44389/PromotionAPI"/>
+      <soap:address location="https://localhost:44333/PromotionAPI"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints>
       <con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint>
-      <con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint>
-    </con:endpoints>
+      <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
+    <con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint></con:endpoints>
     <con:operation id="b0981fe1-fc75-4bf0-8f20-037834c06d1a" isOneWay="false" action="http://www.triple-innovations.com/WS/COMMANDO/Promotion/AddCoupon" name="AddCoupon" bindingOperationName="AddCoupon" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
       <con:call id="aa9ea89a-0b26-49b7-9004-7be699c274c3" name="AddCouponExample1">
@@ -1041,7 +1042,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://wscoupont.simobil.tst/PromotionAPI</con:endpoint>
+        <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -1080,7 +1081,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/PromotionAPI</con:endpoint>
+        <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -1123,7 +1124,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://localhost:52334/PromotionAPI</con:endpoint>
+        <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header>
    	<com:Channel>POS</com:Channel></soapenv:Header>
@@ -1163,14 +1164,14 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://localhost:52334/PromotionAPI</con:endpoint>
+        <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
     <soapenv:Header>
    	<com:Channel>POS</com:Channel></soapenv:Header>
    <soapenv:Body>
       <com:Get>
          <!--Optional:-->
-         <com:Name>Vacation3</com:Name>
+         <com:Code>?</com:Code>
          <!--Optional:-->
          <com:ValidFrom>?</com:ValidFrom>
          <!--Optional:-->
@@ -1195,14 +1196,14 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://localhost:52334/PromotionAPI</con:endpoint>
+        <con:endpoint>https://localhost:44333/PromotionAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
     <soapenv:Header>
    	<com:Channel>POS</com:Channel></soapenv:Header>
    <soapenv:Body>
       <com:Get>
          <!--Optional:-->
-         <com:Name>?</com:Name>
+         <com:Code>?</com:Code>
          <!--Optional:-->
          <com:ValidFrom>2020-02-10</com:ValidFrom>
          <!--Optional:-->
