@@ -29,6 +29,28 @@ namespace TestAPI
         }
 
         [Test]
+        public void TestPromotionFilter()
+        {
+            //setup
+            List<Promotion> promoList = new List<Promotion>();
+            Promotion promo = new Promotion()
+            {
+                Code = "123",
+                ValidFrom = DateTime.Now.AddMonths(-1),
+                ValidTo = DateTime.Now.AddMonths(1)
+            };
+            promoList.Add(promo);
+            DateTime? ValidFrom = new DateTime().AddMonths(2);
+            DateTime? ValidTo = new DateTime().AddMonths(3);
+            //test
+            // if upper limit valid
+            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom < ValidTo)
+            {
+                Assert.IsTrue(promoList.FindAll(p => (p.ValidTo.HasValue) ? p.ValidTo > ValidFrom : true).Count > 0);
+            }
+        }
+
+        [Test]
         public void TestCouponChange()
         {
             Promotion promo = new Promotion()
