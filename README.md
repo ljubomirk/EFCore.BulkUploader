@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_apis/build/status/COMMANDO?branchName=master)](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_build/latest?definitionId=12)
 
-# Introduction 
+# Introduction
 
   COMMANDO - COupon Multichannel MANagement & Delivery Orchestration 
 
@@ -71,11 +71,7 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
-  1.0 Deployed to A1 production 20.5.2020
-
-  0.8 Test environment week1
-   - testing features of WebApp
-
+  [HISTORY.md]
 4.	API references 
   API
     - build in MvcCore API
