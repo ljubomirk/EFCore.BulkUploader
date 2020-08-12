@@ -116,23 +116,23 @@ namespace Web.Services.Impl
             return response;
         }
 
-        public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
+        public IList<Promotion> Get(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo)
         {
             _repo.LogAPIAccess("PromotionAPI.Get", "POS", "", true);
             List<Promotion> result = new List<Promotion>();
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
-            if (Code!=null && Code.Length > 0)
-                promos = promos.FindAll(i => i.Code.Contains(Code));
-            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom < ValidTo)
+            if (Name!=null && Name.Length > 0)
+                promos = promos.FindAll(i => i.Name.Contains(Name));
+            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom <= ValidTo)
             {
                 if (ValidFrom.HasValue)
-                    promos = promos.FindAll(i => (i.ValidTo.HasValue) ? i.ValidTo.Value > ValidFrom.Value : true);
+                    promos = promos.FindAll(i => (i.ValidTo.HasValue) ? i.ValidTo.Value >= ValidFrom.Value : true);
                 if (ValidTo.HasValue)
-                    promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value < ValidTo.Value : true);
+                    promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value <= ValidTo.Value : true);
             }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Code = promo.Code, Name = promo.Name, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
+                result.Add(new Promotion() { Name = promo.Name, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
             }
             return result;
         }

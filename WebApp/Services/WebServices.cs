@@ -36,9 +36,9 @@ namespace Web.Services.Soap
                 return _service.AddCoupons(PromotionCode, Coupons);
             }
 
-            public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
+            public IList<Promotion> Get(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo)
             {
-                return _service.Get(Code, ValidFrom, ValidTo);
+                return _service.Get(Name, ValidFrom, ValidTo);
             }
 
             public Command Create(string Code, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)

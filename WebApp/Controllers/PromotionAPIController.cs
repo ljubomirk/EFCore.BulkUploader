@@ -31,10 +31,10 @@ namespace WebApp.Controllers
         }
 
         // GET api/Coupon/x
-        [HttpGet("{Code}")]
-        public IList<Promotion> Get(string Code, [FromBody] DateTime? ValidFrom, [FromBody] DateTime? ValidTo)
+        [HttpGet("{Name}")]
+        public IList<Promotion> Get(string Name, [FromBody] DateTime? ValidFrom, [FromBody] DateTime? ValidTo)
         {
-            return _service.Get(Code, ValidFrom, ValidTo);
+            return _service.Get(Name, ValidFrom, ValidTo);
         }
 
         // PUT api/<controller>/5

@@ -17,7 +17,7 @@ namespace CouponDatabase.Services
     public interface IPromotionAPI
     {
         [OperationContract]
-        IList<Promotion> Get(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
+        IList<Promotion> Get(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
 
         [OperationContract]
         Command Create(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
