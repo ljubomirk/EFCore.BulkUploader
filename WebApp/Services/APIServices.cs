@@ -123,12 +123,27 @@ namespace Web.Services.Impl
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
             if (Name!=null && Name.Length > 0)
                 promos = promos.FindAll(i => i.Name.Contains(Name));
-            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom <= ValidTo)
+
+            if (ValidFrom != null && ValidTo != null)
             {
-                if (ValidFrom.HasValue)
-                    promos = promos.FindAll(i => (i.ValidTo.HasValue) ? i.ValidTo.Value >= ValidFrom.Value : true);
-                if (ValidTo.HasValue)
-                    promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value <= ValidTo.Value : true);
+                promos = promos.FindAll(x => (x.ValidFrom <= ValidFrom && (x.ValidTo >= ValidTo || x.ValidTo == null))  
+                                                            || (x.ValidFrom >= ValidFrom && x.ValidTo <= ValidTo) 
+                                                            || (x.ValidFrom >=ValidFrom && (x.ValidTo == null || x.ValidTo >= ValidTo) && x.ValidFrom <= ValidTo) 
+                                                            || (x.ValidFrom <= ValidFrom && x.ValidTo <= ValidTo && x.ValidTo >= ValidFrom)
+                                                            || (x.ValidFrom== null && (x.ValidTo == null || x.ValidTo >= ValidFrom)));
+            }
+            else if (ValidFrom != null || ValidTo != null)
+            {
+                if (ValidFrom != null)
+                    promos = promos.FindAll(x => x.ValidFrom <= ValidFrom && ( x.ValidTo >= ValidFrom || x.ValidTo== null) 
+                                                                    || (x.ValidFrom >= ValidFrom)
+                                                                    || (x.ValidFrom == null && (x.ValidTo == null || x.ValidTo >=ValidFrom)));
+                if (ValidTo != null)
+                {
+                    promos = promos.FindAll(x => (x.ValidFrom <= ValidTo) 
+                                                                    || (x.ValidTo >= ValidTo)
+                                                                    || (x.ValidFrom == null ));
+                }
             }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
