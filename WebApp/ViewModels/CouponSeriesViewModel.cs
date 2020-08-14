@@ -53,7 +53,7 @@ namespace WebApp.ViewModels
         public int CouponMaxLength { get; set; }
         public bool CouponWithLetters { get; set; }
         public bool CouponWithNumbers { get; set; }
-        public int CouponCreation { get; set; }
+        public CouponCreationEnum CouponCreation { get; set; }
         public IFormFile file { get; set; }
         [Display(Name = "Coupon_MaximumRedeem", ResourceType = typeof(Resources))]
         public Nullable<Int32> MaximumRedeem { get; set; }
@@ -66,6 +66,7 @@ namespace WebApp.ViewModels
             RedeemableFrom = PromotionValidFrom;
             RedeemableUntil = PromotionValidTo;
         }
+        
         public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons)
         {
             DataSet resultFromFile = new DataSet();
@@ -76,15 +77,10 @@ namespace WebApp.ViewModels
             {
                 if (file.Length > 0)
                 {
-                    var filePath = "C:\\temp\\" + file.FileName;
+                  
                     string extension = Path.GetExtension(file.FileName);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file.CopyToAsync(fileStream);
-                    }
-
-                    using (var stream = System.IO.File.Open(filePath, FileMode.Open, FileAccess.Read))
+                    using(var stream = file.OpenReadStream())
                     {
                         if(extension == ".xls" || extension == ".xlsx")
                         {
@@ -101,7 +97,7 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
-                    if(CouponCreation == (int)CouponCreationEnum.Import)
+                    if(CouponCreation == CouponCreationEnum.Import)
                     {
                         //Read first sheet of Excel file
                         if (resultFromFile.Tables[0] != null)
@@ -146,7 +142,7 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
-                    else if (CouponCreation == (int)CouponCreationEnum.Generate)
+                    else if (CouponCreation == CouponCreationEnum.Generate)
                     {
                         int couponsMade = 0;
                         foreach (DataRow row in resultFromFile.Tables[0].Rows)
@@ -292,11 +288,6 @@ namespace WebApp.ViewModels
             {
                 result += "";
             }
-            /*
-            result = result != ""? 
-                        Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result
-                     : "";
-            */
             return result;
         }
     }

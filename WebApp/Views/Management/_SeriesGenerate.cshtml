@@ -70,13 +70,13 @@
                         <i class="material-icons left">file_upload</i>
                         @CouponDatabase.Properties.Resources.Btn_SelectFile
                     </button>
-                    <input id="file-input" type="file" name="file" asp-for="file" accept=".xls, .xlsx, .csv" />
+                    <input id="file-input1" type="file" name="file" asp-for="file" accept=".xls, .xlsx, .csv" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col s12">
-                @Html.HiddenFor(i => i.CouponCreation, new { htmlAttributes = new { value = "1", Value = "1" } })
+                @Html.HiddenFor(i => i.CouponCreation, new { htmlAttributes = new { value = (int)@CouponDatabase.Lifecycle.CouponCreationEnum.Generate, Value = (int)@CouponDatabase.Lifecycle.CouponCreationEnum.Generate } })
                 <button type="submit" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" id="btn-generate">
                     <i class="material-icons update-icon left">check</i>
                     @CouponDatabase.Properties.Resources.Btn_Generate
@@ -91,11 +91,14 @@
         $("#input_length").val($("#input_length").attr('min'));
         updateExampleCoupon();
 
-        var fileInput = $("#file-input");
+        var fileInput = $("#file-input1");
         var fileBtn = $("#btn-file-input");
         var fileName = $("#file-name");
         var fileNameHolder = $("#file-name-holder");
 
+        fileBtn.click(function () {
+            fileInput.click();
+        })
         // display name
         fileInput.on('change', function () {
             var name = $(this).val().split('\\').pop();
