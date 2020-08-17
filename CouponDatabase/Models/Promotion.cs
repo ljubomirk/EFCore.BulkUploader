@@ -72,8 +72,8 @@ namespace CouponDatabase.Models
         /// <returns>Boolean value</returns>
         private Boolean GetActive()
         {
-            var pr1 =ValidFrom != null? (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false : false;
-            var pr2 = ValidTo != null? (DateTime.Now.CompareTo(ValidTo) < 0) ? true : false : true;
+            var pr1 =ValidFrom != null? (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false : true;
+            var pr2 = ValidTo != null? (DateTime.Now.CompareTo(ValidTo) <= 0) ? true : false : true;
 
             return Enabled && pr1 && pr2;
         }
