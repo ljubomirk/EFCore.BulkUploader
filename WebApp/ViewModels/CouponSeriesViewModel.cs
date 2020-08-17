@@ -97,6 +97,7 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
+                    // If CouponCreationEnum is equal import --> file contains coupon codes and coupon users
                     if(CouponCreation == CouponCreationEnum.Import)
                     {
                         //Read first sheet of Excel file
@@ -142,6 +143,7 @@ namespace WebApp.ViewModels
                             }
                         }
                     }
+                    // If CouponCreationEnum is equal generate --> file contains only coupon users, coupon code is generated using funtion getcouponCode for every user
                     else if (CouponCreation == CouponCreationEnum.Generate)
                     {
                         int couponsMade = 0;
@@ -191,6 +193,7 @@ namespace WebApp.ViewModels
 
                 }
             }
+            // Excel/csv file is not loaded, coupon code and user are generated through application
             else if ((CouponWithLetters || CouponWithNumbers) && NumberOfCoupons != 0)
             {
                 for (int i = 0; i < NumberOfCoupons; i++)
@@ -244,11 +247,22 @@ namespace WebApp.ViewModels
             return listOfCoupons;
         }
 
+        /// <summary>
+        /// Function gets number of permutations
+        /// </summary>
+        /// <param name="N">length of coupon without suffix and prefix</param>
+        /// <param name="B">length of characters that can be used to form coupon</param>
+        /// <returns>long value as number of permutations</returns>
         static long countPermutations(int N, int B)
         {
             return Convert.ToInt64(Math.Pow(B, N));
         }
 
+        /// <summary>
+        ///  Funtion generate coupon code
+        /// </summary>
+        /// <param name="createdCoupons">number of created coupons</param>
+        /// <returns>string value as coupon code</returns>
         private string getCouponCode(int createdCoupons)
         {
 
@@ -263,18 +277,10 @@ namespace WebApp.ViewModels
                 chars += "0123456789";
             }
 
-            /*int couponLength = 0;
-            for (int i = 8; i < CouponMaxLength; i++)
-            {
-              if(countPermutations(i, chars.Length) > NumberOfCoupons)
-                {
-                    couponLength = i;
-                    break;
-                }
-            }*/
-            var prefixLength = Prefix == null? 0 : Prefix.Length;
+            int prefixLength = Prefix == null? 0 : Prefix.Length;
             int suffixLength = Suffix == null? 0 : Suffix.Length;
             
+            /* if NumberOfCoupons is less than number of permutations that can be made of selected characters minus createdCoupons, coupon cannot be made*/
             if (NumberOfCoupons <= ( countPermutations(CouponMaxLength - prefixLength - suffixLength, chars.Length) - createdCoupons ) )
             {
             var random = new Random();
@@ -282,6 +288,7 @@ namespace WebApp.ViewModels
                 Enumerable.Repeat(chars,(CouponMaxLength - prefixLength - suffixLength))
                           .Select(s => s[random.Next(s.Length)])
                           .ToArray());
+                // result = Prefix + result + Suffix
                 result = Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
             }
             else
