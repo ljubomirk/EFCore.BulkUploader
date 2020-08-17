@@ -93,36 +93,11 @@ namespace CouponDatabase.Models
         private Boolean GetActive()
         {
             var pValid = (Promotion != null) ? Promotion.Active : false;
-            var cr1 = true;
-            var cr2 = true;
-            var cr3 = true;
-            var cr4 = true;
-            if (AquireFrom != null && AquireTo != null)
-            {
-                cr1 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
-                cr2 = (DateTime.Now.CompareTo(AquireTo) <= 0) ? true : false;
-            }
-            else  if (AquireTo != null)
-            {
-                 cr2 = (DateTime.Now.CompareTo(AquireTo) <= 0) ? true : false;
-            }
-            else if(AquireFrom != null)
-            {
-                cr1 = (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false;
-            }
-            if (AwardFrom != null && AwardTo != null)
-            {
-                cr3 = (DateTime.Now.CompareTo(AwardFrom) >= 0) ? true : false;
-                cr4 = (DateTime.Now.CompareTo(AwardTo) <= 0) ? true : false;
-            }
-            else if (AwardTo != null)
-            {
-                cr4 = (DateTime.Now.CompareTo(AwardTo) <= 0) ? true : false;
-            }
-            else if (AwardFrom != null)
-            {
-                cr3 = (DateTime.Now.CompareTo(AwardFrom) >= 0) ? true : false;
-            }
+ 
+            var cr1 = AquireFrom != null ? (DateTime.Now.CompareTo(AquireFrom) >= 0) ? true : false : true;
+            var cr2 = AquireTo != null ? (DateTime.Now.CompareTo(AquireTo) <= 0) ? true : false : true;
+            var cr3 = AwardFrom != null ? (DateTime.Now.CompareTo(AwardFrom) >= 0) ? true : false : true;
+            var cr4 = AwardTo != null ? (DateTime.Now.CompareTo(AwardTo) <= 0) ? true : false : true;
 
             return cr1 && cr2 && cr3 && cr4 && pValid && Enabled;
         }
