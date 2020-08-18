@@ -115,8 +115,21 @@
             })
         })
 
+        $("#Customer").click(function () {
+            if (status != null && status.length > 0) {
+                status = null;
+
+                btn.tooltip('destroy')
+                    .removeClass("success error")
+                    .addClass("modal-trigger")
+                    .removeAttr("data-tooltip")
+                    .removeAttr("data-position")
+                    .html(initContent);
+            }
+        })
+
         // reverse style - will reverse if filter is used as well
-        $("input").change(function () {
+        $(".input-coupon").change(function () {
             if (status != null && status.length > 0) {
                 status = null;
 
