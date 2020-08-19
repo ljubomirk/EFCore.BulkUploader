@@ -1,0 +1,33 @@
+﻿@*
+    ROLE: container for promotion view form
+*@
+
+@model WebApp.ViewModels.PromotionDetailsViewModel;
+
+@{
+    string strTitle = CouponDatabase.Properties.Resources.Promotion_TitleCreate;
+    string strBtnCancel = CouponDatabase.Properties.Resources.Btn_Cancel;
+
+    if (Model.Promotion.Id != 0)
+    {
+        strTitle = @CouponDatabase.Properties.Resources.Promotion_TitleView;
+        strBtnCancel = CouponDatabase.Properties.Resources.Btn_Back;
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6">
+            <h4 class="u-m-t-remove">
+                @strTitle
+            </h4>
+        </div>
+        <div class="col s12 m6 u-p-r-md-2">
+            <a href="@Url.Action("ListPromotions", "Management")" class="waves-effect waves-light btn-flat btn-default right">@strBtnCancel<i class="material-icons right">clear</i></a>
+        </div>
+    </div>
+</div>
+
+<!-- promotions form -->
+<partial name="_DisplayForm" model="Model" />
+

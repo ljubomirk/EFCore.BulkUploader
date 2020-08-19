@@ -81,7 +81,7 @@ namespace WebApp.Controllers
             if (TempData["CommandStatus"] != null)
                 ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
             CouponSeriesViewModel model = new CouponSeriesViewModel(_contextData, promotion.ValidFrom, promotion.ValidTo);
-            model.PromotionId = promotion.Id;
+            model._promo= promotion;
             model.CouponWithLetters = true;
             model.CouponWithNumbers = true;
             model.CouponSeries = promotion.CouponSeries + 1;
@@ -115,6 +115,16 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult CreatePromotion()
         {
+            /*string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!_repo.CheckPromotionCode(code));
+            */
             PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
             {
                 Promotion = new Promotion(),
@@ -157,6 +167,27 @@ namespace WebApp.Controllers
                 return View(view, model);
             }
             
+        }
+
+        [Route("{Id}")]
+        [HttpGet]
+        public IActionResult ViewPromotion(long Id)
+        {
+            // if (promo == null) RedirectToAction("Error");
+            string view = "PromotionDisplay";
+            var promotion = _repo.GetPromotionWithId(Id);
+            if (TempData["CommandStatus"] != null)
+                ViewBag.Command = new Command((CommandStatus)TempData["CommandStatus"]);
+                _repo.GetPromotionData(promotion);
+                PromotionDetailsViewModel model = new PromotionDetailsViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
+                {
+                    Promotion = promotion,
+                    Properties = setModelProperties(_repo.GetAllProperties(), promotion.PromotionProperties as List<PromotionProperty>),
+                    AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), promotion.PromotionAwardChannels as List<PromotionAwardChannel>),
+                    IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), promotion.PromotionIssuerChannels as List<PromotionIssuerChannel>),
+                    hasEndDate = promotion.ValidTo != null ? true : false
+                };
+                return View(view, model);
         }
 
         [HttpPost]
@@ -230,12 +261,12 @@ namespace WebApp.Controllers
             if (cmd.Status == CommandStatus.Valid)
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
-                _repo.UpdateCouponSeriesNum(model.PromotionId);
+                _repo.UpdateCouponSeriesNum(model._promo.Id);
                 model.CouponSeries++;
             }
             TempData["CommandStatus"] = cmd.Status;
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
-            return RedirectToAction("AddCouponSeries", new { id = model.PromotionId });
+            return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
         }
 
         #region TEST

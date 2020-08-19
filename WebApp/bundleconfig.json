@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/css/materialize.min.css",
+    "inputFiles": [
+      "wwwroot/css/materialize.css"
+    ]
+  }
+]

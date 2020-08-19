@@ -17,10 +17,10 @@ namespace CouponDatabase.Services
     public interface IPromotionAPI
     {
         [OperationContract]
-        IList<Promotion> Get(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
+        IList<Promotion> Get(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo);
 
         [OperationContract]
-        Command Create(string Code, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
+        Command Create(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo, bool Enabled, IList<PromotionProperty> Properties );
 
         [OperationContract]
         Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, Nullable<DateTime> ExpireDate, CouponStatus Status);

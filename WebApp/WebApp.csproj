@@ -120,8 +120,11 @@
     <Compile Remove="Migrations\20200612195234_Init.Designer.cs" />
     <Compile Remove="Migrations\20200612200707_Init.cs" />
     <Compile Remove="Migrations\20200612200707_Init.Designer.cs" />
+    <Compile Remove="Migrations\20200807153527_PromotionProperty_Update_revert.cs" />
+    <Compile Remove="Migrations\20200807153527_PromotionProperty_Update_revert.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +146,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="2.19.60" />
-    <PackageReference Include="SoapCore" Version="1.1.0-alpha" />
+    <PackageReference Include="SoapCore" Version="1.0.0" />
     <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="3.2.449" />
   </ItemGroup>
 
   <ItemGroup>
@@ -153,6 +159,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
   </ItemGroup>
 
@@ -160,5 +167,9 @@
     <ProjectReference Include="..\AD\AD.csproj" />
     <ProjectReference Include="..\CouponDatabase\CouponDatabase.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet bundle" />
+  </Target>
 
 </Project>

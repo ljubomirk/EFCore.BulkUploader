@@ -31,17 +31,17 @@ namespace WebApp.Controllers
         }
 
         // GET api/Coupon/x
-        [HttpGet("{Code}")]
-        public IList<Promotion> Get(string Code, [FromBody] DateTime? ValidFrom, [FromBody] DateTime? ValidTo)
+        [HttpGet("{Name}")]
+        public IList<Promotion> Get(string Name, [FromBody] DateTime? ValidFrom, [FromBody] DateTime? ValidTo)
         {
-            return _service.Get(Code, ValidFrom, ValidTo);
+            return _service.Get(Name, ValidFrom, ValidTo);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public Command Create(string Code, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
+        public Command Create(string Name, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> PromotionProperties)
         {
-            return _service.Create(Code, ValidFrom, ValidTo, Enabled, PromotionProperties);
+            return _service.Create(Name, ValidFrom, ValidTo, Enabled, PromotionProperties);
         }
 
         public Command AddCoupon(string PromotionCode, string CouponCode, string Holder, string User, DateTime? ExpireDate, CouponStatus Status)

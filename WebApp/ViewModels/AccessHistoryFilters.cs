@@ -19,8 +19,9 @@ namespace WebApp.ViewModels
         {
             _repo = new RepositoryServices(context);
         }
-
+        [Display(Name = "AccessHistory_ApplicationTypes", ResourceType = typeof(Resources))]
         public List<CheckedItem> ApplicationTypes{ get; set; }
+        [Display(Name = "AccessHistory_AccessGrants", ResourceType = typeof(Resources))]
         public List<CheckedItem> AccessGrants {get; set;}
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]

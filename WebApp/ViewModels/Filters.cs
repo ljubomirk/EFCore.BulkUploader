@@ -16,9 +16,12 @@ namespace WebApp.ViewModels
         {
             _repo = new RepositoryServices(context);
         }
-
+        
+        public string  Name{ get; set; }
         public string Code { get; set; }
+        [Display(Name = "Promotion_ShowActive", ResourceType = typeof(Resources))]
         public bool ShowActive { get; set; }
+        [Display(Name = "Promotion_ShowInactive", ResourceType = typeof(Resources))]
         public bool ShowInactive { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -62,15 +65,23 @@ namespace WebApp.ViewModels
             List<Promotion> promotionDuration = new List<Promotion>();
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
-                f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo) || (x.ValidTo >= promotionFilter.ValidTo)).ToList<Promotion>();
+                f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom <= promotionFilter.ValidFrom && (x.ValidTo >= promotionFilter.ValidTo || x.ValidTo == null))  
+                                                            || (x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo) 
+                                                            ||  (x.ValidFrom >= promotionFilter.ValidFrom && (x.ValidTo == null || x.ValidTo >= promotionFilter.ValidTo) && x.ValidFrom <= promotionFilter.ValidTo) 
+                                                            || (x.ValidFrom <= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo && x.ValidTo >= promotionFilter.ValidFrom)
+                                                            || (x.ValidFrom== null && (x.ValidTo == null || x.ValidTo >= promotionFilter.ValidFrom))).ToList<Promotion>();
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
                 if (promotionFilter.ValidFrom != null)
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom <= promotionFilter.ValidFrom && ( x.ValidTo >= promotionFilter.ValidFrom || x.ValidTo== null) 
+                                                                    || (x.ValidFrom >= promotionFilter.ValidFrom)
+                                                                    || (x.ValidFrom == null && (x.ValidTo == null || x.ValidTo >=promotionFilter.ValidFrom))).ToList<Promotion>();
                 if (promotionFilter.ValidTo != null)
                 {
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidTo <= promotionFilter.ValidTo) || (x.ValidTo >= promotionFilter.ValidTo)).ToList<Promotion>();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom <= promotionFilter.ValidTo) 
+                                                                    || (x.ValidTo >= promotionFilter.ValidTo)
+                                                                    || (x.ValidFrom == null )).ToList<Promotion>();
                 }
             }
 
@@ -86,7 +97,13 @@ namespace WebApp.ViewModels
                 }
             }
 
-            if(promotionFilter.Properties?.Where(p => p.Checked).Count() > 0)
+
+            if (promotionFilter.Name != null)
+            {
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.Name.ToLower().Contains(promotionFilter.Name.ToLower())).ToList<Promotion>(); 
+            }
+
+            if (promotionFilter.Properties?.Where(p => p.Checked).Count() > 0)
             {
                 /*
                  * TODO: 

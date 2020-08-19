@@ -113,7 +113,7 @@ namespace WebApp.Controllers
             if (model.Channels==null && model.Systems == null)
             {
                 ret.AddDropChannels(_context.IssuerChannel.ToList<IssuerChannel>());
-                ret.AddDropSystems(_context.System.ToList<CouponSystem>());
+                ret.AddDropSystems(_context.Coupon_System.ToList<CouponSystem>());
                 ret.AddNotifyLists(_context.NotifyList.ToList<NotifyList>());
             }
             return PartialView("_ChannelsNotifyListModal", ret);

@@ -116,32 +116,59 @@ namespace Web.Services.Impl
             return response;
         }
 
-        public IList<Promotion> Get(string Code, DateTime? ValidFrom, DateTime? ValidTo)
+        public IList<Promotion> Get(string Name, Nullable<DateTime> ValidFrom, Nullable<DateTime> ValidTo)
         {
             _repo.LogAPIAccess("PromotionAPI.Get", "POS", "", true);
             List<Promotion> result = new List<Promotion>();
             List<CouponDatabase.Models.Promotion> promos = _repo.GetAllPromotions();
-            if (Code!=null && Code.Length > 0)
-                promos = promos.FindAll(i => i.Code.Contains(Code));
-            if (ValidFrom.HasValue && ValidTo.HasValue && ValidFrom < ValidTo)
+            if (Name!=null && Name.Length > 0)
+                promos = promos.FindAll(i => i.Name.Contains(Name));
+
+            if (ValidFrom != null && ValidTo != null)
             {
-                if (ValidFrom.HasValue)
-                    promos = promos.FindAll(i => (i.ValidTo.HasValue) ? i.ValidTo.Value > ValidFrom.Value : true);
-                if (ValidTo.HasValue)
-                    promos = promos.FindAll(i => (i.ValidFrom.HasValue) ? i.ValidFrom.Value < ValidTo.Value : true);
+                promos = promos.FindAll(x => (x.ValidFrom <= ValidFrom && (x.ValidTo >= ValidTo || x.ValidTo == null))  
+                                                            || (x.ValidFrom >= ValidFrom && x.ValidTo <= ValidTo) 
+                                                            || (x.ValidFrom >=ValidFrom && (x.ValidTo == null || x.ValidTo >= ValidTo) && x.ValidFrom <= ValidTo) 
+                                                            || (x.ValidFrom <= ValidFrom && x.ValidTo <= ValidTo && x.ValidTo >= ValidFrom)
+                                                            || (x.ValidFrom== null && (x.ValidTo == null || x.ValidTo >= ValidFrom)));
+            }
+            else if (ValidFrom != null || ValidTo != null)
+            {
+                if (ValidFrom != null)
+                    promos = promos.FindAll(x => x.ValidFrom <= ValidFrom && ( x.ValidTo >= ValidFrom || x.ValidTo== null) 
+                                                                    || (x.ValidFrom >= ValidFrom)
+                                                                    || (x.ValidFrom == null && (x.ValidTo == null || x.ValidTo >=ValidFrom)));
+                if (ValidTo != null)
+                {
+                    promos = promos.FindAll(x => (x.ValidFrom <= ValidTo) 
+                                                                    || (x.ValidTo >= ValidTo)
+                                                                    || (x.ValidFrom == null ));
+                }
             }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
+                result.Add(new Promotion() { Name = promo.Name, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
             }
             return result;
         }
 
-        public Command Create(string PromotionCode, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
+        public Command Create(string PromotionName, DateTime? ValidFrom, DateTime? ValidTo, bool Enabled, IList<PromotionProperty> Properties)
         {
             _repo.LogAPIAccess("PromotionAPI.Create", "POS", "", true);
             Command response = new Command(CommandStatus.Valid);
-            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Code = PromotionCode, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
+
+            /* AUTO GENERATE PROMOTION CODE*/
+            string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!_repo.CheckPromotionCode(code));
+            /* END OF AUTO GENERATE PROMOTION CODE */
+            CouponDatabase.Models.Promotion promo = new CouponDatabase.Models.Promotion() { Name = PromotionName, Code = code, ValidFrom = ValidFrom, ValidTo = ValidTo, Enabled = Enabled };
             List<CouponDatabase.Models.Property> props = _repo.GetAllProperties();
             long promoId = _repo.CreatePromotion(promo);
             List<CouponDatabase.Models.PromotionProperty> promProps = new List<CouponDatabase.Models.PromotionProperty>();

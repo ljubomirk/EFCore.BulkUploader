@@ -1,4 +1,5 @@
 ﻿using CouponDatabase.Models;
+using CouponDatabase.Properties;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace WebApp.ViewModels
 
         public long Id { get; set; }
         [MaxLength(20)]
+        [Display(Name = "Systems_Name", ResourceType = typeof(Resources))]
         public string Name { get; set; }
         [MaxLength(20)]
+        [Display(Name = "User_Username", ResourceType = typeof(Resources))]
         public string Username { get; set; }
         [MaxLength(20)]
+        [Display(Name = "Systems_Password", ResourceType = typeof(Resources))]
         public string Password { get; set; }
     }
 

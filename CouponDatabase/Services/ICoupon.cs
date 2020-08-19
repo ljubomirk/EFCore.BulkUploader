@@ -104,12 +104,15 @@ namespace CouponDatabase.Services
                     /**
                      * Named coupons rules
                      */
-                    if (props.Contains(PropertyTypeEnum.NamedConsumers)) {
+                    if (props.Contains(PropertyTypeEnum.NamedHolders)) {
+                        if (user == "")
+                            result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
                         /**
                          * For named coupons that holder is consumer, coupon Holder and user must macth
                          */
-                        if (props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer) && Coupon.Holder != user)
+                        if (props.Contains(PropertyTypeEnum.HoldersOnlyConsumer) && Coupon.Holder != user)
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
+
                         /**
                          * For multiple redeem coupons user can use only once when named 
                          */
@@ -122,6 +125,8 @@ namespace CouponDatabase.Services
             {
                 result = new Lifecycle.Command(CommandStatus.ErrorCouponNotFound);
             }
+
+            
             return result;
         }
         /// <summary>
@@ -139,9 +144,12 @@ namespace CouponDatabase.Services
                 result = Validate(user);
                 if (result.Status == CommandStatus.Valid)
                 {
-                    if(Coupon.MaxRedeemNo>0)
-                        Coupon.Status = (int)CouponStatus.Redeemed;
                     Coupon.MaxRedeemNo--;
+
+                    //when MaxRedeemNo == 0 then Coupon.Status is Redeemed, otherwise should stay Issued
+                    if (Coupon.MaxRedeemNo==0)  
+                        Coupon.Status = (int)CouponStatus.Redeemed;
+                    Coupon.User = user;
                     AddHistory("Redeem", user);
                 }
             }
@@ -153,11 +161,12 @@ namespace CouponDatabase.Services
             Lifecycle.Command result = StateChange(CouponStatus.Issued);
             if (result.Status == CommandStatus.Valid)
             {
-                CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
-                result = new Command(status);
+                //CommandStatus status = (Coupon.User != null) ? CommandStatus.Valid : CommandStatus.ErrorInvalidStatus;
+                //result = new Command(status);
                 if(result.Status == CommandStatus.Valid) {
                     Coupon.MaxRedeemNo++;
                     Coupon.Status = (int)CouponStatus.Issued;
+                    Coupon.User = "";
                     AddHistory("UndoRedeem", "");
                 }
             }
@@ -178,20 +187,6 @@ namespace CouponDatabase.Services
                         Coupon.Holder = Holder;
                     else
                         result = new Command(CommandStatus.ErrorInvalidUser);
-                }
-                /**
-                 * Named consumer coupons rules
-                 */
-                if (props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
-                {
-                    Coupon.User = Holder;
-                }
-                /**
-                 * Named consumer coupons rules
-                 */
-                if (props.Contains(PropertyTypeEnum.NamedConsumers) && !props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
-                {
-                    Coupon.User = User;
                 }
                 if (result.Status == CommandStatus.Valid)
                 {
@@ -237,16 +232,21 @@ namespace CouponDatabase.Services
                     else
                         result = new Command(CommandStatus.ErrorInvalidUser);
                 }
+                
                 /**
+                 * *COMMENTED OUT SINCE IT'S NOT USED ANYMORE*
                  * Named consumer coupons rules
-                 */
+               
                 if (props.Contains(PropertyTypeEnum.NamedConsumers) && props.Contains(PropertyTypeEnum.HolderIsOnlyConsumer))
                 {
                     Coupon.User = user;
                 }
+                **/
                 if (result.Status == CommandStatus.Valid)
                 {
-                    AddHistory("AssignUser", user);
+                    if (user != "")
+                        AddHistory("AssignUser", user);
+
                 }
             }
             else

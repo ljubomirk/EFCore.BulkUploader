@@ -6,22 +6,23 @@
 
 <section id="coupon-import">
     <div class="row">
-        <div id="file-name-holder" class="input-field date col s6">
-            <input id="file-name" placeholder="" class="" type="text" disabled />
+        <div id="file-name-holder2" class="input-field date col s12">
+            <input id="file-name2" placeholder="" class="" type="text" disabled  />
         </div>
-        <div class="col s6">
+        <div class="col s12">
             <div class="file-field-input input-field">
-                <button id="btn-file-input" type="button" class="waves-effect waves-light btn-flat btn-default-primary">
+                <button id="btn-file-input2" type="button" class="waves-effect waves-light btn-flat btn-default-primary">
                     <i class="material-icons left">file_upload</i>
                     @CouponDatabase.Properties.Resources.Btn_SelectFile
                 </button>
-                <input id="file-input" type="file" name="file" asp-for="file" accept=".xls, .xlsx, .csv" />
+                <input id="file-input2" type="file" name="file" asp-for="file" accept=".xls, .xlsx, .csv" />
             </div>
         </div>
     </div>
     <div class="row u-m-t-md">
         <div class="col s12">
-            <button type="submit" class="waves-effect waves-light btn-flat btn-primary">
+            @Html.HiddenFor(i => i.CouponCreation, new { htmlAttributes = new { value = (int)@CouponDatabase.Lifecycle.CouponCreationEnum.Import, Value = (int)@CouponDatabase.Lifecycle.CouponCreationEnum.Import } })
+            <button type="submit" class="waves-effect waves-light btn-flat btn-primary" id="btn-import">
                 <i class="material-icons update-icon left">check</i>
                 @CouponDatabase.Properties.Resources.Btn_Import
             </button>
@@ -31,26 +32,31 @@
 
 <script>
     $(document).ready(function () {
-        var fileInput = $("#file-input");
-        var fileBtn = $("#btn-file-input");
-        var fileName = $("#file-name");
-        var fileNameHolder = $("#file-name-holder");
+        var fileInput2 = $("#file-input2");
+        var fileBtn2 = $("#btn-file-input2");
+        var fileName2 = $("#file-name2");
+        var fileNameHolder2 = $("#file-name-holder2");
+        $("#file-name-holder2").hide();
 
         // simulate click on input
-        fileBtn.click(function () {
-            fileInput.click();
+        fileBtn2.click(function () {
+            fileInput2.click();
         })
         // display name
-        fileInput.on('change', function () {
+        fileInput2.on('change', function () {
             var name = $(this).val().split('\\').pop();
-            var replaceFile = '<i class="material-icons left">file_upload</i>' + '@CouponDatabase.Properties.Resources.Btn_ReplaceFile';
-            var btnLabel = fileBtn.html();
+            var replaceFile2 = '<i class="material-icons left">file_upload</i>' + '@CouponDatabase.Properties.Resources.Btn_ReplaceFile';
+            var btnLabel2 = fileBtn2.html();
 
-            if (name && !btnLabel.includes(replaceFile)) {
-                fileBtn.html(replaceFile);
-                fileNameHolder.show('slow');
+            if (name && !btnLabel2.includes(replaceFile2)) {
+                fileBtn2.html(replaceFile2);
+                fileNameHolder2.show('slow');
             }
-            fileName.val(name);
+            fileName2.val(name);
+        })
+
+        $("#btn-import").click(function () {
+            document.getElementById('CouponCreation').value = "2";
         })
     });
 </script>

@@ -37,7 +37,13 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             try {
                 Context.Database.BeginTransaction();
-                foreach(Coupon coupon in coupons) { 
+                foreach(Coupon coupon in coupons) {
+                    //removed Promotion reference, if already exists
+                    if (coupon.Promotion?.Id != 0) { 
+                        coupon.PromotionId = coupon.Promotion.Id;
+                        coupon.Promotion = null;
+                    }
+
                     Context.Coupon.Add(coupon);
                     if(coupon.CouponHistories!=null)
                     foreach (CouponHistory ch in coupon.CouponHistories)
@@ -53,8 +59,10 @@ namespace WebApp.Services
                             result = new Command(CommandStatus.ErrorSelectOneCheckbox);
                             result.Message = String.Format(result.Message);
                         }
-                else
-                    result.Status = CommandStatus.ErrorSystem;
+                else {
+                    result = new Command(CommandStatus.Error_DuplicateCouponExists);
+                    result.Message = String.Format(result.Message);
+                }
                 Context.Database.CommitTransaction();
             }
             catch (DbUpdateException update)
@@ -114,7 +122,8 @@ namespace WebApp.Services
 
         public Coupon GetCouponById(long id)
         {
-            return Context.Coupon.Where(c => c.Id == id).First();
+            Coupon coupon = Context.Coupon.Find(id);
+            return Context.Coupon.Include(c => c.Promotion).Where(c => c.Id == id).First();
         }
 
         public Command UpdateCoupon(Coupon coupon)
@@ -161,7 +170,7 @@ namespace WebApp.Services
 
         internal List<CouponDatabase.Models.System> getAllSystems()
         {
-            return Context.System.ToList<CouponDatabase.Models.System>();
+            return Context.Coupon_System.ToList<CouponDatabase.Models.System>();
         }
 
         internal int GetCouponSeriesVal(long id)
@@ -353,6 +362,16 @@ namespace WebApp.Services
         {
             return Context.CouponAwardChannel.Where(c => c.CouponId == idCoupon).ToList();
         }
+        public bool CheckPromotionCode(string code)
+        {
+            if( Context.Promotion.Where(c => c.Code == code).Count() == 0){
+                return true;
+            }
+            return false;
+
+        }
+
+
 
         public List<IssuerChannel> GetAllIssuerChannels()
         {
@@ -381,6 +400,16 @@ namespace WebApp.Services
 
         public long CreatePromotion(Promotion promotion)
         {
+            string code = "";
+            do
+            {
+                var random = new Random();
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                code = new string(Enumerable.Repeat(chars, 8)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            } while (!CheckPromotionCode(code));
+            promotion.Code = code;
             Context.Promotion.Add(promotion);
             Context.SaveChanges();
             return promotion.Id;
@@ -505,7 +534,7 @@ namespace WebApp.Services
                         Login = vSystem.Username,
                         PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
                     };
-                Context.System.Add(model);
+                Context.Coupon_System.Add(model);
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
@@ -533,7 +562,7 @@ namespace WebApp.Services
                         Login = vSystem.Username,
                         PwdHash = hasher.HashPassword(vSystem.Username, vSystem.Password)
                     };
-                Context.System.Update(model);
+                Context.Coupon_System.Update(model);
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);
             }
@@ -552,7 +581,7 @@ namespace WebApp.Services
             
             try
             {
-                Context.System.Remove(Context.System.Find(id));
+                Context.Coupon_System.Remove(Context.Coupon_System.Find(id));
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);
             }

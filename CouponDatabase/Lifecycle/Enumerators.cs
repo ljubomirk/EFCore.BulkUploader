@@ -45,6 +45,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         ErrorSelectOneCheckbox = 11,
         [EnumMemberAttribute]
+        Error_DuplicateCouponExists = 12,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 
@@ -66,10 +68,8 @@ namespace CouponDatabase.Lifecycle
 
     public enum PropertyTypeEnum
     {
-        UniqueCoupons = 1,
-        NamedHolders = 2,
-        NamedConsumers = 3,
-        HolderIsOnlyConsumer = 4,
+        NamedHolders = 3,
+        HoldersOnlyConsumer = 4,
         AllowMultipleRedeems = 5,
         AllowCouponSeries = 6
     }
@@ -78,5 +78,12 @@ namespace CouponDatabase.Lifecycle
     {
         No = 0,
         Yes = 1
+    }
+    public enum CouponCreationEnum : int
+    {
+        [EnumMemberAttribute]
+        Generate = 1,
+        [EnumMemberAttribute]
+        Import = 2
     }
 }

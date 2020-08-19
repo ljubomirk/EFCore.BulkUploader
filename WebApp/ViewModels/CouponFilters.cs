@@ -12,8 +12,11 @@ namespace WebApp.ViewModels
     {
         public bool ActiveCoupons { get; set; }
         public bool InactiveCoupons { get; set; }
+        [Display(Name = "Promotion_IssuerChannels", ResourceType = typeof(Resources))]
         public List<CheckedItem> IssuerChannels { get; set; }
+        [Display(Name = "Promotion_AwardChannels", ResourceType = typeof(Resources))]
         public List<CheckedItem> AwardChannels { get; set; }
+        [Display(Name = "Promotion_CurrentStatus", ResourceType = typeof(Resources))]
         public List<CheckedItem> CurrentStatus { get; set; }
 
         // Aquire From & To

@@ -9,13 +9,9 @@ namespace CouponDatabase.API
     public enum PromotionPropertyEnum
     {
         [EnumMember]
-        UniqueCoupons = 1,
-        [EnumMember]
-        NamedConsumers = 2,
-        [EnumMember]
         NamedHolders = 3,
         [EnumMember]
-        HolderIsOnlyConsumer = 4,
+        HoldersOnlyConsumer = 4,
         [EnumMember]
         AllowMultipleRedeem = 5,
         [EnumMember]

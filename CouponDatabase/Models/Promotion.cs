@@ -17,13 +17,21 @@ namespace CouponDatabase.Models
     {
         #region Properties 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Promotion_Id", ResourceType = typeof(Resources), AutoGenerateField = true)]
         public long Id { get; set; }
-       // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
-        [Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
-       // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
+        [Required(ErrorMessageResourceName = "Promotion_Name_Required", ErrorMessageResourceType = typeof(Resources))]
+        [Display(Name = "Promotion_Name", ResourceType = typeof(Resources))]
         [DataType(DataType.Text)]
         [MaxLength(40)]
-        public String Code { get; set; }
+        public String Name { get; set; }
+        // [StringLength(20, ErrorMessageResourceName = "Promotion_Code_Length", ErrorMessageResourceType = typeof(Resources))]
+        //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
+        // [Display(Name = "Promotion_Code", ResourceType = typeof(Resources))]
+         [Display(Name = "Promotion_Code", ResourceType = typeof(Resources),AutoGenerateField =true)]
+        [DataType(DataType.Text)]
+        [MaxLength(40)]
+        public  String  Code { get; set; }
+        [Display(Name = "Promotion_StatusEnabled", ResourceType = typeof(Resources))]
         public Boolean Enabled { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
@@ -33,19 +41,27 @@ namespace CouponDatabase.Models
         [DataType(DataType.Date)]
         [Display(Name = "Date_ValidTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> ValidTo { get; set; }
+        [Display(Name = "Coupon_Series", ResourceType = typeof(Resources))]
         public int CouponSeries { get; set; }
-
+        [Display(Name = "Promotion_HasCoupons", ResourceType = typeof(Resources))]
         [NotMapped]
         public Boolean HasCoupons{ get; set; }
+
+
         #endregion
         #region Construction
         public Promotion()
         {
-            
+   
+        }
+        public Promotion(string code)
+        {
+            this.Code = code;
         }
         #endregion
         #region Behaviour
         /* Active is virtual value, read from other values */
+        [Display(Name = "Promotion_Active", ResourceType = typeof(Resources))]
         public Boolean Active
         {
             get => this.GetActive();
@@ -56,8 +72,8 @@ namespace CouponDatabase.Models
         /// <returns>Boolean value</returns>
         private Boolean GetActive()
         {
-            var pr1 =ValidFrom != null? (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false : false;
-            var pr2 = ValidTo != null? (DateTime.Now.CompareTo(ValidTo) < 0) ? true : false : true;
+            var pr1 =ValidFrom != null? (DateTime.Now.CompareTo(ValidFrom) >= 0) ? true : false : true;
+            var pr2 = ValidTo != null? (DateTime.Now.CompareTo(ValidTo) <= 0) ? true : false : true;
 
             return Enabled && pr1 && pr2;
         }
@@ -90,5 +106,6 @@ namespace CouponDatabase.Models
         public IList<PromotionProperty> PromotionProperties { get; set; }
         public IList<Coupon> Coupons { get; set; }
         #endregion
+        
     }
 }

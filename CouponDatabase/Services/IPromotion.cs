@@ -24,6 +24,7 @@ namespace CouponDatabase.Services
             if (promo.Coupons == null)
             {
                 promo.Enabled = newData.Enabled;
+                promo.Name = newData.Name;
                 promo.Code = newData.Code;
                 promo.ValidFrom = newData.ValidFrom;
                 promo.ValidTo = newData.ValidTo;

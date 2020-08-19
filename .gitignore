@@ -330,3 +330,6 @@ ASALocalRun/
 .mfractor/
 /WebApp/wwwroot/images/svg/first.svg
 /WebApp/wwwroot/images/svg/last.svg
+
+#ignore minimized files
+*.min.css

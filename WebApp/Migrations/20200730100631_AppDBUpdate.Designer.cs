@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Data;
 
 namespace WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200730100631_AppDBUpdate")]
+    partial class AppDBUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,6 +287,7 @@ namespace WebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnName("CODE")
                         .HasMaxLength(40);
 
@@ -309,8 +312,7 @@ namespace WebApp.Migrations
                         .HasName("PK_PROMOTION");
 
                     b.HasIndex("Code")
-                        .IsUnique()
-                        .HasFilter("[CODE] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("PROMOTION");
                 });
@@ -382,13 +384,23 @@ namespace WebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 3L,
+                            Id = 1L,
+                            Name = "UniqueCoupons"
+                        },
+                        new
+                        {
+                            Id = 2L,
                             Name = "NamedHolders"
                         },
                         new
                         {
+                            Id = 3L,
+                            Name = "NamedConsumers"
+                        },
+                        new
+                        {
                             Id = 4L,
-                            Name = "HoldersOnlyConsumer"
+                            Name = "HolderIsOnlyConsumer"
                         },
                         new
                         {
@@ -422,13 +434,13 @@ namespace WebApp.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id")
-                        .HasName("PK_COUPON_SYSTEM");
+                        .HasName("PK_SYSTEM");
 
                     b.HasIndex("Name")
                         .IsUnique()
                         .HasFilter("[NAME] IS NOT NULL");
 
-                    b.ToTable("COUPON_SYSTEM");
+                    b.ToTable("SYSTEM");
                 });
 
             modelBuilder.Entity("CouponDatabase.Models.User", b =>
@@ -513,7 +525,7 @@ namespace WebApp.Migrations
                     b.HasOne("CouponDatabase.Models.System", "System")
                         .WithMany()
                         .HasForeignKey("SystemId")
-                        .HasConstraintName("FK_NOTIFY_LIST_COUPON_SYSTEM_SYSTEM_ID")
+                        .HasConstraintName("FK_NOTIFY_LIST_SYSTEM_SYSTEM_ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_apis/build/status/COMMANDO?branchName=master)](https://dev.azure.com/triple-innovations-overlord/COMMANDO/_build/latest?definitionId=12)
 
-# Introduction 
+# Introduction
 
   COMMANDO - COupon Multichannel MANagement & Delivery Orchestration 
 
@@ -37,6 +37,9 @@ Check out this repositry and open solution COMMANDO for start working on project
     `Script-Migration -o DB/OracleDDL.sql`
     3. Fix partitions
 
+  - Setup css and javascript minifiers
+    --> DEPRECATED: This is now automatized with dotnet cli tool BundlerMinifier.Core postbuild cmd "dotnet bundle"
+
   - Configuration and environments:
     1. Development
     - VS Configuration: Debug 
@@ -68,9 +71,7 @@ Check out this repositry and open solution COMMANDO for start working on project
   - Oracle EntityFrameworkCore -> Mvc.EntityFrameworkcore 2.2.6 
   - SoapCode 1.0.0
 3.	Latest releases 
-  0.8 Test environment week1
-   - testing features of WebApp
-
+  [HISTORY.md]
 4.	API references 
   API
     - build in MvcCore API
