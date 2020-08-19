@@ -134,10 +134,10 @@
                     }
                     else
                     {
-                        <a id="add-series" href="@Url.Action("AddCouponSeries","Management",  new { id = Model.Promotion.Id })" class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md @(!allowAddSeries ? "disabled":"")">
+                        <button id="add-series" type="submit" formaction="/Management/StoreAddCouponSeries"  class="waves-effect waves-light btn-flat commando-primary white-text u-m-r-md @(!allowAddSeries ? "disabled":"")">
                             <i class="material-icons left">add</i>
                             @CouponDatabase.Properties.Resources.Btn_AddSeries
-                        </a>
+                        </button>
                         <button type="submit" class="waves-effect waves-light btn-flat btn-default btn-primary-text">
                             <i class="material-icons left">save</i>
                             @CouponDatabase.Properties.Resources.Btn_SaveChanges
