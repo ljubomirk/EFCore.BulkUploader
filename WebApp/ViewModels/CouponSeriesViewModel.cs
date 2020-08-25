@@ -13,11 +13,29 @@ using System.Data;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.Services;
 using FoolProof.Core;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace WebApp.ViewModels
 {
     public class CouponSeriesViewModel : ContextData
     {
+        private class CouponData
+        {
+            public string CouponCode;
+            public string CouponUser;
+
+            public CouponData()
+            {
+                this.CouponCode = null;
+                this.CouponUser = null;
+            }
+
+            public CouponData(string code,string user)
+            {
+                this.CouponCode = code;
+                this.CouponUser = user;
+            }
+        }
         public long Id { get; set; }
         //[Required(ErrorMessageResourceName = "Promotion_Code_Required", ErrorMessageResourceType = typeof(Resources))]
         [Display(Name = "Coupon_Series", ResourceType = typeof(Resources))]
@@ -60,7 +78,7 @@ namespace WebApp.ViewModels
         public IFormFile file { get; set; }
         [Display(Name = "Coupon_MaximumRedeem", ResourceType = typeof(Resources))]
         public Nullable<Int32> MaximumRedeem { get; set; }
-        
+
         public CouponSeriesViewModel() : base() { }
         public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo):base(contextData.AgentUsername, contextData.AgentGroup)
         {
@@ -69,168 +87,94 @@ namespace WebApp.ViewModels
             RedeemableFrom = PromotionValidFrom;
             RedeemableUntil = PromotionValidTo;
         }
-        
-        public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons)
+
+        public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons, ref Command cmd)
         {
             DataSet resultFromFile = new DataSet();
             List<Coupon> listOfCoupons = new List<Coupon>();
+            string CouponUser;
 
             //Check if Excel/csv file is loaded
-            if (file != null)
+            if (file != null && file.Length > 0)
             {
-                if (file.Length > 0)
+                resultFromFile = CheckFileUpload(file, ref listOfCoupons, ref cmd, ref pottentialySameCoupons);
+
+                // If CouponCreationEnum is equal import --> file contains coupon codes and coupon users
+                if (CouponCreation == CouponCreationEnum.Import)
                 {
-                  
-                    string extension = Path.GetExtension(file.FileName);
-
-                    using(var stream = file.OpenReadStream())
-                    {
-                        if(extension == ".xls" || extension == ".xlsx")
+                    //Read data of Excel file and store it to list of CouponData structure
+                    List<CouponData> exellData = ExtractExellData(resultFromFile);
+                   
+                        foreach (CouponData cd  in exellData)
                         {
-                            using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
-                            {
-                                resultFromFile = reader.AsDataSet();
-                            }
-                        }
-                        else if (extension == ".csv")
-                        {
-                            using (IExcelDataReader reader = ExcelReaderFactory.CreateCsvReader(stream))
-                            {
-                                resultFromFile = reader.AsDataSet();
-                            }
-                        }
-                    }
-                    // If CouponCreationEnum is equal import --> file contains coupon codes and coupon users
-                    if(CouponCreation == CouponCreationEnum.Import)
-                    {
-                        //Read first sheet of Excel file
-                        if (resultFromFile.Tables[0] != null)
-                        {
-                            foreach (DataRow row in resultFromFile.Tables[0].Rows)
-                            {
-                                //Check if CouponUser are defined
-                                string CouponUser = row.ItemArray[1].ToString();
-
-                                //Get coupon code for import
-                                string couponCode = row.ItemArray[0].ToString();
-                                MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
-
-                                Coupon coupon = new Coupon(couponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
-                                {
-                                    Holder = CouponUser
-                                };
-
-                                ICoupon cpn = new ICoupon(coupon);
-
-                                switch (Status)
-                                {
-                                    case CouponStatus.Created:
-                                        break;
-                                    case CouponStatus.Issued:
-                                        cpn.Assign("", CouponUser);
-                                        break;
-                                    case CouponStatus.Redeemed:
-                                        cpn.Assign("", CouponUser);
-                                        cpn.Redeem(CouponUser);
-                                        break;
-                                    case CouponStatus.Canceled:
-                                        cpn.Assign("", CouponUser);
-                                        cpn.Cancel();
-                                        break;
-                                    default:
-                                        break;
-
-                                }
-
-                                listOfCoupons.Add(cpn.Coupon);
-                            }
-                        }
-                    }
-                    // If CouponCreationEnum is equal generate --> file contains only coupon users, coupon code is generated using funtion getcouponCode for every user
-                    else if (CouponCreation == CouponCreationEnum.Generate)
-                    {
-                        int couponsMade = 0;
-                        foreach (DataRow row in resultFromFile.Tables[0].Rows)
-                        {
-                            //Check if CouponUser are defined
-                            string CouponUser = row.ItemArray[0].ToString();
-                            string CouponCode = getCouponCode(couponsMade);
-
-                            while((pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == CouponCode)) || listOfCoupons.Any(x => x.Code == CouponCode))
-                            {
-                                CouponCode = getCouponCode(couponsMade);
-                            }
                             MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
 
-                            Coupon coupon = new Coupon(CouponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
+                            Coupon coupon = new Coupon(cd.CouponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
                             {
-                                Holder = CouponUser
+                                Holder = cd.CouponUser
                             };
 
                             ICoupon cpn = new ICoupon(coupon);
 
-                            switch (Status)
-                            {
-                                case CouponStatus.Created:
-                                    break;
-                                case CouponStatus.Issued:
-                                    cpn.Assign("", CouponUser);
-                                    break;
-                                case CouponStatus.Redeemed:
-                                    cpn.Assign("", CouponUser);
-                                    cpn.Redeem(CouponUser);
-                                    break;
-                                case CouponStatus.Canceled:
-                                    cpn.Assign("", CouponUser);
-                                    cpn.Cancel();
-                                    break;
-                                default:
-                                    break;
-                            }
-                            
-                                listOfCoupons.Add(coupon);
-                                couponsMade++;
+                            SwitchStatus(ref cpn, cd.CouponUser);
+
+                            listOfCoupons.Add(cpn.Coupon);
                         }
+                }
+
+                // If CouponCreationEnum is equal generate --> file contains only coupon users, coupon code is generated using funtion getcouponCode for every user
+                else if (CouponCreation == CouponCreationEnum.Generate)
+                {
+                    int couponsMade = 0;
+
+                    //Read data of Excel file and store it to list of CouponData structure
+                    List<CouponData> exellData = ExtractExellData(resultFromFile);
+                    
+                    foreach (CouponData cd in exellData)
+                    {
+                        //Check if CouponUser are defined
+                        CouponUser = cd.CouponUser;
+                        string CouponCode = getCouponCode(couponsMade, out cmd);
+
+                        while ((pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == CouponCode)) || listOfCoupons.Any(x => x.Code == CouponCode))
+                        {
+                            CouponCode = getCouponCode(couponsMade, out cmd);
+                        }
+                        MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
+
+                        Coupon coupon = new Coupon(CouponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
+                        {
+                            Holder = CouponUser
+                        };
+
+                        ICoupon cpn = new ICoupon(coupon);
+
+                        SwitchStatus(ref cpn, CouponUser);
+
+                        listOfCoupons.Add(coupon);
+                        couponsMade++;
                     }
-
-
                 }
             }
             // Excel/csv file is not loaded, coupon code and user are generated through application
-            else if ((CouponWithLetters || CouponWithNumbers) && NumberOfCoupons != 0)
+            else if (NumberOfCoupons != 0)
             {
                 for (int i = 0; i < NumberOfCoupons; i++)
                 {
-                    string code = getCouponCode(i);
-                    if (code != "")
+                    string code = getCouponCode(i, out cmd);
+                    if (code != "" && cmd.Status == CommandStatus.Valid)
                     {
-                        
+
                         if (!MaximumRedeem.HasValue)
                         {
                             MaximumRedeem = 1;
                         }
-                         Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
+                        Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
                         //Add coupon to service class
                         ICoupon cpn = new ICoupon(coupon);
 
-                        switch (Status)
-                        {
-                            case CouponStatus.Created:
-                                break;
-                            case CouponStatus.Issued:
-                                cpn.Assign("", "");
-                                break;
-                            case CouponStatus.Redeemed:
-                                cpn.Assign("", "");
-                                cpn.Redeem("");
-                                break;
-                            case CouponStatus.Canceled:
-                                cpn.Assign("", "");
-                                cpn.Cancel();
-                                break;
-                            default:
-                                break;
-                        }
+                        SwitchStatus(ref cpn, CouponUser = "");
+
                         if (pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
                         {
                             NumberOfCoupons++;
@@ -245,7 +189,6 @@ namespace WebApp.ViewModels
                         }
                     }
                 }
-
             }
             return listOfCoupons;
         }
@@ -265,12 +208,16 @@ namespace WebApp.ViewModels
         ///  Funtion generate coupon code
         /// </summary>
         /// <param name="createdCoupons">number of created coupons</param>
-        /// <returns>string value as coupon code</returns>
-        private string getCouponCode(int createdCoupons)
+        /// <returns>string value as coupon code,if result is null checkbox "use letters" and "use numbers" are not selected
+        /// if result is "" coupon with code already exists</returns>
+        private string getCouponCode(int createdCoupons, out Command cmd)
         {
 
             string chars = "";
-            var result = "";
+            string result = null;
+            //if chars stays "" that menas that both checkboxes "use letters" and "use numbers" are not selected and code cannot be generated, 
+            //cmd is transported to Add function in RepositoryService
+            cmd = new Command(CommandStatus.ErrorSelectOneCheckbox);
             if (CouponWithLetters)
             {
                 chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -280,25 +227,109 @@ namespace WebApp.ViewModels
                 chars += "0123456789";
             }
 
-            int prefixLength = Prefix == null? 0 : Prefix.Length;
-            int suffixLength = Suffix == null? 0 : Suffix.Length;
-            
-            /* if NumberOfCoupons is less than number of permutations that can be made of selected characters minus createdCoupons, coupon cannot be made*/
-            if (NumberOfCoupons <= ( countPermutations(CouponMaxLength - prefixLength - suffixLength, chars.Length) - createdCoupons ) )
-            {
-            var random = new Random();
-            result = new string(
-                Enumerable.Repeat(chars,(CouponMaxLength - prefixLength - suffixLength))
-                          .Select(s => s[random.Next(s.Length)])
-                          .ToArray());
-                // result = Prefix + result + Suffix
-                result = Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
-            }
-            else
-            {
-                result += "";
+            int prefixLength = Prefix == null ? 0 : Prefix.Length;
+            int suffixLength = Suffix == null ? 0 : Suffix.Length;
+            if (chars != "") {
+                /* if NumberOfCoupons is less than number of permutations that can be made of selected characters minus createdCoupons, coupon cannot be made*/
+                if (NumberOfCoupons <= (countPermutations(CouponMaxLength - prefixLength - suffixLength, chars.Length) - createdCoupons))
+                {
+                    var random = new Random();
+                    result = new string(
+                        Enumerable.Repeat(chars, (CouponMaxLength - prefixLength - suffixLength))
+                                  .Select(s => s[random.Next(s.Length)])
+                                  .ToArray());
+                    // result = Prefix + result + Suffix
+                    result = Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
+                    cmd = new Command(CommandStatus.Valid);
+                }
+                else
+                {
+                    // code cannot be generated : all possible codes that can be generated already exist in database
+                    result = "";
+                    cmd = new Command(CommandStatus.Error_DuplicateCouponExists);
+                }
             }
             return result;
         }
-    }
+
+        public DataSet CheckFileUpload(IFormFile file, ref List<Coupon> listOfCoupons, ref Command cmd, ref List<Coupon> pottentialySameCoupons)
+        {
+            DataSet resultFromFile = new DataSet();
+            string extension = Path.GetExtension(file.FileName);
+
+            using (var stream = file.OpenReadStream())
+            {
+                if (extension == ".xls" || extension == ".xlsx")
+                {
+                    using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        resultFromFile = reader.AsDataSet();
+                    }
+                }
+                else if (extension == ".csv")
+                {
+                    using (IExcelDataReader reader = ExcelReaderFactory.CreateCsvReader(stream))
+                    {
+                        resultFromFile = reader.AsDataSet();
+                    }
+                }
+            }
+            return resultFromFile;
+        }
+
+
+        public void SwitchStatus(ref ICoupon cpn, string CouponUser)
+        {
+            switch (Status)
+            {
+                case CouponStatus.Created:
+                    break;
+                case CouponStatus.Issued:
+                    cpn.Assign("", CouponUser);
+                    break;
+                case CouponStatus.Redeemed:
+                    cpn.Assign("", CouponUser);
+                    cpn.Redeem(CouponUser);
+                    break;
+                case CouponStatus.Canceled:
+                    cpn.Assign("", CouponUser);
+                    cpn.Cancel();
+                    break;
+                default:
+                    break;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resultFromFile"></param>
+        /// <returns>stores data from Exell file in list of CouponData structure</returns>
+        private List<CouponData> ExtractExellData(DataSet resultFromFile)
+        {
+            List<CouponData> result = new List<CouponData>();
+         
+            if (resultFromFile.Tables[0] != null)
+            {
+                foreach (DataRow row in resultFromFile.Tables[0].Rows)
+                {
+                    string CouponUser = null;
+                    string CouponCode = null;
+                    //Check if CouponUser are defined
+                    if (row.ItemArray.Length >= 2)
+                       CouponUser = row.ItemArray[1].ToString();
+
+
+                    //Get coupon code for import
+                    if (row.ItemArray.Length >= 1)
+                         CouponCode = row.ItemArray[0].ToString();
+                    CouponData cd = new CouponData(CouponCode, CouponUser);
+
+                    result.Add(cd);
+                } 
+            }
+           return result;
+         }
+        
+     }
 }
+

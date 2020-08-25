@@ -240,7 +240,8 @@ namespace WebApp.Controllers
         {
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - num:{0}", model.NumberOfCoupons);
             List<Coupon> potentiallySameCoupons = new List<Coupon>();
-            if(model.Prefix != null)
+            Command cmd = new Command(CommandStatus.Valid);
+            if(model.Prefix != null )
             {
                 potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring(0, model.Prefix.Length) == model.Prefix).ToList<Coupon>());
             }
@@ -254,9 +255,9 @@ namespace WebApp.Controllers
                     potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>());
             }
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
-            List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons);
+            List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd);
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
-            Command cmd = _repo.Add(coupons);
+            cmd = _repo.Add(coupons,ref cmd);
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", cmd.Status);
             if (cmd.Status == CommandStatus.Valid)
             {

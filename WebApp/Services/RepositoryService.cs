@@ -32,7 +32,7 @@ namespace WebApp.Services
             Context = context;
             _logger = logger;
         }
-        public Command Add(IList<Coupon> coupons)
+        public Command Add(IList<Coupon> coupons,ref Command cmd)
         {
             Command result = new Command(CommandStatus.Valid);
             try {
@@ -55,11 +55,11 @@ namespace WebApp.Services
                 int saved = Context.SaveChanges();
                 if (saved > 0)
                     result.Status = CommandStatus.Valid;
-                else if (coupons.Count == 0) {
+                else if (cmd.Status==CommandStatus.ErrorSelectOneCheckbox) {
                             result = new Command(CommandStatus.ErrorSelectOneCheckbox);
                             result.Message = String.Format(result.Message);
                         }
-                else {
+                else if (cmd.Status == CommandStatus.Error_DuplicateCouponExists){
                     result = new Command(CommandStatus.Error_DuplicateCouponExists);
                     result.Message = String.Format(result.Message);
                 }
