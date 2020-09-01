@@ -54,493 +54,493 @@
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
-mimetype: application/x-microsoft.net.object.bytearray.base64
-value   : The object must be serialized into a byte array 
-    : using a System.ComponentModel.TypeConverter
-    : and then encoded with base64 encoding.
--->
-<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-<xsd:element name="root" msdata:IsDataSet="true">
-<xsd:complexType>
-<xsd:choice maxOccurs="unbounded">
-  <xsd:element name="metadata">
-    <xsd:complexType>
-      <xsd:sequence>
-	<xsd:element name="value" type="xsd:string" minOccurs="0" />
-      </xsd:sequence>
-      <xsd:attribute name="name" use="required" type="xsd:string" />
-      <xsd:attribute name="type" type="xsd:string" />
-      <xsd:attribute name="mimetype" type="xsd:string" />
-      <xsd:attribute ref="xml:space" />
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="assembly">
-    <xsd:complexType>
-      <xsd:attribute name="alias" type="xsd:string" />
-      <xsd:attribute name="name" type="xsd:string" />
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="data">
-    <xsd:complexType>
-      <xsd:sequence>
-	<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-	<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-      </xsd:sequence>
-      <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-      <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-      <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-      <xsd:attribute ref="xml:space" />
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="resheader">
-    <xsd:complexType>
-      <xsd:sequence>
-	<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-      </xsd:sequence>
-      <xsd:attribute name="name" type="xsd:string" use="required" />
-    </xsd:complexType>
-  </xsd:element>
-</xsd:choice>
-</xsd:complexType>
-</xsd:element>
-</xsd:schema>
-<resheader name="resmimetype">
-<value>text/microsoft-resx</value>
-</resheader>
-<resheader name="version">
-<value>2.0</value>
-</resheader>
-<resheader name="reader">
-<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-</resheader>
-<resheader name="writer">
-<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-</resheader>
-<data name="Btn_AddSeries" xml:space="preserve">
-<value>Add Series</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Create" xml:space="preserve">
-<value>Create</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_CreateAndAddSeries" xml:space="preserve">
-<value>Create And Add Series</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_CreateNew" xml:space="preserve">
-<value>Create New</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Delete" xml:space="preserve">
-<value>Delete</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Edit" xml:space="preserve">
-<value>Edit</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Filter" xml:space="preserve">
-<value>Filter</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_SaveChanges" xml:space="preserve">
-<value>Save Changes</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_View" xml:space="preserve">
-<value>View</value>
-<comment>Button label.</comment>
-</data>
-<data name="CouponStatus_Canceled" xml:space="preserve">
-<value>Canceled</value>
-<comment>Coupon status.</comment>
-</data>
-<data name="CouponStatus_Issued" xml:space="preserve">
-<value>Issued</value>
-<comment>Coupon status.</comment>
-</data>
-<data name="CouponStatus_Open" xml:space="preserve">
-<value>Open</value>
-<comment>Coupon status.</comment>
-</data>
-<data name="CouponStatus_Redeemed" xml:space="preserve">
-<value>Redeemed</value>
-<comment>Coupon status.</comment>
-</data>
-<data name="ErrorInvalidChannel_Message" xml:space="preserve">
-<value>Action is not allowed for the channel:</value>
-<comment>When Channel is not allowed.</comment>
-</data>
-<data name="ErrorInvalidStatus_Message" xml:space="preserve">
-<value>Coupon status change is not allowed:</value>
-<comment>When status change is not valid.</comment>
-</data>
-<data name="ErrorInvalidUser_Message" xml:space="preserve">
-<value>Action is not allowed for the user:</value>
-<comment>When User is not allowed.</comment>
-</data>
-<data name="ErrorPromotionNotFound_Message" xml:space="preserve">
-<value>Promotion was not found for the code:</value>
-<comment>When not found.</comment>
-</data>
-<data name="LifecycleAction_Assign" xml:space="preserve">
-<value>Assign</value>
-<comment>Lifecycle action.</comment>
-</data>
-<data name="LifecycleAction_Cancel" xml:space="preserve">
-<value>Cancel</value>
-<comment>Lifecycle action.</comment>
-</data>
-<data name="LifecycleAction_Redeem" xml:space="preserve">
-<value>Redeem</value>
-<comment>Lifecycle action.</comment>
-</data>
-<data name="LifecycleAction_UndoRedeem" xml:space="preserve">
-<value>UndoRedeem</value>
-<comment>Lifecycle action.</comment>
-</data>
-<data name="Nav_Administration" xml:space="preserve">
-<value>Administration</value>
-<comment>Navigation item.</comment>
-</data>
-<data name="Nav_Lifecycle" xml:space="preserve">
-<value>Lifecycle</value>
-<comment>Navigation item.</comment>
-</data>
-<data name="Nav_LoggedIn" xml:space="preserve">
-<value>You're logged in as </value>
-<comment>Navigation user status.</comment>
-</data>
-<data name="Nav_Management" xml:space="preserve">
-<value>Management</value>
-<comment>Navigation item.</comment>
-</data>
-<data name="Promotion_AllowedIssuer" xml:space="preserve">
-<value>Allowed Issuer</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_AllowedUser" xml:space="preserve">
-<value>Allowed User</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_Properties" xml:space="preserve">
-<value>Properties</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_SetEndDateChkLabel" xml:space="preserve">
-<value>This promotion has a set end date</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_Code" xml:space="preserve">
-<value>Code</value>
-<comment>Label of property</comment>
-</data>
-<data name="Promotion_Code_Length" xml:space="preserve">
-<value>Maximum length is 20 characters</value>
-<comment>Limit of Promotion_Code size</comment>
-</data>
-<data name="Promotion_Code_Required" xml:space="preserve">
-<value>Promotion Code is required.</value>
-<comment>Promotion_Code is required</comment>
-</data>
-<data name="Promotions_Title" xml:space="preserve">
-<value>Promotions</value>
-<comment>Title for promotion list page.</comment>
-</data>
-<data name="Promotion_StatusDisabled" xml:space="preserve">
-<value>Disabled</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_StatusEnabled" xml:space="preserve">
-<value>Enabled</value>
-<comment>Text for promotion details page.</comment>
-</data>
-<data name="Promotion_TitleCreate" xml:space="preserve">
-<value>Create Promotion</value>
-<comment>Title for promotion details page.</comment>
-</data>
-<data name="Promotion_TitleEdit" xml:space="preserve">
-<value>Edit Promotion</value>
-<comment>Title for promotion details page.</comment>
-</data>
-<data name="Promotion_TitleView" xml:space="preserve">
-<value>View Promotion</value>
-<comment>Title for promotion details page.</comment>
-</data>
-<data name="Btn_ApplyFilters" xml:space="preserve">
-<value>Apply Filters</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Cancel" xml:space="preserve">
-<value>Cancel</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Generate" xml:space="preserve">
-<value>Generate</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Import" xml:space="preserve">
-<value>Import</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Disable" xml:space="preserve">
-<value>Disable</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Enable" xml:space="preserve">
-<value>Enable</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_ResetChanges" xml:space="preserve">
-<value>Reset Changes</value>
-<comment>Button label.</comment>
-</data>
-<data name="Filter_ByCode" xml:space="preserve">
-<value>By Code</value>
-<comment>Filter label.</comment>
-</data>
-<data name="Filter_ByProperty" xml:space="preserve">
-<value>By Property</value>
-<comment>Filter label.</comment>
-</data>
-<data name="Filter_ByState" xml:space="preserve">
-<value>By State</value>
-<comment>Filter label.</comment>
-</data>
-<data name="Btn_Back" xml:space="preserve">
-<value>Back</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Close" xml:space="preserve">
-<value>Close</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_SetDisabled" xml:space="preserve">
-<value>Set Disabled</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_SetEnabled" xml:space="preserve">
-<value>Set Enabled</value>
-<comment>Button label.</comment>
-</data>
-<data name="Modal_ContentDisable" xml:space="preserve">
-<value>This will disable promotion until turned back on.</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_ContentEnable" xml:space="preserve">
-<value>This will enable promotion until turned back off.</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_TitleSetDisabled" xml:space="preserve">
-<value>Set disabled?</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_TitleSetEnabled" xml:space="preserve">
-<value>Set enabled?</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Btn_ReplaceFile" xml:space="preserve">
-<value>Replace File</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_SelectFile" xml:space="preserve">
-<value>Select File</value>
-<comment>Button label.</comment>
-</data>
-<data name="Filter_NoResults" xml:space="preserve">
-<value>Search returned no results.</value>
-<comment>Filter text if no results found.</comment>
-</data>
-<data name="Btn_Search" xml:space="preserve">
-<value>Search</value>
-<comment>Button label.</comment>
-</data>
-<data name="CouponFilter_Search" xml:space="preserve">
-<value>Search</value>
-<comment>CouponFilter view text.</comment>
-</data>
-<data name="Filter_ActiveInactive" xml:space="preserve">
-<value>Active/Inactive</value>
-<comment>Filter label.</comment>
-</data>
-<data name="LifecycleCouponFilter_Title" xml:space="preserve">
-<value>Coupon Details</value>
-<comment>LifecycleCouponFilter text.</comment>
-</data>
-<data name="LifecyclePromotionFilter_Title" xml:space="preserve">
-<value>Promotion Details</value>
-<comment>LifecyclePromotionsFilter text.</comment>
-</data>
-<data name="Btn_Update" xml:space="preserve">
-<value>Update</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_UpdateSelected" xml:space="preserve">
-<value>Update Selected</value>
-<comment>Button label.</comment>
-</data>
-<data name="Nav_AdministrationAccessHistory" xml:space="preserve">
-<value>Access History</value>
-<comment>Navigation subitem.</comment>
-</data>
-<data name="Nav_AdministrationChannels" xml:space="preserve">
-<value>Channels</value>
-<comment>Navigation subitem.</comment>
-</data>
-<data name="Nav_AdministrationUsers" xml:space="preserve">
-<value>Users</value>
-<comment>Navigation subitem.</comment>
-</data>
-<data name="Btn_Add" xml:space="preserve">
-<value>Add</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_AddSystem" xml:space="preserve">
-<value>Add System</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_AddToNotifyList" xml:space="preserve">
-<value>Add To Notify List</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Export" xml:space="preserve">
-<value>Export</value>
-<comment>Button label.</comment>
-</data>
-<data name="Btn_Remove" xml:space="preserve">
-<value>Remove</value>
-<comment>Button label.</comment>
-</data>
-<data name="Modal_HeadingAddSystem" xml:space="preserve">
-<value>Add System</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_HeadingAddToNotifyList" xml:space="preserve">
-<value>Add To Notify List</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_HeadingEditANotifyList" xml:space="preserve">
-<value>Edit a Notify List</value>
-<comment>Modl text.</comment>
-</data>
-<data name="Modal_HeadingEditSystem" xml:space="preserve">
-<value>EditSystem</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Administration_ChannelsNotifyList" xml:space="preserve">
-<value>Notify List</value>
-<comment>Channels heading.</comment>
-</data>
-<data name="Administration_ChannelsSystems" xml:space="preserve">
-<value>Systems</value>
-<comment>Channels heading.</comment>
-</data>
-<data name="Modal_ContentRemoveNotifyList" xml:space="preserve">
-<value>Are you shure you want to remove this notify list?</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_ContentRemoveSystem" xml:space="preserve">
-<value>Are you shure you want to remove this system?</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_HeadingRemoveNotifyList" xml:space="preserve">
-<value>Remove notify list</value>
-<comment>Modal text.</comment>
-</data>
-<data name="Modal_HeadingRemoveSystem" xml:space="preserve">
-<value>Remove system</value>
-<comment>Modal text.</comment>
-</data>
-<data name="CouponSeries_TitleCreate" xml:space="preserve">
-<value>Create Coupon Series</value>
-<comment>Title for coupon series page.</comment>
-</data>
-<data name="ErrorCouponNotFound_Message" xml:space="preserve">
-<value>Coupon not found in Database.</value>
-<comment>When coupons are not found.</comment>
-</data>
-<data name="Valid_Message" xml:space="preserve">
-<value>Operation was successfull.</value>
-<comment>All OK.</comment>
-</data>
-<data name="CouponsModal_SetTo" xml:space="preserve">
-<value>Set {0} to</value>
-<comment>CouponsModal text.</comment>
-</data>
-<data name="SeriesGenerate_UseLetters" xml:space="preserve">
-<value>Use letters</value>
-<comment>SeriesGenerate form text.</comment>
-</data>
-<data name="SeriesGenerate_UseNumbers" xml:space="preserve">
-<value>Use numbers</value>
-<comment>SeriesGenerate form text.</comment>
-</data>
-<data name="Date_AssignableFrom" xml:space="preserve">
-<value>Assignable from</value>
-<comment>Assignable from date</comment>
-</data>
-<data name="Date_AssignableTo" xml:space="preserve">
-<value>Assignable until</value>
-<comment>Assignable until date</comment>
-</data>
-<data name="Date_RedeemableFrom" xml:space="preserve">
-<value>Redeemable from</value>
-<comment>Redeemable from date</comment>
-</data>
-<data name="Date_RedeemableTo" xml:space="preserve">
-<value>Redeemable until</value>
-<comment>Redeemable to date</comment>
-</data>
-<data name="Date_ValidFrom" xml:space="preserve">
-<value>Valid from</value>
-<comment>Valid from date</comment>
-</data>
-<data name="Date_ValidTo" xml:space="preserve">
-<value>Valid until</value>
-<comment>Valid until date</comment>
-</data>
-<data name="DataError_CouponInsertFailed_Message" xml:space="preserve">
-<value>Coupons didn't insert.</value>
-<comment>Coupon insert msg, failed</comment>
-</data>
-<data name="DataError_PromotionInsertFailed_Message" xml:space="preserve">
-<value>Promotion didn't insert.</value>
-<comment>Promotion insert msg, failed</comment>
-</data>
-<data name="DataError_PromotionUpdateFailed_Message" xml:space="preserve">
-<value>Promotion didn't save.</value>
-<comment>Promotion update msg, failed</comment>
-</data>
-<data name="ErrorInvalidRedeemDate_Message" xml:space="preserve">
-<value>Coupon Redeem Until date is not valid.</value>
-<comment>When Redeem until date is not valid.</comment>
-</data>
-<data name="Date_AccessFrom" xml:space="preserve">
-<value>Accessed from</value>
-<comment>Date from.</comment>
-</data>
-<data name="Date_AccessTo" xml:space="preserve">
-<value>Access until</value>
-<comment>Date to.</comment>
-</data>
-<data name="ErrorInvalidCustomer_Message" xml:space="preserve">
-<value>Invalid user change for coupon status.</value>
-<comment>On invalid user change for coupon status Canceled and Redeemed.</comment>
-</data>
-<data name="ErrorView_Heading" xml:space="preserve">
-<value>Error Details</value>
-<comment>Error view text.</comment>
-</data>
-<data name="Btn_CopyReport" xml:space="preserve">
-<value>Copy Report</value>
-<comment>Button label.</comment>
-</data>
-<data name="ErrorView_CopiedToClipboard" xml:space="preserve">
-<value>Copied to clipboard</value>
-<comment>Error view text.</comment>
-</data>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Btn_AddSeries" xml:space="preserve">
+    <value>Add Series</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Create" xml:space="preserve">
+    <value>Create</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_CreateAndAddSeries" xml:space="preserve">
+    <value>Create And Add Series</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_CreateNew" xml:space="preserve">
+    <value>Create New</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Edit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Filter" xml:space="preserve">
+    <value>Filter</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_View" xml:space="preserve">
+    <value>View</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="CouponStatus_Canceled" xml:space="preserve">
+    <value>Canceled</value>
+    <comment>Coupon status.</comment>
+  </data>
+  <data name="CouponStatus_Issued" xml:space="preserve">
+    <value>Issued</value>
+    <comment>Coupon status.</comment>
+  </data>
+  <data name="CouponStatus_Open" xml:space="preserve">
+    <value>Open</value>
+    <comment>Coupon status.</comment>
+  </data>
+  <data name="CouponStatus_Redeemed" xml:space="preserve">
+    <value>Redeemed</value>
+    <comment>Coupon status.</comment>
+  </data>
+  <data name="ErrorInvalidChannel_Message" xml:space="preserve">
+    <value>Action is not allowed for the channel:</value>
+    <comment>When Channel is not allowed.</comment>
+  </data>
+  <data name="ErrorInvalidStatus_Message" xml:space="preserve">
+    <value>Coupon status change is not allowed:</value>
+    <comment>When status change is not valid.</comment>
+  </data>
+  <data name="ErrorInvalidUser_Message" xml:space="preserve">
+    <value>Action is not allowed for the user:</value>
+    <comment>When User is not allowed.</comment>
+  </data>
+  <data name="ErrorPromotionNotFound_Message" xml:space="preserve">
+    <value>Promotion was not found for the code:</value>
+    <comment>When not found.</comment>
+  </data>
+  <data name="LifecycleAction_Assign" xml:space="preserve">
+    <value>Assign</value>
+    <comment>Lifecycle action.</comment>
+  </data>
+  <data name="LifecycleAction_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Lifecycle action.</comment>
+  </data>
+  <data name="LifecycleAction_Redeem" xml:space="preserve">
+    <value>Redeem</value>
+    <comment>Lifecycle action.</comment>
+  </data>
+  <data name="LifecycleAction_UndoRedeem" xml:space="preserve">
+    <value>UndoRedeem</value>
+    <comment>Lifecycle action.</comment>
+  </data>
+  <data name="Nav_Administration" xml:space="preserve">
+    <value>Administration</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Nav_Lifecycle" xml:space="preserve">
+    <value>Lifecycle</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Nav_LoggedIn" xml:space="preserve">
+    <value>You're logged in as </value>
+    <comment>Navigation user status.</comment>
+  </data>
+  <data name="Nav_Management" xml:space="preserve">
+    <value>Management</value>
+    <comment>Navigation item.</comment>
+  </data>
+  <data name="Promotion_AllowedIssuer" xml:space="preserve">
+    <value>Allowed Issuer</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_AllowedUser" xml:space="preserve">
+    <value>Allowed User</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_Properties" xml:space="preserve">
+    <value>Properties</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_SetEndDateChkLabel" xml:space="preserve">
+    <value>This promotion has a set end date</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_Code" xml:space="preserve">
+    <value>Code</value>
+    <comment>Label of property</comment>
+  </data>
+  <data name="Promotion_Code_Length" xml:space="preserve">
+    <value>Maximum length is 20 characters</value>
+    <comment>Limit of Promotion_Code size</comment>
+  </data>
+  <data name="Promotion_Code_Required" xml:space="preserve">
+    <value>Promotion Code is required.</value>
+    <comment>Promotion_Code is required</comment>
+  </data>
+  <data name="Promotions_Title" xml:space="preserve">
+    <value>Promotions</value>
+    <comment>Title for promotion list page.</comment>
+  </data>
+  <data name="Promotion_StatusDisabled" xml:space="preserve">
+    <value>Disabled</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_StatusEnabled" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Text for promotion details page.</comment>
+  </data>
+  <data name="Promotion_TitleCreate" xml:space="preserve">
+    <value>Create Promotion</value>
+    <comment>Title for promotion details page.</comment>
+  </data>
+  <data name="Promotion_TitleEdit" xml:space="preserve">
+    <value>Edit Promotion</value>
+    <comment>Title for promotion details page.</comment>
+  </data>
+  <data name="Promotion_TitleView" xml:space="preserve">
+    <value>View Promotion</value>
+    <comment>Title for promotion details page.</comment>
+  </data>
+  <data name="Btn_ApplyFilters" xml:space="preserve">
+    <value>Apply Filters</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Generate" xml:space="preserve">
+    <value>Generate</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Import" xml:space="preserve">
+    <value>Import</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Disable" xml:space="preserve">
+    <value>Disable</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Enable" xml:space="preserve">
+    <value>Enable</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_ResetChanges" xml:space="preserve">
+    <value>Reset Changes</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Filter_ByCode" xml:space="preserve">
+    <value>By Code</value>
+    <comment>Filter label.</comment>
+  </data>
+  <data name="Filter_ByProperty" xml:space="preserve">
+    <value>By Property</value>
+    <comment>Filter label.</comment>
+  </data>
+  <data name="Filter_ByState" xml:space="preserve">
+    <value>By State</value>
+    <comment>Filter label.</comment>
+  </data>
+  <data name="Btn_Back" xml:space="preserve">
+    <value>Back</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SetDisabled" xml:space="preserve">
+    <value>Set Disabled</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SetEnabled" xml:space="preserve">
+    <value>Set Enabled</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Modal_ContentDisable" xml:space="preserve">
+    <value>This will disable promotion until turned back on.</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_ContentEnable" xml:space="preserve">
+    <value>This will enable promotion until turned back off.</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_TitleSetDisabled" xml:space="preserve">
+    <value>Set disabled?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_TitleSetEnabled" xml:space="preserve">
+    <value>Set enabled?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Btn_ReplaceFile" xml:space="preserve">
+    <value>Replace File</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_SelectFile" xml:space="preserve">
+    <value>Select File</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Filter_NoResults" xml:space="preserve">
+    <value>Search returned no results.</value>
+    <comment>Filter text if no results found.</comment>
+  </data>
+  <data name="Btn_Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="CouponFilter_Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>CouponFilter view text.</comment>
+  </data>
+  <data name="Filter_ActiveInactive" xml:space="preserve">
+    <value>Active/Inactive</value>
+    <comment>Filter label.</comment>
+  </data>
+  <data name="LifecycleCouponFilter_Title" xml:space="preserve">
+    <value>Coupon Details</value>
+    <comment>LifecycleCouponFilter text.</comment>
+  </data>
+  <data name="LifecyclePromotionFilter_Title" xml:space="preserve">
+    <value>Promotion Details</value>
+    <comment>LifecyclePromotionsFilter text.</comment>
+  </data>
+  <data name="Btn_Update" xml:space="preserve">
+    <value>Update</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_UpdateSelected" xml:space="preserve">
+    <value>Update Selected</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Nav_AdministrationAccessHistory" xml:space="preserve">
+    <value>Access History</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Nav_AdministrationChannels" xml:space="preserve">
+    <value>Channels</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Nav_AdministrationUsers" xml:space="preserve">
+    <value>Users</value>
+    <comment>Navigation subitem.</comment>
+  </data>
+  <data name="Btn_Add" xml:space="preserve">
+    <value>Add</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_AddSystem" xml:space="preserve">
+    <value>Add System</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_AddToNotifyList" xml:space="preserve">
+    <value>Add To Notify List</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Export" xml:space="preserve">
+    <value>Export</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Btn_Remove" xml:space="preserve">
+    <value>Remove</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="Modal_HeadingAddSystem" xml:space="preserve">
+    <value>Add System</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingAddToNotifyList" xml:space="preserve">
+    <value>Add To Notify List</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingEditANotifyList" xml:space="preserve">
+    <value>Edit a Notify List</value>
+    <comment>Modl text.</comment>
+  </data>
+  <data name="Modal_HeadingEditSystem" xml:space="preserve">
+    <value>EditSystem</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Administration_ChannelsNotifyList" xml:space="preserve">
+    <value>Notify List</value>
+    <comment>Channels heading.</comment>
+  </data>
+  <data name="Administration_ChannelsSystems" xml:space="preserve">
+    <value>Systems</value>
+    <comment>Channels heading.</comment>
+  </data>
+  <data name="Modal_ContentRemoveNotifyList" xml:space="preserve">
+    <value>Are you shure you want to remove this notify list?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_ContentRemoveSystem" xml:space="preserve">
+    <value>Are you shure you want to remove this system?</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingRemoveNotifyList" xml:space="preserve">
+    <value>Remove notify list</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="Modal_HeadingRemoveSystem" xml:space="preserve">
+    <value>Remove system</value>
+    <comment>Modal text.</comment>
+  </data>
+  <data name="CouponSeries_TitleCreate" xml:space="preserve">
+    <value>Create Coupon Series</value>
+    <comment>Title for coupon series page.</comment>
+  </data>
+  <data name="ErrorCouponNotFound_Message" xml:space="preserve">
+    <value>Coupon not found in Database.</value>
+    <comment>When coupons are not found.</comment>
+  </data>
+  <data name="Valid_Message" xml:space="preserve">
+    <value>Operation was successfull.</value>
+    <comment>All OK.</comment>
+  </data>
+  <data name="CouponsModal_SetTo" xml:space="preserve">
+    <value>Set {0} to</value>
+    <comment>CouponsModal text.</comment>
+  </data>
+  <data name="SeriesGenerate_UseLetters" xml:space="preserve">
+    <value>Use letters</value>
+    <comment>SeriesGenerate form text.</comment>
+  </data>
+  <data name="SeriesGenerate_UseNumbers" xml:space="preserve">
+    <value>Use numbers</value>
+    <comment>SeriesGenerate form text.</comment>
+  </data>
+  <data name="Date_AssignableFrom" xml:space="preserve">
+    <value>Assignable from</value>
+    <comment>Assignable from date</comment>
+  </data>
+  <data name="Date_AssignableTo" xml:space="preserve">
+    <value>Assignable until</value>
+    <comment>Assignable until date</comment>
+  </data>
+  <data name="Date_RedeemableFrom" xml:space="preserve">
+    <value>Redeemable from</value>
+    <comment>Redeemable from date</comment>
+  </data>
+  <data name="Date_RedeemableTo" xml:space="preserve">
+    <value>Redeemable until</value>
+    <comment>Redeemable to date</comment>
+  </data>
+  <data name="Date_ValidFrom" xml:space="preserve">
+    <value>Valid from</value>
+    <comment>Valid from date</comment>
+  </data>
+  <data name="Date_ValidTo" xml:space="preserve">
+    <value>Valid until</value>
+    <comment>Valid until date</comment>
+  </data>
+  <data name="DataError_CouponInsertFailed_Message" xml:space="preserve">
+    <value>Coupons didn't insert.</value>
+    <comment>Coupon insert msg, failed</comment>
+  </data>
+  <data name="DataError_PromotionInsertFailed_Message" xml:space="preserve">
+    <value>Promotion didn't insert.</value>
+    <comment>Promotion insert msg, failed</comment>
+  </data>
+  <data name="DataError_PromotionUpdateFailed_Message" xml:space="preserve">
+    <value>Promotion didn't save.</value>
+    <comment>Promotion update msg, failed</comment>
+  </data>
+  <data name="ErrorInvalidRedeemDate_Message" xml:space="preserve">
+    <value>Coupon Redeem Until date is not valid.</value>
+    <comment>When Redeem until date is not valid.</comment>
+  </data>
+  <data name="Date_AccessFrom" xml:space="preserve">
+    <value>Accessed from</value>
+    <comment>Date from.</comment>
+  </data>
+  <data name="Date_AccessTo" xml:space="preserve">
+    <value>Access until</value>
+    <comment>Date to.</comment>
+  </data>
+  <data name="ErrorInvalidCustomer_Message" xml:space="preserve">
+    <value>Invalid user change for coupon status.</value>
+    <comment>On invalid user change for coupon status Canceled and Redeemed.</comment>
+  </data>
+  <data name="ErrorView_Heading" xml:space="preserve">
+    <value>Error Details</value>
+    <comment>Error view text.</comment>
+  </data>
+  <data name="Btn_CopyReport" xml:space="preserve">
+    <value>Copy Report</value>
+    <comment>Button label.</comment>
+  </data>
+  <data name="ErrorView_CopiedToClipboard" xml:space="preserve">
+    <value>Copied to clipboard</value>
+    <comment>Error view text.</comment>
+  </data>
   <data name="ErrorSelectOneCheckbox_Message" xml:space="preserve">
     <value>Select at least one checkbox : "Use letters" or "Use numbers"</value>
     <comment>Atleast one checkbox must be selected.</comment>
@@ -744,5 +744,9 @@ value   : The object must be serialized into a byte array
   <data name="Error_DuplicateCouponExists_Message" xml:space="preserve">
     <value>Application error: Coupon exists in database.</value>
     <comment>When coupon with given code already exists in database.</comment>
+  </data>
+  <data name="Error_SelectedStatusNotAllowed_Message" xml:space="preserve">
+    <value>Current Status is not allowed for Coupone Series.</value>
+    <comment>When Status is not allowed.</comment>
   </data>
 </root>

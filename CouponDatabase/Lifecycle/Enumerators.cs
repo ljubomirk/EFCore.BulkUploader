@@ -47,6 +47,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_DuplicateCouponExists = 12,
         [EnumMemberAttribute]
+        Error_SelectedStatusNotAllowed = 13,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

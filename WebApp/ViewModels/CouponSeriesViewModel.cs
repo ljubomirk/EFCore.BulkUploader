@@ -23,17 +23,20 @@ namespace WebApp.ViewModels
         {
             public string CouponCode;
             public string CouponUser;
+            public string CouponHolder;
 
             public CouponData()
             {
                 this.CouponCode = null;
                 this.CouponUser = null;
+                this.CouponHolder = null;
             }
 
-            public CouponData(string code,string user)
+            public CouponData(string code,string user,string holder)
             {
                 this.CouponCode = code;
                 this.CouponUser = user;
+                this.CouponHolder = holder;
             }
         }
         public long Id { get; set; }
@@ -78,7 +81,7 @@ namespace WebApp.ViewModels
         public IFormFile file { get; set; }
         [Display(Name = "Coupon_MaximumRedeem", ResourceType = typeof(Resources))]
         public Nullable<Int32> MaximumRedeem { get; set; }
-
+        public bool Holders { get; set; }
         public CouponSeriesViewModel() : base() { }
         public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo):base(contextData.AgentUsername, contextData.AgentGroup)
         {
@@ -88,7 +91,7 @@ namespace WebApp.ViewModels
             RedeemableUntil = PromotionValidTo;
         }
 
-        public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons, ref Command cmd)
+        public List<Coupon> GenerateCoupons(List<Coupon> pottentialySameCoupons, ref Command cmd, CouponStatus status)
         {
             DataSet resultFromFile = new DataSet();
             List<Coupon> listOfCoupons = new List<Coupon>();
@@ -108,14 +111,18 @@ namespace WebApp.ViewModels
                         foreach (CouponData cd  in exellData)
                         {
                             MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
-
-                            Coupon coupon = new Coupon(cd.CouponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
+                            //variable Holders is used in ManagementController to check if Holders are correctly defined
+                            Holders = cd.CouponHolder != null ? true : false;
+                            if (cd.CouponUser == "" && cd.CouponHolder!="" && status==CouponStatus.Redeemed)
+                                 cd.CouponUser = cd.CouponHolder;
+                            Coupon coupon = new Coupon(cd.CouponCode, status, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
                             {
-                                Holder = cd.CouponUser
+                              Holder = cd.CouponHolder,
+                              User=cd.CouponUser
                             };
 
                             ICoupon cpn = new ICoupon(coupon);
-
+                            
                             SwitchStatus(ref cpn, cd.CouponUser);
 
                             listOfCoupons.Add(cpn.Coupon);
@@ -132,6 +139,8 @@ namespace WebApp.ViewModels
                     
                     foreach (CouponData cd in exellData)
                     {
+                        //variable Holders is used in ManagementController to check if Holders are correctly defined
+                        Holders = cd.CouponHolder != null ? true : false;
                         //Check if CouponUser are defined
                         CouponUser = cd.CouponUser;
                         string CouponCode = getCouponCode(couponsMade, out cmd);
@@ -314,7 +323,13 @@ namespace WebApp.ViewModels
                 {
                     string CouponUser = null;
                     string CouponCode = null;
-                    //Check if CouponUser are defined
+                    string CouponHolder = null;
+
+                    //Check if CouponHolder is defined
+                    if (row.ItemArray.Length >= 3)
+                        CouponHolder = row.ItemArray[2].ToString();
+
+                    //Check if CouponUser is defined
                     if (row.ItemArray.Length >= 2)
                        CouponUser = row.ItemArray[1].ToString();
 
@@ -322,14 +337,14 @@ namespace WebApp.ViewModels
                     //Get coupon code for import
                     if (row.ItemArray.Length >= 1)
                          CouponCode = row.ItemArray[0].ToString();
-                    CouponData cd = new CouponData(CouponCode, CouponUser);
+                    CouponData cd = new CouponData(CouponCode, CouponUser,CouponHolder);
 
                     result.Add(cd);
                 } 
             }
            return result;
          }
-        
+    
      }
 }
 

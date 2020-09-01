@@ -745,6 +745,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Status is not allowed for Coupone Series..
+        /// </summary>
+        public static string Error_SelectedStatusNotAllowed_Message {
+            get {
+                return ResourceManager.GetString("Error_SelectedStatusNotAllowed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon not found in Database..
         /// </summary>
         public static string ErrorCouponNotFound_Message {

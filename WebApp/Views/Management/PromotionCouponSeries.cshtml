@@ -74,7 +74,7 @@
                     <div class="radio-buttons-wrapper">
                         <input type="radio" class="radio-button-group" name="currentStatus" value="1" id="button1" onclick="updateCouponStatus(this.value)" checked />
                         <label for="button1">@CouponDatabase.Lifecycle.CouponStatus.Created.ToString()</label>
-                         <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateCouponStatus(this.value)" @ViewBag.Issued />
+                         <input type="radio" class="radio-button-group" name="currentStatus" value="2" id="button2" onclick="updateCouponStatus(this.value)" />
                         <label for="button2">@CouponDatabase.Lifecycle.CouponStatus.Issued.ToString()</label>
                         <input type="radio" class="radio-button-group" name="currentStatus" value="3" id="button3" onclick="updateCouponStatus(this.value)" />
                         <label for="button3">@CouponDatabase.Lifecycle.CouponStatus.Redeemed.ToString()</label>

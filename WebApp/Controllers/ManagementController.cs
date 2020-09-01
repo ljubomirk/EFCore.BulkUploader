@@ -89,13 +89,6 @@ namespace WebApp.Controllers
             {
                 model.MaximumRedeem = 1;
             }
-            ViewBag.Issued = "";
-            foreach (var item in promotion.PromotionProperties)
-            {
-                //check if NamedHolders checkbox is selected --> if it is coupon status Issued is disabled in PromotionCouponSeries View
-                if (item.Property.Name == "NamedHolders")
-                    ViewBag.Issued = "disabled";
-            }
             return View("PromotionCouponSeries", model);
         }
 
@@ -244,25 +237,30 @@ namespace WebApp.Controllers
 
         [HttpPost]
         public IActionResult GenerateCoupons(CouponSeriesViewModel model)
-        {         
-                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - num:{0}", model.NumberOfCoupons);
-                List<Coupon> potentiallySameCoupons = new List<Coupon>();
-                Command cmd = new Command(CommandStatus.Valid);
-                if(model.Prefix != null )
+        {
+            Promotion promotion = _repo.GetPromotionWithId(model._promo.Id);
+            model._promo = promotion;
+
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - num:{0}", model.NumberOfCoupons);
+            List<Coupon> potentiallySameCoupons = new List<Coupon>();
+            Command cmd = new Command(CommandStatus.Valid);
+            if(model.Prefix != null )
+            {
+                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length>model.Prefix.Length? x.Code.Substring(0, model.Prefix.Length) == model.Prefix : x.Code==model.Prefix).ToList<Coupon>());
+            }
+            if (model.Suffix != null)
+            {
+                if(model.Prefix != null)
                 {
-                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring(0, model.Prefix.Length) == model.Prefix).ToList<Coupon>());
+                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code==model.Suffix).ToList<Coupon>();
                 }
-                if (model.Suffix != null)
-                {
-                    if(model.Prefix != null)
-                    {
-                        potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>();
-                    }
-                    else
-                        potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix).ToList<Coupon>());
-                }
-                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
-                List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd);
+                else
+                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
+            }
+            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
+            List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd, model.Status);
+            if (checkIfStatusIsOk(model))
+            {
                 _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
                 cmd = _repo.Add(coupons,ref cmd);
                 _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", cmd.Status);
@@ -271,12 +269,17 @@ namespace WebApp.Controllers
                     ViewBag.Command = new Command(CommandStatus.Valid);
                     _repo.UpdateCouponSeriesNum(model._promo.Id);
                     model.CouponSeries++;
-                }     
-            TempData["CommandStatus"] = cmd.Status;
-            _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
-            return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
+                }
+                TempData["CommandStatus"] = cmd.Status;
+                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
+                return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
+            }
+            else{
+                ViewBag.Command = new Command(CommandStatus.Error_SelectedStatusNotAllowed);
+                return View("PromotionCouponSeries", model);
+            }
+           
         }
-
         #region TEST
         [Route("{Id}")]
         [HttpGet]
@@ -382,6 +385,28 @@ namespace WebApp.Controllers
                 return chk;
         }
 
+        public bool checkIfStatusIsOk(CouponSeriesViewModel model)
+        {
+            bool result = false;
+            switch (model.Status)
+            {
+                case CouponStatus.Created:
+                    result = true;
+                    break;
+                case CouponStatus.Issued:
+                    if((!isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>)) || (isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>) && model.Holders))
+                    result = true;
+                    break;
+                case CouponStatus.Redeemed:
+                    if (model.Holders)
+                        result = true;
+                    break;
+                case CouponStatus.Canceled:
+                    result = true;
+                    break;
+            }
+            return result;
+        }
         #endregion
     }
 }
