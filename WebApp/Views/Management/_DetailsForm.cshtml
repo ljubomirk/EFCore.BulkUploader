@@ -60,14 +60,6 @@
                     <i class='material-icons suffix validation-error'>warning</i>
                     <i class='material-icons suffix date-icon'>event</i>
                 </div>
-                <div class="col s12">
-                    <p class="u-m-t-remove u-m-l-xs">
-                        <label id="chk-endDate">
-                            @Html.CheckBoxFor(c => c.hasEndDate, new { @class = "filled-in", @id = "toggle-validTo" })
-                            <span>@CouponDatabase.Properties.Resources.Promotion_SetEndDateChkLabel</span>
-                        </label>
-                    </p>
-                </div>
             </div>
             <!-- /input fields -->
             <!-- checkboxes -->
@@ -189,14 +181,6 @@
                 switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusDisabled');
             }
         }
-
-        // enable end date input field
-        // - on first render, check state and set input style
-        handleValidTo($("#toggle-validTo").is(":checked"));
-        // - state check on click
-        $("label#chk-endDate").click(function () {
-            handleValidTo($("input", this).prop("checked"))
-        });
 
         //button Create And Add Series enable/disable
         $("label#AllowCouponSeries").change(function () {
