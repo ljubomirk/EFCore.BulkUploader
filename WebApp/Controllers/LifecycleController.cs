@@ -384,6 +384,7 @@ namespace WebApp.Controllers
             // Execute coupon user update
             foreach (Coupon coupon in coupons)
             {
+                coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
                 int passedChecks = 0;
                 // Update customer (user) for coupons
                 if (modelCopy.Customer != null)
