@@ -45,22 +45,22 @@
                     @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
                     @Html.ValidationMessageFor(p => p.Promotion.Code)
                 </div>
-             </div>
-                <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                    @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
-                    <i class='material-icons suffix validation-error'>warning</i>
-                    <i class='material-icons suffix date-icon'>event</i>
-                </div>
-                <div class="input-field col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                    @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
-                    <i class='material-icons suffix validation-error'>warning</i>
-                    <i class='material-icons suffix date-icon'>event</i>
-                </div>
             </div>
+            <div class="input-field col s12 m6">
+                @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+            <div class="input-field col s12 m6">
+                @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
+                <i class='material-icons suffix validation-error'>warning</i>
+                <i class='material-icons suffix date-icon'>event</i>
+            </div>
+        </div>
             <!-- /input fields -->
             <!-- checkboxes -->
             <div class="row">
@@ -174,6 +174,9 @@
             $('#Promotion_ValidTo').calendar('setDate', "");
         });
 
+        $("#Promotion_ValidTo").calendar({
+            "startDate": today_str
+        })
         function setSwitchStatus(enabled) {
             if (enabled) {
                 switchStatus.html('@CouponDatabase.Properties.Resources.Promotion_StatusEnabled');
@@ -190,22 +193,6 @@
                 $("#add-series").addClass("disabled");
         });
 
-        function handleValidTo(condition) {
-            if (condition) {
-                $("#Promotion_ValidTo").prop("disabled", false);
-                $("#toggle-validTo").prop("checked", true);
-                $("#Promotion_ValidTo").parent()
-                    .children(".date-icon").removeClass("disabled");
-                $("#icon-endDate").removeClass("disabled");
-            } else {
-                $("#Promotion_ValidTo").val("");
-                $("#Promotion_ValidTo").removeClass("valid invalid");
-                $("#Promotion_ValidTo").prop("disabled", true);
-                $("#toggle-validTo").prop("checked", false);
-                $("#Promotion_ValidTo").parent()
-                    .children(".date-icon").addClass("disabled");
-            }
-        }
     });
 
 

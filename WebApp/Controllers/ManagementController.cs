@@ -202,8 +202,6 @@ namespace WebApp.Controllers
             if (viewModel.Promotion.Id != 0)
                 promo = _repo.GetPromotionWithId(viewModel.Promotion.Id);
 
-            if (!viewModel.hasEndDate)
-                viewModel.Promotion.ValidTo = null;
             bool issuer = false;
             bool award = false;
             foreach (var item in viewModel.IssuerChannels)
