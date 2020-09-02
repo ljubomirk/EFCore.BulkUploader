@@ -7,6 +7,10 @@
 <table data-nosort-target="-1" id="promotion-list" class="striped highlight">
     <thead>
         <tr>
+            <th hidden>
+            @Html.DisplayNameFor(m => m.Id)
+            <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+            </th>
             <th>
                 @Html.DisplayNameFor(m => m.Name)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
@@ -53,6 +57,8 @@
                 } 
             }
         <tr>
+            <!--descending ordering by promotion id, id column is hidden -->
+            <td hidden>@Html.DisplayFor(item => p.Id)</td>
             <td>@Html.DisplayFor(item => p.Name)</td>
             <td>@Html.DisplayFor(item => p.Code)</td>
             <td>@Html.DisplayFor(item => p.ValidFrom)</td>

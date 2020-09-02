@@ -4,6 +4,7 @@
             responsive: true,
             pageLength: 10,
             searching: false,
+            aaSorting: [[0, 'desc']], //sorting by first column by  descending order
             info: false,
             lengthChange: false,
             pagingType: "full_numbers",
