@@ -166,8 +166,8 @@ namespace WebApp.Controllers
                 };
                 return View(view, model);
             }
-            
-        }
+
+         }
 
         [Route("{Id}")]
         [HttpGet]
@@ -204,7 +204,22 @@ namespace WebApp.Controllers
 
             if (!viewModel.hasEndDate)
                 viewModel.Promotion.ValidTo = null;
-            
+            bool issuer = false;
+            bool award = false;
+            foreach (var item in viewModel.IssuerChannels)
+            {
+                if (item.Checked == true) issuer = true;
+            }
+            foreach (var item in viewModel.AwardChannels)
+            {
+                if (item.Checked == true) award = true;
+            }
+            //at least one issuer and one award channel must be checked
+            if (!issuer || !award)
+            {
+                ViewBag.Command= new Command(CommandStatus.Error_PromotionWithoutChannel);
+                return View("PromotionDetails",viewModel);
+            }
             if (viewModel.Promotion.Id == 0) 
             {
                 long Id = _repo.CreatePromotion(viewModel.Promotion);

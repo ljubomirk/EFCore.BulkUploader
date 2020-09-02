@@ -745,6 +745,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promotion without issuer and award channel is not allowed..
+        /// </summary>
+        public static string Error_PromotionWithoutChannel_Message {
+            get {
+                return ResourceManager.GetString("Error_PromotionWithoutChannel_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Status is not allowed for Coupone Series..
         /// </summary>
         public static string Error_SelectedStatusNotAllowed_Message {

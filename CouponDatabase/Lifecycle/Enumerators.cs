@@ -49,6 +49,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_SelectedStatusNotAllowed = 13,
         [EnumMemberAttribute]
+        Error_PromotionWithoutChannel=14,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

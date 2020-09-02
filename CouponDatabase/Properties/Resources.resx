@@ -749,4 +749,8 @@
     <value>Current Status is not allowed for Coupone Series.</value>
     <comment>When Status is not allowed.</comment>
   </data>
+  <data name="Error_PromotionWithoutChannel_Message" xml:space="preserve">
+    <value>Promotion without issuer and award channel is not allowed.</value>
+    <comment>Promotion creation failed.</comment>
+  </data>
 </root>
