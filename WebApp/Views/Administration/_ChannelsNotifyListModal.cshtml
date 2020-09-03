@@ -29,13 +29,13 @@
                 <div class="row u-m-t-lg">
                     <div class="input-field col s12">
                         @Html.LabelFor(p => p.Channels, new { @class = "active", @for = "Channels" })
-                        @Html.DropDownListFor(p => p.ChannelId, channelList, "-- option --", new { id = "ddl_channels", @class = "dropdown", dataVal = true })
+                        @Html.DropDownListFor(p => p.ChannelId, channelList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { id = "ddl_channels", @class = "dropdown", dataVal = true })
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12">
 
                         @Html.LabelFor(p => p.Systems, new { @class = "active", @for = "Systems" })
-                        @Html.DropDownListFor(p => p.SystemId, systemList, "-- option --", new { id = "ddl_systems", @class = "dropdown", dataVal = true })
+                        @Html.DropDownListFor(p => p.SystemId, systemList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { id = "ddl_systems", @class = "dropdown", dataVal = true })
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12">
@@ -53,13 +53,14 @@
                 <div class="row u-m-t-lg">
                     <div class="input-field col s12">
                         @Html.LabelFor(p => p.Channels, new { @class = "active", @for = "Channels" })
-                        @Html.DropDownListFor(p => p.ChannelId, channelList, "-- option --", new { id = "ddl_channels", @class = "dropdown", dataVal = true, @disabled = "disabled" })
+                        @Html.DropDownListFor(p => p.ChannelId, channelList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { id = "ddl_channels", @class = "dropdown", dataVal = true, @disabled = "disabled" })
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12">
 
                         @Html.LabelFor(p => p.Systems, new { @class = "active", @for = "Systems" })
-                        @Html.DropDownListFor(p => p.SystemId, systemList, "-- option --", new { id = "ddl_systems", @class = "dropdown", dataVal = true, @disabled = "disabled" })
+                        @Html.DropDownListFor(p => p.SystemId, systemList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText
+                       , new { id = "ddl_systems", @class = "dropdown", dataVal = true, @disabled = "disabled" })
                         <i class='material-icons suffix validation-error'>warning</i>
                     </div>
                     <div class="input-field col s12">

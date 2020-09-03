@@ -753,4 +753,8 @@
     <value>Promotion without issuer and award channel is not allowed.</value>
     <comment>Promotion creation failed.</comment>
   </data>
+  <data name="CustomerInput_Placeholder" xml:space="preserve">
+    <value>-not selected-</value>
+    <comment>Placeholder for Customer input on Lifecycle.</comment>
+  </data>
 </root>

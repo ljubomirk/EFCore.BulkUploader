@@ -18,7 +18,7 @@
 <!-- form controls -->
     <div class="row">
         <div class="input-field col s2">
-            @Html.EditorFor(p => p.Customer, new { htmlAttributes = new { @type = "text", placeholder = "-not selected-", @class = "white input-coupon", @autocomplete = "off", @data_modal = "customer", dataVal = true } })
+            @Html.EditorFor(p => p.Customer, new { htmlAttributes = new { @type = "text", placeholder = @CouponDatabase.Properties.Resources.CustomerInput_Placeholder, @class = "white input-coupon", @autocomplete = "off", @data_modal = "customer", dataVal = true } })
             @Html.LabelFor(p => p.Customer)
             @Html.ValidationMessageFor(p => p.Customer)
             <i class='material-icons suffix validation-error'>warning</i>

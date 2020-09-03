@@ -592,6 +592,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -not selected-.
+        /// </summary>
+        public static string CustomerInput_Placeholder {
+            get {
+                return ResourceManager.GetString("CustomerInput_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupons didn&apos;t insert..
         /// </summary>
         public static string DataError_CouponInsertFailed_Message {
