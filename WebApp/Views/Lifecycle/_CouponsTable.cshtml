@@ -8,7 +8,13 @@
 <table data-nosort-target="0" id="coupon-list" class="striped highlight">
     <thead>
         <tr>
-            <th></th>
+            <th>
+                <label>
+                    @Html.CheckBoxFor(c => c.CouponList.SelectAllCoupons, new { @class = "filled-in", id = "checkbox-master" })
+                    <span></span>
+                    @Html.HiddenFor(c => c.CouponList.SelectAllCoupons)
+                </label>
+            </th>
             <th>
                 @Html.DisplayNameFor(m => m.CouponList.Coupon.Code)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
@@ -144,9 +150,62 @@
             enableModalTrigger();
         })
 
+        // handle chekcbox status
+        // checkbox: MASTER
+        $("#checkbox-master").on('click', function (e) {
+            var chkMaster = $(this);
+            var chkBoxes = $(".checkbox-coupon");
 
+            $(this).prop("indeterminate", false).change();
+            // set class if changed
+            if (chkMaster.hasClass("filled-in-indeterminate")) {
+                chkMaster.removeClass("filled-in-indeterminate")
+                chkMaster.addClass("filled-in");
+            }
+            // check state and set all other chkboxes
+            if (chkMaster.is(":checked")) {
+                chkBoxes.each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).prop("checked", true);
+                    }
+                })
+            } else {
+                chkBoxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        $(this).prop("checked", false);
+                    }
+                })
+            }
 
-       
+            enableModalTrigger();
+        });
+
+        $('#coupon-list').on('page.dt', function (e) {
+            var chkMaster = $("#checkbox-master");
+            var chkBoxes = $(".checkbox-coupon");
+            $(this).prop("indeterminate", false).change();
+            // set class if changed
+            if (chkMaster.hasClass("filled-in-indeterminate")) {
+                chkMaster.removeClass("filled-in-indeterminate")
+                chkMaster.addClass("filled-in");
+            }
+            // check state and set all other chkboxes
+            if (chkMaster.is(":checked")) {
+                chkBoxes.each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).prop("checked", true);
+                    }
+                })
+            } else {
+                chkBoxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        $(this).prop("checked", false);
+                    }
+                })
+            }
+
+            enableModalTrigger();
+        });
 
         // enable or disable action button (_CouponsFilter)
         function enableModalTrigger() {
@@ -161,7 +220,44 @@
             }
         }
 
-        
+        // handle master checkbox status
+        function setMaterCheckbox(curr) {
+            var chkMaster = $("#checkbox-master");
+            var max = $("input.checkbox-coupon").length;
+            // if all checked
+            if (curr == max) {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", true);
+                // if some cheked
+            } else if (curr > 0 && curr < max) {
+                chkMaster.prop("indeterminate", true);
+
+                if (chkMaster.hasClass("filled-in")) {
+                    chkMaster
+                        .removeClass("filled-in")
+                        .addClass("filled-in-indeterminate");
+                }
+                chkMaster.prop("checked", false);
+                // if none checked
+            } else {
+                chkMaster.prop("indeterminate", false);
+
+                if (chkMaster.hasClass("filled-in-indeterminate")) {
+                    chkMaster
+                        .removeClass("filled-in-indeterminate")
+                        .addClass("filled-in");
+                }
+                chkMaster.prop("checked", false);
+
+            }
+        }
+
         // get number of checked items
         function getChecked() {
             return $("input:checked.checkbox-coupon").length;
