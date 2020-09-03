@@ -174,16 +174,30 @@
             $(".update-icon").addClass("loading").html("autorenew");
         })
 
-        $("#AssignableFrom").calendar({}).on('changeDate', function (selected) {
+        var today_str = moment().format(($.fn.calendar.defaults.format).toUpperCase());
+
+        $("#AssignableFrom").calendar({
+            "startDate": today_str
+        }).on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#AssignableUntil').calendar('setStartDate', minDate);
             $('#AssignableUntil').calendar('setDate', "");
         });
 
-        $("#RedeemableFrom").calendar({}).on('changeDate', function (selected) {
+        $("#AssignableUntil").calendar({
+            "startDate": today_str
+        });
+
+        $("#RedeemableFrom").calendar({
+            "startDate": today_str
+        }).on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#RedeemableUntil').calendar('setStartDate', minDate);
             $('#RedeemableUntil').calendar('setDate', "");
+        });
+
+        $("#RedeemableUntil").calendar({
+            "startDate": today_str
         });
 
     });
