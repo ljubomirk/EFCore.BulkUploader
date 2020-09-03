@@ -180,33 +180,6 @@
             enableModalTrigger();
         });
 
-        $('#coupon-list').on('page.dt', function (e) {
-            var chkMaster = $("#checkbox-master");
-            var chkBoxes = $(".checkbox-coupon");
-            $(this).prop("indeterminate", false).change();
-            // set class if changed
-            if (chkMaster.hasClass("filled-in-indeterminate")) {
-                chkMaster.removeClass("filled-in-indeterminate")
-                chkMaster.addClass("filled-in");
-            }
-            // check state and set all other chkboxes
-            if (chkMaster.is(":checked")) {
-                chkBoxes.each(function () {
-                    if (!$(this).prop("checked")) {
-                        $(this).prop("checked", true);
-                    }
-                })
-            } else {
-                chkBoxes.each(function () {
-                    if ($(this).prop("checked")) {
-                        $(this).prop("checked", false);
-                    }
-                })
-            }
-
-            enableModalTrigger();
-        });
-
         // enable or disable action button (_CouponsFilter)
         function enableModalTrigger() {
             var btn = $("#modal-trigger");
@@ -233,6 +206,8 @@
                         .removeClass("filled-in-indeterminate")
                         .addClass("filled-in");
                 }
+
+
                 chkMaster.prop("checked", true);
                 // if some cheked
             } else if (curr > 0 && curr < max) {
