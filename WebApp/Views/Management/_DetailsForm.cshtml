@@ -185,13 +185,21 @@
             }
         }
 
-        //button Create And Add Series enable/disable
-        $("label#AllowCouponSeries").change(function () {
-            if ($("input", this).prop("checked"))
+        //Create And Add Series enable/disable when page is load 
+        checkIsCouponSeriesAllowed();
+
+        //button Create And Add Series enable/disable after AllowCouponSeries checkbox is changed
+        $("label#AllowCouponSeries").change
+            (function () {
+                checkIsCouponSeriesAllowed();
+            });
+
+        function checkIsCouponSeriesAllowed() {
+            if ($("input", "label#AllowCouponSeries").prop("checked"))
                 $("#add-series").removeClass("disabled");
             else
                 $("#add-series").addClass("disabled");
-        });
+        }
 
     });
 
