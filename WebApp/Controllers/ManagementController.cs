@@ -255,43 +255,50 @@ namespace WebApp.Controllers
             model._promo = promotion;
 
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - num:{0}", model.NumberOfCoupons);
-            List<Coupon> potentiallySameCoupons = new List<Coupon>();
             Command cmd = new Command(CommandStatus.Valid);
-            if(model.Prefix != null )
-            {
-                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length>model.Prefix.Length? x.Code.Substring(0, model.Prefix.Length) == model.Prefix : x.Code==model.Prefix).ToList<Coupon>());
-            }
-            if (model.Suffix != null)
-            {
-                if(model.Prefix != null)
-                {
-                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code==model.Suffix).ToList<Coupon>();
-                }
-                else
-                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
-            }
+            List<Coupon> potentiallySameCoupons = getPotentiallySameCoupons(model);
             _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - load current:{0}", potentiallySameCoupons.Count);
-            List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd, model.Status);
-            if (checkIfStatusIsOk(model))
+            if(model.Prefix != null ||model.Suffix != null)
             {
-                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
-                cmd = _repo.Add(coupons,ref cmd);
-                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", cmd.Status);
-                if (cmd.Status == CommandStatus.Valid)
+                if (model.NumberOfCoupons > 1)
                 {
-                    ViewBag.Command = new Command(CommandStatus.Valid);
-                    _repo.UpdateCouponSeriesNum(model._promo.Id);
-                    model.CouponSeries++;
+                    // system can't create more than one unique coupon
+                    cmd.Status = model.Prefix != null ? model.Prefix.Length == model.CouponMaxLength ? CommandStatus.Error_LimitedNumberOfCoupons : CommandStatus.Valid : CommandStatus.Valid;
+                    cmd.Status = cmd.Status == CommandStatus.Valid? model.Suffix != null ? model.Suffix.Length == model.CouponMaxLength ? CommandStatus.Error_LimitedNumberOfCoupons : CommandStatus.Valid : CommandStatus.Valid : cmd.Status;
+                    cmd.Status = cmd.Status == CommandStatus.Valid ? model.Suffix != null && model.Prefix != null ? model.Suffix.Length + model.Prefix.Length == model.CouponMaxLength ? CommandStatus.Error_LimitedNumberOfCoupons : CommandStatus.Valid : CommandStatus.Valid : cmd.Status;
+                    if (cmd.Status == CommandStatus.Error_LimitedNumberOfCoupons)
+                    {
+                        cmd = new Command(CommandStatus.Error_LimitedNumberOfCoupons);
+                        model.Prefix = "";
+                        model.Suffix = "";
+                    }
                 }
-                TempData["CommandStatus"] = cmd.Status;
-                _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
-                return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
             }
-            else{
-                ViewBag.Command = new Command(CommandStatus.Error_SelectedStatusNotAllowed);
-                return View("PromotionCouponSeries", model);
+            if (cmd.Status == CommandStatus.Valid)
+            {
+                List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd, model.Status);
+                if (checkIfStatusIsOk(model))
+                {
+                    _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
+                    cmd = _repo.Add(coupons,ref cmd);
+                    _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - store:{0}", cmd.Status);
+                    if (cmd.Status == CommandStatus.Valid)
+                    {
+                        ViewBag.Command = new Command(CommandStatus.Valid);
+                        _repo.UpdateCouponSeriesNum(model._promo.Id);
+                        model.CouponSeries++;
+                    }
+                    TempData["CommandStatus"] = cmd.Status;
+                    _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
+                    return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
+                }
+                else{
+                    cmd = new Command(CommandStatus.Error_SelectedStatusNotAllowed);
+                }
             }
-           
+
+            ViewBag.Command = cmd;
+            return View("PromotionCouponSeries", model);
         }
         #region TEST
         [Route("{Id}")]
@@ -419,6 +426,25 @@ namespace WebApp.Controllers
                     break;
             }
             return result;
+        }
+
+        public List<Coupon> getPotentiallySameCoupons(CouponSeriesViewModel model)
+        {
+            List<Coupon> potentiallySameCoupons = new List<Coupon>();
+            if (model.Prefix != null)
+            {
+                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Prefix.Length ? x.Code.Substring(0, model.Prefix.Length) == model.Prefix : x.Code == model.Prefix).ToList<Coupon>());
+            }
+            if (model.Suffix != null)
+            {
+                if (model.Prefix != null)
+                {
+                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>();
+                }
+                else
+                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
+            }
+            return potentiallySameCoupons;
         }
         #endregion
     }

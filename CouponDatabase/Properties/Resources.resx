@@ -761,4 +761,8 @@
     <value>Coupon not found in database.</value>
     <comment>Error message.</comment>
   </data>
+  <data name="Error_LimitedNumberOfCoupons_Message" xml:space="preserve">
+    <value>System can't create more than 1 unique coupon.</value>
+    <comment>Error message.</comment>
+  </data>
 </root>

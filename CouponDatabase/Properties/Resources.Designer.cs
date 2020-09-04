@@ -761,7 +761,18 @@ namespace CouponDatabase.Properties {
                 return ResourceManager.GetString("Error_DuplicateCouponExists_Message", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///         ///   Looks up a localized string similar to System can&apos;t create more than 1 unique coupon..
+        /// </summary>
+        public static string Error_LimitedNumberOfCoupons_Message
+        {
+            get
+            {
+                return ResourceManager.GetString("Error_LimitedNumberOfCoupons_Message", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Promotion without issuer and award channel is not allowed..
         /// </summary>

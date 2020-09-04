@@ -53,6 +53,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_CouponNotFoundInDb = 15,
         [EnumMemberAttribute]
+        Error_LimitedNumberOfCoupons = 16,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 
