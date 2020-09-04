@@ -51,6 +51,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_PromotionWithoutChannel=14,
         [EnumMemberAttribute]
+        Error_CouponNotFoundInDb = 15,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

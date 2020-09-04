@@ -745,6 +745,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coupon not found in database..
+        /// </summary>
+        public static string Error_CouponNotFoundInDb_Message {
+            get {
+                return ResourceManager.GetString("Error_CouponNotFoundInDb_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application error: Coupon exists in database..
         /// </summary>
         public static string Error_DuplicateCouponExists_Message {

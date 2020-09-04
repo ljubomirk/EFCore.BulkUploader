@@ -5,6 +5,8 @@ using WebApp.Services;
 using CouponDatabase.Services;
 using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace Web.Services.Impl
 {
@@ -224,8 +226,25 @@ namespace Web.Services.Impl
         public Coupon Get(string PromotionCode, string CouponCode)
         {
             _repo.LogAPIAccess("CouponAPI.Get", "POS", "", true);
-            CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            return (new ICoupon(coupon)).Get();
+            
+            try
+            {
+                CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+                if (coupon != null)
+                {
+                    return (new ICoupon(coupon)).Get();
+                }
+                else
+                {
+                    Command cmd = new Command(CommandStatus.Error_CouponNotFoundInDb);
+                    throw new Exception(cmd.Message);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         public List<Coupon> GetUserCoupons(string User)

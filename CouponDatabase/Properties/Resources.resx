@@ -757,4 +757,8 @@
     <value>-not selected-</value>
     <comment>Placeholder for Customer input on Lifecycle.</comment>
   </data>
+  <data name="Error_CouponNotFoundInDb_Message" xml:space="preserve">
+    <value>Coupon not found in database.</value>
+    <comment>Error message.</comment>
+  </data>
 </root>

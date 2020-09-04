@@ -106,13 +106,18 @@ namespace WebApp.Services
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
-            List<Promotion> promList = new List<Promotion>();
-            if (PromotionCode.Length > 0)
-                promList.Add(Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault());
+            if (PromotionCode != null || CouponCode != null)
+            {
+                List<Promotion> promList = new List<Promotion>();
+                if (PromotionCode.Length > 0)
+                    promList.Add(Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault());
+                else
+                    promList.AddRange(Context.Promotion.Where(p => p.Active == true).ToList());
+                List<Coupon> coupons = Context.Coupon.Where(c => promList.Contains(c.Promotion)).ToList<Coupon>();
+                return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
+            }
             else
-                promList.AddRange(Context.Promotion.Where(p => p.Active==true).ToList());
-            List<Coupon> coupons = Context.Coupon.Where(c => promList.Contains(c.Promotion)).ToList<Coupon>();
-            return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
+                return null;
         }
 
         internal List<User> GetAllUsers()
