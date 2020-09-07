@@ -25,7 +25,7 @@
             <xs:element name="Get">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+                        <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                         <xs:element nillable="true" minOccurs="0" name="ValidFrom" type="xs:dateTime" />
                         <xs:element nillable="true" minOccurs="0" name="ValidTo" type="xs:dateTime" />
                     </xs:sequence>
@@ -223,19 +223,24 @@
             <xs:element name="Command" nillable="true" type="tns:Command" />
             <xs:simpleType name="CommandStatus">
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="Valid" />
-                    <xs:enumeration value="ErrorInvalidStatus" />
-                    <xs:enumeration value="ErrorPromotionNotFound" />
-                    <xs:enumeration value="ErrorCouponNotFound" />
-                    <xs:enumeration value="ErrorInvalidUser" />
-                    <xs:enumeration value="ErrorInvalidCustomer" />
-                    <xs:enumeration value="ErrorInvalidRedeemDate" />
-                    <xs:enumeration value="DataError_CouponInsertFailed" />
-                    <xs:enumeration value="DataError_PromotionInsertFailed" />
-                    <xs:enumeration value="DataError_PromotionUpdateFailed" />
-                    <xs:enumeration value="DataError_CouponUpdateFailed" />
-                    <xs:enumeration value="Error_DuplicateCouponExists" />
-                    <xs:enumeration value="ErrorSystem" />
+                  <xs:enumeration value="Valid" />
+                  <xs:enumeration value="ErrorInvalidStatus" />
+                  <xs:enumeration value="ErrorPromotionNotFound" />
+                  <xs:enumeration value="ErrorCouponNotFound" />
+                  <xs:enumeration value="ErrorInvalidUser" />
+                  <xs:enumeration value="ErrorInvalidCustomer" />
+                  <xs:enumeration value="ErrorInvalidRedeemDate" />
+                  <xs:enumeration value="DataError_CouponInsertFailed" />
+                  <xs:enumeration value="DataError_PromotionInsertFailed" />
+                  <xs:enumeration value="DataError_PromotionUpdateFailed" />
+                  <xs:enumeration value="DataError_CouponUpdateFailed" />
+                  <xs:enumeration value="ErrorSelectOneCheckbox" />
+                  <xs:enumeration value="Error_DuplicateCouponExists" />
+                  <xs:enumeration value="Error_SelectedStatusNotAllowed" />
+                  <xs:enumeration value="Error_PromotionWithoutChannel" />
+                  <xs:enumeration value="Error_CouponNotFoundInDb" />
+                  <xs:enumeration value="Error_LimitedNumberOfCoupons" />
+                  <xs:enumeration value="ErrorSystem" />
                 </xs:restriction >
             </xs:simpleType>
             <xs:element name="CommandStatus" type="tns:CommandStatus" />
