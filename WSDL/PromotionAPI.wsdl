@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- COMMANDO PromotionAPI WSDL  v1.4 -->
+<!-- COMMANDO PromotionAPI WSDL  v1.5 -->
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
