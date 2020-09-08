@@ -115,7 +115,14 @@
             })
         })
 
-        $("#Customer").click(function () {
+        $("#Customer").click(SetUpdateButtonEnabled)
+
+        // reverse style - will reverse if filter is used as well
+        $(".input-coupon").change(SetUpdateButtonEnabled)
+
+        $("input").change(SetUpdateButtonEnabled)
+
+        function SetUpdateButtonEnabled() {
             if (status != null && status.length > 0) {
                 status = null;
 
@@ -126,21 +133,9 @@
                     .removeAttr("data-position")
                     .html(initContent);
             }
-        })
+        }
 
-        // reverse style - will reverse if filter is used as well
-        $(".input-coupon").change(function () {
-            if (status != null && status.length > 0) {
-                status = null;
 
-                btn.tooltip('destroy')
-                    .removeClass("success errtxt")
-                    .addClass("modal-trigger")
-                    .removeAttr("data-tooltip")
-                    .removeAttr("data-position")
-                    .html(initContent);
-            } 
-        })
     })
 
 </script>

@@ -344,26 +344,20 @@ namespace WebApp.Controllers
 
             CouponList couponList = new CouponList();
             couponList.CouponItems = lmm.CouponItems;
-            
+              
+            // jesu li itemi na nevidljivim stranicama isto checked?
+            updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
 
-            if (model.CouponList.SelectAllCoupons)
-            {                
-                updateCouponIds = couponList.CouponItems.Select( c => c.Id ).Distinct().ToList();
-            } else
+            // Set checked status for items from session (these hold initial data which is not sent during POST)
+            for(var i = 0; i < couponList.CouponItems.Count(); i++)
             {
-                // jesu li itemi na nevidljivim stranicama isto checked?
-                updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
-
-                // Set checked status for items from session (these hold initial data which is not sent during POST)
-                for(var i = 0; i < couponList.CouponItems.Count(); i++)
+                if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
                 {
-                    if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
-                    {
-                        couponList.CouponItems[i].Checked = true;
-                    }
+                    couponList.CouponItems[i].Checked = true;
                 }
-                //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
             }
+            //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
+            
             couponList.SelectAllCoupons = model.CouponList.SelectAllCoupons;
 
             // Find Coupon objects for checked coupons
