@@ -3866,7 +3866,7 @@ p.section-headline {
   align-items: center;
   justify-content: space-between;
   cursor: default; }
-  .toast.error {
+  .toast.errtxt {
     background-color: #F44336; }
   .toast.success {
     background-color: #4CAF50; }
