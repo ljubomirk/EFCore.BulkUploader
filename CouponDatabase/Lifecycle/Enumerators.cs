@@ -55,6 +55,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_LimitedNumberOfCoupons = 16,
         [EnumMemberAttribute]
+        InvalidDocumentError =17,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

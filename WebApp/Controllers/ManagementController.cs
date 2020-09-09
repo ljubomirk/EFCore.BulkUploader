@@ -277,7 +277,8 @@ namespace WebApp.Controllers
             if (cmd.Status == CommandStatus.Valid)
             {
                 List<Coupon> coupons = model.GenerateCoupons(potentiallySameCoupons,ref cmd, model.Status);
-                if (checkIfStatusIsOk(model))
+                Command command=checkIfStatusIsOk(model);
+                if(cmd.Status==CommandStatus.Valid && command.Status==CommandStatus.Valid)
                 {
                     _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - genereateCoupons:{0}", coupons.Count);
                     cmd = _repo.Add(coupons,ref cmd);
@@ -293,7 +294,8 @@ namespace WebApp.Controllers
                     return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });
                 }
                 else{
-                    cmd = new Command(CommandStatus.Error_SelectedStatusNotAllowed);
+                    ViewBag.Command =command.Status ==CommandStatus.Valid? cmd : command;
+                    return View("PromotionCouponSeries", model);
                 }
             }
 
@@ -405,24 +407,26 @@ namespace WebApp.Controllers
                 return chk;
         }
 
-        public bool checkIfStatusIsOk(CouponSeriesViewModel model)
+        public Command checkIfStatusIsOk(CouponSeriesViewModel model)
         {
-            bool result = false;
+            Command result = new Command(CommandStatus.Error_SelectedStatusNotAllowed);
             switch (model.Status)
             {
                 case CouponStatus.Created:
-                    result = true;
+                    result = new Command(CommandStatus.Valid); 
                     break;
                 case CouponStatus.Issued:
-                    if((!isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>)) || (isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>) && model.Holders))
-                    result = true;
+                    if((!isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>) && model.CouponCreation == CouponCreationEnum.Import) 
+                    || (isPropertyChecked("NamedHolders", model._promo.PromotionProperties as List<PromotionProperty>) && model.Holders && model.CouponCreation == CouponCreationEnum.Import)
+                    || (!model.Users && model.Holders && model.CouponCreation == CouponCreationEnum.Generate))
+                    result = new Command(CommandStatus.Valid);
                     break;
                 case CouponStatus.Redeemed:
-                    if (model.Holders)
-                        result = true;
+                    if (model.Users && model.CouponCreation == CouponCreationEnum.Import)
+                        result = new Command(CommandStatus.Valid);
                     break;
                 case CouponStatus.Canceled:
-                    result = true;
+                    result = new Command(CommandStatus.Valid);
                     break;
             }
             return result;

@@ -82,6 +82,8 @@ namespace WebApp.ViewModels
         [Display(Name = "Coupon_MaximumRedeem", ResourceType = typeof(Resources))]
         public Nullable<Int32> MaximumRedeem { get; set; }
         public bool Holders { get; set; }
+        public bool Users { get; set; }
+        public bool Codes { get; set; }
         public CouponSeriesViewModel() : base() { }
         public CouponSeriesViewModel(ContextData contextData, DateTime? PromotionValidFrom, DateTime? PromotionValidTo):base(contextData.AgentUsername, contextData.AgentGroup)
         {
@@ -95,8 +97,7 @@ namespace WebApp.ViewModels
         {
             DataSet resultFromFile = new DataSet();
             List<Coupon> listOfCoupons = new List<Coupon>();
-            string CouponUser;
-
+            
             //Check if Excel/csv file is loaded
             if (file != null && file.Length > 0)
             {
@@ -106,15 +107,18 @@ namespace WebApp.ViewModels
                 if (CouponCreation == CouponCreationEnum.Import)
                 {
                     //Read data of Excel file and store it to list of CouponData structure
-                    List<CouponData> exellData = ExtractExellData(resultFromFile);
+                    List<CouponData> excelData = ExtractExcelData(resultFromFile);
                    
-                        foreach (CouponData cd  in exellData)
+                        foreach (CouponData cd  in excelData)
                         {
                             MaximumRedeem = MaximumRedeem == null ? 1 : MaximumRedeem;
                             //variable Holders is used in ManagementController to check if Holders are correctly defined
-                            Holders = cd.CouponHolder != null ? true : false;
-                            if (cd.CouponUser == "" && cd.CouponHolder!="" && status==CouponStatus.Redeemed)
-                                 cd.CouponUser = cd.CouponHolder;
+                            Holders = cd.CouponHolder != "" ? true : false;
+                            //variable Users is used in ManagementController to check if Users are correctly defined
+                            Users = cd.CouponUser != "" ? true : false;
+                            //variable Users is used in ManagementController to check if Codes are correctly defined
+                            Codes = cd.CouponCode != "" ? true : false;
+
                             Coupon coupon = new Coupon(cd.CouponCode, status, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
                             {
                               Holder = cd.CouponHolder,
@@ -127,22 +131,25 @@ namespace WebApp.ViewModels
 
                             listOfCoupons.Add(cpn.Coupon);
                         }
+                        if(!((status==CouponStatus.Created || status==CouponStatus.Issued)&& Codes && !Users || !Holders)&&!(status==CouponStatus.Redeemed && Codes && Users))
+                        {
+                            cmd = new Command(CommandStatus.InvalidDocumentError);
+                            
+                        }
                 }
 
                 // If CouponCreationEnum is equal generate --> file contains only coupon users, coupon code is generated using funtion getcouponCode for every user
                 else if (CouponCreation == CouponCreationEnum.Generate)
                 {
                     int couponsMade = 0;
-
                     //Read data of Excel file and store it to list of CouponData structure
-                    List<CouponData> exellData = ExtractExellData(resultFromFile);
+                    List<CouponData> excelData = ExtractExcelData(resultFromFile);
                     
-                    foreach (CouponData cd in exellData)
+                    foreach (CouponData cd in excelData)
                     {
                         //variable Holders is used in ManagementController to check if Holders are correctly defined
-                        Holders = cd.CouponHolder != null ? true : false;
-                        //Check if CouponUser are defined
-                        CouponUser = cd.CouponUser;
+                        Holders = cd.CouponHolder != ""? true : false;
+                        Users = cd.CouponUser != "" ? true : false;
                         string CouponCode = getCouponCode(couponsMade, out cmd);
 
                         while ((pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == CouponCode)) || listOfCoupons.Any(x => x.Code == CouponCode))
@@ -153,15 +160,20 @@ namespace WebApp.ViewModels
 
                         Coupon coupon = new Coupon(CouponCode, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, CouponSeries, (int)MaximumRedeem)
                         {
-                            Holder = CouponUser
+                            Holder = cd.CouponHolder
                         };
 
                         ICoupon cpn = new ICoupon(coupon);
 
-                        SwitchStatus(ref cpn, CouponUser);
+                        SwitchStatus(ref cpn, cd.CouponUser);
 
                         listOfCoupons.Add(coupon);
                         couponsMade++;
+                    }
+                    if(!Holders || Users)
+                    {
+                        cmd = new Command(CommandStatus.InvalidDocumentError);
+                        
                     }
                 }
             }
@@ -182,7 +194,7 @@ namespace WebApp.ViewModels
                         //Add coupon to service class
                         ICoupon cpn = new ICoupon(coupon);
 
-                        SwitchStatus(ref cpn, CouponUser = "");
+                        SwitchStatus(ref cpn, "");
 
                         if (pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
                         {
@@ -313,7 +325,7 @@ namespace WebApp.ViewModels
         /// </summary>
         /// <param name="resultFromFile"></param>
         /// <returns>stores data from Exell file in list of CouponData structure</returns>
-        private List<CouponData> ExtractExellData(DataSet resultFromFile)
+        private List<CouponData> ExtractExcelData(DataSet resultFromFile)
         {
             List<CouponData> result = new List<CouponData>();
          

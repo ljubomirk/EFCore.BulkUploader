@@ -765,4 +765,8 @@
     <value>System can't create more than 1 unique coupon.</value>
     <comment>Error message.</comment>
   </data>
+  <data name="InvalidDocumentError_Message" xml:space="preserve">
+    <value>File could not be uploaded. Check rules for file formatation.</value>
+    <comment>Error message.</comment>
+  </data>
 </root>
