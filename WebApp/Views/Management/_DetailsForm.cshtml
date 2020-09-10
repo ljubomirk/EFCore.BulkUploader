@@ -166,6 +166,8 @@
 
         var today_str = moment().format(($.fn.calendar.defaults.format).toUpperCase());
 
+        $("#Promotion_ValidFrom").calendar().calendar("setDate", new Date());
+
         $("#Promotion_ValidFrom").calendar({
             "startDate": today_str
         }).on('changeDate', function (selected) {
