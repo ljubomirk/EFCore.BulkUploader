@@ -150,7 +150,7 @@ namespace Web.Services.Impl
             }
             foreach (CouponDatabase.Models.Promotion promo in promos)
             {
-                result.Add(new Promotion() { Name = promo.Name, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
+                result.Add(new Promotion() { Name = promo.Name, Code = promo.Code, ValidFrom = promo.ValidFrom, ValidTo = promo.ValidTo, Active = promo.Active });
             }
             return result;
         }
