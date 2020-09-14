@@ -103,7 +103,7 @@ namespace WebApp.Controllers
             // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
-            f_ListOfCoupons = f_ListOfCoupons.Take<Coupon>(100).ToList();
+            List<Coupon> shownf_ListOfCoupons = f_ListOfCoupons.Take<Coupon>(100).ToList();
 
             // Filter promotions by retrieved coupons
             IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
@@ -122,13 +122,16 @@ namespace WebApp.Controllers
             model.DropPromoNames = getSelectListPromotions(couponPromotions);
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
-            
+            model.DropApplyTo = getSelectListApllyTo(_repo.GetApplyToList());
+
             // Create CheckedItem elements from filtered Coupons
             // CouponList is used to bind data change on view
             // CouponList is populated from submit form with CheckedItem elements and passed into CouponUpdate
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = f_ListOfCoupons;
             model.CouponList.CouponItems = setModelCouponList(f_ListOfCoupons);
+            model.ShownCouponList.Coupons = shownf_ListOfCoupons;
+            model.ShownCouponList.CouponItems = setModelCouponList(shownf_ListOfCoupons);
             model.RedeemTo = null; // prevents default activation of Update Selection button on LifecycleCoupons view
 
             // Store filters, dropdowns, and chechboxes into session
@@ -140,7 +143,7 @@ namespace WebApp.Controllers
             lmm.DropCouponSeries = model.DropCouponSeries;
             lmm.DropEnabled = model.DropEnabled;
             lmm.DropCouponStatus = model.DropCouponStatus;
-            
+            lmm.DropApplyTo = model.DropApplyTo;
             HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
@@ -271,6 +274,7 @@ namespace WebApp.Controllers
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
             model.RedeemTo = null;
+            model.DropApplyTo = getSelectListApllyTo(_repo.GetApplyToList());
 
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = filter_ListOfCoupons;            
@@ -305,6 +309,7 @@ namespace WebApp.Controllers
                 SelectedCouponSeries = model.SelectedCouponSeries,
                 SelectedEnabled = model.SelectedEnabled,
                 SelectedCouponStatus = model.SelectedCouponStatus,
+                SelectedApplyTo=model.SelectedApplyTo
             };
 
             // Session management
@@ -317,6 +322,7 @@ namespace WebApp.Controllers
                 modelCopy.DropPromoNames = lmm.DropPromoNames;
                 modelCopy.DropCouponSeries = lmm.DropCouponSeries;
                 modelCopy.DropEnabled = lmm.DropEnabled;
+                modelCopy.DropApplyTo = lmm.DropApplyTo;
                 modelCopy.DropCouponStatus = lmm.DropCouponStatus;
                 modelCopy.SelectedPromoName = lmm.SelectedPromoName;
                 modelCopy.SelectedCouponSeries = lmm.SelectedCouponSeries;
@@ -344,7 +350,13 @@ namespace WebApp.Controllers
 
             CouponList couponList = new CouponList();
             couponList.CouponItems = lmm.CouponItems;
-              
+            //if it is selected apply to on "all" coupons
+            if (model.SelectedApplyTo.Equals("2"))
+            {
+                updateCouponIds = couponList.CouponItems.Select(c => c.Id).Distinct().ToList();
+            }
+            else 
+            { 
             // jesu li itemi na nevidljivim stranicama isto checked?
             updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
 
@@ -355,6 +367,7 @@ namespace WebApp.Controllers
                 {
                     couponList.CouponItems[i].Checked = true;
                 }
+            }
             }
             //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
             
@@ -502,7 +515,8 @@ namespace WebApp.Controllers
             couponList.CouponItems = preselectModelCouponList(couponList.CouponItems, failedCouponIds);
 
             lmm.CouponItems = couponList.CouponItems;
-            modelCopy.CouponList = couponList;
+            modelCopy.ShownCouponList = couponList; 
+           
 
             if (failedCouponCommands.Count() > 0)
             {
@@ -582,6 +596,23 @@ namespace WebApp.Controllers
             return statusList;
         }
 
+        /*
+        * Returns list of SelectedListItems for apply to.
+        * Used on LifecycleCoupons view for DropDown element.
+        */
+        public List<SelectListItem> getSelectListApllyTo(List<string> applyTo)
+        {
+            List<SelectListItem> applyToList = new List<SelectListItem>();
+            for (var i = 0; i < applyTo.Count(); i++)
+            {
+                applyToList.Add(new SelectListItem()
+                {
+                    Text = applyTo[i],
+                    Value = (i + 1).ToString()
+                });
+            }
+            return applyToList;
+        }
 
         /*
          * Returns list of SelectListItems for coupon enabled status.

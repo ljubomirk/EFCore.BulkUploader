@@ -328,6 +328,11 @@ namespace WebApp.Services
             return Enum.GetNames(typeof(CouponStatus)).ToList();
         }
 
+        public List<string> GetApplyToList()
+        {
+            return Enum.GetNames(typeof(ApplyTo)).ToList();
+        }
+
         public List<Property> GetPromotionProperties(long idPromotion)
         {
             List<Property> properties = GetAllProperties();

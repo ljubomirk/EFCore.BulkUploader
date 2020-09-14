@@ -96,4 +96,13 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Import = 2
     }
+
+    [DataContract(Name = "ApplyTo", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
+    public enum ApplyTo
+    {
+        [EnumMemberAttribute]
+        Selection = 1,
+        [EnumMemberAttribute]
+        All = 2,
+    }
 }
