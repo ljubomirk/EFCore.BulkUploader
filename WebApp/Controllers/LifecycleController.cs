@@ -358,10 +358,10 @@ namespace WebApp.Controllers
             else 
             { 
             // jesu li itemi na nevidljivim stranicama isto checked?
-            updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
-
-            // Set checked status for items from session (these hold initial data which is not sent during POST)
-            for(var i = 0; i < couponList.CouponItems.Count(); i++)
+            updateCouponIds = model.ShownCouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
+             
+                // Set checked status for items from session (these hold initial data which is not sent during POST)
+                for (var i = 0; i < couponList.CouponItems.Count(); i++)
             {
                 if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
                 {
@@ -515,6 +515,7 @@ namespace WebApp.Controllers
             couponList.CouponItems = preselectModelCouponList(couponList.CouponItems, failedCouponIds);
 
             lmm.CouponItems = couponList.CouponItems;
+            modelCopy.CouponList = couponList;
             modelCopy.ShownCouponList = couponList; 
            
 
@@ -536,8 +537,8 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", modelCopy);
         }
 
-        
 
+        
         /*
          * Returns list of SelectListItems for promotions.
          * Used on LifecycleCoupons view for DropDown element.
