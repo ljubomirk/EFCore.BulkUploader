@@ -247,6 +247,12 @@
                 return $(this).val();
             }).length
         }
+
+        $('#coupon-list').on('draw.dt', function () {
+            var num = getChecked();
+            setMaterCheckbox(num);
+            enableModalTrigger();
+        });
     });
 
 </script>
