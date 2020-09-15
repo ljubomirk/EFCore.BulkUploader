@@ -17,7 +17,6 @@ namespace WebApp.ViewModels
         public List<SelectListItem> DropCouponSeries { get; set; }
         public List<SelectListItem> DropCouponStatus { get; set; }
         public List<SelectListItem> DropEnabled{ get; set; }
-        public List<SelectListItem> DropApplyTo { get; set; }
 
         // Dropdown filters, selection
         [Display(Name = "Promotion Name")]
@@ -28,9 +27,7 @@ namespace WebApp.ViewModels
         public string SelectedCouponStatus { get; set; }
         [Display(Name = "Enabled")]
         public string SelectedEnabled { get; set; }
-        [Display(Name = "Apply to")]
-        public string SelectedApplyTo { get; set; }
-        
+
         // Coupon update fields
         public string Customer { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
@@ -42,7 +39,6 @@ namespace WebApp.ViewModels
 
         // Coupons to update and update status
         public CouponList CouponList { get; set; }
-        public CouponList ShownCouponList { get; set; }
         public bool CouponUpdateError { get; set; }
 
         // Coupons and commands
@@ -52,9 +48,7 @@ namespace WebApp.ViewModels
         private void Init()
         {
             CouponList = new CouponList();
-            ShownCouponList= new CouponList();
             CouponList.Coupons = new List<Coupon>();
-            ShownCouponList.Coupons= new List<Coupon>();
         }
         public LifecycleUpdateViewModel()
         {
@@ -67,16 +61,12 @@ namespace WebApp.ViewModels
         public void Add(Coupon coupon)
         {
             CouponList = new CouponList();
-            ShownCouponList= new CouponList();
             CouponList.Coupons.Add(coupon);
-            ShownCouponList.Coupons.Add(coupon);
         }
         public void AddRange(IList<Coupon> coupons)
         {
             CouponList = new CouponList();
-            ShownCouponList = new CouponList();
             CouponList.Coupons.AddRange(coupons);
-            ShownCouponList.Coupons.AddRange(coupons);
         }
     }
 }

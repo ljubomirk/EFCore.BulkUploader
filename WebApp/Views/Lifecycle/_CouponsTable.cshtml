@@ -57,86 +57,82 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-        @for (int i = 0; i < Model?.ShownCouponList?.CouponItems?.Count; i++)
-        {
-            string statusText = ((CouponStatus)Model.ShownCouponList.CouponItems[i].Status).ToString();
-            <tr>
-                <td>
-                    <label>
-                        @Html.CheckBoxFor(c => Model.ShownCouponList.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
-                        <span></span>
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Id)
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                    </label>
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].Code)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Code)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].Holder)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Holder)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].User)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].User)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].AwardFrom)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].AwardFrom)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].AwardTo)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].AwardTo)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.CouponList.CouponItems[i].AquireFrom)
-                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].AquireFrom)
-                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.ShownCouponList.CouponItems[i].AquireTo)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].AquireTo)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
 
-                <td>
-                    @if (Model.ShownCouponList.CouponItems[i].Enabled)
-                    {
-                        <i class="material-icons">check</i>
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Enabled)
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(item => statusText)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Status)
-                    @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                </td>
-                <td>
-                    @if (Model.ShownCouponList.CouponItems[i].Active)
-                    {
-                        <i class="material-icons">check</i>
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Active)
-                        @Html.HiddenFor(c => c.ShownCouponList.CouponItems[i].Label)
-                    }
-                </td>
-            </tr>
+    <tbody>
+        @for (int i = 0; i < Model?.CouponList?.CouponItems?.Count; i++)
+        {
+            string statusText = ((CouponStatus)Model.CouponList.CouponItems[i].Status).ToString();
+        <tr>
+            <td>
+                <label>
+                    @Html.CheckBoxFor(c => Model.CouponList.CouponItems[i].Checked, new { @class = "filled-in checkbox-coupon" })
+                    <span></span>
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Id)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                </label>
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].Code)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Code)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].Holder)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Holder)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].User)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].User)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].AwardFrom)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].AwardFrom)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].AwardTo)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].AwardTo)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].AquireFrom)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].AquireFrom)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @Html.DisplayFor(item => item.CouponList.CouponItems[i].AquireTo)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].AquireTo)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+
+            <td>
+                @if (Model.CouponList.CouponItems[i].Enabled)
+                {
+                    <i class="material-icons">check</i>
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Enabled)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(item => statusText)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Status)
+                @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+            </td>
+            <td>
+                @if (Model.CouponList.CouponItems[i].Active)
+                {
+                    <i class="material-icons">check</i>
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Active)
+                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 <!-- /coupon table -->
-
-<!-- /action to call confirmation modal -->
-<!-- action to call confirmation modal -->
-<div id="table-export" class="input-field col s2 u-p-r-remove">
-</div>
 
 <script src="~/js/datatables.js" asp-append-version="true"></script>
 <script src="~/js/dataTables.buttons.min.js" asp-append-version="true"></script>
@@ -189,8 +185,8 @@
             var btn = $("#modal-trigger");
             var inputVal = getInputs();
             var chkVal = getChecked();
-            
-            if ((inputVal > 0 && chkVal > 0) || $(".applyTo option:selected").text() == "All") {
+
+            if (inputVal > 0 && chkVal > 0) {
                 btn.removeAttr("disabled")
             } else {
                 btn.attr("disabled", true);
