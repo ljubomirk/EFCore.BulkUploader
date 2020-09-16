@@ -57,6 +57,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         InvalidDocumentError =17,
         [EnumMemberAttribute]
+        Error_PromotionWithoutValidFrom =18,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

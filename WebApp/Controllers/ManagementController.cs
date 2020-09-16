@@ -218,6 +218,11 @@ namespace WebApp.Controllers
                 ViewBag.Command= new Command(CommandStatus.Error_PromotionWithoutChannel);
                 return View("PromotionDetails",viewModel);
             }
+            if (viewModel.Promotion.ValidFrom == null)
+            {
+                ViewBag.Command = new Command(CommandStatus.Error_PromotionWithoutValidFrom);
+                return View("PromotionDetails", viewModel);
+            }
             if (viewModel.Promotion.Id == 0) 
             {
                 long Id = _repo.CreatePromotion(viewModel.Promotion);

@@ -781,6 +781,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incomplete data: ValidFrom can&apos;t be undefined.
+        /// </summary>
+        public static string Error_PromotionWithoutValidFrom_Message {
+            get {
+                return ResourceManager.GetString("Error_PromotionWithoutValidFrom_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Status is not allowed for Coupone Series..
         /// </summary>
         public static string Error_SelectedStatusNotAllowed_Message {

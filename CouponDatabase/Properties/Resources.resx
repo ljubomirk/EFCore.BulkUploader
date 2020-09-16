@@ -769,4 +769,8 @@
     <value>File could not be uploaded. Check rules for file formatation.</value>
     <comment>Error message.</comment>
   </data>
+  <data name="Error_PromotionWithoutValidFrom_Message" xml:space="preserve">
+    <value>Incomplete data: ValidFrom can't be undefined</value>
+    <comment>Error message</comment>
+  </data>
 </root>
