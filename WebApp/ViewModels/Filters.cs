@@ -65,23 +65,16 @@ namespace WebApp.ViewModels
             List<Promotion> promotionDuration = new List<Promotion>();
             if (promotionFilter.ValidFrom != null && promotionFilter.ValidTo != null)
             {
-                f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom <= promotionFilter.ValidFrom && (x.ValidTo >= promotionFilter.ValidTo || x.ValidTo == null))  
-                                                            || (x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo) 
-                                                            ||  (x.ValidFrom >= promotionFilter.ValidFrom && (x.ValidTo == null || x.ValidTo >= promotionFilter.ValidTo) && x.ValidFrom <= promotionFilter.ValidTo) 
-                                                            || (x.ValidFrom <= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo && x.ValidTo >= promotionFilter.ValidFrom)
-                                                            || (x.ValidFrom== null && (x.ValidTo == null || x.ValidTo >= promotionFilter.ValidFrom))).ToList<Promotion>();
+                f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom >= promotionFilter.ValidFrom && x.ValidTo <= promotionFilter.ValidTo)).ToList<Promotion>();
             }
             else if (promotionFilter.ValidFrom != null || promotionFilter.ValidTo != null)
             {
                 if (promotionFilter.ValidFrom != null)
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom <= promotionFilter.ValidFrom && ( x.ValidTo >= promotionFilter.ValidFrom || x.ValidTo== null) 
-                                                                    || (x.ValidFrom >= promotionFilter.ValidFrom)
-                                                                    || (x.ValidFrom == null && (x.ValidTo == null || x.ValidTo >=promotionFilter.ValidFrom))).ToList<Promotion>();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => x.ValidFrom >= promotionFilter.ValidFrom).ToList<Promotion>();
+
                 if (promotionFilter.ValidTo != null)
                 {
-                    f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidFrom <= promotionFilter.ValidTo) 
-                                                                    || (x.ValidTo >= promotionFilter.ValidTo)
-                                                                    || (x.ValidFrom == null )).ToList<Promotion>();
+                    f_ListOfPromotions = f_ListOfPromotions.Where(x => (x.ValidTo <= promotionFilter.ValidTo)).ToList<Promotion>();
                 }
             }
 
