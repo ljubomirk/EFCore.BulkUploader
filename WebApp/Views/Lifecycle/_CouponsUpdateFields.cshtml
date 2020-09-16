@@ -13,6 +13,12 @@
     {
         enabledList = Model.DropEnabled;
     }
+
+    List<SelectListItem> applyToList = new List<SelectListItem>();
+    if (Model.DropApplyTo != null)
+    {
+        applyToList = Model.DropApplyTo;
+    }
 }
 
 <!-- form controls -->
@@ -38,6 +44,10 @@
             @Html.LabelFor(p => p.SelectedCouponStatus, new { @class = "active", @for = "SelectedCouponStatus" })
             @Html.DropDownListFor(p => p.SelectedCouponStatus, statusList, @CouponDatabase.Properties.Resources.DropDown_OptionNotSelectedText, new { @class = "input-coupon select-coupon", @data_modal = "status", @data_type = "select", @data_id = "Select" })
         </div>
+        <div class="input-field col s2">
+            @Html.LabelFor(p => p.SelectedApplyTo, new { @class = "active", @for = "SelectedApplyTo" })
+            @Html.DropDownListFor(p => p.SelectedApplyTo, applyToList, new { @class = "input-coupon select-coupon applyTo", @data_modal = "apply", @data_type = "select", @data_id = "ApplyTo", @id = "ApplyTo" })
+        </div>
         <!-- action to call confirmation modal -->
         <div class="input-field col s2">
             @if (ViewBag.Command != null)
@@ -54,10 +64,6 @@
                     @CouponDatabase.Properties.Resources.Btn_UpdateSelected
                 </button>
             }
-        </div>
-        <!-- /action to call confirmation modal -->
-        <!-- action to call confirmation modal -->
-        <div id="table-export" class="input-field col s2 u-p-r-remove">
         </div>
         <!-- action to call confirmation modal -->
     </div>
@@ -90,8 +96,11 @@
         // set up modal when called
         btn.click(function () {
             // set number of selected coupons in header
-            $("#coupon-number-modal").text($("input:checked.checkbox-coupon").length);
-            
+             if ($(".applyTo option:selected").text() == "All")
+                $("#coupon-number-modal").text(@Model.CouponList.CouponItems.Count());
+            else
+                $("#coupon-number-modal").text($("input:checked.checkbox-coupon").length);
+
             // set change messages according to data-type
             $(".input-coupon").each(function () {
                 var val = $(this).val();

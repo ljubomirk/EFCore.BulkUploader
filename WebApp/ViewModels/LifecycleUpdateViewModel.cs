@@ -17,6 +17,7 @@ namespace WebApp.ViewModels
         public List<SelectListItem> DropCouponSeries { get; set; }
         public List<SelectListItem> DropCouponStatus { get; set; }
         public List<SelectListItem> DropEnabled{ get; set; }
+        public List<SelectListItem> DropApplyTo { get; set; }
 
         // Dropdown filters, selection
         [Display(Name = "Promotion Name")]
@@ -27,7 +28,8 @@ namespace WebApp.ViewModels
         public string SelectedCouponStatus { get; set; }
         [Display(Name = "Enabled")]
         public string SelectedEnabled { get; set; }
-
+        [Display(Name = "Apply to")]
+        public string SelectedApplyTo { get; set; }
         // Coupon update fields
         public string Customer { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]

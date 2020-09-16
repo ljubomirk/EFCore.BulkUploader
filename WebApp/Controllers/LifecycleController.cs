@@ -103,8 +103,7 @@ namespace WebApp.Controllers
             // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
-            f_ListOfCoupons = f_ListOfCoupons.Take<Coupon>(100).ToList();
-
+           
             // Filter promotions by retrieved coupons
             IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
             List<Promotion> couponPromotions = new List<Promotion>();
@@ -122,7 +121,8 @@ namespace WebApp.Controllers
             model.DropPromoNames = getSelectListPromotions(couponPromotions);
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
-            
+            model.DropApplyTo = getSelectListApllyTo(_repo.GetApplyToList());
+
             // Create CheckedItem elements from filtered Coupons
             // CouponList is used to bind data change on view
             // CouponList is populated from submit form with CheckedItem elements and passed into CouponUpdate
@@ -140,7 +140,8 @@ namespace WebApp.Controllers
             lmm.DropCouponSeries = model.DropCouponSeries;
             lmm.DropEnabled = model.DropEnabled;
             lmm.DropCouponStatus = model.DropCouponStatus;
-            
+            lmm.DropApplyTo = model.DropApplyTo;
+
             HttpContext.Session.SetObject("LMM", lmm);
 
             return View("LifecycleCoupons", model);
@@ -271,6 +272,7 @@ namespace WebApp.Controllers
             model.DropCouponStatus = getSelectListStatus(_repo.GetCouponStatusList());
             model.DropEnabled = getSelectListEnabled();
             model.RedeemTo = null;
+            model.DropApplyTo = getSelectListApllyTo(_repo.GetApplyToList());
 
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = filter_ListOfCoupons;            
@@ -305,6 +307,7 @@ namespace WebApp.Controllers
                 SelectedCouponSeries = model.SelectedCouponSeries,
                 SelectedEnabled = model.SelectedEnabled,
                 SelectedCouponStatus = model.SelectedCouponStatus,
+                SelectedApplyTo = model.SelectedApplyTo,
             };
 
             // Session management
@@ -318,7 +321,8 @@ namespace WebApp.Controllers
                 modelCopy.DropCouponSeries = lmm.DropCouponSeries;
                 modelCopy.DropEnabled = lmm.DropEnabled;
                 modelCopy.DropCouponStatus = lmm.DropCouponStatus;
-                modelCopy.SelectedPromoName = lmm.SelectedPromoName;
+                modelCopy.DropApplyTo = lmm.DropApplyTo;
+                modelCopy.SelectedPromoName = lmm.SelectedPromoName;            
                 modelCopy.SelectedCouponSeries = lmm.SelectedCouponSeries;
 
                 if (modelCopy.SelectedCouponStatus != null)
@@ -344,20 +348,26 @@ namespace WebApp.Controllers
 
             CouponList couponList = new CouponList();
             couponList.CouponItems = lmm.CouponItems;
-              
-            // jesu li itemi na nevidljivim stranicama isto checked?
-            updateCouponIds = model.CouponList.CouponItems.Where( c => c.Checked ).Select( c => c.Id ).ToList();
-
-            // Set checked status for items from session (these hold initial data which is not sent during POST)
-            for(var i = 0; i < couponList.CouponItems.Count(); i++)
+            //if it is selected apply to on "all" coupons
+            if (model.SelectedApplyTo.Equals("2"))
             {
-                if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
-                {
-                    couponList.CouponItems[i].Checked = true;
-                }
+                updateCouponIds = couponList.CouponItems.Select(c => c.Id).Distinct().ToList();
             }
-            //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
-            
+            else
+            {
+                // jesu li itemi na nevidljivim stranicama isto checked?
+                updateCouponIds = model.CouponList.CouponItems.Where(c => c.Checked).Select(c => c.Id).ToList();
+
+                // Set checked status for items from session (these hold initial data which is not sent during POST)
+                for (var i = 0; i < couponList.CouponItems.Count(); i++)
+                {
+                    if (updateCouponIds.Contains(couponList.CouponItems[i].Id))
+                    {
+                        couponList.CouponItems[i].Checked = true;
+                    }
+                }
+                //uncheckedCouponIds = model.CouponList.CouponItems.Where( c => !updateCouponIds.Contains(c.Id) ).Select(c => c.Id).Distinct().ToList();
+            }
             couponList.SelectAllCoupons = model.CouponList.SelectAllCoupons;
 
             // Find Coupon objects for checked coupons
@@ -582,6 +592,23 @@ namespace WebApp.Controllers
             return statusList;
         }
 
+        /*
+       * Returns list of SelectedListItems for apply to.
+       * Used on LifecycleCoupons view for DropDown element.
+       */
+        public List<SelectListItem> getSelectListApllyTo(List<string> applyTo)
+        {
+            List<SelectListItem> applyToList = new List<SelectListItem>();
+            for (var i = 0; i < applyTo.Count(); i++)
+            {
+                applyToList.Add(new SelectListItem()
+                {
+                    Text = applyTo[i],
+                    Value = (i + 1).ToString()
+                });
+            }
+            return applyToList;
+        }
 
         /*
          * Returns list of SelectListItems for coupon enabled status.
