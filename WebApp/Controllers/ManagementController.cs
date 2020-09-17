@@ -132,6 +132,8 @@ namespace WebApp.Controllers
                 AwardChannels = setModelAwardChannels(_repo.GetAllAwardChannels(), new List<PromotionAwardChannel>()),
                 IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<PromotionIssuerChannel>())
             };
+            // ValidFrom initially is set on today
+            model.Promotion.ValidFrom = DateTime.Today;
             return View("PromotionDetails", model);
         }
 

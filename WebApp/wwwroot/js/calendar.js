@@ -1699,7 +1699,7 @@
         startDate: -Infinity,
         startView: 0,
         todayBtn: false,
-        todayHighlight: false,
+        todayHighlight: true,
         updateViewDate: true,
         weekStart: 0,
         disableTouchKeyboard: false,
