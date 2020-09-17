@@ -167,6 +167,8 @@ namespace WebApp
                     options.Binding = bindPromotionAPI;
                     options.CaseInsensitivePath = false;
                 });
+
+            Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
     }
 }
