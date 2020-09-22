@@ -250,7 +250,7 @@ namespace WebApp.Services
         public Promotion GetPromotionByCode(String code)
         {
             Promotion promotion = new Promotion();
-            promotion = Context.Promotion.Find(code);
+            promotion = Context.Promotion.Where(p=> p.Code == code).First();
             if (promotion != null)
                 GetPromotionData(promotion);
             return promotion;
