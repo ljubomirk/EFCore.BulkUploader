@@ -45,13 +45,13 @@ namespace CouponDatabase.Services
                 switch (Coupon.Status)
                 {
                     case (int)CouponStatus.Created:
-                        if(status == CouponStatus.Issued || status == CouponStatus.Canceled)
+                        if(status == CouponStatus.Issued || status == CouponStatus.Canceled || status == CouponStatus.Created)
                             result = new Lifecycle.Command(CommandStatus.Valid);
                         else
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
                         break;
                     case (int)CouponStatus.Issued:
-                        if (status == CouponStatus.Redeemed || status == CouponStatus.Canceled)
+                        if (status == CouponStatus.Redeemed || status == CouponStatus.Canceled || status == CouponStatus.Issued)
                             result = new Lifecycle.Command(CommandStatus.Valid);
                         else
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);

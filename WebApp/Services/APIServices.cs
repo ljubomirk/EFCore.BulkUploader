@@ -205,6 +205,7 @@ namespace Web.Services.Impl
             _repo.LogAPIAccess("CouponAPI.Assign", "POS", "", true);
             //CouponDatabase.Models.Promotion promo = _repo.GetAllPromotions().Find(p => p.Code == PromotionCode);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            coupon.Promotion = _repo.GetPromotionByCode(PromotionCode);
             ICoupon cmd = new ICoupon(coupon);
             Command response = cmd.Assign(Holder, User);
             if (response.Status == CommandStatus.Valid)

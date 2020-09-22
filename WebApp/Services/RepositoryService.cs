@@ -251,6 +251,8 @@ namespace WebApp.Services
         {
             Promotion promotion = new Promotion();
             promotion = Context.Promotion.Find(code);
+            if (promotion != null)
+                GetPromotionData(promotion);
             return promotion;
         }
 
