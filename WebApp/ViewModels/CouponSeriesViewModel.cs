@@ -331,7 +331,7 @@ namespace WebApp.ViewModels
          
             if (resultFromFile.Tables[0] != null)
             {
-                foreach (DataRow row in resultFromFile.Tables[0].Rows)
+                foreach (DataRow row in resultFromFile.Tables[0].Rows.Cast<DataRow>().Skip(1))
                 {
                     string CouponUser = null;
                     string CouponCode = null;
