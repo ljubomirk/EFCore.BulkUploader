@@ -61,8 +61,15 @@
             <td hidden>@Html.DisplayFor(item => p.Id)</td>
             <td>@Html.DisplayFor(item => p.Name)</td>
             <td>@Html.DisplayFor(item => p.Code)</td>
-            <td>@Html.DisplayFor(item => p.ValidFrom)</td>
-            <td>@Html.DisplayFor(item => p.ValidTo)
+            <td>
+                <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
+                <span style="display:none">@Convert.ToDateTime(p.ValidFrom).ToString("yyyy/MM/dd")</span>
+                @Html.DisplayFor(item => p.ValidFrom)
+            </td>
+            <td>
+                <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
+                <span style="display:none">@Convert.ToDateTime(p.ValidTo).ToString("yyyy/MM/dd")</span>
+                @Html.DisplayFor(item => p.ValidTo)
             <td>
                 @if (p.HasCoupons)
                 {
