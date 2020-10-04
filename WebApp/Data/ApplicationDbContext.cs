@@ -3,9 +3,18 @@ using System;
 using CouponDatabase.Models;
 using CouponSystem = CouponDatabase.Models.System;
 using CouponDatabase.Lifecycle;
+using System.Data.Common;
+using System.Data;
 
 namespace WebApp.Data
 {
+    public class Logger
+    {
+        public static void Log(string message)
+        {
+            Console.WriteLine("EF Message: {0} ", message);
+        }
+    }
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -13,7 +22,28 @@ namespace WebApp.Data
         {
             //Special setup for Oracle 
             if (Database.ProviderName == "Oracle.EntityFrameworkCore")
-                Database.ExecuteSqlCommand("ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT");
+            {
+                //Command to setup current schema
+                String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
+                Database.ExecuteSqlCommand(sessionCurrentSchema);
+                DbConnection dbConnection = Database.GetDbConnection();
+                dbConnection.StateChange += (sender, e) =>
+                {
+                    if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
+                    {
+                        var senderConnection = (DbConnection)sender;
+
+                        using (var command = senderConnection.CreateCommand())
+                        {
+                            command.Connection = senderConnection;
+                            command.CommandText = sessionCurrentSchema;
+                            command.ExecuteNonQuery();
+                        }
+
+                    }
+                
+                };
+            }
         }
 
         #region Entities
