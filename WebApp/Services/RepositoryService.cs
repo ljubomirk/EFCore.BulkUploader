@@ -131,6 +131,11 @@ namespace WebApp.Services
             return Context.Coupon.Include(c => c.Promotion).Where(c => c.Id == id).First();
         }
 
+        public List<Coupon> GetAllCoupons()
+        {
+            return Context.Coupon.ToList();
+        }
+
         public Command UpdateCoupon(Coupon coupon)
         {
             Command result;

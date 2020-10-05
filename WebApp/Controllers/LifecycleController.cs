@@ -16,6 +16,9 @@ using WebApp.Data;
 using WebApp.Services;
 using WebApp.ViewModels;
 using static CouponDatabase.Models.Coupon;
+using System.IO;
+using System.Data;
+using OfficeOpenXml;
 
 namespace WebApp.Controllers
 {
@@ -28,8 +31,8 @@ namespace WebApp.Controllers
         private readonly ApplicationDbContext _context;
         private ILogger _logger;
         public LifecycleController(ApplicationDbContext context, ILogger<LifecycleController> logger)
-        {      
-             _repo = new RepositoryServices(context, logger);
+        {
+            _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
         }
@@ -49,11 +52,11 @@ namespace WebApp.Controllers
         {
             // Check if LMM object exists in session
             LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
-            
+
             // Set object to new instance of the model before commiting to a (new) search action
             lmm = new LifecycleManagementModel();
             HttpContext.Session.SetObject("LMM", lmm);
-            
+
             LifecycleSearchViewModel initModel = initLifecycleFilters();
 
             return View("LifecycleSearch", initModel);
@@ -99,11 +102,11 @@ namespace WebApp.Controllers
                 lmm = new LifecycleManagementModel();
                 HttpContext.Session.SetObject("LMM", lmm);
             }
-            
+
             // Filter promotions and coupons
             List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
             List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
-           
+
             // Filter promotions by retrieved coupons
             IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
             List<Promotion> couponPromotions = new List<Promotion>();
@@ -135,7 +138,7 @@ namespace WebApp.Controllers
             lmm.PromotionFilter = promotionFilter;
             lmm.CouponFilter = couponFilter;
             lmm.CouponItems = model.CouponList.CouponItems;
-            
+
             lmm.DropPromoNames = model.DropPromoNames;
             lmm.DropCouponSeries = model.DropCouponSeries;
             lmm.DropEnabled = model.DropEnabled;
@@ -238,7 +241,7 @@ namespace WebApp.Controllers
             // Filtered coupons to be displayed in table view
             List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
             // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
-            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons; 
+            List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons;
 
 
             // Manage coupon series dropdown
@@ -261,7 +264,7 @@ namespace WebApp.Controllers
                 else
                 {
                     item.Selected = false;
-                }   
+                }
                 couponSelectList.Add(item);
             }
 
@@ -275,7 +278,7 @@ namespace WebApp.Controllers
             model.DropApplyTo = getSelectListApllyTo(_repo.GetApplyToList());
 
             model.CouponList.Coupon = new Coupon();
-            model.CouponList.Coupons = filter_ListOfCoupons;            
+            model.CouponList.Coupons = filter_ListOfCoupons;
             model.CouponList.CouponItems = setModelCouponList(model.CouponList.Coupons);
 
             model.SelectedPromoName = model.SelectedPromoName;
@@ -299,15 +302,15 @@ namespace WebApp.Controllers
              * TODO:
              * - improve error reporting format and output
              */
-
-            LifecycleUpdateViewModel modelCopy = new LifecycleUpdateViewModel(_contextData.AgentUsername, _contextData.AgentGroup){ 
+            LifecycleUpdateViewModel modelCopy = new LifecycleUpdateViewModel(_contextData.AgentUsername, _contextData.AgentGroup)
+            {
                 Customer = model.Customer,
                 RedeemTo = model.RedeemTo,
                 SelectedPromoName = model.SelectedPromoName,
                 SelectedCouponSeries = model.SelectedCouponSeries,
                 SelectedEnabled = model.SelectedEnabled,
                 SelectedCouponStatus = model.SelectedCouponStatus,
-                SelectedApplyTo = model.SelectedApplyTo,
+                SelectedApplyTo = model.SelectedApplyTo
             };
 
             // Session management
@@ -322,7 +325,7 @@ namespace WebApp.Controllers
                 modelCopy.DropEnabled = lmm.DropEnabled;
                 modelCopy.DropCouponStatus = lmm.DropCouponStatus;
                 modelCopy.DropApplyTo = lmm.DropApplyTo;
-                modelCopy.SelectedPromoName = lmm.SelectedPromoName;            
+                modelCopy.SelectedPromoName = lmm.SelectedPromoName;
                 modelCopy.SelectedCouponSeries = lmm.SelectedCouponSeries;
 
                 if (modelCopy.SelectedCouponStatus != null)
@@ -372,15 +375,9 @@ namespace WebApp.Controllers
 
             // Find Coupon objects for checked coupons
             List<Coupon> coupons = new List<Coupon>();
-            foreach (long id in updateCouponIds)
-            {
-                Coupon coupon = _repo.GetCouponById(id);
-                if (coupon != null)
-                {
-                    coupons.Add(coupon);
-                }                
-            }
-            
+
+            coupons = _repo.GetAllCoupons().Where(x => updateCouponIds.Contains(x.Id)).ToList();
+
             List<Command> failedCouponCommands = new List<Command>();
             List<long> failedCouponIds = new List<long>();
             List<Coupon> updatedCoupons = new List<Coupon>();
@@ -422,7 +419,7 @@ namespace WebApp.Controllers
                         coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
                     }
 
-                    ICoupon cmd = new ICoupon(coupon);                    
+                    ICoupon cmd = new ICoupon(coupon);
                     Command response = cmd.Prolong(modelCopy.RedeemTo);
                     if (response.Status == CommandStatus.Valid)
                     {
@@ -455,7 +452,7 @@ namespace WebApp.Controllers
                     {
                         response = cmd.Disable();
                     }
-                    
+
                     if (response.Status == CommandStatus.Valid)
                     {
                         passedChecks++;
@@ -532,7 +529,7 @@ namespace WebApp.Controllers
             return View("LifecycleCoupons", modelCopy);
         }
 
-        
+
 
         /*
          * Returns list of SelectListItems for promotions.
@@ -543,7 +540,8 @@ namespace WebApp.Controllers
             List<SelectListItem> selectList = new List<SelectListItem>();
             foreach(Promotion p in promotions)
             {
-                selectList.Add(new SelectListItem { 
+                selectList.Add(new SelectListItem
+                {
                     Text = p.Name,
                     Value = p.Id.ToString()
                 });
@@ -622,7 +620,8 @@ namespace WebApp.Controllers
                 Text = "Yes",
                 Value = "1"
             });
-            selectList.Add(new SelectListItem {
+            selectList.Add(new SelectListItem
+            {
                 Text = "No",
                 Value = "0"
             });
@@ -647,7 +646,7 @@ namespace WebApp.Controllers
         public LifecycleSearchViewModel initLifecycleFilters()
         {
             LifecycleSearchViewModel model = new LifecycleSearchViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
-            
+
             model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
             model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
 
@@ -656,10 +655,10 @@ namespace WebApp.Controllers
             model.CouponFilter.IssuerChannels = setModelIssuerChannels(_repo.GetAllIssuerChannels(), new List<IssuerChannel>());
             model.CouponFilter.CurrentStatus = setModelCurrentStatus(_repo.GetCouponStatuses(), new List<CurrentStatus>());
             model.CouponFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
-            
+
             return model;
         }
-        
+
 
 
 
@@ -757,15 +756,16 @@ namespace WebApp.Controllers
             List<CheckedCouponItem> checkedItems = new List<CheckedCouponItem>();
             foreach (Coupon coupon in coupons)
             {
-                checkedItems.Add(new CheckedCouponItem { 
-                    Checked = false, 
-                    Label = coupon.Code, 
-                    Id = coupon.Id, 
-                    Code = coupon.Code, 
-                    Holder = coupon.Holder, 
+                checkedItems.Add(new CheckedCouponItem
+                {
+                    Checked = false,
+                    Label = coupon.Code,
+                    Id = coupon.Id,
+                    Code = coupon.Code,
+                    Holder = coupon.Holder,
                     User = coupon.User,
                     Enabled = coupon.Enabled,
-                    Status = coupon.Status, 
+                    Status = coupon.Status,
                     Active = coupon.Active,
                     AquireTo = coupon.AquireTo,
                     AquireFrom = coupon.AquireFrom,
@@ -779,14 +779,17 @@ namespace WebApp.Controllers
         private List<CheckedCouponItem> updateModelCouponList(List<CheckedCouponItem> items, List<Coupon> coupons)
         {
             List<CheckedCouponItem> updatedItems = new List<CheckedCouponItem>();
+            //List<Coupon> coupons = _repo.GetAllCoupons().Where(x => items.Any(element=> element.Id == x.Id)).ToList();
+
             for(var i = 0; i < items.Count(); i++)
             {
-                Coupon coupon = coupons.Where(c => c.Id == items[i].Id).FirstOrDefault();
-                
+                Coupon coupon = coupons.FirstOrDefault(c => c.Id == items[i].Id);
+
                 if (coupon != null)
                 {
-                    coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
-                    updatedItems.Add(new CheckedCouponItem(){
+                    //coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
+                    updatedItems.Add(new CheckedCouponItem()
+                    {
                         Active = coupon.Active,
                         Checked = false,
                         Code = coupon.Code,
@@ -798,7 +801,7 @@ namespace WebApp.Controllers
                         Status = coupon.Status,
                         AquireFrom = coupon.AquireFrom,
                         AquireTo = coupon.AquireTo,
-                        AwardFrom  = coupon.AwardFrom,
+                        AwardFrom = coupon.AwardFrom,
                         AwardTo = coupon.AwardTo
                     });
                 } else
@@ -821,7 +824,7 @@ namespace WebApp.Controllers
                     });
                 }
             }
-            
+
             return updatedItems;
         }
 
@@ -864,6 +867,81 @@ namespace WebApp.Controllers
             }
 
             return _repo.updatePromotionFields(viewModel.Promotion.Id, promotionProperties, promotionAwardChannels, promotionIssuerChannels);
+        }
+
+        public IActionResult exportCoupons(LifecycleUpdateViewModel model)
+        {
+            LifecycleManagementModel lmm = HttpContext.Session.GetObject<LifecycleManagementModel>("LMM");
+
+            CouponList exportCouponList = new CouponList();
+
+            CouponList couponList = new CouponList();
+            couponList.CouponItems = lmm.CouponItems;
+            //if it is selected apply to on "all" coupons
+            if (model.SelectedApplyTo.Equals("2"))
+            {
+                exportCouponList = couponList;
+            }
+            else
+            {
+                exportCouponList.CouponItems = model.CouponList.CouponItems.Where(x => x.Checked == true).ToList(); 
+            }
+
+            var stream = new MemoryStream();
+
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+
+            using (var package = new ExcelPackage(stream))
+            {
+                var workSheet = package.Workbook.Worksheets.Add("Sheet1");
+                workSheet.TabColor = System.Drawing.Color.Black;
+                workSheet.DefaultRowHeight = 12;
+
+                //workSheet.Cells.LoadFromCollection(students, true);
+
+                //Header of table  
+                //  
+                workSheet.Row(1).Height = 20;
+                workSheet.Row(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                workSheet.Row(1).Style.Font.Bold = true;
+                workSheet.Cells[1, 1].Value = "Code";
+                workSheet.Cells[1, 2].Value = "Holder";
+                workSheet.Cells[1, 3].Value = "User";
+                workSheet.Cells[1, 4].Value = "Aquire from";
+                workSheet.Cells[1, 5].Value = "Aquire to";
+                workSheet.Cells[1, 6].Value = "Award from";
+                workSheet.Cells[1, 7].Value = "Aquire to";
+                workSheet.Cells[1, 8].Value = "Enabled";
+                workSheet.Cells[1, 9].Value = "Status";
+                workSheet.Cells[1, 10].Value = "Active";
+                //Body of table  
+                //  Aquire from	Aquire to	Award from	Award to	Enabled	Status	Active
+
+                int recordIndex = 2;
+                foreach (var checkedCouponItem in exportCouponList.CouponItems)
+                {
+                    workSheet.Cells[recordIndex, 1].Value = checkedCouponItem.Code;
+                    workSheet.Cells[recordIndex, 2].Value = checkedCouponItem.Holder;
+                    workSheet.Cells[recordIndex, 3].Value = checkedCouponItem.User;
+                    workSheet.Cells[recordIndex, 4].Value = ((DateTime)checkedCouponItem.AquireFrom).ToShortDateString();
+                    workSheet.Cells[recordIndex, 5].Value = ((DateTime)checkedCouponItem.AquireTo).ToShortDateString();
+                    workSheet.Cells[recordIndex, 6].Value = ((DateTime)checkedCouponItem.AwardFrom).ToShortDateString();
+                    workSheet.Cells[recordIndex, 7].Value = ((DateTime)checkedCouponItem.AwardTo).ToShortDateString();
+                    workSheet.Cells[recordIndex, 8].Value = checkedCouponItem.Enabled == true ? "yes" : "no";
+                    workSheet.Cells[recordIndex, 9].Value = ((CouponStatus)checkedCouponItem.Status).ToString() ;
+                    workSheet.Cells[recordIndex, 10].Value = checkedCouponItem.Active == true ? "yes" : "no";
+                    recordIndex++;
+                }
+                for (int i = 1; i < 11; i++)
+                {
+                    workSheet.Column(i).AutoFit();
+                }
+                package.Save();
+            }
+            stream.Position = 0;
+            string excelName = "couponsRecord.xlsx";
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
     }
 }
