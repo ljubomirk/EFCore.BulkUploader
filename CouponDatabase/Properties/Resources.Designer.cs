@@ -808,6 +808,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coupons holder can&apos;t be updated..
+        /// </summary>
+        public static string ErrorHolderWOProperty_Message {
+            get {
+                return ResourceManager.GetString("ErrorHolderWOProperty_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action is not allowed for the channel:.
         /// </summary>
         public static string ErrorInvalidChannel_Message {

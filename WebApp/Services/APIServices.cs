@@ -264,6 +264,7 @@ namespace Web.Services.Impl
         {
             _repo.LogAPIAccess("CouponAPI.Redeem", "POS", "", true);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            _repo.GetPromotionData(coupon.Promotion);
             ICoupon cmd = new ICoupon(coupon);
             Command response = cmd.Redeem(User);
             if(response.Status == CommandStatus.Valid)

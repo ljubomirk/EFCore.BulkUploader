@@ -59,6 +59,8 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_PromotionWithoutValidFrom =18,
         [EnumMemberAttribute]
+        ErrorHolderWOProperty = 19,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 

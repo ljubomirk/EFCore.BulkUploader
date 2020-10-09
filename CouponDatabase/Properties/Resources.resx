@@ -773,4 +773,8 @@
     <value>Incomplete data: ValidFrom can't be undefined</value>
     <comment>Error message</comment>
   </data>
+  <data name="ErrorHolderWOProperty_Message" xml:space="preserve">
+    <value>Coupons holder can't be updated.</value>
+    <comment>Error message.</comment>
+  </data>
 </root>

@@ -232,6 +232,10 @@ namespace CouponDatabase.Services
                     else
                         result = new Command(CommandStatus.ErrorInvalidUser);
                 }
+                else
+                {
+                    result = new Command(CommandStatus.ErrorHolderWOProperty);
+                }
                 
                 /**
                  * *COMMENTED OUT SINCE IT'S NOT USED ANYMORE*

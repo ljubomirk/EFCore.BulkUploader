@@ -375,8 +375,16 @@ namespace WebApp.Controllers
 
             // Find Coupon objects for checked coupons
             List<Coupon> coupons = new List<Coupon>();
+            foreach (long id in updateCouponIds)
+            {
+                Coupon coupon = _repo.GetCouponById(id);
+                if (coupon != null)
+                {
+                    coupons.Add(coupon);
+                }
+            }
 
-            coupons = _repo.GetAllCoupons().Where(x => updateCouponIds.Contains(x.Id)).ToList();
+            //coupons = _repo.GetAllCoupons().Where(x => updateCouponIds.Contains(x.Id)).ToList();
 
             List<Command> failedCouponCommands = new List<Command>();
             List<long> failedCouponIds = new List<long>();
@@ -916,20 +924,19 @@ namespace WebApp.Controllers
                 workSheet.Cells[1, 9].Value = "Status";
                 workSheet.Cells[1, 10].Value = "Active";
                 //Body of table  
-                //  Aquire from	Aquire to	Award from	Award to	Enabled	Status	Active
 
                 int recordIndex = 2;
                 foreach (var checkedCouponItem in exportCouponList.CouponItems)
                 {
-                    workSheet.Cells[recordIndex, 1].Value = checkedCouponItem.Code;
-                    workSheet.Cells[recordIndex, 2].Value = checkedCouponItem.Holder;
-                    workSheet.Cells[recordIndex, 3].Value = checkedCouponItem.User;
-                    workSheet.Cells[recordIndex, 4].Value = ((DateTime)checkedCouponItem.AquireFrom).ToShortDateString();
-                    workSheet.Cells[recordIndex, 5].Value = ((DateTime)checkedCouponItem.AquireTo).ToShortDateString();
-                    workSheet.Cells[recordIndex, 6].Value = ((DateTime)checkedCouponItem.AwardFrom).ToShortDateString();
-                    workSheet.Cells[recordIndex, 7].Value = ((DateTime)checkedCouponItem.AwardTo).ToShortDateString();
+                    workSheet.Cells[recordIndex, 1].Value = checkedCouponItem.Code!=null?checkedCouponItem.Code:"";
+                    workSheet.Cells[recordIndex, 2].Value = checkedCouponItem.Holder!=null? checkedCouponItem.Holder:"";
+                    workSheet.Cells[recordIndex, 3].Value = checkedCouponItem.User!=null? checkedCouponItem.User:"";
+                    workSheet.Cells[recordIndex, 4].Value = (DateTime)checkedCouponItem.AquireFrom!=null?((DateTime)checkedCouponItem.AquireFrom).ToShortDateString():"";
+                    workSheet.Cells[recordIndex, 5].Value = checkedCouponItem.AquireTo!=null?((DateTime)checkedCouponItem.AquireTo).ToShortDateString():"";
+                    workSheet.Cells[recordIndex, 6].Value = checkedCouponItem.AwardFrom!=null?((DateTime)checkedCouponItem.AwardFrom).ToShortDateString():"";
+                    workSheet.Cells[recordIndex, 7].Value = checkedCouponItem.AwardTo!=null?((DateTime)checkedCouponItem.AwardTo).ToShortDateString():"";
                     workSheet.Cells[recordIndex, 8].Value = checkedCouponItem.Enabled == true ? "yes" : "no";
-                    workSheet.Cells[recordIndex, 9].Value = ((CouponStatus)checkedCouponItem.Status).ToString() ;
+                    workSheet.Cells[recordIndex, 9].Value = ((CouponStatus)checkedCouponItem.Status).ToString();
                     workSheet.Cells[recordIndex, 10].Value = checkedCouponItem.Active == true ? "yes" : "no";
                     recordIndex++;
                 }
