@@ -285,14 +285,19 @@ namespace Web.Services.Impl
             return response;
         }
 
-        public Command Validate(string PromotionCode, string CouponCode, string User)
+        public Command Validate(string PromotionCode, string CouponCode, string User, string Channel)
         {
             _repo.LogAPIAccess("CouponAPI.Validate", "POS", "", true);
             Command response;
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
+            coupon.Promotion = _repo.GetPromotionByCode(PromotionCode);
             if (coupon == null)
             {
                 response = new Command(CommandStatus.ErrorCouponNotFound);
+            }
+            else if (coupon.Promotion.PromotionIssuerChannels.Where(x => x.IssuerChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
+            {
+                response = new Command(CommandStatus.Error_InvalidChannel);
             }
             else
             {

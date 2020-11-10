@@ -777,4 +777,8 @@
     <value>Coupons holder can't be updated.</value>
     <comment>Error message.</comment>
   </data>
+  <data name="Error_InvalidChannel_Message" xml:space="preserve">
+    <value>Invalid channel for promotion</value>
+    <comment>Invalid promotion channel on coupon validation</comment>
+  </data>
 </root>

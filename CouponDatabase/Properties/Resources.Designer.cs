@@ -763,6 +763,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid channel for promotion.
+        /// </summary>
+        public static string Error_InvalidChannel_Message {
+            get {
+                return ResourceManager.GetString("Error_InvalidChannel_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to System can&apos;t create more than 1 unique coupon..
         /// </summary>
         public static string Error_LimitedNumberOfCoupons_Message {

@@ -118,6 +118,7 @@ namespace CouponDatabase.Services
                          */
                         if (props.Contains(PropertyTypeEnum.AllowMultipleRedeems) && Coupon.CouponHistories.Any(i => i.User == user))
                             result = new Lifecycle.Command(CommandStatus.ErrorInvalidUser);
+
                     }
                 }
             }
