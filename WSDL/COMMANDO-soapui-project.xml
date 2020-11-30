@@ -429,12 +429,12 @@
    <soapenv:Body>
       <com:Assign>
         <!--Optional:-->
-         <com:PromotionCode>Easter4</com:PromotionCode>
+         <com:PromotionCode>EjTpIqgK</com:PromotionCode>
          <!--Optional:-->
-         <com:CouponCode>Easter01234567893</com:CouponCode>
+         <com:CouponCode>9l6dWUr4</com:CouponCode>
          <!--Optional:-->
          <com:Holder>38640440442</com:Holder>
-         <!--Optional:-->
+		<!--Optional:-->
          <com:User>38640440442</com:User>
       </com:Assign>
    </soapenv:Body>
@@ -550,7 +550,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>https://localhost:44389/CouponAPI</con:endpoint>
+        <con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header>
    	<com:Channel>POS</com:Channel>
@@ -558,16 +558,16 @@
    <soapenv:Body>
       <com:GetUserCoupons>
          <!--Optional:-->
-         <com:User>38640440482</com:User>
+         <com:User>38640440442</com:User>
       </com:GetUserCoupons>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
         <con:credentials>
-          <con:username>test</con:username>
-          <con:password>123</con:password>
+          <con:username>SIMOBIL.tst\sizdit</con:username>
+          <con:password>Ljubo.On20</con:password>
           <con:domain xsi:nil="true"/>
-          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
-          <con:authType>No Authorization</con:authType>
+          <con:selectedAuthProfile>Basic</con:selectedAuthProfile>
+          <con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
         </con:credentials>
         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
         <con:jmsPropertyConfig/>
@@ -582,22 +582,22 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://localhost:58506/CouponAPI</con:endpoint>
+        <con:endpoint>http://wscoupont.simobil.tst/CouponAPI</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:com="http://www.triple-innovations.com/WS/COMMANDO/">
    <soapenv:Header/>
    <soapenv:Body>
       <com:Redeem>
          <!--Optional:-->
-         <com:PromotionCode>55</com:PromotionCode>
+         <com:PromotionCode>EjTpIqgK</com:PromotionCode>
          <!--Optional:-->
-         <com:CouponCode>2test_n2mldux6</com:CouponCode>
+         <com:CouponCode>9l6dWUr4</com:CouponCode>
          <!--Optional:-->
-         <com:User>38640440482</com:User>
+         <com:User>38640440442</com:User>
       </com:Redeem>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
         <con:credentials>
-          <con:authType>No Authorization</con:authType>
+          <con:username>SIMOBIL.tst\sizdit</con:username><con:password>Ljubo.On20</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
         </con:credentials>
         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
         <con:jmsPropertyConfig/>
