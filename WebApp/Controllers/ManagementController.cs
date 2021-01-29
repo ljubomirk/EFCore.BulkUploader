@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 namespace WebApp.Controllers
 {
 
-    //[Authorize]
+    [Authorize(Roles = "Coupon Admins,Coupon Users")]
     [Route("Management/[action]")]
     public class ManagementController : BaseController
     {

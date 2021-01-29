@@ -13,6 +13,7 @@
     <PackageId>COMMANDO.WebApp</PackageId>
     <PackageProjectUrl>https://triple-innovations.com/solutions/CouponManagementSystem.php</PackageProjectUrl>
     <IsPackable>true</IsPackable>
+    <UserSecretsId>df2221a1-efc3-4bce-84e0-f433afce8d22</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>

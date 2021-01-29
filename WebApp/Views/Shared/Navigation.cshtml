@@ -1,9 +1,20 @@
-﻿@{ 
+﻿@using TripleI.ActiveDirectory;
+@{
+
     // get controller name to determine active link
     string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
 
     // get role to determine if Admin section will be available
     string Role = Model.AgentGroup;
+    string Username = Model.AgentUsername;
+    string Domain = null;
+    if (Username?.Split('\\').Length > 1)
+    {
+        Domain = Model.AgentUsername.Split('\\')[0];
+        Username = Model.AgentUsername.Split('\\')[1];
+    }
+
+
 }
 <div class="navbar-fixed">
     <nav class="nav-extended">
@@ -13,18 +24,21 @@
         <div class="container nav-content">
             <ul class="tabs tabs-transparent">
                 <li class="tab" style="display:none"><a href="#"></a></li>
-                <li class="tab first">
-                    <a class="@(controllerName == "Management" ? "active" : "")" target="_self" href="@Url.Action("ListPromotions", "Management")">
-                        @CouponDatabase.Properties.Resources.Nav_Management
-                    </a>
-                </li>
-                <li class="tab">
-                    <a class="@(controllerName == "Lifecycle" ? "active" : "")" target="_self" href="@Url.Action("Index", "Lifecycle")">
-                        @CouponDatabase.Properties.Resources.Nav_Lifecycle
-                    </a>
-                </li>
+                @if (Role == Constants.AccessGrantLevel2 || Role == Constants.AccessGrantLevel1)
+                {
+                    <li class="tab first">
+                        <a class="@(controllerName == "Management" ? "active" : "")" target="_self" href="@Url.Action("ListPromotions", "Management")">
+                            @CouponDatabase.Properties.Resources.Nav_Management
+                        </a>
+                    </li>
+                    <li class="tab">
+                        <a class="@(controllerName == "Lifecycle" ? "active" : "")" target="_self" href="@Url.Action("Index", "Lifecycle")">
+                            @CouponDatabase.Properties.Resources.Nav_Lifecycle
+                        </a>
+                    </li>
+                }
                 @* TODO: update role string to variable *@
-                @if (Role == "CouponAdmin")
+                @if (Role == Constants.AccessGrantLevel2)
                 {
                     <li class="tab">
                         <a class="@(controllerName == "Administration" ? "active" : "")" target="_self" href="@Url.Action("Users","Administration")">
@@ -35,7 +49,7 @@
                 <li class="tab last right bold-text">
                     <a class="@(controllerName == "Administration" ? "active" : "")" href="@Url.Action("Index","Home")" target="_self">
                         <span class="grey-text">@CouponDatabase.Properties.Resources.Nav_LoggedIn </span>
-                        <span class="black-text">@@@Model.AgentUsername</span>
+                        <span class="black-text">@Username@@@Domain</span>
                     </a>
                 </li>
             </ul>

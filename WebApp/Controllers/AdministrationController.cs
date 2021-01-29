@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "Coupon Admins")]
     public class AdministrationController : BaseController
     {
         private readonly RepositoryServices _repo;
@@ -43,6 +44,14 @@ namespace WebApp.Controllers
 
         public IActionResult UpdateUsers(UsersViewModel model)
         {
+            //_repo.ClearUsers();
+            /*TripleI.ActiveDirectory.LdapAuthorization ldap = new TripleI.ActiveDirectory.LdapAuthorization();
+            IList<string> list = ldap.SearchUsersInGroup(TripleI.ActiveDirectory.Constants.CouponAdmins);
+            foreach (string user in list)
+                _repo.AddUser(new CouponDatabase.Models.User(AccessTypeEnum.Administrator, user, "", ""));
+            list = ldap.SearchUsersInGroup(TripleI.ActiveDirectory.Constants.CouponUsers);
+            foreach (string user in list)
+                _repo.AddUser(new CouponDatabase.Models.User(AccessTypeEnum.Manager, user, "", ""));*/
             ViewBag.Command = new Command(CommandStatus.Valid);
             return RedirectToAction("Users");
         }
