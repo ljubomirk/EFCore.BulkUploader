@@ -122,9 +122,9 @@ namespace WebApp
             app.UseSession();
 
             if (!env.EnvironmentName.Equals("Development"))
-            {
                 app.UseLdapAuthorizationService();
-            }
+            else
+                app.UseLocalMachineService();
 
             app.UseMvcWithDefaultRoute();
 

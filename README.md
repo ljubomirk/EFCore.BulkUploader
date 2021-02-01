@@ -17,6 +17,11 @@ Check out this repositry and open solution COMMANDO for start working on project
     1. On Solution right click -> Restore NuGet packages
     2. Rebuild solution
 
+  - On local machine use Development configuration 
+    1. add local user to authenticate (Manage Computer)
+    2. add user groups "Coupon Admins", "Coupon Users"
+    3. assign user to groups
+
   - Setup local SQLServer
     1. Open PackageManager Console
     2. Call\
