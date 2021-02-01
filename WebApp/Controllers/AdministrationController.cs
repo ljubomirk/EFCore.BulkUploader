@@ -13,20 +13,25 @@ using WebApp.Services;
 using WebApp.ViewModels;
 using CouponSystem = CouponDatabase.Models.System;
 using Microsoft.AspNetCore.Authorization;
+using TripleI.ActiveDirectory;
+using Microsoft.Extensions.Configuration;
 
 namespace WebApp.Controllers
 {
+    [Authorize(Roles = "Coupon Admins")]
     public class AdministrationController : BaseController
     {
         private readonly RepositoryServices _repo;
         private readonly ApplicationDbContext _context;
         private readonly ILogger<AdministrationController> _logger;
+        private readonly IConfiguration _options;
 
-        public AdministrationController(ApplicationDbContext context, ILogger<AdministrationController> logger)
+        public AdministrationController(ApplicationDbContext context, ILogger<AdministrationController> logger, IConfiguration options)
         {
             _repo = new RepositoryServices(context, logger);
             _context = context;
             _logger = logger;
+            _options = options;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -43,7 +48,28 @@ namespace WebApp.Controllers
 
         public IActionResult UpdateUsers(UsersViewModel model)
         {
-            ViewBag.Command = new Command(CommandStatus.Valid);
+            string usr = _options["LdapService:User"];
+            string pwd = _options["LdapService:Password"];
+            string host = _options["LdapService:Host"];
+            string domain = _options["LdapService:Domain"];
+            using (LdapAuthorization ldap = new LdapAuthorization(usr, pwd, host, domain, _logger))
+            {
+                if (ldap.Connect())
+                {
+                    List<User> fetchedUsers = new List<User>();
+                    IList<LdapAuthorization.User> listAdmins = ldap.SearchUsersInGroup(Constants.CouponAdmins);
+                    foreach (LdapAuthorization.User user in listAdmins)
+                    {
+                        fetchedUsers.Add(new User() { Username = user.Username, Fullname = user.Fullname, Domain = user.Domain, AccessType = AccessTypeEnum.Administrator });
+                    }
+                    IList<LdapAuthorization.User> listManagers = ldap.SearchUsersInGroup(Constants.CouponAdmins);
+                    foreach (LdapAuthorization.User user in listManagers)
+                        fetchedUsers.Add(new User() { Username = user.Username, Fullname = user.Fullname, Domain = user.Domain, AccessType = AccessTypeEnum.Manager });
+                    ViewBag.Command = _repo.UpdateUsers(fetchedUsers);
+                }
+                else
+                    ViewBag.Command = new Command(CommandStatus.ErrorSystem);
+            }
             return RedirectToAction("Users");
         }
 

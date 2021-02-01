@@ -23,7 +23,7 @@ using OfficeOpenXml;
 namespace WebApp.Controllers
 {
 
-    //[Authorize]
+    [Authorize(Roles = "Coupon Admins,Coupon Users")]
     [Route("Lifecycle/[action]")]
     public class LifecycleController : BaseController
     {

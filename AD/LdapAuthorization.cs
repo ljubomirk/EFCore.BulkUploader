@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.Protocols;
@@ -20,6 +21,12 @@ namespace TripleI.ActiveDirectory
         private LdapConnection conn;
         private string _dname;
         private ILogger _logger;
+        public class User
+        {
+            public string Username { get; set; }
+            public string Fullname { get; set; }
+            public string Domain { get; set; }
+        }
 
         public string Domain { get => _dname; }
 
@@ -42,10 +49,14 @@ namespace TripleI.ActiveDirectory
         public bool Connect()
         {
             bool result = true;
-            var credentials = new NetworkCredential(_username, _password);
+            var credentials = new NetworkCredential(_username, _password); 
             var serverId = new LdapDirectoryIdentifier(_ldap);
+            
+            if (credentials.UserName!="")
+                conn = new LdapConnection(serverId, credentials);
+            else
+                conn = new LdapConnection(serverId);
 
-            conn = new LdapConnection(serverId, credentials);
             try
             {
                 conn.Bind();
@@ -59,39 +70,49 @@ namespace TripleI.ActiveDirectory
             }
             return result;
         }
-        public IList<string> SearchGroups(string groupName)
-        {
-            string filter = "(&(objectClass = group)(sAMAccountName = {0}))".Replace("{0}", groupName);
-            IList<string> groups = new List<string>();
-            foreach (SearchResultEntry found in SearchLdap(filter))
-            {
-                groups.Add((string)found.Attributes["Name"].GetValues(string.Empty.GetType())[0]);
-            }
-            return groups;
-        }
 
-        public IList<string> SearchUsers(string userName)
+        public User SearchUser(string userName)
         {
             string filter = "(&(objectClass=user)(sAMAccountName={0}))".Replace("{0}", userName);
-            IList<string> users = new List<string>();
-            SearchLdap(filter);
-            return users;
+            User user = null;
+            SearchResultEntryCollection found = SearchLdap(filter);
+            if (found!=null)
+            {
+                user = new User()
+                {
+                    Username = (string)found[0].Attributes["samaccountname"].GetValues(string.Empty.GetType())[0],
+                    Fullname = (string)found[0].Attributes["name"].GetValues(string.Empty.GetType())[0],
+                    Domain = this.Domain
+                };
+            }
+            return user;
         }
 
-        public IList<string> SearchUsersInGroup(string groupName)
+        public IList<User> SearchUsersInGroup(string groupName)
         {
             string filter = "(&(objectClass=user)(memberOf=CN={0}, OU = Groups, {1}))".Replace("{0}", groupName).Replace("{1}", _dname);
-            IList<string> users = new List<string>();
-            SearchLdap(filter);
+            IList<User> users = new List<User>();
+            SearchResultEntryCollection ret = SearchLdap(filter);
+            IEnumerator en = ret.GetEnumerator();
+            while (en.MoveNext())
+            {
+                SearchResultEntry found = (SearchResultEntry)en.Current;
+
+                User user = new User()
+                {
+                    Username = (string)found.Attributes["samaccountname"].GetValues(string.Empty.GetType())[0],
+                    Fullname = (string)found.Attributes["name"].GetValues(string.Empty.GetType())[0],
+                    Domain = this.Domain
+                };
+            }
             return users;
         }
 
-        public IList<string> IsUserInGroup(string userName, string groupName)
+        public bool IsUserInGroup(string userName, string groupName)
         {
             string filter = "(&(objectClass=user)(sAMAccountName={0})(memberOf=CN={1}, OU = Groups, {2}))".Replace("{0}", userName).Replace("{1}", groupName).Replace("{2}", _dname);
-            IList<string> users = new List<string>();
-            SearchLdap(filter);
-            return users;
+            SearchResultEntryCollection ret = SearchLdap(filter);
+            return ret.Count == 1;
         }
         
         private SearchResultEntryCollection SearchLdap(string filter)

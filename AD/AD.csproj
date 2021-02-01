@@ -6,6 +6,7 @@
     <ApplicationIcon />
     <StartupObject />
     <Description>Active Directory test script</Description>
+    <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -48,7 +48,10 @@ namespace WebApp
             services.AddLogging();
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
-            services.AddAuthorization();
+
+            services.AddAuthorization(configure => {
+                configure.DefaultPolicy = configure.DefaultPolicy;
+                });
             bool dataLoggingOption = Configuration.GetValue<bool>("DbProvider:Logging");
             string DbProviderName = Configuration.GetValue<string>("DbProvider:Name");
             if (DbProviderName == "Oracle")
