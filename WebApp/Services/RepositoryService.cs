@@ -675,12 +675,27 @@ namespace WebApp.Services
         }
 
 
-        internal dynamic AddUser(User user)
+        public Command UpdateUsers(IList<User> users)
         {
             Command result = new Command(CommandStatus.Valid);
             try
             {
-                Context.ApplUser.Add(user);
+                //Update users
+                foreach(User usr in Context.ApplUser.AsEnumerable<User>())
+                {
+                    User found = users.First(u => u.Username == usr.Username);
+                    if (found != null)
+                    {
+                        usr.Fullname = found.Fullname;
+                        usr.AccessType = found.AccessType;
+                        usr.Domain = found.Domain;
+                    }
+                    Context.ApplUser.Update(usr);
+                }
+                //Remove users not in new list
+                Context.ApplUser.RemoveRange(Context.ApplUser.Except(users));
+                //Insert new users
+                Context.ApplUser.AddRange(users.Except(Context.ApplUser));
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
