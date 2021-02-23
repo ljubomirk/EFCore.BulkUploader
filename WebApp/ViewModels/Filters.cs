@@ -157,6 +157,24 @@ namespace WebApp.ViewModels
                 List<long> f_IssuerChannel = couponFilter.IssuerChannels.Where(a => a.Checked).Select(a => a.Id).ToList();
                 List<long> f_CurrentStatus = couponFilter.CurrentStatus.Where(a => a.Checked).Select(a => a.Id).ToList();
 
+                //coupon code check
+                if (couponFilter.CouponCode != null)
+                {
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.Code.ToLower().Contains(couponFilter.CouponCode.ToLower())).ToList<Coupon>();
+                }
+
+                //coupon user check
+                if (couponFilter.User != null)
+                {
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.User.ToLower().Contains(couponFilter.User.ToLower())).ToList<Coupon>();
+                }
+
+                //coupon holder check
+                if (couponFilter.Holder != null)
+                {
+                    f_ListOfCoupons = f_ListOfCoupons.Where(x => x.Holder.ToLower().Contains(couponFilter.Holder.ToLower())).ToList<Coupon>();
+                }
+
                 // Create method get filterActiveProducts(list, filter)
                 if (couponFilter.ActiveCoupons)
                 {
