@@ -44,6 +44,12 @@ namespace WebApp.ViewModels
         [Display(Name = "Date_RedeemableTo", ResourceType = typeof(Resources))]
         public Nullable<DateTime> RedeemableUntil { get; set; }
 
+        public string CouponCode { get; set; }
+
+        public string User { get; set; }
+
+        public string Holder { get; set; }
+
         public CouponFilters()
         {
             ActiveCoupons = true;
