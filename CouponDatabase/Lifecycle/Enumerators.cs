@@ -63,6 +63,10 @@ namespace CouponDatabase.Lifecycle
         [EnumMemberAttribute]
         Error_InvalidChannel = 20,
         [EnumMemberAttribute]
+        ErrorAlreadyUsed = 21,
+        [EnumMemberAttribute]
+        ErrorInvalidDate = 22,
+        [EnumMemberAttribute]
         ErrorSystem = 99
     }
 
