@@ -91,7 +91,14 @@ namespace CouponDatabase.Services
             if (_loadStatus > 0)
             {
                 if (Coupon.Status != (int)CouponStatus.Issued)
-                    result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                    if(Coupon.Status == (int)CouponStatus.Redeemed)
+                    {
+                        result = new Lifecycle.Command(CommandStatus.ErrorAlreadyUsed);
+                    }
+                    else
+                    {
+                        result = new Lifecycle.Command(CommandStatus.ErrorInvalidStatus);
+                    }
                 if (result.Status == CommandStatus.Valid)
                 {
                     List<PropertyTypeEnum> props = Coupon.Promotion.GetProperties();
