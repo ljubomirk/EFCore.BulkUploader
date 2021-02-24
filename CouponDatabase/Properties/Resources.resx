@@ -185,6 +185,14 @@
     <value>Promotion was not found for the code:</value>
     <comment>When not found.</comment>
   </data>
+  <data name="ErrorAlreadyUsed_Message" xml:space="preserve">
+    <value>Coupon was already used:</value>
+    <comment>When coupon was already used.</comment>
+  </data>
+  <data name="ErrorInvalidDate_Message" xml:space="preserve">
+    <value>Coupon date is invalid:</value>
+    <comment>When coupon date is invalid.</comment>
+  </data>
   <data name="LifecycleAction_Assign" xml:space="preserve">
     <value>Assign</value>
     <comment>Lifecycle action.</comment>
