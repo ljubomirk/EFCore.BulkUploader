@@ -62,9 +62,10 @@ namespace WebApp.Controllers
             PromotionListViewModel model = new PromotionListViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
             Filters filters = new Filters(_context);
 
-            List<Promotion> filteredListOfPromotions = filters.GetFilteredPromotionList(filter);
+            PromotionList promoList = new PromotionList();
+            promoList.Promotions = filters.GetFilteredPromotionList(filter);
 
-            model.Promotions.AddRange(filteredListOfPromotions);
+            model.Promotions.AddRange(promoList.Promotions);
             model.Filter = filter;
             return View("PromotionList", model);
         }

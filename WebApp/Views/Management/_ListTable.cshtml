@@ -2,41 +2,48 @@
     ROLE: displays a list of promotions as a table
 *@
 
-@model IEnumerable<CouponDatabase.Models.Promotion>;
+@model WebApp.ViewModels.PromotionList;
 
 <table data-nosort-target="-1" id="promotion-list" class="striped highlight">
     <thead>
         <tr>
+            <th>
+                <label>
+                    @Html.CheckBoxFor(m => m.SelectAllPromotions, new { @class = "filled-in", id = "checkbox-allpromotions" })
+                    <span></span>
+                    @Html.HiddenFor(m => m.SelectAllPromotions)
+                </label>
+            </th>
             <th hidden>
-            @Html.DisplayNameFor(m => m.Id)
-            <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Name)
+                @Html.DisplayNameFor(m => m.Promotion.Id)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Code)
+                @Html.DisplayNameFor(m => m.Promotion.Name)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.ValidFrom)
+                @Html.DisplayNameFor(m => m.Promotion.Code)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.ValidTo)
+                @Html.DisplayNameFor(m => m.Promotion.ValidFrom)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.HasCoupons)
+                @Html.DisplayNameFor(m => m.Promotion.ValidTo)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Active)
+                @Html.DisplayNameFor(m => m.Promotion.HasCoupons)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>
-                @Html.DisplayNameFor(m => m.Enabled)
+                @Html.DisplayNameFor(m => m.Promotion.Active)
+                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Promotion.Enabled)
                 <img src="~/images/sorting_hidden.png" class="sorting-icon" />
             </th>
             <th>&nbsp;</th>
@@ -44,7 +51,7 @@
     </thead>
 
     <tbody>
-        @foreach (var p in Model)
+        @foreach (var p in Model.Promotions)
         {
             bool allowCoupons = false;
 
@@ -54,9 +61,17 @@
                 {
                     allowCoupons = true;
                     break;
-                } 
+                }
             }
         <tr>
+            <td>
+                <label>
+                    @Html.CheckBoxFor(p => Model.PromotionItems[0].Checked, new { @class = "filled-in checkbox-promotion" })
+                    <span></span>
+                    @Html.HiddenFor(p => Model.PromotionItems[0].Id)
+                    @Html.HiddenFor(p => Model.PromotionItems[0].Label)
+                </label>
+            </td>
             <!--descending ordering by promotion id, id column is hidden -->
             <td hidden>@Html.DisplayFor(item => p.Id)</td>
             <td>@Html.DisplayFor(item => p.Name)</td>
@@ -152,6 +167,36 @@
             }
 
             modalAction.attr("href", url);
+        });
+
+        // handle chekcbox status
+        // checkbox: MASTER
+        $("#checkbox-allpromotions").on('click', function (e) {
+            var chkMaster = $(this);
+            var chkBoxes = $(".checkbox-promotion");
+
+            $(this).prop("indeterminate", false).change();
+            // set class if changed
+            if (chkMaster.hasClass("filled-in-indeterminate")) {
+                chkMaster.removeClass("filled-in-indeterminate")
+                chkMaster.addClass("filled-in");
+            }
+            // check state and set all other chkboxes
+            if (chkMaster.is(":checked")) {
+                chkBoxes.each(function () {
+                    if (!$(this).prop("checked")) {
+                        $(this).prop("checked", true);
+                    }
+                })
+            } else {
+                chkBoxes.each(function () {
+                    if ($(this).prop("checked")) {
+                        $(this).prop("checked", false);
+                    }
+                })
+            }
+
+            enableModalTrigger();
         });
     });
 </script>
