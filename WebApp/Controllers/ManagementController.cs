@@ -65,6 +65,10 @@ namespace WebApp.Controllers
             PromotionList promoList = new PromotionList();
             promoList.Promotions = filters.GetFilteredPromotionList(filter);
 
+            model.PromotionList.Promotion = new Promotion();
+            model.PromotionList.Promotions = promoList.Promotions;
+            model.PromotionList.PromotionItems = setModelPromotionList(promoList.Promotions);
+
             model.Promotions.AddRange(promoList.Promotions);
             model.Filter = filter;
             return View("PromotionList", model);
@@ -457,6 +461,28 @@ namespace WebApp.Controllers
                     potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
             }
             return potentiallySameCoupons;
+        }
+
+        /*
+    * Generate coupon checkboxes for coupon list view.
+    */
+        private List<CheckedPromotionItem> setModelPromotionList(List<Promotion> promotions)
+        {
+            List<CheckedPromotionItem> checkedItems = new List<CheckedPromotionItem>();
+            foreach (Promotion promotion in promotions)
+            {
+                checkedItems.Add(new CheckedPromotionItem
+                {
+                    Checked = false,
+                    Code = promotion.Code,
+                    Name = promotion.Name,
+                    Enabled = promotion.Enabled,
+                    Active = promotion.Active,
+                    HasCoupons = promotion.HasCoupons,
+                    Id = promotion.Id
+                });
+            }
+            return checkedItems;
         }
         #endregion
     }

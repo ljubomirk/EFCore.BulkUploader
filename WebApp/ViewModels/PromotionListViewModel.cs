@@ -17,6 +17,8 @@ namespace WebApp.ViewModels
         public PromotionListViewModel(string username, string group) : base(username, group)
         {
             Promotions = new List<Promotion>();
+            PromotionList = new PromotionList();
+            PromotionList.Promotions = new List<Promotion>();
         }
         public void Add(Promotion promo)
         {
@@ -26,5 +28,6 @@ namespace WebApp.ViewModels
         {
             Promotions.AddRange(promos);
         }
+        public PromotionList PromotionList { get; set; }
     }
 }
