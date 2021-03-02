@@ -85,9 +85,19 @@
                     @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                 </td>
                 <td>
-                    @Html.DisplayFor(item => item.CouponList.CouponItems[i].User)
-                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].User)
-                    @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                    @if (Model.CouponList.CouponItems[i].IsMultipleRedeem)
+                    {
+                        <a href="#modal-multiple_redeem" class="modal-trigger" id="modal-trigger" onclick="updateUsersList('@Model.CouponList.CouponItems[i].User')">
+                            <i class="material-icons material-icons__hover">more_horiz</i>
+                        </a>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(item => item.CouponList.CouponItems[i].User)
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].User)
+                        @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
+                    }
+
                 </td>
                 <td>
                     @Html.DisplayFor(item => item.CouponList.CouponItems[i].AwardFrom)
@@ -140,16 +150,19 @@
 <!-- action to call confirmation modal -->
 <div class="col s12">
     <button type="submit" class="waves-effect waves-light btn-flat btn-primary right" id="btn-export" formaction="/Lifecycle/ExportCoupons">
-            <i class="material-icons update-icon left">file_download</i>
-            @CouponDatabase.Properties.Resources.Btn_Export
-        </button>
+        <i class="material-icons update-icon left">file_download</i>
+        @CouponDatabase.Properties.Resources.Btn_Export
+    </button>
 </div>
 
+<!-- multiple redeem modal -->
+<partial name="_MultipleRedeemModal" />
+<!-- /multiple redeem modal -->
 
 <script src="~/js/datatables.js" asp-append-version="true"></script>
 @*<script src="~/js/dataTables.buttons.min.js" asp-append-version="true"></script>
-<script src="~/js/jszip.min.js" asp-append-version="true"></script>
-<script src="~/js/buttons.html5.min.js" asp-append-version="true"></script>*@
+    <script src="~/js/jszip.min.js" asp-append-version="true"></script>
+    <script src="~/js/buttons.html5.min.js" asp-append-version="true"></script>*@
 <script>
     $(document).ready(function () {
 
@@ -260,6 +273,17 @@
             var num = getChecked();
             setMaterCheckbox(num);
             enableModalTrigger();
+        });
+
+        // update button logic for enable/disable style
+        var btn = $("#modal-trigger");
+        var trigger = $("#modal-action");
+
+        var loadingContent = '<i class="material-icons loading u-m-l-lg u-m-r-lg">autorenew</i>';
+
+        // change style when form submitted from modal
+        trigger.click(function () {
+            btn.html(loadingContent);
         });
     });
 

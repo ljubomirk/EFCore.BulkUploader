@@ -1,0 +1,35 @@
+﻿@model WebApp.ViewModels.CheckedCouponItem;
+
+@{
+    ViewData["Title"] = "_MultipleRedeemModal";
+}
+
+<!-- Modal -->
+<div id="modal-notify-list" class="modal">
+    <div class="modal-content">
+        <table data-nosort-target="0" id="user-list" class="striped highlight">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.User)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var users = Model?.User.Split(",");
+                }
+                @for (int i = 0; i < users.Length; i++)
+                {
+                    <tr>
+                        <td>
+                            users[i]
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>          
+    </div>
+</div>
+<!-- /Modal-->

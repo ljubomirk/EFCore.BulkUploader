@@ -771,7 +771,7 @@ namespace WebApp.Controllers
                     Id = coupon.Id,
                     Code = coupon.Code,
                     Holder = coupon.Holder,
-                    User = coupon.User,
+                    User = _repo.IsMultipleRedeem(coupon.PromotionId) ? _repo.getAllCouponUsers(coupon.Id) : coupon.User,
                     Enabled = coupon.Enabled,
                     Status = coupon.Status,
                     Active = coupon.Active,

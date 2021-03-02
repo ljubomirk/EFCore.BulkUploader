@@ -34,6 +34,8 @@ namespace WebApp.ViewModels
         [DataType(DataType.Date)]
         public Nullable<DateTime> AwardTo { get; set; }
 
+        public bool IsMultipleRedeem { get; set; }
 
+        public long PromotionId { get; set; }
     }
 }

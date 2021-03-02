@@ -710,6 +710,17 @@ namespace WebApp.Services
             return result;
         }
 
+        public string getAllCouponUsers(long Id)
+        {
+            return string.Join(",", Context.CouponHistory.Where(x => x.CouponId == Id && x.Status == 3 && x.User != null).Select(o => o.User).ToList());
+        }
+
+        public bool IsMultipleRedeem(long promotionId)
+        {
+            long multipleRedeemId = Context.Property.Where(x => x.Name == "AllowMultipleRedeems").FirstOrDefault().Id;
+            return Context.PromotionProperty.Where(x => x.PromotionId == promotionId && x.PropertyId == multipleRedeemId).Any();
+        }
+
     }
 
     public class PromotionFactory : IPromotion
