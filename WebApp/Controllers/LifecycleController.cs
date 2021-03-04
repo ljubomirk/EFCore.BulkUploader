@@ -778,7 +778,8 @@ namespace WebApp.Controllers
                     AquireTo = coupon.AquireTo,
                     AquireFrom = coupon.AquireFrom,
                     AwardFrom = coupon.AwardFrom,
-                    AwardTo = coupon.AwardTo
+                    AwardTo = coupon.AwardTo,
+                    IsMultipleRedeem = _repo.IsMultipleRedeem(coupon.PromotionId)
                 });
             }
             return checkedItems;
@@ -803,14 +804,15 @@ namespace WebApp.Controllers
                         Code = coupon.Code,
                         Enabled = coupon.Enabled,
                         Holder = coupon.Holder,
-                        User = coupon.User,
+                        User = _repo.IsMultipleRedeem(coupon.PromotionId) ? _repo.getAllCouponUsers(coupon.Id) : coupon.User,
                         Label = coupon.Code,
                         Id = coupon.Id,
                         Status = coupon.Status,
                         AquireFrom = coupon.AquireFrom,
                         AquireTo = coupon.AquireTo,
                         AwardFrom = coupon.AwardFrom,
-                        AwardTo = coupon.AwardTo
+                        AwardTo = coupon.AwardTo,
+                        IsMultipleRedeem = _repo.IsMultipleRedeem(coupon.PromotionId)
                     });
                 } else
                 {

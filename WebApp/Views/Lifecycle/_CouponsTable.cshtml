@@ -85,7 +85,7 @@
                     @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                 </td>
                 <td>
-                    @if (Model.CouponList.CouponItems[i].IsMultipleRedeem)
+                    @if (Model.CouponList.CouponItems[i].IsMultipleRedeem && Model.CouponList.CouponItems[i].User.Contains(","))
                     {
                         <a href="#modal-multiple_redeem" class="modal-trigger" id="modal-trigger" onclick="updateUsersList('@Model.CouponList.CouponItems[i].User')">
                             <i class="material-icons material-icons__hover">more_horiz</i>
@@ -287,4 +287,9 @@
         });
     });
 
+    updateUsersList(listUsers) {
+        for(var i = 0; i < listUsers.length ; i++){
+            $('#users-list').append('<li>'+listUsers[i]+'</li>');
+        }  
+    });
 </script>
