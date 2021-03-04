@@ -5,6 +5,29 @@
         <h5 class="section u-m-t-remove">@CouponDatabase.Properties.Resources.LifecycleCouponFilter_Title</h5>
     </div>
 </div>
+
+<!-- USER / HOLDER / CODE -->
+<div class="row">
+    <div class="input-field date col s4">
+        @Html.EditorFor(f => f.User, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.User, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.User)
+        <i class='material-icons suffix validation-error'>warning</i>
+    </div>
+    <div class="input-field date col s4">
+        @Html.EditorFor(f => f.Holder, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.Holder, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.Holder)
+        <i class='material-icons suffix validation-error'>warning</i>
+    </div>
+    <div class="input-field date col s4">
+        @Html.EditorFor(f => f.CouponCode, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+        @Html.LabelFor(f => f.CouponCode, new { htmlAttributes = new { @class = "active" } })
+        @Html.ValidationMessageFor(p => p.CouponCode)
+        <i class='material-icons suffix validation-error'>warning</i>
+    </div>
+</div>
+
 <!-- Assignable From / To -->
 <div class="row">
     <div class="input-field date col s6">
@@ -38,30 +61,6 @@
         @Html.ValidationMessageFor(f => f.RedeemableUntil)
         <i class='material-icons suffix validation-error'>warning</i>
         <i class='material-icons suffix date-icon'>event</i>
-    </div>
-</div>
-
-<div class="row">
-    <div class="input-field date col s6">   
-        @Html.EditorFor(f => f.User, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.User, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.User)
-        <i class='material-icons suffix validation-error'>warning</i>
-    </div>
-    <div class="input-field date col s6">
-        @Html.EditorFor(f => f.Holder, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.Holder, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.Holder)
-        <i class='material-icons suffix validation-error'>warning</i>
-    </div>
-</div>
-
-<div class="row">
-    <div class="input-field date col s6">
-        @Html.EditorFor(f => f.CouponCode, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-        @Html.LabelFor(f => f.CouponCode, new { htmlAttributes = new { @class = "active" } })
-        @Html.ValidationMessageFor(p => p.CouponCode)
-        <i class='material-icons suffix validation-error'>warning</i>
     </div>
 </div>
 
@@ -145,7 +144,7 @@
             $('#AssignableUntil').calendar('setDate', "");
         });
 
-        
+
         $("#RedeemableFrom").calendar().on('changeDate', function (selected) {
             var minDate = new Date(selected.date.valueOf());
             $('#RedeemableUntil').calendar('setStartDate', minDate);

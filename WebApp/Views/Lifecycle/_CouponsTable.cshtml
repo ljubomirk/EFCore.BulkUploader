@@ -85,9 +85,9 @@
                     @Html.HiddenFor(c => c.CouponList.CouponItems[i].Label)
                 </td>
                 <td>
-                    @if (Model.CouponList.CouponItems[i].IsMultipleRedeem && Model.CouponList.CouponItems[i].User.Contains(","))
+                    @if (Model.CouponList.CouponItems[i].IsMultipleRedeem && Model.CouponList.CouponItems[i].User != "")
                     {
-                        <a href="#modal-multiple_redeem" class="modal-trigger" id="modal-trigger" onclick="updateUsersList('@Model.CouponList.CouponItems[i].User')">
+                        <a href="#modal-multiple-redeem" class="modal-trigger" id="modal-trigger" onclick="updateUsersList('@Model.CouponList.CouponItems[i].User', '@Model.CouponList.CouponItems[i].Code')">
                             <i class="material-icons material-icons__hover">more_horiz</i>
                         </a>
                     }
@@ -287,9 +287,12 @@
         });
     });
 
-    updateUsersList(listUsers) {
-        for(var i = 0; i < listUsers.length ; i++){
-            $('#users-list').append('<li>'+listUsers[i]+'</li>');
+    function updateUsersList(listUsers, code) {
+        $("#coupon-code").text(code);
+        var usersArray = listUsers.split(",");
+        usersArray.sort();
+        for (var i = 0; i < usersArray.length ; i++){
+            $('#users-list').append('<li>' + usersArray[i]+'</li>');
         }  
-    });
+    };
 </script>
