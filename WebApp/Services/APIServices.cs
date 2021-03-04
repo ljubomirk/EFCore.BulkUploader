@@ -78,8 +78,13 @@ namespace Web.Services.Impl
             {
                 List<CouponDatabase.Models.Coupon> coupons = new List<CouponDatabase.Models.Coupon>();
                 CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(CouponCode, Holder, User, CouponStatus.Created, _promo);
-                if(ExpireDate.HasValue)
+                if (ExpireDate.HasValue)
+                {
                     coupon.AwardTo = ExpireDate;
+                    coupon.AquireTo = ExpireDate;
+                }
+                coupon.AwardFrom = DateTime.Today;
+                coupon.AquireFrom = DateTime.Today;
                 response = UpdateCouponStatus(coupon, Status);
                 if (response.Status == CommandStatus.Valid) { 
                     coupons.Add(coupon);
@@ -106,7 +111,12 @@ namespace Web.Services.Impl
                 {
                     CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(c.Code, c.Holder, c.User, CouponStatus.Created, _promo);
                     if (c.ExpireDate.HasValue)
+                    {
                         coupon.AwardTo = c.ExpireDate;
+                        coupon.AquireTo = c.ExpireDate;
+                    }
+                    coupon.AwardFrom = DateTime.Today;
+                    coupon.AquireFrom = DateTime.Today;
                     response = UpdateCouponStatus(coupon, c.Status);
                     if (response.Status == CommandStatus.Valid)
                         storeCoupons.Add(coupon);
