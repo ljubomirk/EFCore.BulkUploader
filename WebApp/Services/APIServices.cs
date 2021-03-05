@@ -78,6 +78,7 @@ namespace Web.Services.Impl
             {
                 List<CouponDatabase.Models.Coupon> coupons = new List<CouponDatabase.Models.Coupon>();
                 CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(CouponCode, Holder, User, CouponStatus.Created, _promo);
+                coupon.Enabled = _repo.isPromotionEnabled(PromotionCode);
                 if (ExpireDate.HasValue)
                 {
                     coupon.AwardTo = ExpireDate;
@@ -110,6 +111,7 @@ namespace Web.Services.Impl
                 foreach (Coupon c in coupons)
                 {
                     CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(c.Code, c.Holder, c.User, CouponStatus.Created, _promo);
+                    coupon.Enabled = _repo.isPromotionEnabled(PromotionCode);
                     if (c.ExpireDate.HasValue)
                     {
                         coupon.AwardTo = c.ExpireDate;

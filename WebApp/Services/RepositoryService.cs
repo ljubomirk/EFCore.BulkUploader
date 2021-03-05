@@ -104,6 +104,11 @@ namespace WebApp.Services
             return ret.ToList();
         }
 
+        public bool isPromotionEnabled(string promotionCode)
+        {
+            return Context.Promotion.Where(x => x.Code == promotionCode).FirstOrDefault().Enabled;
+        }
+
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
             if (PromotionCode != null || CouponCode != null)
