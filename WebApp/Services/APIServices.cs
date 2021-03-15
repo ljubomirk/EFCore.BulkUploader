@@ -78,8 +78,14 @@ namespace Web.Services.Impl
             {
                 List<CouponDatabase.Models.Coupon> coupons = new List<CouponDatabase.Models.Coupon>();
                 CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(CouponCode, Holder, User, CouponStatus.Created, _promo);
-                if(ExpireDate.HasValue)
+                coupon.Enabled = _repo.isPromotionEnabled(PromotionCode);
+                if (ExpireDate.HasValue)
+                {
                     coupon.AwardTo = ExpireDate;
+                    coupon.AquireTo = ExpireDate;
+                }
+                coupon.AwardFrom = DateTime.Today;
+                coupon.AquireFrom = DateTime.Today;
                 response = UpdateCouponStatus(coupon, Status);
                 if (response.Status == CommandStatus.Valid) { 
                     coupons.Add(coupon);
@@ -105,8 +111,14 @@ namespace Web.Services.Impl
                 foreach (Coupon c in coupons)
                 {
                     CouponDatabase.Models.Coupon coupon = new CouponDatabase.Models.Coupon(c.Code, c.Holder, c.User, CouponStatus.Created, _promo);
+                    coupon.Enabled = _repo.isPromotionEnabled(PromotionCode);
                     if (c.ExpireDate.HasValue)
+                    {
                         coupon.AwardTo = c.ExpireDate;
+                        coupon.AquireTo = c.ExpireDate;
+                    }
+                    coupon.AwardFrom = DateTime.Today;
+                    coupon.AquireFrom = DateTime.Today;
                     response = UpdateCouponStatus(coupon, c.Status);
                     if (response.Status == CommandStatus.Valid)
                         storeCoupons.Add(coupon);
@@ -295,7 +307,7 @@ namespace Web.Services.Impl
             {
                 response = new Command(CommandStatus.ErrorCouponNotFound);
             }
-            else if (coupon.Promotion.PromotionIssuerChannels.Where(x => x.IssuerChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
+            else if (coupon.Promotion.PromotionAwardChannels.Where(x => x.AwardChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
             {
                 response = new Command(CommandStatus.Error_InvalidChannel);
             }

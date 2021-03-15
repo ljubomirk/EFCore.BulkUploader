@@ -449,16 +449,16 @@ namespace WebApp.Controllers
             List<Coupon> potentiallySameCoupons = new List<Coupon>();
             if (model.Prefix != null)
             {
-                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Prefix.Length ? x.Code.Substring(0, model.Prefix.Length) == model.Prefix : x.Code == model.Prefix).ToList<Coupon>());
+                potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.PromotionId == model._promo.Id && x.Code.Length > model.Prefix.Length ? x.Code.Substring(0, model.Prefix.Length) == model.Prefix : x.Code == model.Prefix).ToList<Coupon>());
             }
             if (model.Suffix != null)
             {
                 if (model.Prefix != null)
                 {
-                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>();
+                    potentiallySameCoupons = potentiallySameCoupons.Where(x => x.PromotionId == model._promo.Id && x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>();
                 }
                 else
-                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
+                    potentiallySameCoupons.AddRange(_repo.getCoupons().Where(x => x.PromotionId == model._promo.Id && x.Code.Length > model.Suffix.Length ? x.Code.Substring((x.Code.Length - model.Suffix.Length), model.Suffix.Length) == model.Suffix : x.Code == model.Suffix).ToList<Coupon>());
             }
             return potentiallySameCoupons;
         }
