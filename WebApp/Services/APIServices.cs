@@ -307,7 +307,7 @@ namespace Web.Services.Impl
             {
                 response = new Command(CommandStatus.ErrorCouponNotFound);
             }
-            else if (coupon.Promotion.PromotionAwardChannels.Where(x => x.AwardChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
+            else if (coupon.Promotion.PromotionIssuerChannels.Where(x => x.IssuerChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
             {
                 response = new Command(CommandStatus.Error_InvalidChannel);
             }

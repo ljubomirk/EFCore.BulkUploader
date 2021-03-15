@@ -111,19 +111,18 @@ namespace WebApp.Services
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
-            if (PromotionCode != null && CouponCode != null)
+            if (PromotionCode != null || CouponCode != null)
             {
-                Promotion promotion;
-                Coupon coupon;
+                List<Promotion> promList = new List<Promotion>();
                 if (PromotionCode.Length > 0)
-                {
-                    promotion = Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault();
-                    coupon = Context.Coupon.Where(c => c.Code == CouponCode && c.PromotionId == promotion.Id).FirstOrDefault();
-                    return coupon;
-                }
+                    promList.Add(Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault());
+                else
+                    promList.AddRange(Context.Promotion.Where(p => p.Active == true).ToList());
+                List<Coupon> coupons = Context.Coupon.Where(c => promList.Contains(c.Promotion)).ToList<Coupon>();
+                return coupons.Where(c => c.Code == CouponCode).FirstOrDefault();
             }
-
-            return null;
+            else
+                return null;
         }
 
         internal List<User> GetAllUsers()
