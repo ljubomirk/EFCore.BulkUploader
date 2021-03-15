@@ -46,7 +46,7 @@ namespace TripleI.ActiveDirectory
                     _logger.LogInformation("LdapService Administrator:{0}!", username);
                     context.Request.Headers.Add(Constants.ApplicationGroup, new Microsoft.Extensions.Primitives.StringValues(Constants.AccessGrantLevel2));
                 }
-                if (context.User.IsInRole(Constants.CouponUsers))
+                else if (context.User.IsInRole(Constants.CouponUsers))
                 {
                     _logger.LogInformation("LdapService Manager:{0}!", username);
                     context.Request.Headers.Add(Constants.ApplicationGroup, new Microsoft.Extensions.Primitives.StringValues(Constants.AccessGrantLevel1));
