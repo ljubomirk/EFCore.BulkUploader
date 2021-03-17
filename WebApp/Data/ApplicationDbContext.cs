@@ -5,25 +5,28 @@ using CouponSystem = CouponDatabase.Models.System;
 using CouponDatabase.Lifecycle;
 using System.Data.Common;
 using System.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace WebApp.Data
 {
     public class ApplicationDbContext : DbContext
     {
         static DbContextOptions<ApplicationDbContext> Options;
+        static DbConnection Connection=null;
+        static string DbProviderName;
         #region constructor
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
+            //Parameters of DbConnection
+            DbProviderName = Database.ProviderName;
             ApplicationDbContext.Options = options;
             //Special setup for Oracle 
-            if (Database.ProviderName == "Oracle.EntityFrameworkCore")
+            if (Connection==null && DbProviderName == "Oracle.EntityFrameworkCore")
             {
                 //Command to setup current schema
                 String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
                 Database.ExecuteSqlCommand(sessionCurrentSchema);
-                DbConnection dbConnection = Database.GetDbConnection();
-                dbConnection.StateChange += (sender, e) =>
+                Connection.StateChange += (sender, e) =>
                 {
                     if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
                     {
@@ -40,10 +43,34 @@ namespace WebApp.Data
                 
                 };
             }
+            Connection = Database.GetDbConnection();
         }
+
+        /// <summary>
+        /// Context with new connection connection
+        /// </summary>
+        /// <returns>ApplicationDbContext</returns>
         public static ApplicationDbContext Factory()
         {
-            return new ApplicationDbContext(ApplicationDbContext.Options);
+            return new ApplicationDbContext(Options);
+        }
+        /// <summary>
+        /// Context uses same connection as main Context and can be used with transaction options
+        /// </summary>
+        /// <param name="transaction">Transaction from Context.Database.BeginTransaction()</param>
+        /// <returns>ApplicationDbContext</returns>
+        public static ApplicationDbContext Factory(IDbContextTransaction transaction)
+        {
+
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            if (DbProviderName == "Oracle.EntityFrameworkCore")
+                builder.UseOracle(Connection);
+            else
+                builder.UseSqlServer(Connection);
+
+            ApplicationDbContext context = new ApplicationDbContext(builder.Options);
+            context.Database.UseTransaction(transaction.GetDbTransaction());
+            return context;
         }
         #endregion
 

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Identity;
+using System.Data.SqlClient;
 
 namespace WebApp.Services
 {
@@ -35,17 +36,16 @@ namespace WebApp.Services
         public Command Add(IList<Coupon> coupons,ref Command cmd)
         {
             Command result = new Command(CommandStatus.Valid);
-            _logger.LogDebug("Import start at {0}", DateTime.Now);
+            _logger.LogDebug("Import start at {0}", DateTime.Now.ToLocalTime());
            
             try { 
 
-                Context.Database.BeginTransaction();
+                var transaction = Context.Database.BeginTransaction();
                 //BulkSize 
                 const int BulkSize = 4000;
                 int recordSaved = 0;
                 int recordNumber = coupons.Count;
-
-                
+                //Update references to Promotion                
                 foreach (Coupon coupon in coupons) {
                     //removed Promotion reference, if already exists
                     if (coupon.Promotion?.Id != 0) { 
@@ -54,25 +54,28 @@ namespace WebApp.Services
                     }
                 }
                 //Insert coupons by range BulkSize
-                for(int idx=0; idx<=coupons.Count/BulkSize; idx++) { 
-                    using(var localContext = ApplicationDbContext.Factory()) {
-                        var insertCoupons = coupons.ToList<Coupon>().GetRange(idx * BulkSize, BulkSize);
-                        localContext.Coupon.AddRange(insertCoupons);
+                for(int idx=0; idx<=(int)(coupons.Count/BulkSize); idx++) { 
+                    using(var lContext = ApplicationDbContext.Factory(transaction)) {
+                        var recordCount = ((idx + 1) * BulkSize) > recordNumber ? recordNumber - recordSaved : BulkSize;
+                        var insertCoupons = coupons.ToList<Coupon>().GetRange(idx * BulkSize, recordCount);
+                        lContext.Coupon.AddRange(insertCoupons);
                         foreach(var coupon in insertCoupons)
                         {
                             if(coupon.CouponHistories!=null)
                             foreach (CouponHistory ch in coupon.CouponHistories)
                             {
-                                if (localContext.CouponHistory.Find(ch.Id) == null)
-                                    localContext.CouponHistory.Add(ch);
+                                if (lContext.CouponHistory.Find(ch.Id) == null)
+                                    lContext.CouponHistory.Add(ch);
                             }
                         }
-                        recordSaved += localContext.SaveChanges();
+                        recordSaved += lContext.SaveChanges();
                         _logger.LogDebug("Save {0} records at {1}, now at {2}", BulkSize, DateTime.Now, recordSaved);
                     }
                 }
-                if (recordSaved == recordNumber)
-                    result.Status = CommandStatus.Valid;
+                if (recordSaved != recordNumber) { 
+                    result.Status = CommandStatus.DataError_CouponInsertFailed;
+                    result.Message = String.Format("Invalid record number stored {0}:{1}", recordSaved, recordNumber);
+                }
                 else if (cmd.Status==CommandStatus.ErrorSelectOneCheckbox) {
                             result = new Command(CommandStatus.ErrorSelectOneCheckbox);
                             result.Message = String.Format(result.Message);
