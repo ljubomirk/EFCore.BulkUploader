@@ -35,30 +35,48 @@ namespace WebApp.Services
         public Command Add(IList<Coupon> coupons,ref Command cmd)
         {
             Command result = new Command(CommandStatus.Valid);
-            try {
+            _logger.LogDebug("Import start at {0}", DateTime.Now);
+           
+            try { 
+
                 Context.Database.BeginTransaction();
-                foreach(Coupon coupon in coupons) {
+                //BulkSize 
+                const int BulkSize = 4000;
+                int recordSaved = 0;
+                int recordNumber = coupons.Count;
+
+                
+                foreach (Coupon coupon in coupons) {
                     //removed Promotion reference, if already exists
                     if (coupon.Promotion?.Id != 0) { 
                         coupon.PromotionId = coupon.Promotion.Id;
                         coupon.Promotion = null;
                     }
-
-                    Context.Coupon.Add(coupon);
-                    if(coupon.CouponHistories!=null)
-                    foreach (CouponHistory ch in coupon.CouponHistories)
-                    {
-                        if (Context.CouponHistory.Find(ch.Id) == null)
-                            Context.CouponHistory.Add(ch);
+                }
+                //Insert coupons by range BulkSize
+                for(int idx=0; idx<=coupons.Count/BulkSize; idx++) { 
+                    using(var localContext = ApplicationDbContext.Factory()) {
+                        var insertCoupons = coupons.ToList<Coupon>().GetRange(idx * BulkSize, BulkSize);
+                        localContext.Coupon.AddRange(insertCoupons);
+                        foreach(var coupon in insertCoupons)
+                        {
+                            if(coupon.CouponHistories!=null)
+                            foreach (CouponHistory ch in coupon.CouponHistories)
+                            {
+                                if (localContext.CouponHistory.Find(ch.Id) == null)
+                                    localContext.CouponHistory.Add(ch);
+                            }
+                        }
+                        recordSaved += localContext.SaveChanges();
+                        _logger.LogDebug("Save {0} records at {1}, now at {2}", BulkSize, DateTime.Now, recordSaved);
                     }
                 }
-                int saved = Context.SaveChanges();
-                if (saved > 0)
+                if (recordSaved == recordNumber)
                     result.Status = CommandStatus.Valid;
                 else if (cmd.Status==CommandStatus.ErrorSelectOneCheckbox) {
                             result = new Command(CommandStatus.ErrorSelectOneCheckbox);
                             result.Message = String.Format(result.Message);
-                        }
+                }
                 else if (cmd.Status == CommandStatus.Error_DuplicateCouponExists){
                     result = new Command(CommandStatus.Error_DuplicateCouponExists);
                     result.Message = String.Format(result.Message);
@@ -74,7 +92,7 @@ namespace WebApp.Services
             }
             catch (Exception exc)
             {
-                if(Context.Database.CurrentTransaction!=null)
+                if (Context.Database.CurrentTransaction != null)
                     Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = exc.Message;
