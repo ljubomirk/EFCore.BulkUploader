@@ -91,14 +91,14 @@ namespace WebApp.Services
                 if (Context.Database.CurrentTransaction != null)
                     Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
-                result.Message = update.Message;
+                result.Message = (update.InnerException != null) ? update.Message + " > " + update.InnerException.Message : update.Message;
             }
             catch (Exception exc)
             {
                 if (Context.Database.CurrentTransaction != null)
                     Context.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
-                result.Message = exc.Message;
+                result.Message = (exc.InnerException != null) ? exc.Message + " > " + exc.InnerException.Message : exc.Message;
             }
             return result;
         }

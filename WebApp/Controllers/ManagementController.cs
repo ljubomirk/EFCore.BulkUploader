@@ -330,6 +330,10 @@ namespace WebApp.Controllers
                         _repo.UpdateCouponSeriesNum(model._promo.Id);
                         model.CouponSeries++;
                     }
+                    else
+                    {
+                        _logger.LogError("Status {0}: {1}", cmd.Status, cmd.Message);
+                    }
                     TempData["CommandStatus"] = cmd.Status;
                     _logger.LogDebug(Utils.GetLogFormat() + "Debug Generate Coupons - new Series:{0}", model.CouponSeries);
                     return RedirectToAction("AddCouponSeries", new { id = model._promo.Id });

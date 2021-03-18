@@ -20,30 +20,28 @@ namespace WebApp.Data
             //Parameters of DbConnection
             DbProviderName = Database.ProviderName;
             ApplicationDbContext.Options = options;
+            Connection = Database.GetDbConnection();
             //Special setup for Oracle 
-            if (Connection==null) { 
-                Connection = Database.GetDbConnection();
-                if(DbProviderName == "Oracle.EntityFrameworkCore") {
-                    //Command to setup current schema
-                    String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
-                    Database.ExecuteSqlCommand(sessionCurrentSchema);
-                    Connection.StateChange += (sender, e) =>
+            if (DbProviderName == "Oracle.EntityFrameworkCore") {
+                //Command to setup current schema
+                String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
+                Database.ExecuteSqlCommand(sessionCurrentSchema);
+                Connection.StateChange += (sender, e) =>
+                {
+                    if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
                     {
-                        if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
+                        var senderConnection = (DbConnection)sender;
+
+                        using (var command = senderConnection.CreateCommand())
                         {
-                            var senderConnection = (DbConnection)sender;
-
-                            using (var command = senderConnection.CreateCommand())
-                            {
-                                command.Connection = senderConnection;
-                                command.CommandText = sessionCurrentSchema;
-                                command.ExecuteNonQuery();
-                            }
-
+                            command.Connection = senderConnection;
+                            command.CommandText = sessionCurrentSchema;
+                            command.ExecuteNonQuery();
                         }
+
+                    }
                 
-                    };
-                }
+                };
             }
         }
 
@@ -70,7 +68,8 @@ namespace WebApp.Data
                 builder.UseSqlServer(Connection);
 
             ApplicationDbContext context = new ApplicationDbContext(builder.Options);
-            context.Database.UseTransaction(transaction.GetDbTransaction());
+            DbTransaction current = transaction.GetDbTransaction();
+            context.Database.UseTransaction(current);
             return context;
         }
         #endregion
