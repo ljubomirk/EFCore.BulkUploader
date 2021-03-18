@@ -10,6 +10,8 @@ namespace WebApp.ViewModels
     {
         public List<Promotion> Promotions { get; set; }
         public PromotionFilter Filter;
+        public UpdatePromotionObj UpdatePromotionObj { get; set; }
+
         public PromotionListViewModel()
         {
             Promotions = new List<Promotion>();

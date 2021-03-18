@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "_multiplePromotionsUpdate";
+}
+@model WebApp.ViewModels.PromotionListViewModel;
+
+
+<!-- Modal -->
+    <div id="modal-multiple-promo-update" class="modal">
+            <h4>Update promotions</h4>
+        <div class="modal-content">
+            <dl class="inline col s6 m3">
+                <div class="input-field col s12 m6">
+                    <div class="switch u-m-t-sm">
+                        <label>
+                            @Html.CheckBoxFor(c => Model.UpdatePromotionObj.statusSwitch, new { @class = "filled-in", id = "checkbox-switch-status" })
+                            <span class="lever"></span>
+                            <span id="switch-status"> Switch status</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => Model.UpdatePromotionObj.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => Model.UpdatePromotionObj.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => Model.UpdatePromotionObj.ValidTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <a id="modal-close" class="modal-close waves-effect waves-light btn-flat btn-transparent u-m-r-md">
+                @CouponDatabase.Properties.Resources.Btn_Cancel
+            </a>
+            <button type="submit" class="waves-effect waves-light btn-flat btn-primary u-m-r-md" data-position="bottom">
+                @CouponDatabase.Properties.Resources.Btn_Update
+            </button>
+        </div>
+    </div>
+<!-- /Modal-->

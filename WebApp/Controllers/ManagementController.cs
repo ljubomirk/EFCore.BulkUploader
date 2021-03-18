@@ -69,6 +69,8 @@ namespace WebApp.Controllers
             model.PromotionList.Promotions = promoList.Promotions;
             model.PromotionList.PromotionItems = setModelPromotionList(promoList.Promotions);
 
+            model.UpdatePromotionObj = new UpdatePromotionObj();
+
             model.Promotions.AddRange(promoList.Promotions);
             model.Filter = filter;
             return View("PromotionList", model);
@@ -195,6 +197,33 @@ namespace WebApp.Controllers
                     hasEndDate = promotion.ValidTo != null ? true : false
                 };
                 return View(view, model);
+        }
+
+        public IActionResult updatePromotions(PromotionListViewModel model)
+        {
+            PromotionListViewModel modelCopy = new PromotionListViewModel()
+            {
+                UpdatePromotionObj = model.UpdatePromotionObj
+            };
+            List<Promotion> promotionsForUpdate = new List<Promotion>();
+            foreach (CheckedPromotionItem promotion in model.PromotionList.PromotionItems)
+            {
+                if (promotion.Checked)
+                {
+                    promotionsForUpdate.Add(_repo.GetPromotionByCode(promotion.Code));
+                }
+            }
+            foreach (Promotion promotion in promotionsForUpdate)
+            {
+                if (model.UpdatePromotionObj.statusSwitch != false)
+                    promotion.Enabled = !promotion.Enabled;
+                if (model.UpdatePromotionObj.ValidTo != null)
+                    promotion.ValidTo = model.UpdatePromotionObj.ValidTo;
+
+                bool promotionUpdated = _repo.UpdatePromotion(promotion);
+            }
+
+            return FilteredListPromotions(new PromotionFilter());
         }
 
         [HttpPost]
@@ -479,7 +508,9 @@ namespace WebApp.Controllers
                     Enabled = promotion.Enabled,
                     Active = promotion.Active,
                     HasCoupons = promotion.HasCoupons,
-                    Id = promotion.Id
+                    Id = promotion.Id,
+                    ValidFrom = promotion.ValidFrom,
+                    ValidTo = promotion.ValidTo
                 });
             }
             return checkedItems;

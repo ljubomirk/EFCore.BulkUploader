@@ -4,144 +4,164 @@
 
 @model WebApp.ViewModels.PromotionListViewModel;
 
-<table data-nosort-target="-1" id="promotion-list" class="striped highlight" >
-    <thead>
-        <tr>
-            <th hidden>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.Id)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                <label>
-                    @Html.CheckBoxFor(m => m.PromotionList.SelectAllPromotions, new { @class = "filled-in", id = "checkbox-allpromotions" })
-                    <span></span>
-                    @Html.HiddenFor(m => m.PromotionList.SelectAllPromotions)
-                </label>
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.Name)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.Code)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.ValidFrom)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.ValidTo)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.HasCoupons)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.Active)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.PromotionList.Promotion.Enabled)
-                <img src="~/images/sorting_hidden.png" class="sorting-icon" />
-            </th>
-            <th>&nbsp;</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-        @{
-            var promotionCount = Model?.PromotionList?.PromotionItems?.Count < 100 ? Model?.PromotionList?.PromotionItems?.Count : 100;
-        }
-        @for (int i = 0; i < promotionCount; i++)
-        {
-            bool allowCoupons = false;
-
-            @foreach (var props in Model.Promotions[i].PromotionProperties)
-            {
-                if (props.Property.Name == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString())
-                {
-                    allowCoupons = true;
-                    break;
-                }
-            }
+@using (Html.BeginForm("UpdatePromotions", "Management", FormMethod.Post, new { role = "form", id = "UpdatePromotions" }))
+{
+    <table data-nosort-target="-1" id="promotion-list" class="striped highlight">
+        <thead>
             <tr>
-                <!--descending ordering by promotion id, id column is hidden -->
-                <td hidden>@Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].Id)</td>
-                <td>
+
+                <th>
                     <label>
-                        @Html.CheckBoxFor(p => Model.PromotionList.PromotionItems[i].Checked, new { @class = "filled-in checkbox-promotion" })
+                        @Html.CheckBoxFor(c => c.PromotionList.SelectAllPromotions, new { @class = "filled-in", id = "checkbox-allpromotions" })
                         <span></span>
-                        @Html.HiddenFor(p => Model.PromotionList.PromotionItems[i].Id)
-                        @Html.HiddenFor(p => Model.PromotionList.PromotionItems[i].Label)
+                        @Html.HiddenFor(m => m.PromotionList.SelectAllPromotions)
                     </label>
-                </td>
-                <td>@Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].Name)</td>
-                <td>@Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].Code)</td>
-                <td>
-                    <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
-                    <span style="display:none">@Convert.ToDateTime(Model.PromotionList.PromotionItems[i].ValidFrom).ToString("yyyy/MM/dd")</span>
-                    @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].ValidFrom)
-                </td>
-                <td>
-                    <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
-                    <span style="display:none">@Convert.ToDateTime(Model.PromotionList.PromotionItems[i].ValidTo).ToString("yyyy/MM/dd")</span>
-                    @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].ValidTo)
-                <td>
-                    @if (Model.PromotionList.PromotionItems[i].HasCoupons)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    @if (Model.PromotionList.PromotionItems[i].Active)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    @if (Model.PromotionList.PromotionItems[i].Enabled)
-                    {
-                        <i class="material-icons">check</i>
-                    }
-                </td>
-                <td>
-                    <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@Model.PromotionList.PromotionItems[i].Id'>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.Name)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.Code)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.ValidFrom)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.ValidTo)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.HasCoupons)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.Active)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.PromotionList.Promotion.Enabled)
+                    <img src="~/images/sorting_hidden.png" class="sorting-icon" />
+                </th>
+                <th>
+                    <a href="#modal-multiple-promo-update" class="modal-trigger" id="modal-trigger" onclick="">
                         <i class="material-icons material-icons__hover">more_horiz</i>
                     </a>
-                    <ul id='promotion-actions-@Model.PromotionList.PromotionItems[i].Id' class='dropdown-content'>
-                        <li @(Model.PromotionList.PromotionItems[i].HasCoupons ? "" : "hidden")>
-                            <a class="action-promo" data-action="ViewPromotion" href="@Url.Action("ViewPromotion", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
-                                <i class="material-icons" )>pageview</i>
-                                @CouponDatabase.Properties.Resources.Btn_View
-                            </a>
-                        </li>
-                        <li @(Model.PromotionList.PromotionItems[i].HasCoupons ? "hidden" : "")>
-                            <a class="action-promo " data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
-                                <i class="material-icons">create</i>
-                                @CouponDatabase.Properties.Resources.Btn_Edit
-                            </a>
-                        </li>
-                        <li>
-                            <a class="action-promo @(!allowCoupons ? "disabled":"")" data-action="AddSeries" href="@Url.Action("AddCouponSeries", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
-                                <i class="material-icons">add</i>
-                                @CouponDatabase.Properties.Resources.Btn_AddSeries
-                            </a>
-                        </li>
-                        <li class="@(Model.PromotionList.PromotionItems[i].Enabled ? "disable": "enable")">
-                            <a class="action-promo modal-trigger" data-url="@Url.Action("Enable", "Management", new { id = Model.PromotionList.PromotionItems[i].Id, enable = !Model.PromotionList.PromotionItems[i].Enabled })" data-enabled="@Model.PromotionList.PromotionItems[i].Enabled" href="#modal-confirmation">
-                                <i class='material-icons left'>check</i>
-                                @(Model.PromotionList.PromotionItems[i].Enabled ? CouponDatabase.Properties.Resources.Btn_SetDisabled : CouponDatabase.Properties.Resources.Btn_SetEnabled)
-                            </a>
-                        </li>
-                    </ul>
-                </td>
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+
+            @{
+                var promotionCount = Model?.PromotionList?.PromotionItems?.Count < 100 ? Model?.PromotionList?.PromotionItems?.Count : 100;
+            }
+            @for (int i = 0; i < promotionCount; i++)
+            {
+                bool allowCoupons = false;
+
+                @foreach (var props in Model.Promotions[i].PromotionProperties)
+                {
+                    if (props.Property.Name == CouponDatabase.API.PromotionPropertyEnum.AllowCouponSeries.ToString())
+                    {
+                        allowCoupons = true;
+                        break;
+                    }
+                }
+                <tr>
+                    <td>
+                        <label>
+                            @Html.CheckBoxFor(c => Model.PromotionList.PromotionItems[i].Checked, new { @class = "filled-in checkbox-promotion" })
+                            <span></span>
+                            @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Id)
+                            @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Label)
+                        </label>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].Name)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Name)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Label)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].Code)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Code)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Label)
+                    </td>
+                    <td>
+                        <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
+                        <span style="display:none">@Convert.ToDateTime(Model.PromotionList.PromotionItems[i].ValidFrom).ToString("yyyy/MM/dd")</span>
+                        @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].ValidFrom)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].ValidFrom)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Label)
+                    </td>
+                    <td>
+                        <!-- span element value is used on sorting on promotion list table. Our date format is not in right format for sorting -->
+                        <span style="display:none">@Convert.ToDateTime(Model.PromotionList.PromotionItems[i].ValidTo).ToString("yyyy/MM/dd")</span>
+                        @Html.DisplayFor(item => Model.PromotionList.PromotionItems[i].ValidTo)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].ValidTo)
+                        @Html.HiddenFor(item => Model.PromotionList.PromotionItems[i].Label)
+                    <td>
+                        @if (Model.PromotionList.PromotionItems[i].HasCoupons)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        @if (Model.PromotionList.PromotionItems[i].Active)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        @if (Model.PromotionList.PromotionItems[i].Enabled)
+                        {
+                            <i class="material-icons">check</i>
+                        }
+                    </td>
+                    <td>
+                        <a class='dropdown-trigger__table' href='#' data-target='promotion-actions-@Model.PromotionList.PromotionItems[i].Id'>
+                            <i class="material-icons material-icons__hover">more_horiz</i>
+                        </a>
+                        <ul id='promotion-actions-@Model.PromotionList.PromotionItems[i].Id' class='dropdown-content'>
+                            <li @(Model.PromotionList.PromotionItems[i].HasCoupons ? "" : "hidden")>
+                                <a class="action-promo" data-action="ViewPromotion" href="@Url.Action("ViewPromotion", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
+                                    <i class="material-icons" )>pageview</i>
+                                    @CouponDatabase.Properties.Resources.Btn_View
+                                </a>
+                            </li>
+                            <li @(Model.PromotionList.PromotionItems[i].HasCoupons ? "hidden" : "")>
+                                <a class="action-promo " data-action="Edit" href="@Url.Action("EditPromotion", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
+                                    <i class="material-icons">create</i>
+                                    @CouponDatabase.Properties.Resources.Btn_Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a class="action-promo @(!allowCoupons ? "disabled":"")" data-action="AddSeries" href="@Url.Action("AddCouponSeries", "Management", new { id = Model.PromotionList.PromotionItems[i].Id })">
+                                    <i class="material-icons">add</i>
+                                    @CouponDatabase.Properties.Resources.Btn_AddSeries
+                                </a>
+                            </li>
+                            <li class="@(Model.PromotionList.PromotionItems[i].Enabled ? "disable": "enable")">
+                                <a class="action-promo modal-trigger" data-url="@Url.Action("Enable", "Management", new { id = Model.PromotionList.PromotionItems[i].Id, enable = !Model.PromotionList.PromotionItems[i].Enabled })" data-enabled="@Model.PromotionList.PromotionItems[i].Enabled" href="#modal-confirmation">
+                                    <i class='material-icons left'>check</i>
+                                    @(Model.PromotionList.PromotionItems[i].Enabled ? CouponDatabase.Properties.Resources.Btn_SetDisabled : CouponDatabase.Properties.Resources.Btn_SetEnabled)
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div id="hidden_elements">
+    </div>
+
+    <partial name="_multiplePromotionsUpdate.cshtml" model="Model" />
+}
+<!-- /multiple promotions edit modal -->
 
 <script src="~/js/datatables.js" asp-append-version="true"></script>
 
@@ -174,6 +194,9 @@
 
             modalAction.attr("href", url);
         });
+
+        $("input[type=hidden]").appendTo("#hidden_elements");
+        $("input[type=checkbox]").prop("checked", false);;
 
         $("#promotion-list").css('width', '');
 
@@ -258,5 +281,29 @@
         function getChecked() {
             return $("input:checked.checkbox-promotion").length;
         }
+
+        // enable or disable action button (_CouponsFilter)
+        function enableModalTrigger() {
+            var btn = $("#modal-trigger");
+            var inputVal = getInputs();
+            var chkVal = getChecked();
+
+            if ((inputVal > 0 && chkVal > 0) || $(".applyTo option:selected").text() == "All") {
+                btn.removeAttr("disabled")
+            } else {
+                btn.attr("disabled", true);
+            }
+        }
+
+        // update button logic for enable/disable style
+        var btn = $("#modal-trigger");
+        var trigger = $("#modal-action");
+
+        var loadingContent = '<i class="material-icons loading u-m-l-lg u-m-r-lg">autorenew</i>';
+
+        // change style when form submitted from modal
+        trigger.click(function () {
+            btn.html(loadingContent);
+        });
     });
 </script>

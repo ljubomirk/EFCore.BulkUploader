@@ -2,7 +2,7 @@
     ROLE: displays promotion create/edit form and handles data for posting to controller
 *@
 
-@{ 
+@{
     // used to enable/disable add series button
     bool allowAddSeries = false;
 }
@@ -21,46 +21,46 @@
                 <div class="@((int)ViewBag.Command.Status != 0 ? "form-box__msg form-box__msg-error" : "form-box__msg form-box__msg-success")">@ViewBag.Command.Message</div>
             }
             <!-- input fields -->
-        <div class="row">
             <div class="row">
-                <div class="input-field date col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                    @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(p => p.Promotion.Name)
-                    <i class='material-icons suffix validation-error'>warning</i>
-                </div>
-                <div class="input-field col s12 m6">
-                    <div class="switch u-m-t-sm">
-                        <label>
-                            @Html.CheckBoxFor(p => p.Promotion.Enabled)
-                            <span class="lever"></span>
-                            <span id="switch-status">Disabled</span>
-                        </label>
+                <div class="row">
+                    <div class="input-field date col s12 m6">
+                        @Html.EditorFor(p => p.Promotion.Name, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                        @Html.LabelFor(p => p.Promotion.Name, new { htmlAttributes = new { @class = "active" } })
+                        @Html.ValidationMessageFor(p => p.Promotion.Name)
+                        <i class='material-icons suffix validation-error'>warning</i>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <div class="switch u-m-t-sm">
+                            <label>
+                                @Html.CheckBoxFor(p => p.Promotion.Enabled)
+                                <span class="lever"></span>
+                                <span id="switch-status">Disabled</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field date col s12 m6">
-                    @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
-                    @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
-                    @Html.ValidationMessageFor(p => p.Promotion.Code)
+                <div class="row">
+                    <div class="input-field date col s12 m6">
+                        @Html.EditorFor(p => p.Promotion.Code, new { htmlAttributes = new { @type = "text", placeholder = "", @autocomplete = "off", dataVal = true, @readonly = "true" } })
+                        @Html.LabelFor(p => p.Promotion.Code, new { htmlAttributes = new { @class = "active" } })
+                        @Html.ValidationMessageFor(p => p.Promotion.Code)
+                    </div>
+                </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
+                </div>
+                <div class="input-field col s12 m6">
+                    @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
+                    @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
+                    @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
+                    <i class='material-icons suffix validation-error'>warning</i>
+                    <i class='material-icons suffix date-icon'>event</i>
                 </div>
             </div>
-            <div class="input-field col s12 m6">
-                @Html.EditorFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                @Html.LabelFor(p => p.Promotion.ValidFrom, new { htmlAttributes = new { @class = "active" } })
-                @Html.ValidationMessageFor(p => p.Promotion.ValidFrom)
-                <i class='material-icons suffix validation-error'>warning</i>
-                <i class='material-icons suffix date-icon'>event</i>
-            </div>
-            <div class="input-field col s12 m6">
-                @Html.EditorFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
-                @Html.LabelFor(p => p.Promotion.ValidTo, new { htmlAttributes = new { @class = "active" } })
-                @Html.ValidationMessageFor(p => p.Promotion.ValidTo)
-                <i class='material-icons suffix validation-error'>warning</i>
-                <i class='material-icons suffix date-icon'>event</i>
-            </div>
-        </div>
             <!-- /input fields -->
             <!-- checkboxes -->
             <div class="row">
@@ -186,7 +186,7 @@
             }
         }
 
-        //Create And Add Series enable/disable when page is load 
+        //Create And Add Series enable/disable when page is load
         checkIsCouponSeriesAllowed();
 
         //button Create And Add Series enable/disable after AllowCouponSeries checkbox is changed
