@@ -21,29 +21,30 @@ namespace WebApp.Data
             DbProviderName = Database.ProviderName;
             ApplicationDbContext.Options = options;
             //Special setup for Oracle 
-            if (Connection==null && DbProviderName == "Oracle.EntityFrameworkCore")
-            {
-                //Command to setup current schema
-                String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
-                Database.ExecuteSqlCommand(sessionCurrentSchema);
-                Connection.StateChange += (sender, e) =>
-                {
-                    if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
+            if (Connection==null) { 
+                Connection = Database.GetDbConnection();
+                if(DbProviderName == "Oracle.EntityFrameworkCore") {
+                    //Command to setup current schema
+                    String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
+                    Database.ExecuteSqlCommand(sessionCurrentSchema);
+                    Connection.StateChange += (sender, e) =>
                     {
-                        var senderConnection = (DbConnection)sender;
-
-                        using (var command = senderConnection.CreateCommand())
+                        if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
                         {
-                            command.Connection = senderConnection;
-                            command.CommandText = sessionCurrentSchema;
-                            command.ExecuteNonQuery();
-                        }
+                            var senderConnection = (DbConnection)sender;
 
-                    }
+                            using (var command = senderConnection.CreateCommand())
+                            {
+                                command.Connection = senderConnection;
+                                command.CommandText = sessionCurrentSchema;
+                                command.ExecuteNonQuery();
+                            }
+
+                        }
                 
-                };
+                    };
+                }
             }
-            Connection = Database.GetDbConnection();
         }
 
         /// <summary>
