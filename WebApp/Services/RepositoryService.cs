@@ -541,6 +541,54 @@ namespace WebApp.Services
             return returnValue > 0 ? true : false;
         }
 
+        internal Command UpdateCoupons(List<Coupon> couponsForUpdate)
+        {
+            Command result = new Command(CommandStatus.Valid);
+            var transaction = Context.Database.BeginTransaction();
+            try
+            {
+                using (var lContext = ApplicationDbContext.Factory(transaction))
+                {
+                    foreach (Coupon coupon in couponsForUpdate)
+                    {
+                        lContext.Coupon.Update(coupon);
+                        foreach (CouponHistory ch in coupon.CouponHistories)
+                            {
+                                if (Context.CouponHistory.Find(ch.Id) == null)
+                                    Context.CouponHistory.Add(ch);
+                            }
+                        int saved = lContext.SaveChanges();
+                        result = new Command(CommandStatus.Valid);
+                    }
+                }
+                
+            }
+            catch (DbUpdateConcurrencyException concurrent)
+            {
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.DataError_CouponUpdateFailed);
+                _logger.LogError("Exception DBUpdate:{0}", concurrent.Message);
+            }
+            catch (DbUpdateException update)
+            {
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log update.Message;
+                _logger.LogError("Exception DBUpdate:{0}", update.Message);
+            }
+            catch (Exception exc)
+            {
+                if (Context.Database.CurrentTransaction != null)
+                    Context.Database.RollbackTransaction();
+                result = new Command(CommandStatus.ErrorSystem);
+                //store to log result.Message = exc.Message;
+                _logger.LogError("Exception DBUpdate:{0}", exc.Message);
+            }
+            return result;
+        }
+
         internal bool insertCoupons(List<Coupon> listOfCoupons)
         {
             foreach (Coupon coupon in listOfCoupons)

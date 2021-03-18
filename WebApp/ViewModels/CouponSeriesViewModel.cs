@@ -180,35 +180,21 @@ namespace WebApp.ViewModels
             // Excel/csv file is not loaded, coupon code and user are generated through application
             else if (NumberOfCoupons != 0)
             {
-                for (int i = 0; i < NumberOfCoupons; i++)
+                List<string> couponCodes = getCouponCodes(NumberOfCoupons, out cmd);
+
+                foreach (var code in couponCodes)
                 {
-                    string code = getCouponCode(i, out cmd);
-                    if (code != "" && cmd.Status == CommandStatus.Valid)
+                    if (!MaximumRedeem.HasValue)
                     {
-
-                        if (!MaximumRedeem.HasValue)
-                        {
-                            MaximumRedeem = 1;
-                        }
-                        Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
-                        //Add coupon to service class
-                        ICoupon cpn = new ICoupon(coupon);
-
-                        SwitchStatus(ref cpn, "");
-
-                        if (pottentialySameCoupons != null && pottentialySameCoupons.Any(x => x.Code == coupon.Code))
-                        {
-                            NumberOfCoupons++;
-                        }
-                        else if (listOfCoupons.Any(x => x.Code == coupon.Code))
-                        {
-                            NumberOfCoupons++;
-                        }
-                        else
-                        {
-                            listOfCoupons.Add(coupon);
-                        }
+                        MaximumRedeem = 1;
                     }
+                    Coupon coupon = new Coupon(code, CouponStatus.Created, _promo, AssignableFrom, AssignableUntil, RedeemableFrom, RedeemableUntil, (int)CouponSeries, (int)MaximumRedeem);
+                    //Add coupon to service class
+                    ICoupon cpn = new ICoupon(coupon);
+
+                    SwitchStatus(ref cpn, "");
+
+                    listOfCoupons.Add(coupon);
                 }
             }
             return listOfCoupons;
@@ -271,6 +257,61 @@ namespace WebApp.ViewModels
                 }
             }
             return result;
+        }
+
+        private List<string> getCouponCodes(int numberOfCoupons, out Command cmd)
+        {
+            string chars = "";
+            string result = null;
+            List<string> codes = new List<string>();
+            //if chars stays "" that menas that both checkboxes "use letters" and "use numbers" are not selected and code cannot be generated, 
+            //cmd is transported to Add function in RepositoryService
+            cmd = new Command(CommandStatus.ErrorSelectOneCheckbox);
+            if (CouponWithLetters)
+            {
+                chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            }
+            if (CouponWithNumbers)
+            {
+                chars += "0123456789";
+            }
+            int prefixLength = Prefix == null ? 0 : Prefix.Length;
+            int suffixLength = Suffix == null ? 0 : Suffix.Length;
+            long maxPermutations = countPermutations(CouponMaxLength - prefixLength - suffixLength, chars.Length);
+            if (chars != "")
+            {
+                /* if NumberOfCoupons is less than number of permutations that can be made of selected characters minus createdCoupons, coupon cannot be made*/
+                if (NumberOfCoupons <= maxPermutations)
+                {
+                    var random = new Random();
+                    for (int i = 0; i < NumberOfCoupons; i++)
+                    {
+                        result = new string(
+                            Enumerable.Repeat(chars, (CouponMaxLength - prefixLength - suffixLength))
+                                      .Select(s => s[random.Next(s.Length)])
+                                      .ToArray());
+                        // result = Prefix + result + Suffix
+                        result = Prefix != null ? Suffix != null ? Prefix + result + Suffix : Prefix + result : Suffix != null ? result + Suffix : result;
+
+                        if (!codes.Contains(result))
+                                codes.Add(result);
+                        else
+                            numberOfCoupons++;
+                        
+                        cmd = new Command(CommandStatus.Valid);
+                    }
+                }
+                else
+                {
+                    // code cannot be generated : all possible codes that can be generated already exist in database
+                    result = "";
+                    cmd = new Command(CommandStatus.Error_DuplicateCouponExists);
+                }
+            }
+
+
+            return codes;
+
         }
 
         public DataSet CheckFileUpload(IFormFile file, ref List<Coupon> listOfCoupons, ref Command cmd, ref List<Coupon> pottentialySameCoupons)
