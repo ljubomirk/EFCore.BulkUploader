@@ -1,0 +1,4 @@
+[submodule "EFCore.BulkExtension"]
+	path = EFCore.BulkExtension
+	url = git@github.com:ljubomirk/EFCore.OracleBulkUploader.git
+	branch = feature/mssql-bulk

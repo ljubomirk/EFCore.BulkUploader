@@ -6,27 +6,40 @@ using CouponDatabase.Lifecycle;
 using System.Data.Common;
 using System.Data;
 using Microsoft.EntityFrameworkCore.Storage;
+using EFCore.OracleBulkUploader;
+using EFCore.SqlServerBulkUploader;
+using System.Collections.Generic;
 
 namespace WebApp.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        #region Static properties
         static DbContextOptions<ApplicationDbContext> Options;
-        static DbConnection Connection=null;
         static string DbProviderName;
-        #region constructor
+        #endregion
+        #region Constructor
+        public ApplicationDbContext() : base(ApplicationDbContext.Options)
+        {
+            SetupOracleConnection();
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
             //Parameters of DbConnection
             DbProviderName = Database.ProviderName;
             ApplicationDbContext.Options = options;
-            Connection = Database.GetDbConnection();
+            SetupOracleConnection();
+        }
+
+        private void SetupOracleConnection()
+        {
             //Special setup for Oracle 
-            if (DbProviderName == "Oracle.EntityFrameworkCore") {
+            if (DbProviderName == "Oracle.EntityFrameworkCore")
+            {
                 //Command to setup current schema
                 String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
                 Database.ExecuteSqlCommand(sessionCurrentSchema);
-                Connection.StateChange += (sender, e) =>
+                Database.GetDbConnection().StateChange += (sender, e) =>
                 {
                     if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
                     {
@@ -40,7 +53,7 @@ namespace WebApp.Data
                         }
 
                     }
-                
+
                 };
             }
         }
@@ -60,12 +73,12 @@ namespace WebApp.Data
         /// <returns>ApplicationDbContext</returns>
         public static ApplicationDbContext Factory(IDbContextTransaction transaction)
         {
-
+          
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
             if (DbProviderName == "Oracle.EntityFrameworkCore")
-                builder.UseOracle(Connection);
+                builder.UseOracle(transaction.GetDbTransaction().Connection);
             else
-                builder.UseSqlServer(Connection);
+                builder.UseSqlServer(transaction.GetDbTransaction().Connection);
 
             ApplicationDbContext context = new ApplicationDbContext(builder.Options);
             DbTransaction current = transaction.GetDbTransaction();
@@ -73,7 +86,19 @@ namespace WebApp.Data
             return context;
         }
         #endregion
-
+        #region Bulk operations
+        public int InsertBulk<T>(List<T> entities) where T : class {
+            if (DbProviderName == "Oracle.EntityFrameworkCore")
+            {
+                OracleBulkUploader.Insert(this, entities);
+            }
+            else
+            {
+                SqlServerBulkUploader.Insert(this, entities);
+            }
+            return 0;
+        }
+        #endregion
         #region Entities
         // Base entities
         public DbSet<Property> Property { get; set; }

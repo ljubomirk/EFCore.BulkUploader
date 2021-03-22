@@ -14,7 +14,6 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Identity;
-using System.Data.SqlClient;
 
 namespace WebApp.Services
 {
@@ -37,12 +36,14 @@ namespace WebApp.Services
         {
             Command result = new Command(CommandStatus.Valid);
             _logger.LogDebug("Import start at {0}", DateTime.Now.ToLocalTime());
-           
-            try { 
 
-                var transaction = Context.Database.BeginTransaction();
+            ApplicationDbContext ctx = ApplicationDbContext.Factory(); ;
+            try
+            {
+                ctx.ChangeTracker.AutoDetectChangesEnabled = false;
+                var transaction = ctx.Database.BeginTransaction();
                 //BulkSize 
-                const int BulkSize = 4000;
+                const int BulkSize = 12000;
                 int recordSaved = 0;
                 int recordNumber = coupons.Count;
                 //Update references to Promotion                
@@ -68,8 +69,11 @@ namespace WebApp.Services
                                     lContext.CouponHistory.Add(ch);
                             }
                         }
-                        recordSaved += lContext.SaveChanges();
-                        _logger.LogDebug("Save {0} records at {1}, now at {2}", BulkSize, DateTime.Now, recordSaved);
+                        _logger.LogDebug("Prepared {0} records at {1}", recordCount, DateTime.Now);
+                        ctx.InsertBulk(lContext.Coupon.ToList());
+                        ctx.InsertBulk(lContext.CouponHistory.ToList());
+                        recordSaved += recordCount;
+                        _logger.LogDebug("Save {0} records at {1}, now at {2}", recordCount, DateTime.Now, recordSaved);
                     }
                 }
                 if (recordSaved != recordNumber) { 
@@ -84,19 +88,19 @@ namespace WebApp.Services
                     result = new Command(CommandStatus.Error_DuplicateCouponExists);
                     result.Message = String.Format(result.Message);
                 }
-                Context.Database.CommitTransaction();
+                ctx.Database.CommitTransaction();
             }
             catch (DbUpdateException update)
             {
-                if (Context.Database.CurrentTransaction != null)
-                    Context.Database.RollbackTransaction();
+                if (ctx.Database.CurrentTransaction != null)
+                    ctx.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = (update.InnerException != null) ? update.Message + " > " + update.InnerException.Message : update.Message;
             }
             catch (Exception exc)
             {
-                if (Context.Database.CurrentTransaction != null)
-                    Context.Database.RollbackTransaction();
+                if (ctx.Database.CurrentTransaction != null)
+                    ctx.Database.RollbackTransaction();
                 result.Status = CommandStatus.ErrorSystem;
                 result.Message = (exc.InnerException != null) ? exc.Message + " > " + exc.InnerException.Message : exc.Message;
             }
