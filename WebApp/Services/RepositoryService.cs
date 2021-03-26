@@ -37,7 +37,7 @@ namespace WebApp.Services
             Command result = new Command(CommandStatus.Valid);
             _logger.LogDebug("Import start at {0}", DateTime.Now.ToLocalTime());
 
-            ApplicationDbContext ctx = ApplicationDbContext.Factory(); ;
+            ApplicationDbContext ctx = ApplicationDbContext.Factory();
             try
             {
                 ctx.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -60,18 +60,21 @@ namespace WebApp.Services
                         var recordCount = ((idx + 1) * BulkSize) > recordNumber ? recordNumber - recordSaved : BulkSize;
                         var insertCoupons = coupons.ToList<Coupon>().GetRange(idx * BulkSize, recordCount);
                         lContext.Coupon.AddRange(insertCoupons);
-                        foreach(var coupon in insertCoupons)
+                        var insertHistory = new List<CouponHistory>();
+                        foreach (var coupon in insertCoupons)
                         {
                             if(coupon.CouponHistories!=null)
                             foreach (CouponHistory ch in coupon.CouponHistories)
                             {
-                                if (lContext.CouponHistory.Find(ch.Id) == null)
+                                if (lContext.CouponHistory.Find(ch.Id) == null) { 
                                     lContext.CouponHistory.Add(ch);
+                                    insertHistory.Add(ch);
+                                }
                             }
                         }
                         _logger.LogDebug("Prepared {0} records at {1}", recordCount, DateTime.Now);
-                        ctx.InsertBulk(lContext.Coupon.ToList());
-                        ctx.InsertBulk(lContext.CouponHistory.ToList());
+                        ctx.InsertBulk(insertCoupons);
+                        ctx.InsertBulk(insertHistory);
                         recordSaved += recordCount;
                         _logger.LogDebug("Save {0} records at {1}, now at {2}", recordCount, DateTime.Now, recordSaved);
                     }
