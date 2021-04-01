@@ -90,6 +90,9 @@ namespace WebApp.Data
         public int InsertBulk<T>(List<T> entities) where T : class {
             if (DbProviderName == "Oracle.EntityFrameworkCore")
             {
+                //BulkUploader setup
+                EFCore.BulkUploader.IdentityUse = true;
+                EFCore.BulkUploader.IdentityColumnName = "ID";
                 OracleBulkUploader.Insert(this, entities);
             }
             else
