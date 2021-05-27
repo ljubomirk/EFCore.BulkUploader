@@ -35,6 +35,27 @@ namespace CouponDatabase.Models
             Enabled = enabled;
         }
 
+        public Coupon(long id, string code, string holder, string user, Nullable<DateTime> assignableFrom, Nullable<DateTime> assignableUntil, Nullable<DateTime> redeemableFrom, Nullable<DateTime> redeemableUntil, int status, long promotionId, int series, int maxRedeemNo, int enabled)
+        {
+            Id = id;
+            Code = code;
+            Status = (int)status;
+            PromotionId = promotionId;
+            MaxRedeemNo = maxRedeemNo;
+            Holder = holder;
+            User = user;
+            if(assignableFrom.HasValue)
+                AquireFrom = assignableFrom.Value;
+            if (assignableUntil.HasValue)
+                AquireTo = assignableUntil.Value;
+            if (redeemableFrom.HasValue)
+                AwardFrom = redeemableFrom.Value;
+            if (redeemableUntil.HasValue)
+                AwardTo = redeemableUntil.Value;
+            CouponSeries = series;
+            Enabled = enabled==1? true : false;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Coupon_Id", ResourceType = typeof(Resources))]
         public long Id { get; set; }

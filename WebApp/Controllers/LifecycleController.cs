@@ -103,20 +103,92 @@ namespace WebApp.Controllers
                 HttpContext.Session.SetObject("LMM", lmm);
             }
 
-            // Filter promotions and coupons
-            List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
-            List<Coupon> f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
+            List<KeyValuePair<string, object>> updateFields = new List<KeyValuePair<string, object>>();
+            if (promotionFilter.Code != null)
+                updateFields.Add(new KeyValuePair<string, object>("PromotionCode", promotionFilter.Code));
+            if (promotionFilter.Name != null)
+                updateFields.Add(new KeyValuePair<string, object>("PromotionName", promotionFilter.Name));
+            if (promotionFilter.ShowActive != false)
+            {
+                if(promotionFilter.ShowInactive != false)
+                {
+                    updateFields.Add(new KeyValuePair<string, object>("PromotionsAll", couponFilter.ShowInactive));
+                }
+                else
+                    updateFields.Add(new KeyValuePair<string, object>("PromotionActive", promotionFilter.ShowActive));
+            }
+            if (promotionFilter.ShowInactive != false)
+            {
+                if (promotionFilter.ShowActive != false)
+                {
+                  
+                }
+                else
+                    updateFields.Add(new KeyValuePair<string, object>("PromotionInactive", promotionFilter.ShowInactive));
+            }
+            if (promotionFilter.ValidFrom != null)
+                updateFields.Add(new KeyValuePair<string, object>("ValidFrom", promotionFilter.ValidFrom));
+            if (promotionFilter.ValidTo != null)
+                updateFields.Add(new KeyValuePair<string, object>("ValidUntil", promotionFilter.ValidFrom));
+            if (couponFilter.CouponCode != null)
+                updateFields.Add(new KeyValuePair<string, object>("CouponCode", couponFilter.CouponCode));
+            if (couponFilter.Holder != null)
+                updateFields.Add(new KeyValuePair<string, object>("Holder", couponFilter.Holder));
+            if (couponFilter.User != null)
+                updateFields.Add(new KeyValuePair<string, object>("User", couponFilter.User));
+            //if (couponFilter.Properties != null)
+            //    updateFields.Add(new KeyValuePair<string, object>("PromotionProperties", couponFilter.Properties));
+            //if (couponFilter.IssuerChannels != null)
+            //    updateFields.Add(new KeyValuePair<string, object>("IssuerChannels", couponFilter.IssuerChannels));
+            //if (couponFilter.AwardChannels != null)
+            //    updateFields.Add(new KeyValuePair<string, object>("AwardChannels", couponFilter.AwardChannels));
+            if (couponFilter.ShowActive != false)
+            {
+                if (couponFilter.ShowInactive != false)
+                    updateFields.Add(new KeyValuePair<string, object>("CouponAll", couponFilter.ShowInactive));
+                else
+                updateFields.Add(new KeyValuePair<string, object>("CouponActive", couponFilter.ShowActive));
+            }
+            if (couponFilter.ShowInactive != false)
+            {
+                if (couponFilter.ShowActive != false)
+                {
 
+                }
+                else
+                    updateFields.Add(new KeyValuePair<string, object>("CouponInactive", couponFilter.ShowInactive));
+            }
+            //if (couponFilter.CurrentStatus.Count() > 0)
+            //    updateFields.Add(new KeyValuePair<string, object>("CouponStatus", 1));
+
+            List<Coupon> f_ListOfCoupons;
+            if (updateFields.Count() < 6)
+            {
+                ApplicationDbContext ctx = ApplicationDbContext.Factory();
+                ctx.ChangeTracker.AutoDetectChangesEnabled = false;
+                var transaction = ctx.Database.BeginTransaction();
+                f_ListOfCoupons = ctx.BulkSelect<Coupon>(updateFields);
+                ctx.Database.CommitTransaction();
+            }
+            else
+            {
+                // Filter promotions and coupons
+                List<Promotion> f_ListOfPromotions = filters.GetFilteredPromotionList(promotionFilter, true);
+                f_ListOfCoupons = filters.GetFilteredCouponListForPromotions(_repo.GetCouponsForPromotions(f_ListOfPromotions), couponFilter);
+
+            }
+            
             // Filter promotions by retrieved coupons
             IEnumerable<long> couponPromotionIds = f_ListOfCoupons.Select(c => c.PromotionId).Distinct().ToList();
             List<Promotion> couponPromotions = new List<Promotion>();
-            foreach(long id in couponPromotionIds)
+            foreach (long id in couponPromotionIds)
             {
                 Promotion promotion = _repo.GetPromotionWithId(id);
-                if(couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0 && promotion.Name != "" )
+                if (couponPromotions.FindAll(p => p.Id == promotion.Id).Count() == 0 && promotion.Name != "")
                 {
                     couponPromotions.Add(promotion);
                 }
+                f_ListOfCoupons.Where(x => x.PromotionId == id).ToList().ForEach(x => x.Promotion = promotion);
             }
 
             // Dropdown data
@@ -241,6 +313,37 @@ namespace WebApp.Controllers
             // Filtered coupons to be displayed in table view
             List<Coupon> filter_ListOfCoupons = filters.GetFilteredCouponListForPromotions(promotionCoupons, couponFilter);
             // Store coupons filtered by promotion to allow proper display of coupon series for that promotion in dropdown list
+
+            List<KeyValuePair<string, object>> updateFields = new List<KeyValuePair<string, object>>();
+            if (promotionFilter.Code != null)
+                updateFields.Add(new KeyValuePair<string, object>("PromotionCode", promotionFilter.Code));
+            if (promotionFilter.ShowActive != false)
+                updateFields.Add(new KeyValuePair<string, object>("PromotionActive", promotionFilter.ShowActive));
+            if (promotionFilter.ValidFrom != null)
+                updateFields.Add(new KeyValuePair<string, object>("ValidFrom", promotionFilter.ValidFrom));
+            if (promotionFilter.ValidTo != null)
+                updateFields.Add(new KeyValuePair<string, object>("ValidUntil", promotionFilter.ValidFrom));
+            if (couponFilter.Code != null)
+                updateFields.Add(new KeyValuePair<string, object>("CouponCode", couponFilter.Code));
+            if (couponFilter.Holder != null)
+                updateFields.Add(new KeyValuePair<string, object>("Holder", couponFilter.Holder));
+            if (couponFilter.User != null)
+                updateFields.Add(new KeyValuePair<string, object>("User", couponFilter.User));
+            if (couponFilter.Properties != null)
+                updateFields.Add(new KeyValuePair<string, object>("PromotionProperties", couponFilter.Properties));
+            if (couponFilter.IssuerChannels != null)
+                updateFields.Add(new KeyValuePair<string, object>("IssuerChannels", couponFilter.IssuerChannels));
+            if (couponFilter.AwardChannels != null)
+                updateFields.Add(new KeyValuePair<string, object>("AwardChannels", couponFilter.AwardChannels));
+            if (couponFilter.ShowActive != false)
+                updateFields.Add(new KeyValuePair<string, object>("CouponActive", couponFilter.ShowActive));
+            if (couponFilter.CurrentStatus.Count() > 0)
+                updateFields.Add(new KeyValuePair<string, object>("CouponStatus", 1));
+
+            ApplicationDbContext ctx = ApplicationDbContext.Factory();
+            ctx.ChangeTracker.AutoDetectChangesEnabled = false;
+            var transaction = ctx.Database.BeginTransaction();
+            //List<Coupon> filter_ListOfCoupons = ctx.BulkSelect<Coupon>(updateFields);
             List<Coupon> drop_ListOfCoupons = filter_ListOfCoupons;
 
 
@@ -279,7 +382,9 @@ namespace WebApp.Controllers
 
             model.CouponList.Coupon = new Coupon();
             model.CouponList.Coupons = filter_ListOfCoupons;
-            model.CouponList.CouponItems = setModelCouponList(model.CouponList.Coupons);
+
+            model.CouponList.CouponItems = setModelCouponList(filter_ListOfCoupons);
+            //ctx.Database.CommitTransaction();
 
             model.SelectedPromoName = model.SelectedPromoName;
             model.SelectedCouponSeries = model.SelectedCouponSeries;
@@ -389,131 +494,149 @@ namespace WebApp.Controllers
             List<Command> failedCouponCommands = new List<Command>();
             List<long> failedCouponIds = new List<long>();
             List<Coupon> updatedCoupons = new List<Coupon>();
+            List<KeyValuePair<string, object>> updateFields = new List<KeyValuePair<string, object>>();
+            if (modelCopy.Customer != null)
+                updateFields.Add(new KeyValuePair<string, object>("Holder", modelCopy.Customer));
+            if (modelCopy.RedeemTo != null)
+                updateFields.Add(new KeyValuePair<string, object>("ReedeemableUntil", modelCopy.RedeemTo));
+            if (modelCopy.SelectedCouponStatus != null)
+                updateFields.Add(new KeyValuePair<string, object>("Status", modelCopy.SelectedCouponStatus));
+            if (modelCopy.SelectedEnabled != null)
+                updateFields.Add(new KeyValuePair<string, object>("Enabled", modelCopy.SelectedEnabled.ToString()));
 
-            // Execute coupon user update
-            foreach (Coupon coupon in coupons)
-            {
-                coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
-                int passedChecks = 0;
-                // Update customer (user) for coupons
-                if (modelCopy.Customer != null)
-                {
-                    ICoupon cmd = new ICoupon(coupon);
-                    Command response = cmd.AssignUser(modelCopy.Customer);
-                    if (response.Status == CommandStatus.Valid)
-                    {
-                        passedChecks++;
-                    }
-                    else
-                    {
-                        // Store coupons and action types to report errors on action finish
-                        if (!failedCouponIds.Contains(coupon.Id))
-                        {
-                            //put in viewModel response.Coupon = coupon;
-                            failedCouponIds.Add(coupon.Id);
-                            failedCouponCommands.Add(response);
-                        }
-                    }
-                } else
-                {
-                    passedChecks++;
-                }
+            _logger.LogDebug(Utils.GetLogFormat() + "model.Customer " + modelCopy.Customer);
+            _logger.LogDebug(Utils.GetLogFormat() + "model.RedeemTo " + modelCopy.RedeemTo);
+            _logger.LogDebug(Utils.GetLogFormat() + "model.SelectedCouponStatus " + modelCopy.SelectedCouponStatus);
+            _logger.LogDebug(Utils.GetLogFormat() + "model.SelectedEnabled " + modelCopy.SelectedEnabled);
+            _logger.LogDebug(Utils.GetLogFormat() + "prije poziva za update");
+            _repo.BulkUpdateCoupons(updateFields, coupons, coupons.Select(c => c.Id).ToList());
 
-                // Execute coupon redeem until update
-                if (modelCopy.RedeemTo != null)
-                {
-                    if (coupon.Promotion == null)
-                    {
-                        coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
-                    }
+            updatedCoupons = coupons;
 
-                    ICoupon cmd = new ICoupon(coupon);
-                    Command response = cmd.Prolong(modelCopy.RedeemTo);
-                    if (response.Status == CommandStatus.Valid)
-                    {
-                        passedChecks++;
-                    }
-                    else
-                    {
-                        // Store coupons and action types to report errors on action finish
-                        if (!failedCouponIds.Contains(coupon.Id))
-                        {
-                            //put in viewModel response.Coupon = coupon;
-                            failedCouponIds.Add(coupon.Id);
-                            failedCouponCommands.Add(response);
-                        }
-                    }
-                } else
-                {
-                    passedChecks++;
-                }
+            //// Execute coupon user update
+            //foreach (Coupon coupon in coupons)
+            //{
+            //    coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
+            //    int passedChecks = 0;
+            //    // Update customer (user) for coupons
+            //    if (modelCopy.Customer != null)
+            //    {
+            //        ICoupon cmd = new ICoupon(coupon);
+            //        Command response = cmd.AssignUser(modelCopy.Customer);
+            //        if (response.Status == CommandStatus.Valid)
+            //        {
+            //            passedChecks++;
+            //        }
+            //        else
+            //        {
+            //            // Store coupons and action types to report errors on action finish
+            //            if (!failedCouponIds.Contains(coupon.Id))
+            //            {
+            //                //put in viewModel response.Coupon = coupon;
+            //                failedCouponIds.Add(coupon.Id);
+            //                failedCouponCommands.Add(response);
+            //            }
+            //        }
+            //    } else
+            //    {
+            //        passedChecks++;
+            //    }
 
-                // Execute coupon enable update
-                if (modelCopy.SelectedEnabled != null)
-                {
-                    ICoupon cmd = new ICoupon(coupon);
-                    Command response = new Command(CommandStatus.Valid);
-                    if((CouponEnableEnum)Int32.Parse(modelCopy.SelectedEnabled) == CouponEnableEnum.Yes)
-                    {
-                        response = cmd.Enable();
-                    } else
-                    {
-                        response = cmd.Disable();
-                    }
+            //    // Execute coupon redeem until update
+            //    if (modelCopy.RedeemTo != null)
+            //    {
+            //        if (coupon.Promotion == null)
+            //        {
+            //            coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
+            //        }
 
-                    if (response.Status == CommandStatus.Valid)
-                    {
-                        passedChecks++;
-                    }
-                    else
-                    {
-                        // Store coupons and action types to report errors on action finish
-                        if (!failedCouponIds.Contains(coupon.Id))
-                        {
-                            //put in viewModel response.Coupon = coupon;
-                            failedCouponIds.Add(coupon.Id);
-                            failedCouponCommands.Add(response);
-                        }
-                    }
-                } else
-                {
-                    passedChecks++;
-                }
+            //        ICoupon cmd = new ICoupon(coupon);
+            //        Command response = cmd.Prolong(modelCopy.RedeemTo);
+            //        if (response.Status == CommandStatus.Valid)
+            //        {
+            //            passedChecks++;
+            //        }
+            //        else
+            //        {
+            //            // Store coupons and action types to report errors on action finish
+            //            if (!failedCouponIds.Contains(coupon.Id))
+            //            {
+            //                //put in viewModel response.Coupon = coupon;
+            //                failedCouponIds.Add(coupon.Id);
+            //                failedCouponCommands.Add(response);
+            //            }
+            //        }
+            //    } else
+            //    {
+            //        passedChecks++;
+            //    }
 
-                // Execute coupon status update
-                if (modelCopy.SelectedCouponStatus != null)
-                {
-                    ICoupon cmd = new ICoupon(coupon);
-                    Command response = cmd.UpdateStatus((CouponStatus)Int32.Parse(modelCopy.SelectedCouponStatus));
-                    if (response.Status == CommandStatus.Valid)
-                    {
-                        passedChecks++;
-                    }
-                    else
-                    {
-                        // Store coupons and action types to report errors on action finish
-                        if (!failedCouponIds.Contains(coupon.Id))
-                        {
-                            //put in viewModel response.Coupon = coupon;
-                            failedCouponIds.Add(coupon.Id);
-                            failedCouponCommands.Add(response);
-                        }
-                    }
-                } else
-                {
-                    passedChecks++;
-                }
+            //    // Execute coupon enable update
+            //    if (modelCopy.SelectedEnabled != null)
+            //    {
+            //        ICoupon cmd = new ICoupon(coupon);
+            //        Command response = new Command(CommandStatus.Valid);
+            //        if((CouponEnableEnum)Int32.Parse(modelCopy.SelectedEnabled) == CouponEnableEnum.Yes)
+            //        {
+            //            response = cmd.Enable();
+            //        } else
+            //        {
+            //            response = cmd.Disable();
+            //        }
 
-                if(passedChecks == 4)
-                {
-                    _repo.UpdateCoupon(coupon);
-                    updatedCoupons.Add(coupon);
-                }
-            }
+            //        if (response.Status == CommandStatus.Valid)
+            //        {
+            //            passedChecks++;
+            //        }
+            //        else
+            //        {
+            //            // Store coupons and action types to report errors on action finish
+            //            if (!failedCouponIds.Contains(coupon.Id))
+            //            {
+            //                //put in viewModel response.Coupon = coupon;
+            //                failedCouponIds.Add(coupon.Id);
+            //                failedCouponCommands.Add(response);
+            //            }
+            //        }
+            //    } else
+            //    {
+            //        passedChecks++;
+            //    }
+
+            //    // Execute coupon status update
+            //    if (modelCopy.SelectedCouponStatus != null)
+            //    {
+            //        ICoupon cmd = new ICoupon(coupon);
+            //        Command response = cmd.UpdateStatus((CouponStatus)Int32.Parse(modelCopy.SelectedCouponStatus));
+            //        if (response.Status == CommandStatus.Valid)
+            //        {
+            //            passedChecks++;
+            //        }
+            //        else
+            //        {
+            //            // Store coupons and action types to report errors on action finish
+            //            if (!failedCouponIds.Contains(coupon.Id))
+            //            {
+            //                //put in viewModel response.Coupon = coupon;
+            //                failedCouponIds.Add(coupon.Id);
+            //                failedCouponCommands.Add(response);
+            //            }
+            //        }
+            //    } else
+            //    {
+            //        passedChecks++;
+            //    }
+
+            //    if(passedChecks == 4)
+            //    {
+            //        _repo.UpdateCoupon(coupon);
+            //        updatedCoupons.Add(coupon);
+            //    }
+            //}
 
             // Return failed coupon checkboxes as preselected
             // TODO: method returns correct result butu the view doesn't deselect checkboxes of updated coupons
-            couponList.CouponItems = updateModelCouponList(couponList.CouponItems, updatedCoupons);
+            couponList.CouponItems = updateModelCouponList(couponList.CouponItems, updatedCoupons, updateFields);
             couponList.CouponItems = preselectModelCouponList(couponList.CouponItems, failedCouponIds);
 
             lmm.CouponItems = couponList.CouponItems;
@@ -529,7 +652,8 @@ namespace WebApp.Controllers
                     messages += cmd.Message + "<br>";
                 }
                 ViewBag.Command.Message = messages;
-            } else
+            }
+            else
             {
                 ViewBag.Command = new Command(CommandStatus.Valid);
                 HttpContext.Session.SetObject("LMM", lmm);
@@ -655,7 +779,7 @@ namespace WebApp.Controllers
         {
             LifecycleSearchViewModel model = new LifecycleSearchViewModel(_contextData.AgentUsername, _contextData.AgentGroup);
 
-            model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
+            model.PromotionFilter = new PromotionFilter() { ShowActive = true, ShowInactive = false };
             model.PromotionFilter.Properties = setModelProperties(_repo.GetAllProperties(), new List<Property>());
 
             model.CouponFilter = new CouponFilters() { ShowActive = true, ShowInactive = false, ValidFrom = DateTime.Today, ValidTo = DateTime.Today.AddMonths(1) };
@@ -779,13 +903,14 @@ namespace WebApp.Controllers
                     AquireFrom = coupon.AquireFrom,
                     AwardFrom = coupon.AwardFrom,
                     AwardTo = coupon.AwardTo,
+                    PromotionId = coupon.PromotionId,
                     IsMultipleRedeem = _repo.IsMultipleRedeem(coupon.PromotionId)
                 });
             }
             return checkedItems;
         }
 
-        private List<CheckedCouponItem> updateModelCouponList(List<CheckedCouponItem> items, List<Coupon> coupons)
+        private List<CheckedCouponItem> updateModelCouponList(List<CheckedCouponItem> items, List<Coupon> coupons, List<KeyValuePair<string, object>> updateFields)
         {
             List<CheckedCouponItem> updatedItems = new List<CheckedCouponItem>();
             //List<Coupon> coupons = _repo.GetAllCoupons().Where(x => items.Any(element=> element.Id == x.Id)).ToList();
@@ -793,7 +918,6 @@ namespace WebApp.Controllers
             for(var i = 0; i < items.Count(); i++)
             {
                 Coupon coupon = coupons.FirstOrDefault(c => c.Id == items[i].Id);
-
                 if (coupon != null)
                 {
                     //coupon.Promotion = _repo.GetPromotionWithId(coupon.PromotionId);
@@ -803,13 +927,13 @@ namespace WebApp.Controllers
                         Checked = false,
                         Code = coupon.Code,
                         Enabled = coupon.Enabled,
-                        Holder = coupon.Holder,
+                        Holder = updateFields.Where(x => x.Key == "Holder").FirstOrDefault().Value != null ? updateFields.Where(x => x.Key == "Holder").FirstOrDefault().Value.ToString() : coupon.Holder,
                         User = _repo.IsMultipleRedeem(coupon.PromotionId) ? _repo.getAllCouponUsers(coupon.Id) : coupon.User,
                         Label = coupon.Code,
                         Id = coupon.Id,
-                        Status = coupon.Status,
+                        Status = updateFields.Where(x => x.Key == "Status").FirstOrDefault().Value != null ? Int32.Parse(updateFields.Where(x => x.Key == "Status").FirstOrDefault().Value.ToString()) : coupon.Status,
                         AquireFrom = coupon.AquireFrom,
-                        AquireTo = coupon.AquireTo,
+                        AquireTo = updateFields.Where(x => x.Key == "ReedeemableUntil").FirstOrDefault().Value != null ? (DateTime)updateFields.Where(x => x.Key == "ReedeemableUntil").FirstOrDefault().Value : coupon.AquireTo,
                         AwardFrom = coupon.AwardFrom,
                         AwardTo = coupon.AwardTo,
                         IsMultipleRedeem = _repo.IsMultipleRedeem(coupon.PromotionId)
@@ -930,6 +1054,26 @@ namespace WebApp.Controllers
                 int recordIndex = 2;
                 foreach (var checkedCouponItem in exportCouponList.CouponItems)
                 {
+                    if (_repo.IsMultipleRedeem(_repo.getCouponsPromotion(checkedCouponItem.Id)))
+                    {
+                        List<String> users = _repo.getAllCouponUsers(checkedCouponItem.Id).Split(',').ToList();
+                        foreach (var item in users)
+                        {
+                            workSheet.Cells[recordIndex, 1].Value = checkedCouponItem.Code != null ? checkedCouponItem.Code : "";
+                            workSheet.Cells[recordIndex, 2].Value = checkedCouponItem.Holder != null ? checkedCouponItem.Holder : "";
+                            workSheet.Cells[recordIndex, 3].Value = item;
+                            workSheet.Cells[recordIndex, 4].Value = (DateTime)checkedCouponItem.AquireFrom != null ? ((DateTime)checkedCouponItem.AquireFrom).ToShortDateString() : "";
+                            workSheet.Cells[recordIndex, 5].Value = checkedCouponItem.AquireTo != null ? ((DateTime)checkedCouponItem.AquireTo).ToShortDateString() : "";
+                            workSheet.Cells[recordIndex, 6].Value = checkedCouponItem.AwardFrom != null ? ((DateTime)checkedCouponItem.AwardFrom).ToShortDateString() : "";
+                            workSheet.Cells[recordIndex, 7].Value = checkedCouponItem.AwardTo != null ? ((DateTime)checkedCouponItem.AwardTo).ToShortDateString() : "";
+                            workSheet.Cells[recordIndex, 8].Value = checkedCouponItem.Enabled == true ? "yes" : "no";
+                            workSheet.Cells[recordIndex, 9].Value = ((CouponStatus)checkedCouponItem.Status).ToString();
+                            workSheet.Cells[recordIndex, 10].Value = checkedCouponItem.Active == true ? "yes" : "no";
+                            recordIndex++;
+                        }
+                    }
+                    else
+                    {
                     workSheet.Cells[recordIndex, 1].Value = checkedCouponItem.Code!=null?checkedCouponItem.Code:"";
                     workSheet.Cells[recordIndex, 2].Value = checkedCouponItem.Holder!=null? checkedCouponItem.Holder:"";
                     workSheet.Cells[recordIndex, 3].Value = checkedCouponItem.User!=null? checkedCouponItem.User:"";
@@ -941,6 +1085,7 @@ namespace WebApp.Controllers
                     workSheet.Cells[recordIndex, 9].Value = ((CouponStatus)checkedCouponItem.Status).ToString();
                     workSheet.Cells[recordIndex, 10].Value = checkedCouponItem.Active == true ? "yes" : "no";
                     recordIndex++;
+                    }
                 }
                 for (int i = 1; i < 11; i++)
                 {

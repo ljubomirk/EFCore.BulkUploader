@@ -291,8 +291,10 @@
         $("#coupon-code").text(code);
         var usersArray = listUsers.split(",");
         usersArray.sort();
-        for (var i = 0; i < usersArray.length ; i++){
-            $('#users-list').append('<li>' + usersArray[i]+'</li>');
-        }  
+        if ($('#users-list li').length == 0) {
+            for (var i = 0; i < usersArray.length ; i++){
+                $('#users-list').append('<li>' + usersArray[i]+'</li>');
+            }  
+        }
     };
 </script>

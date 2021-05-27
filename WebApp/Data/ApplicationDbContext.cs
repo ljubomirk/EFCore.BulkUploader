@@ -16,14 +16,14 @@ namespace WebApp.Data
     {
         #region Static properties
         static DbContextOptions<ApplicationDbContext> Options;
-        static string DbProviderName;
+        public static string DbProviderName;
         #endregion
         #region Constructor
         public ApplicationDbContext() : base(ApplicationDbContext.Options)
         {
             SetupOracleConnection();
         }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             //Parameters of DbConnection
             DbProviderName = Database.ProviderName;
@@ -39,6 +39,7 @@ namespace WebApp.Data
                 //Command to setup current schema
                 String sessionCurrentSchema = "ALTER SESSION SET CURRENT_SCHEMA = APL_KUPON_MGMT";
                 Database.ExecuteSqlCommand(sessionCurrentSchema);
+                Database.SetCommandTimeout(180);
                 Database.GetDbConnection().StateChange += (sender, e) =>
                 {
                     if (e.OriginalState != ConnectionState.Open && e.CurrentState == ConnectionState.Open)
@@ -73,7 +74,7 @@ namespace WebApp.Data
         /// <returns>ApplicationDbContext</returns>
         public static ApplicationDbContext Factory(IDbContextTransaction transaction)
         {
-          
+
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
             if (DbProviderName == "Oracle.EntityFrameworkCore")
                 builder.UseOracle(transaction.GetDbTransaction().Connection);
@@ -87,7 +88,8 @@ namespace WebApp.Data
         }
         #endregion
         #region Bulk operations
-        public int InsertBulk<T>(List<T> entities) where T : class {
+        public int InsertBulk<T>(List<T> entities) where T : class
+        {
             if (DbProviderName == "Oracle.EntityFrameworkCore")
             {
                 //BulkUploader setup
@@ -100,6 +102,35 @@ namespace WebApp.Data
                 SqlServerBulkUploader.Insert(this, entities);
             }
             return 0;
+        }
+        public int UpdateBulk<T>(List<KeyValuePair<string, object>> updateFields, List<T> entities, List<long> IDs) where T : class
+        {
+            int result = 0;
+            if (DbProviderName == "Oracle.EntityFrameworkCore")
+            {
+                //BulkUploader setup
+                EFCore.BulkUploader.IdentityUse = true;
+                EFCore.BulkUploader.IdentityColumnName = "ID";
+                result = OracleBulkUploader.Update(this, updateFields, entities, IDs);
+            }
+            return result;
+        }
+
+        public List<T> BulkSelect<T>(List<KeyValuePair<string, object>> updateFields) where T : class
+        {
+            List<T> list = new List<T>();
+            if (DbProviderName == "Oracle.EntityFrameworkCore")
+            {
+                //BulkUploader setup
+                EFCore.BulkUploader.IdentityUse = true;
+                EFCore.BulkUploader.IdentityColumnName = "ID";
+                list = OracleBulkUploader.Select<T>(this, updateFields);
+            }
+            else
+            {
+                list = OracleBulkUploader.Select<T>(this, updateFields);
+            }
+            return list;
         }
         #endregion
         #region Entities
@@ -135,32 +166,32 @@ namespace WebApp.Data
              */
             /*if (Database.ProviderName == "Oracle.EntityFrameworkCore")
             { */
-                foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                // Replace table names
+                entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
+
+                // Replace column names            
+                foreach (var property in entity.GetProperties())
                 {
-                    // Replace table names
-                    entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
-
-                    // Replace column names            
-                    foreach (var property in entity.GetProperties())
-                    {
-                        property.Relational().ColumnName = property.Relational().ColumnName.ToSnakeCase();
-                    }
-
-                    foreach (var key in entity.GetKeys())
-                    {
-                        key.Relational().Name = key.Relational().Name.ToSnakeCase();
-                    }
-
-                    foreach (var key in entity.GetForeignKeys())
-                    {
-                        key.Relational().Name = key.Relational().Name.ToSnakeCase();
-                    }
-
-                    foreach (var index in entity.GetIndexes())
-                    {
-                        index.Relational().Name = index.Relational().Name.ToSnakeCase();
-                    }
+                    property.Relational().ColumnName = property.Relational().ColumnName.ToSnakeCase();
                 }
+
+                foreach (var key in entity.GetKeys())
+                {
+                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                }
+
+                foreach (var key in entity.GetForeignKeys())
+                {
+                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                }
+
+                foreach (var index in entity.GetIndexes())
+                {
+                    index.Relational().Name = index.Relational().Name.ToSnakeCase();
+                }
+            }
             /*}*/
             #endregion
             #region Keys

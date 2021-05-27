@@ -20,7 +20,7 @@ namespace WebApp.Services
     public class RepositoryServices
     {
         readonly ApplicationDbContext Context;
-        private readonly ILogger _logger;
+        public readonly ILogger _logger;
 
         public RepositoryServices(ApplicationDbContext context)
         {
@@ -32,7 +32,7 @@ namespace WebApp.Services
             Context = context;
             _logger = logger;
         }
-        public Command Add(IList<Coupon> coupons,ref Command cmd)
+        public Command Add(IList<Coupon> coupons, ref Command cmd)
         {
             Command result = new Command(CommandStatus.Valid);
             _logger.LogDebug("Import start at {0}", DateTime.Now.ToLocalTime());
@@ -47,30 +47,35 @@ namespace WebApp.Services
                 int recordSaved = 0;
                 int recordNumber = coupons.Count;
                 //Update references to Promotion                
-                foreach (Coupon coupon in coupons) {
+                foreach (Coupon coupon in coupons)
+                {
                     //removed Promotion reference, if already exists
-                    if (coupon.Promotion?.Id != 0) { 
+                    if (coupon.Promotion?.Id != 0)
+                    {
                         coupon.PromotionId = coupon.Promotion.Id;
                         coupon.Promotion = null;
                     }
                 }
                 //Insert coupons by range BulkSize
-                for(int idx=0; idx<=(int)(coupons.Count/BulkSize); idx++) { 
-                    using(var lContext = ApplicationDbContext.Factory(transaction)) {
+                for (int idx = 0; idx <= (int)(coupons.Count / BulkSize); idx++)
+                {
+                    using (var lContext = ApplicationDbContext.Factory(transaction))
+                    {
                         var recordCount = ((idx + 1) * BulkSize) > recordNumber ? recordNumber - recordSaved : BulkSize;
                         var insertCoupons = coupons.ToList<Coupon>().GetRange(idx * BulkSize, recordCount);
                         lContext.Coupon.AddRange(insertCoupons);
                         var insertHistory = new List<CouponHistory>();
                         foreach (var coupon in insertCoupons)
                         {
-                            if(coupon.CouponHistories!=null)
-                            foreach (CouponHistory ch in coupon.CouponHistories)
-                            {
-                                if (lContext.CouponHistory.Find(ch.Id) == null) { 
-                                    lContext.CouponHistory.Add(ch);
-                                    insertHistory.Add(ch);
+                            if (coupon.CouponHistories != null)
+                                foreach (CouponHistory ch in coupon.CouponHistories)
+                                {
+                                    if (lContext.CouponHistory.Find(ch.Id) == null)
+                                    {
+                                        lContext.CouponHistory.Add(ch);
+                                        insertHistory.Add(ch);
+                                    }
                                 }
-                            }
                         }
                         _logger.LogDebug("Prepared {0} records at {1}", recordCount, DateTime.Now);
                         ctx.InsertBulk(insertCoupons);
@@ -79,15 +84,18 @@ namespace WebApp.Services
                         _logger.LogDebug("Save {0} records at {1}, now at {2}", recordCount, DateTime.Now, recordSaved);
                     }
                 }
-                if (recordSaved != recordNumber) { 
+                if (recordSaved != recordNumber)
+                {
                     result.Status = CommandStatus.DataError_CouponInsertFailed;
                     result.Message = String.Format("Invalid record number stored {0}:{1}", recordSaved, recordNumber);
                 }
-                else if (cmd.Status==CommandStatus.ErrorSelectOneCheckbox) {
-                            result = new Command(CommandStatus.ErrorSelectOneCheckbox);
-                            result.Message = String.Format(result.Message);
+                else if (cmd.Status == CommandStatus.ErrorSelectOneCheckbox)
+                {
+                    result = new Command(CommandStatus.ErrorSelectOneCheckbox);
+                    result.Message = String.Format(result.Message);
                 }
-                else if (cmd.Status == CommandStatus.Error_DuplicateCouponExists){
+                else if (cmd.Status == CommandStatus.Error_DuplicateCouponExists)
+                {
                     result = new Command(CommandStatus.Error_DuplicateCouponExists);
                     result.Message = String.Format(result.Message);
                 }
@@ -113,9 +121,9 @@ namespace WebApp.Services
         internal List<AccessLog> GetAccessLogs(DateTime? accessFrom, DateTime? accessTo, List<CheckedItem> grantedItems, List<CheckedItem> applTypes)
         {
             List<long> grantFilter = new List<long>();
-            foreach(var granted in grantedItems)
+            foreach (var granted in grantedItems)
             {
-                if(granted.Checked)
+                if (granted.Checked)
                     grantFilter.Add(granted.Id);
             }
             List<long> accessFilter = new List<long>();
@@ -139,10 +147,10 @@ namespace WebApp.Services
 
         public Coupon GetCoupon(string PromotionCode, string CouponCode)
         {
+            Promotion promotion = new Promotion();
+            Coupon coupon = new Coupon();
             if (PromotionCode != null && CouponCode != null)
             {
-                Promotion promotion;
-                Coupon coupon;
                 if (PromotionCode.Length > 0)
                 {
                     promotion = Context.Promotion.Where(p => p.Code == PromotionCode).FirstOrDefault();
@@ -151,7 +159,12 @@ namespace WebApp.Services
                 }
             }
 
-            return null;
+            return coupon;
+        }
+
+        public Coupon GetCouponByCode(string Code)
+        {
+            return Context.Coupon.Where(c => c.Code == Code).FirstOrDefault();
         }
 
         internal List<User> GetAllUsers()
@@ -165,9 +178,41 @@ namespace WebApp.Services
             return Context.Coupon.Include(c => c.Promotion).Where(c => c.Id == id).First();
         }
 
+        public List<Coupon> GetCouponsById(List<long> ids)
+        {
+            return Context.Coupon.Where(x => ids.Contains(x.Id)).ToList();
+        }
+
         public List<Coupon> GetAllCoupons()
         {
             return Context.Coupon.ToList();
+        }
+
+        public Command BulkUpdateCoupons(List<KeyValuePair<string, object>> updateFields, List<Coupon> entities, List<long> IDs) 
+        {
+            _logger.LogDebug(Utils.GetLogFormat() + "Ulazak u BulkUpdateCoupons funkciju");
+            Command result = new Command(CommandStatus.Valid);
+            ApplicationDbContext ctx = ApplicationDbContext.Factory();
+            try
+            {
+                ctx.ChangeTracker.AutoDetectChangesEnabled = false;
+                var transaction = ctx.Database.BeginTransaction();
+
+                var ret = ctx.UpdateBulk(updateFields, entities, IDs);
+
+                ctx.Database.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                if (ctx.Database.CurrentTransaction != null)
+                    ctx.Database.RollbackTransaction();
+                result.Status = CommandStatus.ErrorSystem;
+                result.Message = (ex.InnerException != null) ? ex.Message + " > " + ex.InnerException.Message : ex.Message;
+
+                Console.Error.WriteLine("Exception message: {0}", ex.Message);
+                _logger.LogDebug(Utils.GetLogFormat() + "Exception message: {0}", ex.Message);
+            }
+            return result;
         }
 
         public Command UpdateCoupon(Coupon coupon)
@@ -177,7 +222,7 @@ namespace WebApp.Services
             {
                 Context.Database.BeginTransaction();
                 Context.Coupon.Update(coupon);
-                foreach(CouponHistory ch in coupon.CouponHistories)
+                foreach (CouponHistory ch in coupon.CouponHistories)
                 {
                     if (Context.CouponHistory.Find(ch.Id) == null)
                         Context.CouponHistory.Add(ch);
@@ -227,12 +272,12 @@ namespace WebApp.Services
         {
             _logger.LogDebug(Utils.GetLogFormat() + "GetAllPromotions");
             List<Promotion> allPromotions = Context.Promotion.ToList<Promotion>();
-            allPromotions.ForEach(p => 
-                {
-                    //_logger.LogDebug(Utils.GetLogFormat() + "Loading hasCoupons {0}", p.Id);
-                    p.HasCoupons = getHasCouponsForPromotion(p.Id);
-                    GetPromotionData(p);
-                }
+            allPromotions.ForEach(p =>
+            {
+                //_logger.LogDebug(Utils.GetLogFormat() + "Loading hasCoupons {0}", p.Id);
+                p.HasCoupons = getHasCouponsForPromotion(p.Id);
+                GetPromotionData(p);
+            }
             );
             _logger.LogDebug(Utils.GetLogFormat() + "Return promotion");
             return allPromotions;
@@ -259,11 +304,13 @@ namespace WebApp.Services
         public List<Coupon> GetCouponsForPromotions(List<Promotion> promotions)
         {
             List<Coupon> promotionCoupons = new List<Coupon>();
-            foreach(Promotion p in promotions)
+            foreach (Promotion p in promotions)
             {
-                if(p.Coupons.Count() > 0){
+                if (p.Coupons.Count() > 0)
+                {
                     promotionCoupons.AddRange(p.Coupons);
-                } else
+                }
+                else
                 {
                     List<Coupon> tmpCoupons = GetPromotionCoupons(p);
                     promotionCoupons.AddRange(tmpCoupons);
@@ -278,7 +325,7 @@ namespace WebApp.Services
         public Promotion GetPromotionWithId(long id)
         {
             Promotion promotion = Context.Promotion.Find(id);
-            if(promotion!=null)
+            if (promotion != null)
                 GetPromotionData(promotion);
             return promotion;
         }
@@ -289,7 +336,7 @@ namespace WebApp.Services
         public Promotion GetPromotionByCode(String code)
         {
             Promotion promotion = new Promotion();
-            promotion = Context.Promotion.Where(p=> p.Code == code).First();
+            promotion = Context.Promotion.Where(p => p.Code == code).FirstOrDefault();
             if (promotion != null)
                 GetPromotionData(promotion);
             return promotion;
@@ -305,7 +352,7 @@ namespace WebApp.Services
             Context.Entry(promotion).Collection(p => p.PromotionIssuerChannels).Load();
             //_logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:issuerCh", promotion.Id);
             //Context.Entry(promotion).Collection(p => p.Coupons).Load();
-            _logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:has&Load", promotion.Id);
+
             foreach (var promProp in promotion.PromotionProperties)
             {
                 promProp.Property = Context.Property.Find(promProp.PropertyId);
@@ -323,6 +370,16 @@ namespace WebApp.Services
             _logger.LogDebug(Utils.GetLogFormat() + "GetPromotionData {1}:issuer&Load", promotion.Id);
 
             return promotion;
+        }
+
+        internal long getPromotionForCoupon(string couponCode)
+        {
+            long code = 0;
+            Coupon coupon = Context.Coupon.Where(x => x.Code == couponCode).FirstOrDefault();
+            if (coupon != null)
+                 code = Context.Promotion.Where(x => x.Id == coupon.PromotionId).FirstOrDefault().Id;
+
+            return code;
         }
 
         public bool getHasCouponsForPromotion(long id)
@@ -354,7 +411,7 @@ namespace WebApp.Services
             {
                 statusList.Add(new CurrentStatus()
                 {
-                    Id = i+1,
+                    Id = i + 1,
                     Name = enumNames[i]
                 });
             }
@@ -384,9 +441,9 @@ namespace WebApp.Services
             if (promotionPropertiesMap != null && promotionPropertiesMap.Count > 0)
             {
                 foreach (var promotionProperty in promotionPropertiesMap)
-                    {
-                     promotionProperties.Add(properties.Where(x => x.Id == promotionProperty.PropertyId).First<Property>());
-                    }
+                {
+                    promotionProperties.Add(properties.Where(x => x.Id == promotionProperty.PropertyId).First<Property>());
+                }
             }
             return promotionProperties;
         }
@@ -417,7 +474,8 @@ namespace WebApp.Services
         }
         public bool CheckPromotionCode(string code)
         {
-            if( Context.Promotion.Where(c => c.Code == code).Count() == 0){
+            if (Context.Promotion.Where(c => c.Code == code).Count() == 0)
+            {
                 return true;
             }
             return false;
@@ -501,6 +559,7 @@ namespace WebApp.Services
 
         public List<Coupon> GetPromotionCoupons(Promotion promotion)
         {
+            Context.Database.SetCommandTimeout(180);
             return Context.Coupon.Where(c => c.PromotionId == promotion.Id).ToList();
         }
 
@@ -526,7 +585,7 @@ namespace WebApp.Services
 
             foreach (PromotionAwardChannel item in Context.PromotionAwardChannel.Where(x => x.PromotionId == id).ToList<PromotionAwardChannel>())
             {
-               Context.PromotionAwardChannel.Remove(item);
+                Context.PromotionAwardChannel.Remove(item);
             }
             foreach (PromotionAwardChannel item in awardChannels)
             {
@@ -536,7 +595,7 @@ namespace WebApp.Services
 
             foreach (PromotionIssuerChannel item in Context.PromotionIssuerChannel.Where(x => x.PromotionId == id).ToList<PromotionIssuerChannel>())
             {
-               Context.PromotionIssuerChannel.Remove(item) ;
+                Context.PromotionIssuerChannel.Remove(item);
             }
             foreach (PromotionIssuerChannel item in issuerChannels)
             {
@@ -560,15 +619,15 @@ namespace WebApp.Services
                     {
                         lContext.Coupon.Update(coupon);
                         foreach (CouponHistory ch in coupon.CouponHistories)
-                            {
-                                if (Context.CouponHistory.Find(ch.Id) == null)
-                                    Context.CouponHistory.Add(ch);
-                            }
+                        {
+                            if (Context.CouponHistory.Find(ch.Id) == null)
+                                Context.CouponHistory.Add(ch);
+                        }
                         int saved = lContext.SaveChanges();
                         result = new Command(CommandStatus.Valid);
                     }
                 }
-                
+
             }
             catch (DbUpdateConcurrencyException concurrent)
             {
@@ -602,12 +661,12 @@ namespace WebApp.Services
             {
                 Context.Coupon.Add(coupon);
             }
-            
+
             int returnValue = Context.SaveChanges();
             return returnValue > 0 ? true : false;
         }
 
-        public bool LogAppAccess (string action, string username, bool granted)
+        public bool LogAppAccess(string action, string username, bool granted)
         {
             AccessLog log = new AccessLog(ApplicationEnum.WebApp, "", action, username, granted);
             Context.AccessLog.Add(log);
@@ -679,7 +738,7 @@ namespace WebApp.Services
         internal dynamic DeleteSystem(long id)
         {
             Command result = null;
-            
+
             try
             {
                 Context.Coupon_System.Remove(Context.Coupon_System.Find(id));
@@ -701,7 +760,7 @@ namespace WebApp.Services
 
             try
             {
-                Context.NotifyList.Add(new NotifyList() {ChannelId = Int32.Parse(model.ChannelId), SystemId = Int32.Parse(model.SystemId), Url = model.Url });
+                Context.NotifyList.Add(new NotifyList() { ChannelId = Int32.Parse(model.ChannelId), SystemId = Int32.Parse(model.SystemId), Url = model.Url });
                 int saved = Context.SaveChanges();
                 if (saved == 1)
                     result.Status = CommandStatus.Valid;
@@ -723,7 +782,7 @@ namespace WebApp.Services
             NotifyList targetNotifyList = new NotifyList();
             try
             {
-                targetNotifyList = Context.NotifyList.Where(x=> x.ChannelId == notifyList.ChannelId && x.SystemId == notifyList.SystemId).First();
+                targetNotifyList = Context.NotifyList.Where(x => x.ChannelId == notifyList.ChannelId && x.SystemId == notifyList.SystemId).First();
                 targetNotifyList.Url = notifyList.Url;
                 int saved = Context.SaveChanges();
                 result = new Command(CommandStatus.Valid);
@@ -763,7 +822,7 @@ namespace WebApp.Services
             try
             {
                 //Update users
-                foreach(User usr in Context.ApplUser.AsEnumerable<User>())
+                foreach (User usr in Context.ApplUser.AsEnumerable<User>())
                 {
                     User found = users.First(u => u.Username == usr.Username);
                     if (found != null)
@@ -794,7 +853,7 @@ namespace WebApp.Services
 
         public string getAllCouponUsers(long Id)
         {
-            return string.Join(",", Context.CouponHistory.Where(x => x.CouponId == Id && x.Status == 3 && x.User != null).Select(o => o.User).ToList());
+            return string.Join(",", Context.CouponHistory.Where(x => x.CouponId == Id && x.Action == "Redeem" && x.User != null).Select(o => o.User).ToList());
         }
 
         public bool IsMultipleRedeem(long promotionId)
@@ -803,6 +862,10 @@ namespace WebApp.Services
             return Context.PromotionProperty.Where(x => x.PromotionId == promotionId && x.PropertyId == multipleRedeemId).Any();
         }
 
+        internal long getCouponsPromotion(long id)
+        {
+            return Context.Coupon.Where(x => x.Id == id ).FirstOrDefault().PromotionId;
+        }
     }
 
     public class PromotionFactory : IPromotion

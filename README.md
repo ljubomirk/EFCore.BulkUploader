@@ -22,6 +22,8 @@ Check out this repositry and open solution COMMANDO for start working on project
     2. Update dependency changes from root folder with `git submodule update --remote --merge` or in VS Right click -> Submodule Update
     3. When first cloning repo to clone with submodule `git clone --recursive git@ssh.dev.azure.com:v3/triple-innovations-overlord/COMMANDO/COMMANDO`
     4. After cloning repo update submodule with `git submodule update --init --recursive`
+
+    git clone --recursive git@github.com:ljubomirk/EFCore.OracleBulkUploader.git
   
   - On local machine use Development configuration 
     1. add local user to authenticate (Manage Computer)
