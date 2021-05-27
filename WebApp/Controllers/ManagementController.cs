@@ -70,6 +70,7 @@ namespace WebApp.Controllers
             model.PromotionList.PromotionItems = setModelPromotionList(promoList.Promotions);
 
             model.UpdatePromotionObj = new UpdatePromotionObj();
+            model.UpdatePromotionObj.statusSwitch = false;
 
             model.Promotions.AddRange(promoList.Promotions);
             model.Filter = filter;

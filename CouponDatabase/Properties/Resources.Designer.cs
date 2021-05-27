@@ -808,6 +808,15 @@ namespace CouponDatabase.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coupon was already used:.
+        /// </summary>
+        public static string ErrorAlreadyUsed_Message {
+            get {
+                return ResourceManager.GetString("ErrorAlreadyUsed_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coupon not found in Database..
         /// </summary>
         public static string ErrorCouponNotFound_Message {
@@ -840,6 +849,15 @@ namespace CouponDatabase.Properties {
         public static string ErrorInvalidCustomer_Message {
             get {
                 return ResourceManager.GetString("ErrorInvalidCustomer_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coupon date is invalid:.
+        /// </summary>
+        public static string ErrorInvalidDate_Message {
+            get {
+                return ResourceManager.GetString("ErrorInvalidDate_Message", resourceCulture);
             }
         }
         
