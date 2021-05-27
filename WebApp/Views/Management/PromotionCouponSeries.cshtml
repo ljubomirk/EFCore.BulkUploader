@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="row">
-                @if (Model.MaximumRedeem.HasValue && Model.MaximumRedeem != 1)
+                @if (Model.MaximumRedeem.HasValue)
                 {
                     <div class="col s6"  style="white-space:nowrap">
                         <button type="button" class="waves-effect waves-light btn-flat btn-default btn-subtract commando-primary-text left u-m-t-md-btnGroup"><i class="material-icons">remove</i></button>
@@ -145,7 +145,7 @@
             var max = input.attr('max');
             if (inputVal == "" || input == 1) {
                 input.val(1);
-            } else if (parseInt(inputVal) > min && parseInt(inputVal) <= max) {
+            } else if (parseInt(inputVal) > min) {
                 input.val(parseInt(inputVal) - 1);
             }
         });
@@ -157,7 +157,7 @@
             var max = input.attr('max');
             if (inputVal == "") {
                 input.val(1);
-            } else if (parseInt(inputVal) >= min && parseInt(inputVal) < max) {
+            } else if (parseInt(inputVal) >= min) {
                 input.val(parseInt(inputVal) + 1);
             }
         });

@@ -13,12 +13,14 @@
                 <div class="input-field col s12 m6">
                     <div class="switch u-m-t-sm">
                         <label>
-                            @Html.CheckBoxFor(c => Model.UpdatePromotionObj.statusSwitch, new { @class = "filled-in", id = "checkbox-switch-status" })
+                            @Html.CheckBoxFor(c => Model.UpdatePromotionObj.statusSwitch, new { @class = "filled-in", id = "checkbox-switch-status", @autocomplete = "off" })
+                            @Html.HiddenFor(c => Model.UpdatePromotionObj.statusSwitch, new {id = "hidden-switch-status" })
                             <span class="lever"></span>
                             <span id="switch-status"> Switch status</span>
                         </label>
                     </div>
                 </div>
+                <br />
                 <div class="input-field col s12 m6">
                     @Html.EditorFor(p => Model.UpdatePromotionObj.ValidTo, new { htmlAttributes = new { @class = "calendar", @type = "text", placeholder = "", @autocomplete = "off", dataVal = true } })
                     @Html.LabelFor(p => Model.UpdatePromotionObj.ValidTo, new { htmlAttributes = new { @class = "active" } })
@@ -38,3 +40,16 @@
         </div>
     </div>
 <!-- /Modal-->
+
+    <script>
+    $(document).ready(function () {
+
+        $("input[type=hidden]").appendTo("#hidden_elements");
+
+        $("#checkbox-switch-status").change(function () {
+            $("#hidden-switch-status").val($("#checkbox-switch-status").is(':checked'));
+            $("#hidden-switch-status").attr('value', $("#checkbox-switch-status").is(':checked'));
+        })
+
+    });
+    </script>

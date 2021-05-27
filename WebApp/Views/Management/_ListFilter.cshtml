@@ -23,11 +23,13 @@
                 <p class="section-headline">@CouponDatabase.Properties.Resources.Filter_ByState</p>
                 <p>
                     <label class="checkbox-hover checkbox-hover__inline u-m-r-md">
-                        @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off" })
+                        @Html.CheckBoxFor(f => f.ShowActive, new { @class = "filled-in", @autocomplete = "off", id="checkbox-show-active" })
+                        @Html.HiddenFor(f => f.ShowActive, new {id = "hidden-show-active" })
                         <span>@Html.DisplayNameFor(f => f.ShowActive)</span>
                     </label>
                     <label class="checkbox-hover checkbox-hover__inline">
-                        @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off" })
+                        @Html.CheckBoxFor(f => f.ShowInactive, new { @class = "filled-in", @autocomplete = "off", id="checkbox-show-inactive" })
+                        @Html.HiddenFor(f => f.ShowInactive, new {id = "hidden-show-inactive" })
                         <span>@Html.DisplayNameFor(f => f.ShowInactive)</span>
                     </label>
                 </p>
@@ -124,7 +126,7 @@
             }
         });
 
-        // close filter
+        // close filter 
         $("#filter-close").click(function () {
             $(".form-filter").slideUp("slow");
             $("#btn-filter").removeClass('btn-transparent');
@@ -137,5 +139,17 @@
             $('#ValidTo').calendar('setStartDate', minDate);
             $('#ValidTo').calendar('setDate', "");
         });
+
+        $("input[type=hidden]").appendTo("#hidden_elements");
+
+        $("#checkbox-show-active").change(function () {
+            $("#hidden-show-active").val($("#checkbox-show-active").is(':checked'));
+            $("#hidden-show-active").attr('value', $("#checkbox-show-active").is(':checked'));
+        });
+
+        $("#checkbox-show-inactive").change(function () {
+            $("#hidden-show-inactive").val($("#checkbox-show-inactive").is(':checked'));
+            $("#hidden-show-inactive").attr('value', $("#checkbox-show-inactive").is(':checked'));
+        })
     });
 </script>
