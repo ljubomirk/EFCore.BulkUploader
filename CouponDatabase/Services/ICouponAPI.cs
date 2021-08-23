@@ -23,7 +23,7 @@ namespace CouponDatabase.Services
         Command Assign(string PromotionCode, string CouponCode, string Holder, string User);
 
         [OperationContract]
-        Command Validate(string PromotionCode, string CouponCode, string User, string Channel);
+        ValidationResponse Validate(string PromotionCode, string CouponCode, string User, string Channel);
 
         [OperationContract]
         Command Redeem(string PromotionCode, string CouponCode, string User);

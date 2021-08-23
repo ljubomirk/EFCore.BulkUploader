@@ -26,4 +26,22 @@ namespace CouponDatabase.Lifecycle
             }
         }
     }
+
+    [DataContract(Name = "ValidationResponse", Namespace = "http://www.triple-innovations.com/WS/COMMANDO/Types/")]
+    public class ValidationResponse
+    {
+        [DataMember]
+        public Command Command { get; set; }
+        [DataMember]
+        public string PromotionCode { get; set; }
+        public ValidationResponse(Command command)
+        {
+            Command = command;
+        }
+        public ValidationResponse(Command command, string promotionCode)
+        {
+            Command = command;
+            PromotionCode = promotionCode;
+        }
+    }
 }

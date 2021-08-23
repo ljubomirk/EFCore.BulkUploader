@@ -372,12 +372,12 @@ namespace WebApp.Services
             return promotion;
         }
 
-        internal long getPromotionForCoupon(string couponCode)
+        internal string getPromotionForCoupon(string couponCode)
         {
-            long code = 0;
+            string code = "";
             Coupon coupon = Context.Coupon.Where(x => x.Code == couponCode).FirstOrDefault();
             if (coupon != null)
-                 code = Context.Promotion.Where(x => x.Id == coupon.PromotionId).FirstOrDefault().Id;
+                 code = Context.Promotion.Where(x => x.Id == coupon.PromotionId).FirstOrDefault().Code;
 
             return code;
         }

@@ -7,6 +7,7 @@ using CouponDatabase.Lifecycle;
 using CouponDatabase.API;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Services.Impl
 {
@@ -297,25 +298,39 @@ namespace Web.Services.Impl
             return response;
         }
 
-        public Command Validate(string PromotionCode, string CouponCode, string User, string Channel)
+        public ValidationResponse Validate(string PromotionCode, string CouponCode, string User, string Channel)
         {
             _repo.LogAPIAccess("CouponAPI.Validate", "POS", "", true);
-            Command response;
+            _repo.LogAPIAccess("PromotionCode " + PromotionCode + ", CouponCode " + CouponCode + ", User " + User + ", Channel " + Channel, Channel, "", true);
+            _repo._logger.LogDebug(Utils.GetLogFormat() + "PromotionCode " + PromotionCode + ", CouponCode " + CouponCode + ", User " + User + ", Channel " + Channel);
+            Command response = new Command(CommandStatus.Valid);
             CouponDatabase.Models.Coupon coupon = _repo.GetCoupon(PromotionCode, CouponCode);
-            coupon.Promotion = _repo.GetPromotionByCode(PromotionCode);
+            if(coupon != null)
+                coupon.Promotion = _repo.GetPromotionByCode(PromotionCode);
+
             if (coupon == null)
             {
                 response = new Command(CommandStatus.ErrorCouponNotFound);
             }
-            else if (coupon.Promotion.PromotionAwardChannels.Where(x => x.AwardChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
+            if(Channel == "Webshop")
             {
-                response = new Command(CommandStatus.Error_InvalidChannel);
+                string code = _repo.getPromotionForCoupon(CouponCode);
+                if (code != "")
+                    response = new Command(CommandStatus.Valid);
+                else
+                    response = new Command(CommandStatus.ErrorCouponNotFound);
+
+                return new ValidationResponse(response, code);
             }
+            //else if (coupon.Promotion.PromotionAwardChannels.Where(x => x.AwardChannel.Name.ToUpper() == Channel.ToUpper()).Count() == 0)
+            //{
+            //    response = new Command(CommandStatus.Error_InvalidChannel);
+            //}
             else
             {
                 response = (new ICoupon(coupon)).Validate(User);
             }
-            return response;
+            return new ValidationResponse(response);
         }
     }
 }
