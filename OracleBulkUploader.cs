@@ -9,20 +9,18 @@ using Oracle.ManagedDataAccess.Client;
 namespace EFCore.OracleBulkUploader
 {
     /// <summary>OracleBulkUploader</summary>
-    public static class OracleBulkUploader
+    public class OracleBulkUploader : BulkUploader
     {
-        /// <summary>Default Package size</summary>
-        public const int PACKAGE_SIZE = 100000;
-
         /// <summary>BulkInsert</summary>
         public static void Insert<T>(DbContext dbContext, List<T> list, int packageSize = PACKAGE_SIZE)
             where T : class
         {
             var model = dbContext.Model.GetEntityTypes().Where(e => e.ClrType == typeof(T)).Single();
             var tableName = model.Relational().TableName;
-            var columnNames = model.GetProperties().Select(e => e.Relational().ColumnName).ToList();
+            var modelProperties = BulkUploader.IdentityUse ? model.GetProperties().Where(e => e.Relational().ColumnName != BulkUploader.IdentityColumnName) : model.GetProperties();
+            var columnNames = modelProperties.Select(e => e.Relational().ColumnName).ToList();
 
-            string query = $"iNSERT INTO {tableName} ({string.Join(",", columnNames.Select(e => $"{e}"))}) VALUES ({string.Join(",", columnNames.Select(e => $":{e}"))})";
+            string query = $"INSERT INTO {tableName} ({string.Join(",", columnNames.Select(e => $"\"{e}\""))}) VALUES ({string.Join(",", columnNames.Select(e => $":b_{e}"))})";
             
             var packageCnt = (int)Math.Ceiling((decimal)(list.Count / (decimal)packageSize));
 
@@ -43,7 +41,7 @@ namespace EFCore.OracleBulkUploader
                         var prop = Expression.Convert(Expression.Property(item, c.PropertyInfo.Name), typeof(object));
                         var f = Expression.Lambda<Func<T, object>>(prop, item).Compile();
 
-                        command.Parameters.Add($":{c.Relational().ColumnName}", GetDbType(c.ClrType), packageList.Select(e => f(e)).ToArray(), ParameterDirection.Input);
+                        command.Parameters.Add($":b_{c.Relational().ColumnName}", GetDbType(c.ClrType), packageList.Select(e => f(e)).ToArray(), ParameterDirection.Input);
                     }
 
                     var result = command.ExecuteNonQuery();
